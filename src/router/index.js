@@ -4,6 +4,7 @@ import { useRoutes } from 'react-router-dom';
 const MemberRoute = lazy(() => import('./MemberRoute'));
 const IntroPageRoute = lazy(() => import('./IntroPageRoute'));
 const NotAccessLoggedInUserRouter = lazy(() => import('./NotAccessLoggedInUserRouter'));
+const NotFoundRoute = lazy(() => import('./NotFoundRoute'));
 
 const Layout = lazy(() => import('../components/Layout'));
 const Main = lazy(() => import('../pages/Main'));
@@ -254,10 +255,10 @@ const Router = () =>
       path: 'not-found',
       element: <NotFound />,
     },
-    // {
-    //   path: '*',
-    //   element: <Navigate to="not-found" />,
-    // },
+    {
+      path: '*',
+      element: <NotFoundRoute />,
+    },
   ]);
 
 export default Router;
