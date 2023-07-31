@@ -12,7 +12,7 @@ const DesignWindowPopup = () => {
   const popupNo = Number(searchParams.get('popupNo'));
   const pathname = decodeURIComponent(searchParams.get('pathname'));
   const parameter = decodeURIComponent(searchParams.get('parameter'));
-  const sb = window?.opener?.parent?.window?.sb;
+  window.sb = window?.opener?.parent?.window?.sb;
 
   const { designPopups, displayPopups } = useDesignPopupStateContext();
   const { deleteDesignPopupBy, putVisibleTodayBy, fetchDesignPopups, fetchDisplayPopups } =
@@ -34,12 +34,6 @@ const DesignWindowPopup = () => {
       parameter,
     });
   }, []);
-
-  useEffect(() => {
-    if (!sb) return;
-
-    window.sb = sb ?? {};
-  }, [sb]);
 
   if (!designPopup) return <></>;
 
