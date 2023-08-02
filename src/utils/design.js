@@ -10,14 +10,6 @@ export const getPageTypeInformation = () => {
     };
   }
 
-  const eventNo = pathname.split('/').filter(Boolean).at(1);
-  if (pathname.includes('event') && eventNo) {
-    return {
-      pageType: 'EVENT',
-      targetNo: eventNo,
-    };
-  }
-
   const productNo = searchParams.get('productNo');
   if (pathname.includes('product-detail') && productNo) {
     return {

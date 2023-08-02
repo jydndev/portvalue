@@ -152,7 +152,7 @@ export const DesignPopupItem = ({
         shows={popupDesignType === 'MULTI'}
         TruthyComponent={
           <DesignPopupMulti {...popupSlideInfo}>
-            <div className="design-popup__btns">
+            <div className="design-popup__btns" style={{ width: `${popupSlideInfo.slideMaxWidth}px` }}>
               <VisibleComponent
                 shows={usesVisibleTodayOption}
                 TruthyComponent={
@@ -165,7 +165,7 @@ export const DesignPopupItem = ({
         }
         FalsyComponent={
           <DesignPopupNormal content={content} {...detailInfo}>
-            <div className="design-popup__btns">
+            <div className="design-popup__btns" style={{ width: `${detailInfo.screenWidth}px` }}>
               <VisibleComponent
                 shows={usesVisibleTodayOption}
                 TruthyComponent={

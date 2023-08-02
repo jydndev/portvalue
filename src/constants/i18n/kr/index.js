@@ -1,5 +1,6 @@
 import auth from './auth.json';
 import common from './common.json';
+import form from './form.json';
 import main from './main.json';
 import manage from './manage.json';
 import order from './order.json';
@@ -16,6 +17,7 @@ const resourceKr = {
   order,
   manage,
   unit,
+  form,
 };
 
 export default resourceKr;
