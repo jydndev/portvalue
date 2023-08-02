@@ -5,8 +5,8 @@ import { useBannerStateContext, useMallStateContext, useProductDetailStateContex
 import { PLATFORM_TYPE } from '@shopby/shared';
 
 import { META_TAG_KEY } from '../../constants/common';
-const scheme = `${location.origin.split('://').at(0)}://`;
-const addScheme = (url) => `${scheme}${url}`;
+const scheme = `${location.origin.split('://').at(0)}`;
+const addScheme = (url) => `${scheme}:${url}`;
 
 const metaTagCreatorMap = {
   [META_TAG_KEY.PRODUCT]: ({ productNo, productName, imageUrls, url }) => ({
