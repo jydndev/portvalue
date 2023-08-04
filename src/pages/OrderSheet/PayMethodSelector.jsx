@@ -7,16 +7,20 @@ import {
   PayMethodBtn,
   SelectBox,
   TextField,
+  MyPay,
   useOrderSheetActionContext,
   useOrderSheetStateContext,
+  useModalActionContext,
+  MyPayMethodBtn,
 } from '@shopby/react-components';
 import { sortWithPriority } from '@shopby/shared';
+import { MY_PAY_PAY_METHOD_MAP, MY_PAY_PAY_TYPE_MAP, PG_TYPES_MAP } from '@shopby/shared/constants';
 import { PAY_TYPE_MAP } from '@shopby/shared/types';
 
 const HIDDEN_PAY_TYPE = [
   'NAVER_PAY', // 네이버페이 주문형
 ];
-
+const HIDDEN_PG_TYPE = ['MY_PAY'];
 const PAY_TYPES_WITH_PRIORITY = [
   'PAYCO',
   'NAVER_EASY_PAY',
@@ -39,9 +43,17 @@ const PayMethodSelector = ({ refs }) => {
     bankAccountToDeposit,
     remitterName,
     needsDepositBankForm,
+    hasMyPayPayment,
   } = useOrderSheetStateContext();
-  const { updateSelectedPayMethod, updateBankAccountToDeposit, updateRemitterName, resetBankAccountToDeposit } =
-    useOrderSheetActionContext();
+  const {
+    updateMyPayInfo,
+    updateSelectedPayMethod,
+    updateBankAccountToDeposit,
+    updateRemitterName,
+    resetBankAccountToDeposit,
+  } = useOrderSheetActionContext();
+  const { openConfirm } = useModalActionContext();
+
   const mallAccountOptionMap = useMemo(
     () =>
       orderSheet?.tradeBankAccountInfos.reduce((acc, accountInfo) => {
@@ -71,7 +83,7 @@ const PayMethodSelector = ({ refs }) => {
   }, [bankAccountToDeposit]);
 
   const payMethodsToBeExposed = sortWithPriority(availablePayMethods, PAY_TYPES_WITH_PRIORITY, 'payType').filter(
-    ({ payType }) => !HIDDEN_PAY_TYPE.includes(payType)
+    ({ payType, pgType }) => !HIDDEN_PAY_TYPE.includes(payType) && !HIDDEN_PG_TYPE.includes(pgType)
   );
 
   const handlePayMethodBtnClick = (payMethod) => {
@@ -88,10 +100,67 @@ const PayMethodSelector = ({ refs }) => {
     updateBankAccountToDeposit(mallAccountOptionMap[value]);
   };
 
+  const handleClickMyPayDeleteService = (deleteService) => {
+    openConfirm({
+      message: '등록된 서비스를 해지 하시겠습니까?',
+      confirmLabel: '해지',
+      onConfirm: () => {
+        deleteService();
+      },
+    });
+  };
+  const handleClickMyPayDeletePayment = (deletePayment) => {
+    openConfirm({
+      message: '등록된 결제수단을 삭제 하시겠습니까?',
+      confirmLabel: '삭제',
+      onConfirm: () => {
+        deletePayment();
+      },
+    });
+  };
+
+  const handleClickMyPayPayment = ({ payToken, payMethod, bankCardCode, selectQuota }) => {
+    const newMyPayInfo = {
+      wpayToken: payToken,
+      payMethod,
+    };
+    if (payMethod === MY_PAY_PAY_METHOD_MAP.ACCOUNT) {
+      newMyPayInfo.accountInfo = {
+        bankCardCode,
+      };
+    } else if (payMethod === MY_PAY_PAY_METHOD_MAP.CARD) {
+      newMyPayInfo.cardInfo = {
+        bankCardCode,
+        cardQuota: selectQuota,
+      };
+    }
+    updateMyPayInfo(newMyPayInfo);
+    updateSelectedPayMethod({
+      payType: MY_PAY_PAY_TYPE_MAP[payMethod],
+      pgType: PG_TYPES_MAP.MY_PAY,
+    });
+  };
+
   return (
     <section className="l-panel order-sheet__pay-method">
       <p className="order-sheet__pay-method-title">결제수단 선택</p>
+      {selectedPayMethod?.pgType === 'MY_PAY' && (
+        <MyPay
+          myPayInfo={orderSheet?.myPayInfo}
+          onClickDeleteService={handleClickMyPayDeleteService}
+          onClickDeletePayment={handleClickMyPayDeletePayment}
+          onClickMyPayPayment={handleClickMyPayPayment}
+        />
+      )}
+
       <div className="order-sheet__pay-method-btns">
+        {hasMyPayPayment && (
+          <MyPayMethodBtn
+            myPayInfo={orderSheet?.myPayInfo}
+            isChecked={selectedPayMethod.pgType === PG_TYPES_MAP.MY_PAY}
+            onClick={() => handlePayMethodBtnClick({ pgType: PG_TYPES_MAP.MY_PAY })}
+          />
+        )}
         {payMethodsToBeExposed.map((payMethod) => (
           <PayMethodBtn
             key={JSON.stringify(payMethod)}
@@ -102,6 +171,7 @@ const PayMethodSelector = ({ refs }) => {
           />
         ))}
       </div>
+
       {needsDepositBankForm && (
         <div className="order-sheet__account-input-wrap">
           <div className="order-sheet__item">
