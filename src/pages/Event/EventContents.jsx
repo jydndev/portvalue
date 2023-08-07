@@ -7,6 +7,7 @@ import { oneOf, arrayOf, shape, string } from 'prop-types';
 import {
   useEventStateContext,
   useEventActionContext,
+  useDesignPopupActionContext,
   Slider,
   Slide,
   CouponByProductProvider,
@@ -27,20 +28,21 @@ const SLIDE_OPTION = {
 
 const EventContents = ({ sortBy }) => {
   const { t } = useTranslation('title');
-  const { eventNo } = useParams();
+  const { eventNoOrId } = useParams();
   const platformType = useOutletContext();
   const { openAlert } = useModalActionContext();
   const [searchParams] = useSearchParams();
   const channelType = searchParams.get('channelType');
 
   const [disabled, setDisabled] = useState(false);
-  const { label, coupon, sortType, tabId, listOfExhibition, top, isLoading } = useEventStateContext();
+  const { label, coupon, sortType, tabId, listOfExhibition, top, isLoading, eventNo } = useEventStateContext();
+  const { fetchDisplayPopups } = useDesignPopupActionContext();
   const { fetchEventsEventNo, updateSortType, updateTabId } = useEventActionContext();
   const [displayProducts, setDisplayProducts] = useState([]);
   const [style, setStyle] = useState({});
   const [currentProducts, setCurrentProducts] = useState([]);
   const [queryString, setQueryString] = useState({
-    eventNo,
+    eventNo: eventNoOrId,
     sortType,
     soldOut: true,
     saleStatus: 'ONSALE',
@@ -80,7 +82,7 @@ const EventContents = ({ sortBy }) => {
     setDisabled(false);
   };
 
-  const handleFetchEventNo = async () => {
+  const handleFetchEvent = async () => {
     try {
       await fetchEventsEventNo(tabId, queryString);
     } catch ({ error }) {
@@ -99,8 +101,16 @@ const EventContents = ({ sortBy }) => {
   }, [sortType]);
 
   useEffect(() => {
-    handleFetchEventNo();
+    handleFetchEvent();
   }, [queryString]);
+
+  useEffect(() => {
+    !!eventNo &&
+      fetchDisplayPopups({
+        pageType: 'EVENT',
+        targetNo: eventNo,
+      });
+  }, [eventNo]);
 
   useEffect(() => {
     if (!listOfExhibition.length) return;

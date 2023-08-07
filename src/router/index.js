@@ -191,7 +191,7 @@ const Router = () =>
           element: <MemberOnly />,
         },
         {
-          path: 'event/:eventNo',
+          path: 'event/:eventNoOrId',
           element: <Event />,
         },
         // my-page
