@@ -3,6 +3,7 @@ import { isMobile } from 'react-device-detect';
 import { useSearchParams } from 'react-router-dom';
 
 import {
+  ProductDetailProvider,
   TabsProvider,
   useProductDetailStateContext,
   ProductReviewProvider,
@@ -136,29 +137,31 @@ const ProductDetail = () => {
   const initialTabs = useMemo(() => makeTabs(), []);
 
   return (
-    <ProductReviewProvider productNo={productNo}>
-      <ProductInquiryProvider productNo={productNo}>
-        <TabsProvider
-          initialState={{
-            currentTab: 'DETAIL',
-            tabs: initialTabs,
-          }}
-        >
-          <OrderSheetProvider>
-            <NaverPayProvider clientId={clientId} mallProfile={mallProfile} platform={isMobile ? 'MOBILE_WEB' : 'PC'}>
-              <CartProvider>
-                <ProductOptionProvider productNo={productNo}>
-                  <CouponByProductProvider productNo={productNo}>
-                    <ProductDetailContent />
-                  </CouponByProductProvider>
-                  <Purchase />
-                </ProductOptionProvider>
-              </CartProvider>
-            </NaverPayProvider>
-          </OrderSheetProvider>
-        </TabsProvider>
-      </ProductInquiryProvider>
-    </ProductReviewProvider>
+    <ProductDetailProvider productNo={productNo}>
+      <ProductReviewProvider productNo={productNo}>
+        <ProductInquiryProvider productNo={productNo}>
+          <TabsProvider
+            initialState={{
+              currentTab: 'DETAIL',
+              tabs: initialTabs,
+            }}
+          >
+            <OrderSheetProvider>
+              <NaverPayProvider clientId={clientId} mallProfile={mallProfile} platform={isMobile ? 'MOBILE_WEB' : 'PC'}>
+                <CartProvider>
+                  <ProductOptionProvider productNo={productNo}>
+                    <CouponByProductProvider productNo={productNo}>
+                      <ProductDetailContent />
+                    </CouponByProductProvider>
+                    <Purchase />
+                  </ProductOptionProvider>
+                </CartProvider>
+              </NaverPayProvider>
+            </OrderSheetProvider>
+          </TabsProvider>
+        </ProductInquiryProvider>
+      </ProductReviewProvider>
+    </ProductDetailProvider>
   );
 };
 

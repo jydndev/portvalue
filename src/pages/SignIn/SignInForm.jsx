@@ -201,6 +201,7 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
               placeholder="비밀번호"
               onChange={handlePasswordChange}
               onKeyDown={handlePasswordKeyDown}
+              value={password}
               type="password"
               valid="NO_SPACE"
             />

@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 
 import {
   Button,
-  MyPayProvider,
   MyShippingAddressProvider,
   OrderSheetProvider,
   useAuthStateContext,
@@ -17,7 +16,7 @@ import {
   usePageScriptsActionContext,
   useMallStateContext,
 } from '@shopby/react-components';
-import { getPlatformByMobile, isSignedIn, parsePhoneNumber } from '@shopby/shared';
+import { isSignedIn, parsePhoneNumber } from '@shopby/shared';
 
 import { useErrorBoundaryActionContext } from '../../components/ErrorBoundary';
 import useLayoutChanger from '../../hooks/useLayoutChanger';
@@ -188,9 +187,7 @@ const OrderSheet = () => {
       termTypesToExclude={'ORDER_INFO_AGREE'}
     >
       <MyShippingAddressProvider>
-        <MyPayProvider clientId={clientId} mallProfile={mallProfile} platform={getPlatformByMobile(isMobile)}>
-          <OrderSheetContent />
-        </MyPayProvider>
+        <OrderSheetContent />
       </MyShippingAddressProvider>
     </OrderSheetProvider>
   );

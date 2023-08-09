@@ -15,7 +15,7 @@ const PARAM_TYPE = {
   CATEGORY_NO: 'categoryNo',
 };
 const SORT_BY = [
-  { value: 'POPULAR', label: '인기순' },
+  { value: 'POPULAR', label: '판매량순' },
   { value: 'LOW_PRICE', label: '낮은가격순' },
   { value: 'HIGH_PRICE', label: '높은가격순' },
   { value: 'REVIEW', label: '상품후기순' },
