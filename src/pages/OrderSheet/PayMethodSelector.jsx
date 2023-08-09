@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { isEqual } from 'lodash-es';
 import { object, shape } from 'prop-types';
@@ -52,7 +53,8 @@ const PayMethodSelector = ({ refs }) => {
     updateRemitterName,
     resetBankAccountToDeposit,
   } = useOrderSheetActionContext();
-  const { openConfirm } = useModalActionContext();
+  const { openAlert, openConfirm } = useModalActionContext();
+  const { t } = useTranslation(['order']);
 
   const mallAccountOptionMap = useMemo(
     () =>
@@ -100,22 +102,29 @@ const PayMethodSelector = ({ refs }) => {
     updateBankAccountToDeposit(mallAccountOptionMap[value]);
   };
 
-  const handleClickMyPayDeleteService = (deleteService) => {
+  const handleClickWithdrawFromMyPayService = (deleteService) => {
     openConfirm({
-      message: '등록된 서비스를 해지 하시겠습니까?',
-      confirmLabel: '해지',
+      message: t('withdrawFromMyPayService'),
+      confirmLabel: t('withdrawLabel'),
       onConfirm: () => {
         deleteService();
       },
     });
   };
-  const handleClickMyPayDeletePayment = (deletePayment) => {
+
+  const handleClickDeleteMyPayPaymentMethod = (deletePayment) => {
     openConfirm({
-      message: '등록된 결제수단을 삭제 하시겠습니까?',
-      confirmLabel: '삭제',
+      message: t('deleteMyPayPaymentMethod'),
+      confirmLabel: t('deleteLabel'),
       onConfirm: () => {
         deletePayment();
       },
+    });
+  };
+
+  const handleAlertRegisterDuplicationMainPayment = () => {
+    openAlert({
+      message: t('alertRegisterDuplicationMainPayment'),
     });
   };
 
@@ -144,14 +153,6 @@ const PayMethodSelector = ({ refs }) => {
   return (
     <section className="l-panel order-sheet__pay-method">
       <p className="order-sheet__pay-method-title">결제수단 선택</p>
-      {selectedPayMethod?.pgType === 'MY_PAY' && (
-        <MyPay
-          myPayInfo={orderSheet?.myPayInfo}
-          onClickDeleteService={handleClickMyPayDeleteService}
-          onClickDeletePayment={handleClickMyPayDeletePayment}
-          onClickMyPayPayment={handleClickMyPayPayment}
-        />
-      )}
 
       <div className="order-sheet__pay-method-btns">
         {hasMyPayPayment && (
@@ -171,7 +172,15 @@ const PayMethodSelector = ({ refs }) => {
           />
         ))}
       </div>
-
+      {selectedPayMethod?.pgType === PG_TYPES_MAP.MY_PAY && (
+        <MyPay
+          myPayInfo={orderSheet?.myPayInfo}
+          onClickWithdrawFromMyPayService={handleClickWithdrawFromMyPayService}
+          onClickDeletePaymentMethod={handleClickDeleteMyPayPaymentMethod}
+          onClickMyPayPayment={handleClickMyPayPayment}
+          onAlertRegisterDuplicationMainPayment={handleAlertRegisterDuplicationMainPayment}
+        />
+      )}
       {needsDepositBankForm && (
         <div className="order-sheet__account-input-wrap">
           <div className="order-sheet__item">

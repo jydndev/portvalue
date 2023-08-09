@@ -10,7 +10,6 @@ import ProductSectionWrap from './ProductSectionWrap';
 const MainContents = ({ platformType }) => (
   <div className="main-view">
     <Hero bannerId="BNSLIDE" />
-    <h1>DEV 환경 배포 테스트</h1>
     <ProductSectionWrap platformType={platformType} sectionsId={SECTION_CODE[platformType][0]} />
     <AdminBanner bannerId="BANNER01" />
     <ProductSectionWrap platformType={platformType} sectionsId={SECTION_CODE[platformType][1]} />

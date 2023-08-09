@@ -16,5 +16,10 @@
   "save as default shipping address": "기본 배송지로 저장",
 
   "orderProduct": "주문상품",
-  "applyPromotion": "혜택 적용"
+  "applyPromotion": "혜택 적용",
+  "withdrawLabel": "해지",
+  "deleteLabel": "삭제",
+  "withdrawFromMyPayService": "서비스를 해지하시겠습니까? 서비스해지 시 주문 취소 및 환불이 불가할 수 있습니다. 주문 및 반품이 진행 중인 경우 주문취소 및 반품 환불이 완료된 이후에 해지해 주세요.",
+  "deleteMyPayPaymentMethod": "등록된 결제수단을 삭제 하시겠습니까?",
+  "alertRegisterDuplicationMainPayment": "이미 주 결제수단이 설정되어 있습니다. \n 기존 설정되어 있는 결제수단을 해지 후 설정해 주세요."
 }

@@ -6,7 +6,7 @@ import { PLATFORM_TYPE } from '@shopby/shared';
 
 import { META_TAG_KEY } from '../../constants/common';
 const scheme = `${location.origin.split('://').at(0)}`;
-const addScheme = (url) => `${scheme}:${url}`;
+const addScheme = (url) => (url ? `${scheme}:${url}` : '');
 
 const metaTagCreatorMap = {
   [META_TAG_KEY.PRODUCT]: ({ productNo, productName, imageUrls, url }) => ({
@@ -53,6 +53,8 @@ const Meta = () => {
     mallName,
     url: mallUrl,
   });
+
+  if (!image) return <></>;
 
   return (
     <Helmet>
