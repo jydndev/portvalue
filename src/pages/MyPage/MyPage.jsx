@@ -155,18 +155,34 @@ const MyPage = () => {
       </div>
 
       <div className="l-panel">
-        <Link className="my-link" to="/my-page/product-review">
-          {boardConfig.productReviewConfig?.name ?? '상품후기'}
-          <IconBtn className="my-link__ico" iconType="angle-down" />
-        </Link>
-        <Link className="my-link" to="/my-page/product-inquiry">
-          {boardConfig.productInquiryConfig?.name ?? '상품문의'}
-          <IconBtn className="my-link__ico" iconType="angle-down" />
-        </Link>
-        <Link className="my-link" to="/my-page/personal-inquiry">
-          {boardConfig.inquiryConfig?.name ?? '1:1문의'}
-          <IconBtn className="my-link__ico" iconType="angle-down" />
-        </Link>
+        <VisibleComponent
+          shows={boardConfig.productReviewConfig?.name}
+          TruthyComponent={
+            <Link className="my-link" to="/my-page/product-review">
+              {boardConfig.productReviewConfig?.name ?? '상품후기'}
+              <IconBtn className="my-link__ico" iconType="angle-down" />
+            </Link>
+          }
+        />
+
+        <VisibleComponent
+          shows={boardConfig.productInquiryConfig?.name}
+          TruthyComponent={
+            <Link className="my-link" to="/my-page/product-inquiry">
+              {boardConfig.productInquiryConfig?.name ?? '상품문의'}
+              <IconBtn className="my-link__ico" iconType="angle-down" />
+            </Link>
+          }
+        />
+        <VisibleComponent
+          shows={boardConfig.inquiryConfig?.name}
+          TruthyComponent={
+            <Link className="my-link" to="/my-page/personal-inquiry">
+              {boardConfig.inquiryConfig?.name ?? '1:1문의'}
+              <IconBtn className="my-link__ico" iconType="angle-down" />
+            </Link>
+          }
+        />
         {profile.memberType === 'MALL' && (
           <Link className="my-link" to="/member-modification">
             회원정보 수정
