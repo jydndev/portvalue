@@ -1,15 +1,23 @@
+import { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { Helmet } from 'react-helmet';
 
 import { useBannerStateContext, useMallStateContext } from '@shopby/react-components';
 import { PLATFORM_TYPE } from '@shopby/shared';
 
+import useExternalServiceConfig from '../../hooks/useExternalServiceConfig';
+
 const Meta = () => {
-  const { mallName, mall } = useMallStateContext();
+  const { mallName, mall, externalServiceConfig } = useMallStateContext();
   const { bannerMap } = useBannerStateContext();
+  const { setExternalService } = useExternalServiceConfig();
   const platform = isMobile ? PLATFORM_TYPE.MOBILE_WEB : PLATFORM_TYPE.PC;
   const url = mall.url?.[platform.toLocaleLowerCase()];
   const banner = bannerMap.get('LOGO') ?? {};
+
+  useEffect(() => {
+    setExternalService(externalServiceConfig);
+  }, [location.pathname, externalServiceConfig]);
 
   return (
     <Helmet>
