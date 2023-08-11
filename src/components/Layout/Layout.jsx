@@ -17,7 +17,6 @@ import {
 } from '@shopby/react-components';
 import { PLATFORM_TYPE } from '@shopby/shared';
 
-import useExternalServiceConfig from '../../hooks/useExternalServiceConfig';
 import { scrollToTop } from '../../utils';
 import AdminBanner from '../AdminBanner';
 import BottomNav from '../BottomNav';
@@ -34,11 +33,11 @@ const platformType = isMobile ? PLATFORM_TYPE.MOBILE_WEB : PLATFORM_TYPE.PC;
 const Layout = () => {
   const location = useLocation();
   const { profile, isProfileLoading } = useAuthStateContext();
-  const { clientId, mallProfile, externalServiceConfig } = useMallStateContext();
+  const { clientId, mallProfile } = useMallStateContext();
   const { applyPageScripts } = usePageScriptsActionContext();
   const { fetchBoardConfiguration } = useBoardConfigurationContextAction();
   const { isScriptLoaded, record } = useShopbyStatisticsRecorder({ clientId, mallProfile });
-  const { setExternalService } = useExternalServiceConfig();
+
   const pageRef = useRef();
   const pageInnerRef = useRef();
 
@@ -47,10 +46,6 @@ const Layout = () => {
       record(profile?.memberNo);
     }
   }, [isScriptLoaded, isProfileLoading, location.pathname]);
-
-  useEffect(() => {
-    setExternalService(externalServiceConfig);
-  }, [location.pathname, externalServiceConfig]);
 
   useEffect(() => {
     if (isProfileLoading) return;
