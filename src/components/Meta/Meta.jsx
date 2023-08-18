@@ -57,11 +57,11 @@ const Meta = () => {
     url: mallUrl,
   });
 
-  if (!image) return <></>;
-
   useEffect(() => {
     setExternalService(externalServiceConfig);
   }, [location.pathname, externalServiceConfig]);
+
+  if (!image) return <></>;
 
   return (
     <Helmet>

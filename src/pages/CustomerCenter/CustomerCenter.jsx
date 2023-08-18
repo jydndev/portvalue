@@ -35,6 +35,11 @@ const FAQ = () => {
     [boardsCategories]
   );
 
+  const inquiryButtonLabel = useMemo(() => {
+    const { name } = boardConfig?.inquiryConfig ?? {};
+    return name ? name : '1:1문의';
+  }, [boardConfig?.inquiryConfig?.name]);
+
   const faqFlag = useMemo(() => {
     if (!faqConfig?.used) return '--not-used';
 
@@ -83,7 +88,7 @@ const FAQ = () => {
       />
       <div className="customer-center__inquiry">
         <Button className="customer-center__inquiry-button" onClick={goToPersonalInquiryPage}>
-          {boardConfig.inquiryConfig?.name ?? '1:1문의'}
+          {inquiryButtonLabel}
         </Button>
       </div>
     </div>
