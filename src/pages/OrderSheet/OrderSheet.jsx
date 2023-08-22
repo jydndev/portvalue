@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import {
   Button,
+  MyPayProvider,
   MyShippingAddressProvider,
   OrderSheetProvider,
   useAuthStateContext,
@@ -16,7 +17,7 @@ import {
   usePageScriptsActionContext,
   useMallStateContext,
 } from '@shopby/react-components';
-import { isSignedIn, parsePhoneNumber } from '@shopby/shared';
+import { getPlatformByMobile, isSignedIn, parsePhoneNumber } from '@shopby/shared';
 
 import { useErrorBoundaryActionContext } from '../../components/ErrorBoundary';
 import useLayoutChanger from '../../hooks/useLayoutChanger';
@@ -73,6 +74,8 @@ const OrderSheetContent = () => {
     needsDepositBankForm,
     bankAccountToDeposit,
     remitterName,
+    selectedPayMethod,
+    myPayInfo,
   } = useOrderSheetStateContext();
   const { applyPageScripts } = usePageScriptsActionContext();
   const { fetchMyShippingAddress } = useMyShippingAddressActionContext();
@@ -149,6 +152,8 @@ const OrderSheetContent = () => {
       needsDepositBankForm,
       bankAccountToDeposit,
       remitterName,
+      selectedPayMethod,
+      myPayInfo,
     });
     if (!isValid) return;
 
@@ -187,7 +192,9 @@ const OrderSheet = () => {
       termTypesToExclude={'ORDER_INFO_AGREE'}
     >
       <MyShippingAddressProvider>
-        <OrderSheetContent />
+        <MyPayProvider clientId={clientId} mallProfile={mallProfile} platform={getPlatformByMobile(isMobile)}>
+          <OrderSheetContent />
+        </MyPayProvider>
       </MyShippingAddressProvider>
     </OrderSheetProvider>
   );

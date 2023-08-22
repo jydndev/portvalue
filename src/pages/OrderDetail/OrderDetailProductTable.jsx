@@ -30,7 +30,7 @@ const NEXT_ACTIONS_WITH_PRIORITY = [
 ];
 
 const OrderDetailProductTable = () => {
-  const { flattenedOrderOptions } = useMyOrderStateContext();
+  const { flattenedOrderOptions, orderDetail } = useMyOrderStateContext();
 
   return (
     <section className="order-detail__product-table l-panel">
@@ -74,6 +74,7 @@ const OrderDetailProductTable = () => {
                           orderOptionNo={orderOptionNo}
                           nextActionType={'VIEW_DELIVERY'}
                           trackingDeliveryUri={actionOfViewDelivery.uri}
+                          pgType={orderDetail?.payType}
                         />
                       </span>
                     );
@@ -116,6 +117,7 @@ const OrderDetailProductTable = () => {
                           optionNo={optionNo}
                           productImageUrl={imageUrl}
                           deliverable={deliverable}
+                          pgType={orderDetail?.payType}
                         />
                       ))}
                   </div>

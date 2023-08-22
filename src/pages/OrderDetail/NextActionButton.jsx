@@ -53,6 +53,7 @@ const NextActionButton = ({
   optionName,
   optionValue,
   deliverable = true,
+  pgType = '',
 }) => {
   const navigate = useNavigate();
   const { openAlert, openConfirm } = useModalActionContext();
@@ -160,6 +161,14 @@ const NextActionButton = ({
     WRITE_REVIEW: {
       label: '후기 작성',
       execute: () => {
+        if (orderStatusType !== 'BUY_CONFIRM' && pgType?.includes('NAVER')) {
+          openAlert({
+            message: '네이버페이 주문은 네이버페이에서 구매확정 이후 후기작성이 가능합니다.',
+          });
+
+          return;
+        }
+
         setIsOpen(true);
       },
     },
@@ -258,4 +267,5 @@ NextActionButton.propTypes = {
   optionName: string,
   optionValue: string,
   deliverable: bool,
+  pgType: string,
 };

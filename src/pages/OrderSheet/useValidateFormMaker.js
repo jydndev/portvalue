@@ -4,6 +4,7 @@ import {
   POSSIBLE_PHONE_FIRST_SERIAL_LENGTHS,
   POSSIBLE_PHONE_SECOND_SERIAL_LENGTHS,
   REG_EX_FOR_CHECK_FORMAT,
+  PG_TYPES_MAP,
 } from '@shopby/shared';
 
 const INVALID_PASSWORD_MESSAGE_MAP = {
@@ -48,6 +49,8 @@ const useValidateFormMaker = (ref) => {
     bankAccountToDeposit,
     remitterName,
     termsStatus,
+    selectedPayMethod,
+    myPayInfo,
   }) => {
     const ordererInfoValidation = {
       isOrdererNameEmpty: () => {
@@ -294,6 +297,19 @@ const useValidateFormMaker = (ref) => {
       },
     };
 
+    const myPayValidation = {
+      isMyPayPayMethodNotSelected: () => {
+        if (selectedPayMethod.pgType !== PG_TYPES_MAP.MY_PAY) return false;
+        if (myPayInfo?.payMethod && myPayInfo?.wpayToken) return false;
+
+        openAlert({
+          message: '결제 수단을 선택해 주세요.',
+        });
+
+        return true;
+      },
+    };
+
     const termsStatusValidation = {
       isSomeRequiredTermNotChecked: () => {
         const requiredTermsStatusValues = Object.values(termsStatus).filter(({ isRequired }) => isRequired);
@@ -311,6 +327,7 @@ const useValidateFormMaker = (ref) => {
       ...Object.values(ordererInfoValidation),
       needsShippingAddressInfo ? [...Object.values(shippingAddressInfoValidation)] : () => false,
       ...Object.values(depositBankFormValidation),
+      ...Object.values(myPayValidation),
       ...Object.values(termsStatusValidation),
     ];
 
