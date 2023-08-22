@@ -112,7 +112,7 @@ const ClaimContent = ({ claimType }) => {
           {isAllChecked ? '선택 해제' : '전체 선택'}
         </button>
       </OrderNoLabel>
-      <ClaimProductTable />
+      <ClaimProductTable claimTypeLabel={claimTypeLabel} />
       <p className="claim__amount-info-label">
         {isAllChecked ? (
           <>

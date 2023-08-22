@@ -65,7 +65,6 @@ const MemberModificationPasswordCheck = ({ onModifyBtnClick }) => {
               name="password"
               placeholder="비밀번호"
               onChange={handlePasswordChange}
-              value={password}
               type="password"
               valid="NO_SPACE"
               onKeyDown={handlePasswordKeyDown}

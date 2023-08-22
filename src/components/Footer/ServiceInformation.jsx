@@ -67,6 +67,14 @@ const ServiceInformation = ({ terms }) => {
               </p>
             }
           />
+          <VisibleComponent
+            shows={serviceBasicInfo?.representEmail}
+            TruthyComponent={
+              <p>
+                이메일 : <a href={`mailto:${serviceBasicInfo?.representEmail}`}>{serviceBasicInfo?.representEmail}</a>
+              </p>
+            }
+          />
           {businessRegistrationNumberInformation?.no && (
             <p className="footer__business-registration">
               사업자등록번호 : <span>{businessRegistrationNumberInformation?.no} </span>

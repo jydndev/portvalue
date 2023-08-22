@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   useSignUpActionContext,
@@ -26,12 +27,13 @@ const SignUpForm = () => {
   } = useSignUpActionContext();
 
   const {
-    signUpMemberInfo: { memberId, password, passwordCheck, memberName },
+    signUpMemberInfo: { memberId, password, memberName },
     timerTime,
     authenticationsRemainTimeBySeconds,
   } = useSignUpStateContext();
 
   const { mallJoinConfig } = useMallStateContext();
+  const { t } = useTranslation(['form']);
 
   useEffect(() => {
     if (
@@ -121,14 +123,14 @@ const SignUpForm = () => {
     <>
       <div className="sign-up-form__item">
         <label htmlFor="id" className="sign-up-form__tit">
-          아이디
+          {t('id-label')}
         </label>
         <div className="sign-up-form__input-wrap">
           <TextField
             name="memberId"
             id="id"
             value={memberId}
-            placeholder="아이디"
+            placeholder={t('id-label')}
             onChange={handleFormValueChange}
             onBlur={() => {
               handleVerifyUserId();
@@ -141,14 +143,13 @@ const SignUpForm = () => {
       </div>
       <div className="sign-up-form__item">
         <label htmlFor="password" className="sign-up-form__tit">
-          비밀번호
+          {t('password-label')}
         </label>
         <div className="sign-up-form__input-wrap">
           <TextField
             name="password"
             id="password"
-            value={password}
-            placeholder="비밀번호 (영문, 숫자, 특수문자 8-15자)"
+            placeholder={t('password-placeholder')}
             type="password"
             onChange={handleFormValueChange}
             onBlur={handleVerifyUserPassword}
@@ -161,14 +162,13 @@ const SignUpForm = () => {
       </div>
       <div className="sign-up-form__item">
         <label htmlFor="passwordCheck" className="sign-up-form__tit">
-          비밀번호 재입력
+          {t('passwordCheck-label')}
         </label>
         <div className="sign-up-form__input-wrap">
           <TextField
             name="passwordCheck"
             id="passwordCheck"
-            value={passwordCheck}
-            placeholder="비밀번호 재입력"
+            placeholder={t('passwordCheck-label')}
             type="password"
             onChange={handleFormValueChange}
             onBlur={handleConfirmUserPassword}
@@ -181,14 +181,14 @@ const SignUpForm = () => {
       </div>
       <div className="sign-up-form__item">
         <label htmlFor="memberName" className="sign-up-form__tit">
-          이름
+          {t('memberName-label')}
         </label>
         <div className="sign-up-form__input-wrap">
           <TextField
             name="memberName"
             id="memberName"
             value={memberName}
-            placeholder="이름"
+            placeholder={t('memberName-label')}
             onChange={handleFormValueChange}
             onBlur={handleVerifyUserName}
           />
