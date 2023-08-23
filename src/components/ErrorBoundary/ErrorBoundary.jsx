@@ -138,12 +138,14 @@ const ErrorBoundary = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const catchError = (error) => {
+  const catchError = (event) => {
+    const error = getErrorState(event);
     const { code, description } = error.error ?? error ?? {};
 
     const alert = alertMap[code];
     const confirm = confirmMap[code];
-    const unexpectedServerErrorBoundaryInformation = getUnexpectedServerErrorHandleMap(error);
+
+    const unexpectedServerErrorBoundaryInformation = getUnexpectedServerErrorHandleMap(event.reason?.error);
 
     if (exceptCodes.includes(code)) {
       return;
@@ -213,8 +215,7 @@ const ErrorBoundary = ({ children }) => {
       return;
     }
 
-    const error = getErrorState(event);
-    catchError(error);
+    catchError(event);
   };
 
   useEffect(() => {

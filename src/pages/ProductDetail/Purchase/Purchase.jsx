@@ -34,7 +34,7 @@ const Purchase = () => {
   const channelType = searchParams.get('channelType');
 
   const {
-    productDetail: { isSoldOut, likeStatus },
+    productDetail: { isSoldOut, likeStatus, limitations },
     originProductDetail,
   } = useProductDetailStateContext();
   const { showNaverPayButton, prepareNaverPay, checkUsesNaverPayOrder } = useNaverPayActionContext();
@@ -75,7 +75,7 @@ const Purchase = () => {
     (async () => {
       const usesNaverPayOrder = await checkUsesNaverPayOrder();
 
-      if (usesNaverPayOrder) {
+      if (usesNaverPayOrder && limitations?.naverPayHandling) {
         showNaverPayButton({
           containerElementId: 'naver-pay',
           usesWishListButton: true,
@@ -102,7 +102,7 @@ const Purchase = () => {
         });
       }
     })();
-  }, []);
+  }, [limitations?.naverPayHandling]);
 
   return (
     <div className="purchase product-detail">
