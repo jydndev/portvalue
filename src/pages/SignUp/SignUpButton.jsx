@@ -40,10 +40,21 @@ const SignUpButton = () => {
   const handleSignUp = async () => {
     validate();
 
-    const isInvalidMemberInfo = Object.values(validationStatus).some(({ result }) => !result);
-    if (hasEmpty() || isInvalidMemberInfo) {
+    if (hasEmpty()) {
       openAlert({
         message: '필수 입력 사항을 확인 바랍니다.',
+      });
+
+      return;
+    }
+
+    const errorMessage = Object.values(validationStatus)
+      .filter(({ result }) => !result)
+      ?.at(0)?.message;
+
+    if (errorMessage) {
+      openAlert({
+        message: errorMessage,
       });
 
       return;
