@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { bool } from 'prop-types';
 
@@ -29,6 +29,7 @@ import OptionSelector from './OptionSelector';
 const UNPURCHASABLE_STATUS = ['READY', 'FINISHED', 'STOP', 'PROHIBITION'];
 
 const Purchase = () => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const productNo = Number(searchParams.get('productNo'));
   const channelType = searchParams.get('channelType');
@@ -51,13 +52,8 @@ const Purchase = () => {
     [originProductDetail?.status]
   );
 
-  const handleMakeOrderBtnClick = (data) => {
-    if (isSignedIn()) {
-      location.href = `/order/${data.orderSheetNo}`;
-
-      return;
-    }
-    location.href = `/sign-in?orderSheetNo=${data.orderSheetNo}`;
+  const handleMakeOrderBtnClick = ({ orderSheetNo }) => {
+    isSignedIn() ? navigate(`/order/${orderSheetNo}`) : navigate('/sign-in', { state: { orderSheetNo } });
   };
 
   const handleCartBtnClick = () => {
@@ -69,6 +65,10 @@ const Purchase = () => {
       },
       cancelLabel: '쇼핑계속하기',
     });
+  };
+
+  const handleError = (error) => {
+    catchError(error, () => navigate(0));
   };
 
   useEffect(() => {
@@ -170,8 +170,8 @@ const Purchase = () => {
           </em>
         </p>
         <div className="purchase__btns">
-          <AddToCartBtn onClick={handleCartBtnClick} onError={(e) => catchError(e)} channelType={channelType} />
-          <MakeOrderBtn onClick={handleMakeOrderBtnClick} onError={(e) => catchError(e)} channelType={channelType} />
+          <AddToCartBtn onClick={handleCartBtnClick} onError={(e) => handleError(e)} channelType={channelType} />
+          <MakeOrderBtn onClick={handleMakeOrderBtnClick} onError={(e) => handleError(e)} channelType={channelType} />
         </div>
         <div id="naver-pay" className="purchase__naver-pay-btn" />
       </div>

@@ -8,6 +8,7 @@ import {
   ClaimProvider,
   Button,
   usePageScriptsActionContext,
+  NextActionProvider,
 } from '@shopby/react-components';
 import { PAY_TYPE_MAP } from '@shopby/shared';
 
@@ -81,7 +82,13 @@ const OrderDetailContent = () => {
     <div className="order-detail">
       <OrderNoLabel dateLabel={orderDetail?.orderYmdt.slice(0, 10) ?? ''} orderNo={orderNo}>
         {canCancelAll && (
-          <NextActionButton className="order-detail__cancel-all-btn" orderNo={orderNo} nextActionType={'CANCEL_ALL'} />
+          <NextActionButton
+            className="order-detail__cancel-all-btn"
+            orderNo={orderNo}
+            nextActionType={'CANCEL_ALL'}
+            flattenedOrderOptions={flattenedOrderOptions}
+            pgType={orderDetail?.pgType}
+          />
         )}
       </OrderNoLabel>
       <OrderDetailProductTable />
@@ -219,7 +226,9 @@ const OrderDetailContent = () => {
 const OrderDetail = () => (
   <ClaimProvider>
     <MyOrderProvider>
-      <OrderDetailContent />
+      <NextActionProvider>
+        <OrderDetailContent />
+      </NextActionProvider>
     </MyOrderProvider>
   </ClaimProvider>
 );

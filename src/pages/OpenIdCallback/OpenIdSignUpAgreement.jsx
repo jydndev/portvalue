@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,6 +30,14 @@ const OpenIdSignUpAgreement = ({ orderSheetNo, previousPath, nextPath }) => {
   } = useOpenIdSignInActionContext();
   const { allChecked, termStatus, termsInfo, isTermsContentFullModalOpen } = useOpenIdSignInValueContext();
   const { catchError } = useErrorBoundaryActionContext();
+  const locationState = useMemo(() => {
+    const shouldCertifyAsAdult = nextPath === '/adult-certification';
+
+    return {
+      from: shouldCertifyAsAdult ? previousPath : nextPath,
+      to: shouldCertifyAsAdult ? nextPath : previousPath,
+    };
+  }, [previousPath, nextPath]);
 
   const initialTermStatus = [
     { id: 'use', label: '[필수] 이용약관', checked: false, required: true, termsType: 'USE' },
@@ -62,26 +70,16 @@ const OpenIdSignUpAgreement = ({ orderSheetNo, previousPath, nextPath }) => {
     try {
       await openIdSignUp();
 
-      if (orderSheetNo) {
-        window.location.href = `${window.location.origin}/order/${orderSheetNo}`;
-        removePath();
-      } else if (nextPath === '/adult-certification') {
-        navigate(`${nextPath}`, {
-          state: {
-            from: previousPath,
-            to: nextPath,
-          },
-        });
-        removePath();
-      } else {
-        navigate(`${previousPath}`, {
-          state: {
-            from: nextPath,
-            to: previousPath,
-          },
-        });
-        removePath();
-      }
+      navigate('/sign-up-confirm', {
+        state: {
+          orderSheetNo,
+          ...locationState,
+          shouldRoute: true,
+        },
+        replace: true,
+      });
+
+      removePath();
     } catch (e) {
       catchError(e);
     }

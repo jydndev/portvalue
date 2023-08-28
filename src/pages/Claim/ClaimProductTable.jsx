@@ -10,9 +10,18 @@ const ClaimProductTable = ({ claimTypeLabel }) => {
   const { allClaimableOptions, claimSelectStatus } = useClaimStateContext();
   const { toggleOneOrderOption, changeClaimAmount } = useClaimActionContext();
   const { openAlert } = useModalActionContext();
+
   const { t } = useTranslation('claim');
 
-  const handleClaimAmountChange = ({ quantity, orderOptionNo, isQuantityDiscount }) => {
+  const handleClaimAmountChange = ({ quantity, orderOptionNo, isQuantityDiscount, pgType }) => {
+    if (pgType === 'NAVER_PAY') {
+      openAlert({
+        message: '네이버페이 주문형 주문은 수량을 나누어 취소/반품할 수 없습니다.\n전체 수량을 선택 후 신청해 주세요.',
+      });
+
+      return;
+    }
+
     if (isQuantityDiscount) {
       openAlert({
         message: t('canNotChangeWithQuantityDiscount', { claimTypeLabel }),
@@ -35,10 +44,12 @@ const ClaimProductTable = ({ claimTypeLabel }) => {
           imageUrl,
           orderOptionNo,
           productNo,
+          pgType,
           isQuantityDiscount,
         }) => (
           <div key={orderOptionNo} className="claim__product">
             <Checkbox
+              disabled={pgType === 'NAVER_PAY'}
               isRounded={true}
               checked={claimSelectStatus[orderOptionNo]?.isChecked}
               onChange={() => toggleOneOrderOption({ orderOptionNo: orderOptionNo.toString() })}
@@ -53,7 +64,9 @@ const ClaimProductTable = ({ claimTypeLabel }) => {
               buyAmt={price.buyAmt}
               usesQuantityChanger={true}
               quantityChangerValue={claimSelectStatus[orderOptionNo]?.claimAmount}
-              onQuantityChange={(quantity) => handleClaimAmountChange({ quantity, orderOptionNo, isQuantityDiscount })}
+              onQuantityChange={(quantity) =>
+                handleClaimAmountChange({ quantity, orderOptionNo, pgType, isQuantityDiscount })
+              }
             />
           </div>
         )

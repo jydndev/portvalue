@@ -88,7 +88,7 @@ const GalleryListPage = ({
                       salePrice={calculateDiscountedPrice({
                         salePrice,
                         immediateDiscountAmt,
-                        additionalDiscountAmt: additionDiscountAmt,
+                        additionDiscountAmt,
                       })}
                     />
                   </ThumbItem>

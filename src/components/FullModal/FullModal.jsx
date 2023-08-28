@@ -12,9 +12,7 @@ const FullModal = ({ className, ...props }) => {
   const { profile } = useAuthStateContext();
 
   useLayoutEffect(() => {
-    removePageScriptElements({
-      targets: ['COMMON', 'COMMON_HEAD', 'COMMON_FOOTER'],
-    });
+    removePageScriptElements();
   }, []);
 
   useEffect(() => {

@@ -56,6 +56,8 @@ const OrderDetailProductTable = () => {
             deliveryCompanyTypeLabel,
             invoiceNo,
             deliverable,
+            claimStatusType,
+            delivery,
           }) => (
             <div key={optionNo} className="order-detail__product">
               <p className="order-detail__product-top-label">
@@ -67,7 +69,11 @@ const OrderDetailProductTable = () => {
                   if (actionOfViewDelivery) {
                     return (
                       <span className="order-detail__delivery-info">
-                        <span>{`${deliveryCompanyTypeLabel} ${invoiceNo}`}</span>
+                        <VisibleComponent
+                          shows={delivery.deliveryType === 'DIRECT_DELIVERY'}
+                          TruthyComponent={<span>직접배송</span>}
+                          FalsyComponent={<span>{`${deliveryCompanyTypeLabel} ${invoiceNo}`}</span>}
+                        />
                         <NextActionButton
                           productNo={productNo}
                           optionNo={optionNo}
@@ -75,6 +81,9 @@ const OrderDetailProductTable = () => {
                           nextActionType={'VIEW_DELIVERY'}
                           trackingDeliveryUri={actionOfViewDelivery.uri}
                           pgType={orderDetail?.payType}
+                          claimStatusType={claimStatusType}
+                          orderStatusType={orderStatusType}
+                          deliveryType={delivery.deliveryType}
                         />
                       </span>
                     );
@@ -103,23 +112,29 @@ const OrderDetailProductTable = () => {
                         ({ nextActionType }) =>
                           !NEXT_ACTIONS_TO_BE_NOT_RENDERED_IN_BUTTON_GROUP.includes(nextActionType)
                       )
-                      .map(({ nextActionType }) => (
-                        <NextActionButton
-                          key={nextActionType}
-                          orderStatusType={orderStatusType}
-                          nextActionType={nextActionType}
-                          productNo={productNo}
-                          productName={productName}
-                          optionName={optionName}
-                          optionValue={optionValue}
-                          orderOptionNo={orderOptionNo}
-                          orderNo={orderNo}
-                          optionNo={optionNo}
-                          productImageUrl={imageUrl}
-                          deliverable={deliverable}
-                          pgType={orderDetail?.payType}
-                        />
-                      ))}
+                      .map(({ nextActionType }) => {
+                        console.log('next action type : ', orderStatusType);
+
+                        return (
+                          <NextActionButton
+                            key={nextActionType}
+                            orderStatusType={orderStatusType}
+                            nextActionType={nextActionType}
+                            productNo={productNo}
+                            productName={productName}
+                            optionName={optionName}
+                            optionValue={optionValue}
+                            orderOptionNo={orderOptionNo}
+                            orderNo={orderNo}
+                            optionNo={optionNo}
+                            productImageUrl={imageUrl}
+                            deliverable={deliverable}
+                            pgType={orderDetail?.payType}
+                            claimStatusType={claimStatusType}
+                            deliveryType={delivery.deliveryType}
+                          />
+                        );
+                      })}
                   </div>
                 }
               />

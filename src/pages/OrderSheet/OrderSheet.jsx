@@ -1,7 +1,7 @@
 import { createRef, useEffect, useMemo } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 import {
   Button,
@@ -41,6 +41,7 @@ const CUSTOM_ORDER_SHEET_TERMS = [
 ];
 
 const OrderSheetContent = () => {
+  const { state } = useLocation();
   const orderSheetRef = {
     ordererInfoFormRef: {
       ordererNameInputRef: createRef(),
@@ -93,7 +94,7 @@ const OrderSheetContent = () => {
   useLayoutChanger({ hasBackBtnOnHeader: true, title: t('orderSheet') });
 
   useEffect(() => {
-    fetchOrderSheet({ orderSheetNo, includesMemberAddress: false });
+    fetchOrderSheet({ orderSheetNo: orderSheetNo ?? state?.orderSheetNo, includesMemberAddress: false });
     if (isSignedIn()) {
       fetchMyShippingAddress();
     }

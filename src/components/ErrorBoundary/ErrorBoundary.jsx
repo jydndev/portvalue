@@ -11,6 +11,7 @@ import alertMap from './alertMap';
 import confirmMap from './confirmMap';
 import { exceptCodes } from './exceptCode';
 import locationMap from './locationMap';
+import reloadMap from './reloadMap';
 
 const getErrorState = (event) => {
   const error = event?.reason?.error ?? event.error?.error ?? event.error;
@@ -45,54 +46,69 @@ const getToAndFrom = (modal, location) => {
   };
 };
 
-const alertError = ({ alert, description, openAlert, navigate }) => {
+const alertError = ({ alert, description, openAlert, navigate, shouldReload }) => {
   const message = alert?.message ?? description;
   const { to, from } = getToAndFrom(alert, location);
 
   openAlert({
     message,
-    onClose: () =>
+    onClose: () => {
       alert?.next &&
-      navigate(to, {
-        state: {
-          from,
-          to,
-        },
-      }),
+        navigate(to, {
+          state: {
+            from,
+            to,
+          },
+        });
+
+      shouldReload && navigate(0);
+    },
   });
 };
 
-const confirmError = ({ confirm, openConfirm, description, navigate }) => {
+const confirmError = ({ confirm, openConfirm, description, navigate, shouldReload }) => {
   const message = confirm?.message ?? description;
   const { to, from } = getToAndFrom(confirm, location);
 
   openConfirm({
     message,
-    onConfirm: () =>
+    onConfirm: () => {
       confirm?.next &&
-      navigate(to, {
-        state: {
-          from,
-          to,
-        },
-      }),
+        navigate(to, {
+          state: {
+            from,
+            to,
+          },
+        });
+
+      shouldReload && navigate(0);
+    },
   });
 };
 
-const alertLocationError = ({ unexpectedServerErrorBoundaryInformation, openAlert, description, navigate }) => {
+const alertLocationError = ({
+  unexpectedServerErrorBoundaryInformation,
+  openAlert,
+  description,
+  navigate,
+  shouldReload,
+}) => {
   const message = unexpectedServerErrorBoundaryInformation?.message ?? description;
   const { to, from } = getToAndFrom(unexpectedServerErrorBoundaryInformation, location);
 
   openAlert({
     message,
-    onClose: () =>
+    onClose: () => {
       unexpectedServerErrorBoundaryInformation?.next &&
-      navigate(to, {
-        state: {
-          from,
-          to,
-        },
-      }),
+        navigate(to, {
+          state: {
+            from,
+            to,
+          },
+        });
+
+      shouldReload && navigate(0);
+    },
   });
 };
 
@@ -144,6 +160,7 @@ const ErrorBoundary = ({ children }) => {
 
     const alert = alertMap[code];
     const confirm = confirmMap[code];
+    const shouldReload = reloadMap[location.pathname]?.(code);
 
     const unexpectedServerErrorBoundaryInformation = getUnexpectedServerErrorHandleMap(event.reason?.error);
 
@@ -157,6 +174,7 @@ const ErrorBoundary = ({ children }) => {
         description,
         openAlert,
         navigate,
+        shouldReload,
       });
 
       return;
@@ -168,6 +186,7 @@ const ErrorBoundary = ({ children }) => {
         description,
         openConfirm,
         navigate,
+        shouldReload,
       });
 
       return;
@@ -179,6 +198,7 @@ const ErrorBoundary = ({ children }) => {
         description,
         openAlert,
         navigate,
+        shouldReload,
       });
 
       return;
@@ -193,6 +213,8 @@ const ErrorBoundary = ({ children }) => {
               replace: true,
             });
           }
+
+          shouldReload && navigate(0);
         },
       });
     }

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,27 +31,26 @@ const OpenIdSignUpKakaosync = ({ orderSheetNo, previousPath, nextPath }) => {
   const { openAlert, openConfirm } = useModalActionContext();
   const { catchError } = useErrorBoundaryActionContext();
 
+  const locationState = useMemo(() => {
+    const shouldCertifyAsAdult = nextPath === '/adult-certification';
+
+    return {
+      from: shouldCertifyAsAdult ? previousPath : nextPath,
+      to: shouldCertifyAsAdult ? nextPath : previousPath,
+    };
+  }, [previousPath, nextPath]);
+
   const movePage = () => {
-    if (orderSheetNo) {
-      window.location.href = `${window.location.origin}/order/${orderSheetNo}`;
-      removePath();
-    } else if (nextPath === '/adult-certification') {
-      navigate(`${nextPath}`, {
-        state: {
-          from: previousPath,
-          to: nextPath,
-        },
-      });
-      removePath();
-    } else {
-      navigate(`${previousPath}`, {
-        state: {
-          from: nextPath,
-          to: previousPath,
-        },
-      });
-      removePath();
-    }
+    navigate('/sign-up-confirm', {
+      state: {
+        orderSheetNo,
+        ...locationState,
+        shouldRoute: true,
+      },
+      replace: true,
+    });
+
+    removePath();
   };
 
   const handleKakaosyncSignUp = () => {

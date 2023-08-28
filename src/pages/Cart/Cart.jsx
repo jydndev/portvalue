@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Button,
@@ -23,6 +24,7 @@ import DeliverySection from './DeliverySection';
 import FixedOrderBtn from './FixedOrderBtn';
 
 const CartContent = () => {
+  const navigate = useNavigate();
   const { fetchCartDetail } = useCartActionContext();
   const { applyPageScripts } = usePageScriptsActionContext();
   const { checkedProducts, checkedCartNos, cartDetail } = useCartStateContext();
@@ -47,11 +49,18 @@ const CartContent = () => {
 
   const handleOrderBtnClick = async () => {
     try {
-      const { data } = await makeOrderSheet({
+      const {
+        data: { orderSheetNo },
+      } = await makeOrderSheet({
         cartNos: checkedCartNos,
         products: checkedProducts,
       });
-      location.href = `/order/${data.orderSheetNo}`;
+
+      navigate(`/order/${orderSheetNo}`, {
+        state: {
+          orderSheetNo,
+        },
+      });
     } catch (e) {
       catchError(e);
     }
