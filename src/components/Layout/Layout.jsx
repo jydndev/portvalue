@@ -28,35 +28,13 @@ import SearchKeyword from '../SearchKeyword';
 const platformType = isMobile ? PLATFORM_TYPE.MOBILE_WEB : PLATFORM_TYPE.PC;
 
 const Layout = () => {
-  // const location = useLocation();
   const [searchParams] = useSearchParams();
-  // const { profile, isProfileLoading } = useAuthStateContext();
-  // const { clientId, mallProfile } = useMallStateContext();
-  // const { applyPageScripts } = usePageScriptsActionContext();
   const { fetchBoardConfiguration } = useBoardConfigurationContextAction();
-  // const { isScriptLoaded, record } = useShopbyStatisticsRecorder({ clientId, mallProfile });
 
   const pageRef = useRef();
   const pageInnerRef = useRef();
 
   const productNo = Number(searchParams.get('productNo'));
-
-  // useEffect(() => {
-  //   if (isScriptLoaded && !isProfileLoading) {
-  //     record(profile?.memberNo);
-  //   }
-  // }, [isScriptLoaded, isProfileLoading, location.pathname]);
-
-  // useEffect(() => {
-  //   if (isProfileLoading) return;
-
-  //   applyPageScripts('COMMON', {
-  //     getPlatform: () => platformType,
-  //     profile,
-  //   });
-  //   applyPageScripts('COMMON_HEAD');
-  //   applyPageScripts('COMMON_FOOTER');
-  // }, [profile, isProfileLoading, location]);
 
   useEffect(() => {
     scrollToTop();
