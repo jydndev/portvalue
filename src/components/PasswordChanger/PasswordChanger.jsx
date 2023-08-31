@@ -100,12 +100,14 @@ const PasswordChanger = ({ useNextChanger = false, onSubmit, onNext }) => {
           className="password-changer__current"
           placeholder="현재 비밀번호"
           type="password"
+          value={currentPasswordChanger.password}
           onChange={currentPasswordChanger.handleChangePassword}
         />
         <hr />
         <TextField
           className="password-changer__new"
           placeholder="새 비밀번호"
+          value={newPasswordChanger.password}
           type="password"
           onChange={newPasswordChanger.handleChangePassword}
           onBlur={newPasswordChanger.validatePassword}
@@ -118,6 +120,7 @@ const PasswordChanger = ({ useNextChanger = false, onSubmit, onNext }) => {
         <TextField
           className="password-changer__new-check"
           placeholder="새 비밀번호 확인"
+          value={newPasswordCheckChanger.password}
           type="password"
           onChange={newPasswordCheckChanger.handleChangePassword}
           valid="NO_SPACE"

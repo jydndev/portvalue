@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const ChangePasswordConfirm = () => (
+export const ChangePasswordConfirm = () => (
   <div className="change-password-confirm">
     <p className="change-password-confirm__tit">비밀번호가 변경되었습니다.</p>
 

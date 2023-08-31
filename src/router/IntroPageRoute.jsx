@@ -15,7 +15,6 @@ const exceptPaths = [
   '/member-only',
   '/sign-up/form',
   '/sign-up',
-  '/sign-up-confirm',
   '/sign-in',
   '/find-id',
   '/find-password',

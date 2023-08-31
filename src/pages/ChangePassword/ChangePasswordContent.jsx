@@ -79,6 +79,7 @@ export const ChangePasswordContent = () => {
             <div className="change-password-form__input-wrap">
               <TextField
                 id="password"
+                value={password}
                 type="password"
                 placeholder="비밀번호 입력"
                 onChange={handlePasswordChange}
@@ -92,6 +93,7 @@ export const ChangePasswordContent = () => {
             <div className="change-password-form__input-wrap">
               <TextField
                 id="passwordCheck"
+                value={passwordCheck}
                 type="password"
                 placeholder="비밀번호 확인"
                 onChange={handlePasswordCheckChange}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { oneOfType, string, number, func, bool, array } from 'prop-types';
+import { oneOfType, string, number, func, bool } from 'prop-types';
 
 import {
   Button,
@@ -11,7 +11,6 @@ import {
   VisibleComponent,
   ProductReviewFormProvider,
   ProductReviewProvider,
-  useNextActionActionContext,
 } from '@shopby/react-components';
 
 import FullModal from '../../components/FullModal/FullModal';
@@ -54,17 +53,13 @@ const NextActionButton = ({
   optionName,
   optionValue,
   deliverable = true,
-  pgType = null,
-  claimStatusType = null,
-  deliveryType = null,
-  flattenedOrderOptions = [],
+  pgType = '',
 }) => {
   const navigate = useNavigate();
   const { openAlert, openConfirm } = useModalActionContext();
 
   const { withdrawClaimByOrderOptionNo, cancelOrder } = useClaimActionContext();
   const { confirmOrder, fetchOrderDetail } = useMyOrderActionContext();
-  const { checkNextActionStatus } = useNextActionActionContext();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -166,6 +161,14 @@ const NextActionButton = ({
     WRITE_REVIEW: {
       label: '후기 작성',
       execute: () => {
+        if (orderStatusType !== 'BUY_CONFIRM' && pgType?.includes('NAVER')) {
+          openAlert({
+            message: '네이버페이 주문은 네이버페이에서 구매확정 이후 후기작성이 가능합니다.',
+          });
+
+          return;
+        }
+
         setIsOpen(true);
       },
     },
@@ -204,28 +207,7 @@ const NextActionButton = ({
 
   return (
     <>
-      <Button
-        className={className}
-        onClick={() => {
-          const { data } = checkNextActionStatus({
-            pgType,
-            orderStatusType,
-            claimStatusType,
-            deliveryType,
-            flattenedOrderOptions,
-            nextActionType,
-          });
-
-          if (data?.canDoNextAction) {
-            nextAction[nextActionType]?.execute();
-          } else {
-            data?.reason &&
-              openAlert({
-                message: data.reason,
-              });
-          }
-        }}
-      >
+      <Button className={className} onClick={() => nextAction[nextActionType]?.execute()}>
         {nextAction[nextActionType].label}
       </Button>
       <ProductReviewFormProvider>
@@ -286,7 +268,4 @@ NextActionButton.propTypes = {
   optionValue: string,
   deliverable: bool,
   pgType: string,
-  claimStatusType: string,
-  deliveryType: string,
-  flattenedOrderOptions: array,
 };

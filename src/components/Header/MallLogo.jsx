@@ -12,7 +12,7 @@ const MallLogo = ({ banner }) => {
 
   return (
     <h1 className="header__title">
-      <Link to={imageInfo.landingUrl} target={imageInfo.openLocationType === 'NEW' ? '_blank' : '_self'}>
+      <Link href={imageInfo.landingUrl} target={imageInfo.openLocationType === 'NEW' ? '_blank' : '_self'}>
         <img
           className="header__logo-img"
           src={imageInfo.imageUrl}

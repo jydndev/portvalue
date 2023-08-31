@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { useSignUpActionContext, useSignUpStateContext, useModalActionContext } from '@shopby/react-components';
 
 import { useErrorBoundaryActionContext } from '../../components/ErrorBoundary';
 
 const SignUpButton = () => {
-  const { state } = useLocation();
   const { postProfile } = useSignUpActionContext();
   const { openAlert } = useModalActionContext();
   const { isSignedUp } = useSignUpStateContext();
@@ -70,11 +69,12 @@ const SignUpButton = () => {
 
   useEffect(() => {
     if (isSignedUp === true) {
-      navigate('/sign-up-confirm', {
-        replace: true,
-        state: {
-          memberId: signUpMemberInfo.memberId,
-          ...state,
+      openAlert({
+        message: '회원가입이 완료되었습니다.',
+        onClose: () => {
+          navigate('/', {
+            replace: true,
+          });
         },
       });
     }

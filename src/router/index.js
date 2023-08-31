@@ -16,7 +16,6 @@ const CustomerCenter = lazy(() => import('../pages/CustomerCenter'));
 const ProductDetail = lazy(() => import('../pages/ProductDetail'));
 const DisplayCategoryList = lazy(() => import('../pages/DisplayCategoryList'));
 const SignUp = lazy(() => import('../pages/SignUp'));
-const SignUpConfirm = lazy(() => import('../pages/SignUpConfirm'));
 const ProductSectionList = lazy(() => import('../pages/ProductSectionList'));
 const CallBack = lazy(() => import('../pages/CallBack'));
 const FAQ = lazy(() => import('../pages/FAQ'));
@@ -128,14 +127,6 @@ const Router = () =>
           element: (
             <NotAccessLoggedInUserRouter>
               <SignUp />
-            </NotAccessLoggedInUserRouter>
-          ),
-        },
-        {
-          path: 'sign-up-confirm',
-          element: (
-            <NotAccessLoggedInUserRouter>
-              <SignUpConfirm />
             </NotAccessLoggedInUserRouter>
           ),
         },

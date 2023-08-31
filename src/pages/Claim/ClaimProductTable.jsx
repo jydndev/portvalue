@@ -1,55 +1,21 @@
-import { useTranslation } from 'react-i18next';
-
-import { string } from 'prop-types';
-
-import { Checkbox, useClaimActionContext, useClaimStateContext, useModalActionContext } from '@shopby/react-components';
+import { Checkbox, useClaimActionContext, useClaimStateContext } from '@shopby/react-components';
 
 import ProductThumbItem from '../../components/ProductThumbItem';
 
-const ClaimProductTable = ({ claimTypeLabel }) => {
+const ClaimProductTable = () => {
   const { allClaimableOptions, claimSelectStatus } = useClaimStateContext();
   const { toggleOneOrderOption, changeClaimAmount } = useClaimActionContext();
-  const { openAlert } = useModalActionContext();
 
-  const { t } = useTranslation('claim');
-
-  const handleClaimAmountChange = ({ quantity, orderOptionNo, isQuantityDiscount, pgType }) => {
-    if (pgType === 'NAVER_PAY') {
-      openAlert({
-        message: '네이버페이 주문형 주문은 수량을 나누어 취소/반품할 수 없습니다.\n전체 수량을 선택 후 신청해 주세요.',
-      });
-
-      return;
-    }
-
-    if (isQuantityDiscount) {
-      openAlert({
-        message: t('canNotChangeWithQuantityDiscount', { claimTypeLabel }),
-      });
-
-      return;
-    }
-    changeClaimAmount({ [orderOptionNo]: quantity });
+  const handleClaimAmountChange = (value, orderOptionNo) => {
+    changeClaimAmount({ [orderOptionNo]: value });
   };
 
   return (
     <section className="claim__section claim__products">
       {allClaimableOptions.map(
-        ({
-          brandName,
-          productName,
-          optionName,
-          optionValue,
-          price,
-          imageUrl,
-          orderOptionNo,
-          productNo,
-          pgType,
-          isQuantityDiscount,
-        }) => (
+        ({ brandName, productName, optionName, optionValue, price, imageUrl, orderOptionNo, productNo }) => (
           <div key={orderOptionNo} className="claim__product">
             <Checkbox
-              disabled={pgType === 'NAVER_PAY'}
               isRounded={true}
               checked={claimSelectStatus[orderOptionNo]?.isChecked}
               onChange={() => toggleOneOrderOption({ orderOptionNo: orderOptionNo.toString() })}
@@ -64,9 +30,7 @@ const ClaimProductTable = ({ claimTypeLabel }) => {
               buyAmt={price.buyAmt}
               usesQuantityChanger={true}
               quantityChangerValue={claimSelectStatus[orderOptionNo]?.claimAmount}
-              onQuantityChange={(quantity) =>
-                handleClaimAmountChange({ quantity, orderOptionNo, pgType, isQuantityDiscount })
-              }
+              onQuantityChange={(quantity) => handleClaimAmountChange(quantity, orderOptionNo)}
             />
           </div>
         )
@@ -75,7 +39,4 @@ const ClaimProductTable = ({ claimTypeLabel }) => {
   );
 };
 
-ClaimProductTable.propTypes = {
-  claimTypeLabel: string,
-};
 export default ClaimProductTable;

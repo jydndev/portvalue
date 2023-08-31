@@ -93,7 +93,7 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
   };
 
   const [params] = useSearchParams();
-  const orderSheetNo = params.get('orderSheetNo') ?? state?.orderSheetNo;
+  const orderSheetNo = params.get('orderSheetNo');
 
   useEffect(() => {
     if (orderSheetNo) {
@@ -112,13 +112,9 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
     } else if (orderSheetNo) {
       location.href = `/order/${orderSheetNo}`;
     } else {
-      const _state = {
-        ...location.state,
-        ...state,
-      };
-      const from = _state?.from?.includes('sign-in') ? '/' : _state?.from;
+      const from = location.state?.from?.includes('sign-in') ? '/' : location.state?.from;
 
-      location.replace(from ?? '/');
+      location.href = from ?? '/';
     }
   };
 
@@ -205,6 +201,7 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
               placeholder="비밀번호"
               onChange={handlePasswordChange}
               onKeyDown={handlePasswordKeyDown}
+              value={password}
               type="password"
               valid="NO_SPACE"
             />
@@ -219,7 +216,7 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
           <Link className="sign-in-link__item" to="/find-password">
             비밀번호찾기
           </Link>
-          <Link className="sign-in-link__item" to="/sign-up" state={{ ...state }}>
+          <Link className="sign-in-link__item" to="/sign-up">
             회원가입
           </Link>
         </div>
@@ -229,7 +226,7 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
           TruthyComponent={
             <>
               {hasGuestOrderSheetUrl && (
-                <Link className="guest-order-link" to={`/order/${orderSheetNo}`} state={{ ...state, orderSheetNo }}>
+                <Link className="guest-order-link" to={`/order/${orderSheetNo}`}>
                   비회원 주문하기
                 </Link>
               )}
@@ -252,6 +249,7 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
                       placeholder="주문번호 비밀번호 입력"
                       onChange={handleOrderPasswordChange}
                       onKeyDown={handleOrderPasswordKeyDown}
+                      value={orderPassword}
                     />
                   </div>
                   <Button label="조회하기" onClick={handleSearchGuestOrdersBtnClick} />
@@ -262,12 +260,7 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
         />
         {openIdJoinConfig.providers && (
           <div className="sign-in-open-id">
-            <OpenIdSignIn
-              label="로그인"
-              orderSheetNo={orderSheetNo}
-              providers={openIdJoinConfig.providers}
-              state={{ ...state }}
-            />
+            <OpenIdSignIn label="로그인" orderSheetNo={orderSheetNo} providers={openIdJoinConfig.providers} />
           </div>
         )}
       </section>

@@ -6,7 +6,6 @@ import { oneOf } from 'prop-types';
 
 import {
   ClaimProvider,
-  NextActionProvider,
   useClaimActionContext,
   useClaimStateContext,
   useModalActionContext,
@@ -113,7 +112,7 @@ const ClaimContent = ({ claimType }) => {
           {isAllChecked ? '선택 해제' : '전체 선택'}
         </button>
       </OrderNoLabel>
-      <ClaimProductTable claimTypeLabel={claimTypeLabel} />
+      <ClaimProductTable />
       <p className="claim__amount-info-label">
         {isAllChecked ? (
           <>
@@ -158,9 +157,7 @@ const Claim = () => {
   const claimType = useMemo(() => searchParams.get('claimType'), [searchParams]);
   return (
     <ClaimProvider claimType={claimType}>
-      <NextActionProvider>
-        <ClaimContent claimType={claimType} />
-      </NextActionProvider>
+      <ClaimContent claimType={claimType} />
     </ClaimProvider>
   );
 };
