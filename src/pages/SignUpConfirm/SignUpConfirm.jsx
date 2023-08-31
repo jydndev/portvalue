@@ -1,23 +1,22 @@
 import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { IconSVG, usePageScriptsActionContext } from '@shopby/react-components';
+import { IconSVG, useAuthStateContext, usePageScriptsActionContext } from '@shopby/react-components';
 
 import useLayoutChanger from '../../hooks/useLayoutChanger';
 
 const SignUpConfirm = () => {
   const { state } = useLocation();
   const { applyPageScripts } = usePageScriptsActionContext();
+  const { profile } = useAuthStateContext();
 
   useLayoutChanger({
     title: '회원가입',
   });
 
   useEffect(() => {
-    applyPageScripts('MEMBER_JOIN_COMPLETE');
-  }, []);
-
-  console.log('sign-up-confirm state : ', state);
+    applyPageScripts('MEMBER_JOIN_COMPLETE', { profile });
+  }, [profile]);
 
   return (
     <div className="sign-up-confirm">

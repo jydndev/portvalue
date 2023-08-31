@@ -102,7 +102,7 @@ const Purchase = () => {
         });
       }
     })();
-  }, [limitations?.naverPayHandling]);
+  }, [productNo, limitations?.naverPayHandling]);
 
   return (
     <div className="purchase product-detail">

@@ -42,14 +42,13 @@ const Layout = () => {
 
   const pageRef = useRef();
   const pageInnerRef = useRef();
-
   const productNo = Number(searchParams.get('productNo'));
 
   useEffect(() => {
     if (isScriptLoaded && !isProfileLoading) {
       record(profile?.memberNo);
     }
-  }, [isScriptLoaded, isProfileLoading, location.pathname]);
+  }, [isScriptLoaded, isProfileLoading, location.pathname, productNo]);
 
   useEffect(() => {
     if (isProfileLoading) return;

@@ -22,6 +22,7 @@ import {
   VisibleComponent,
   ProfileGradeProvider,
   useProfileGradeActionContext,
+  usePageScriptsActionContext,
 } from '@shopby/react-components';
 import { convertToKoreanCurrency } from '@shopby/shared';
 
@@ -117,6 +118,7 @@ const MyPage = () => {
   const { signOut } = useAuthActionContext();
   const { profile } = useAuthStateContext();
   const { boardConfig } = useBoardConfigurationContextState();
+  const { applyPageScripts } = usePageScriptsActionContext();
 
   useLayoutChanger({
     title: t('myPage'),
@@ -130,6 +132,10 @@ const MyPage = () => {
     await signOut();
     location.href = '/';
   };
+
+  useEffect(() => {
+    applyPageScripts('MY_PAGE', { profile });
+  }, [profile]);
 
   if (!profile) return <></>;
 
