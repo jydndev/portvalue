@@ -102,6 +102,12 @@ const Cart = () => {
   const { clientId, mallProfile } = useMallStateContext();
   const { cartConfig } = useMallStateContext();
 
+  const { delayPageScriptLoading } = usePageScriptsActionContext();
+
+  useEffect(() => {
+    delayPageScriptLoading();
+  }, []);
+
   return (
     <OrderSheetProvider>
       <NaverPayProvider clientId={clientId} mallProfile={mallProfile} platform={isMobile ? 'MOBILE_WEB' : 'PC'}>

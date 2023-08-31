@@ -1,7 +1,13 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 
-import { ProductSearchProvider, CategoriesProvider, VisibleComponent } from '@shopby/react-components';
+import {
+  ProductSearchProvider,
+  CategoriesProvider,
+  VisibleComponent,
+  usePageScriptsActionContext,
+} from '@shopby/react-components';
 
 import useLayoutChanger from '../../hooks/useLayoutChanger';
 
@@ -15,6 +21,7 @@ const DisplayCategoryList = () => {
   const keyword = searchParams.get('keyword') ?? '';
   const categoryNo = Number(searchParams.get('categoryNo'));
   const depth = Number(searchParams.get('depth') ?? 1);
+  const { delayPageScriptLoading } = usePageScriptsActionContext();
 
   if (keyword) {
     useLayoutChanger({
@@ -32,6 +39,10 @@ const DisplayCategoryList = () => {
       title: t('상품 목록'),
     });
   }
+
+  useEffect(() => {
+    delayPageScriptLoading();
+  }, []);
 
   return (
     <ProductSearchProvider>
