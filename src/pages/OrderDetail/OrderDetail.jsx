@@ -223,14 +223,22 @@ const OrderDetailContent = () => {
   );
 };
 
-const OrderDetail = () => (
-  <ClaimProvider>
-    <MyOrderProvider>
-      <NextActionProvider>
-        <OrderDetailContent />
-      </NextActionProvider>
-    </MyOrderProvider>
-  </ClaimProvider>
-);
+const OrderDetail = () => {
+  const { delayPageScriptLoading } = usePageScriptsActionContext();
+
+  useEffect(() => {
+    delayPageScriptLoading();
+  }, []);
+
+  return (
+    <ClaimProvider>
+      <MyOrderProvider>
+        <NextActionProvider>
+          <OrderDetailContent />
+        </NextActionProvider>
+      </MyOrderProvider>
+    </ClaimProvider>
+  );
+};
 
 export default OrderDetail;

@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 
-import { OrderConfirmProvider, useOrderConfirmStateContext } from '@shopby/react-components';
+import {
+  OrderConfirmProvider,
+  useOrderConfirmStateContext,
+  usePageScriptsActionContext,
+} from '@shopby/react-components';
 
 import OrderFail from './OrderFail';
 import OrderSuccess from './OrderSuccess';
@@ -27,10 +31,18 @@ const OrderConfirmContent = () => {
   return <OrderSuccess orderInfo={orderInfo} orderNo={orderNo} />;
 };
 
-const OrderConfirm = () => (
-  <OrderConfirmProvider>
-    <OrderConfirmContent />
-  </OrderConfirmProvider>
-);
+const OrderConfirm = () => {
+  const { delayPageScriptLoading } = usePageScriptsActionContext();
+
+  useEffect(() => {
+    delayPageScriptLoading();
+  }, []);
+
+  return (
+    <OrderConfirmProvider>
+      <OrderConfirmContent />
+    </OrderConfirmProvider>
+  );
+};
 
 export default OrderConfirm;

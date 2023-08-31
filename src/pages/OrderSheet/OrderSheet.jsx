@@ -184,6 +184,11 @@ const OrderSheetContent = () => {
 
 const OrderSheet = () => {
   const { clientId, mallProfile } = useMallStateContext();
+  const { delayPageScriptLoading } = usePageScriptsActionContext();
+
+  useEffect(() => {
+    delayPageScriptLoading();
+  }, []);
 
   return (
     <OrderSheetProvider

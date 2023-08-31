@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { Helmet } from 'react-helmet';
 
@@ -6,7 +5,8 @@ import { useBannerStateContext, useMallStateContext, useProductDetailStateContex
 import { PLATFORM_TYPE } from '@shopby/shared';
 
 import { META_TAG_KEY } from '../../constants/common';
-import useExternalServiceConfig from '../../hooks/useExternalServiceConfig';
+
+import ExternalServiceConfig from './ExternalServiceConfig';
 
 const scheme = `${location.origin.split('://').at(0)}`;
 const addScheme = (url) => (url ? `${scheme}:${url}` : '');
@@ -43,10 +43,9 @@ const createMetaTagBy = ({ product, mallName, url, bannerMap } = {}) => {
 };
 
 const Meta = () => {
-  const { mallName, mall, externalServiceConfig } = useMallStateContext();
+  const { mallName, mall } = useMallStateContext();
   const { productDetail } = useProductDetailStateContext();
   const { bannerMap } = useBannerStateContext();
-  const { setExternalService } = useExternalServiceConfig();
   const platform = isMobile ? PLATFORM_TYPE.MOBILE_WEB : PLATFORM_TYPE.PC;
   const mallUrl = mall.url?.[platform.toLocaleLowerCase()];
 
@@ -57,32 +56,34 @@ const Meta = () => {
     url: mallUrl,
   });
 
-  useEffect(() => {
-    setExternalService(externalServiceConfig);
-  }, [location.pathname, externalServiceConfig]);
-
   if (!image) return <></>;
 
   return (
-    <Helmet>
-      <meta name="author" content={mallName} />
-      <meta name="description" content={mallName} />
-      <meta name="keywords" content={mallName} />
+    <>
+      <Helmet>
+        <meta name="author" content={mallName} />
+        <meta name="description" content={mallName} />
+        <meta name="keywords" content={mallName} />
 
-      <meta property="og:type" content={type} />
-      <meta property="og:title" content={title} />
-      <meta property="og:image" content={image} />
-      <meta property="og:url" content={url} />
-      <meta property="og:description" content="여기를 눌러 링크를 확인하세요." />
-      <meta property="og:image:width" content="436" />
-      <meta property="og:image:height" content="134" />
+        <meta property="og:type" content={type} />
+        <meta property="og:title" content={title} />
+        <meta property="og:image" content={image} />
+        <meta property="og:url" content={url} />
+        <meta property="og:description" content="여기를 눌러 링크를 확인하세요." />
+        <meta property="og:image:width" content="436" />
+        <meta property="og:image:height" content="134" />
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content="여기를 눌러 링크를 확인하세요." />
-      <meta name="twitter:image" content={image} />
-      <title>{mallName}</title>
-    </Helmet>
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content="여기를 눌러 링크를 확인하세요." />
+        <meta name="twitter:image" content={image} />
+        <title>{mallName}</title>
+      </Helmet>
+      <ExternalServiceConfig />
+      <Helmet>
+        <script type="text/javascript" src="https://wcs.naver.net/wcslog.js"></script>
+      </Helmet>
+    </>
   );
 };
 
