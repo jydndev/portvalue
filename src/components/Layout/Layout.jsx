@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { isMobile } from 'react-device-detect';
-import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 import { bool } from 'prop-types';
 
@@ -9,11 +9,7 @@ import {
   Icon,
   OffCanvasProvider,
   SearchAddressProvider,
-  usePageScriptsActionContext,
-  useAuthStateContext,
   useBoardConfigurationContextAction,
-  useShopbyStatisticsRecorder,
-  useMallStateContext,
   ProductDetailProvider,
 } from '@shopby/react-components';
 import { PLATFORM_TYPE } from '@shopby/shared';
@@ -32,34 +28,34 @@ import SearchKeyword from '../SearchKeyword';
 const platformType = isMobile ? PLATFORM_TYPE.MOBILE_WEB : PLATFORM_TYPE.PC;
 
 const Layout = () => {
-  const location = useLocation();
+  // const location = useLocation();
   const [searchParams] = useSearchParams();
-  const { profile, isProfileLoading } = useAuthStateContext();
-  const { clientId, mallProfile } = useMallStateContext();
-  const { applyPageScripts } = usePageScriptsActionContext();
+  // const { profile, isProfileLoading } = useAuthStateContext();
+  // const { clientId, mallProfile } = useMallStateContext();
+  // const { applyPageScripts } = usePageScriptsActionContext();
   const { fetchBoardConfiguration } = useBoardConfigurationContextAction();
-  const { isScriptLoaded, record } = useShopbyStatisticsRecorder({ clientId, mallProfile });
+  // const { isScriptLoaded, record } = useShopbyStatisticsRecorder({ clientId, mallProfile });
 
   const pageRef = useRef();
   const pageInnerRef = useRef();
   const productNo = Number(searchParams.get('productNo'));
 
-  useEffect(() => {
-    if (isScriptLoaded && !isProfileLoading) {
-      record(profile?.memberNo);
-    }
-  }, [isScriptLoaded, isProfileLoading, location.pathname, productNo]);
+  // useEffect(() => {
+  //   if (isScriptLoaded && !isProfileLoading) {
+  //     record(profile?.memberNo);
+  //   }
+  // }, [isScriptLoaded, isProfileLoading, location.pathname]);
 
-  useEffect(() => {
-    if (isProfileLoading) return;
+  // useEffect(() => {
+  //   if (isProfileLoading) return;
 
-    applyPageScripts('COMMON', {
-      getPlatform: () => platformType,
-      profile,
-    });
-    applyPageScripts('COMMON_HEAD');
-    applyPageScripts('COMMON_FOOTER');
-  }, [profile, isProfileLoading, location]);
+  //   applyPageScripts('COMMON', {
+  //     getPlatform: () => platformType,
+  //     profile,
+  //   });
+  //   applyPageScripts('COMMON_HEAD');
+  //   applyPageScripts('COMMON_FOOTER');
+  // }, [profile, isProfileLoading, location]);
 
   useEffect(() => {
     scrollToTop();

@@ -1,10 +1,20 @@
+import { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
 
-import { useBannerStateContext, useMallStateContext, useProductDetailStateContext } from '@shopby/react-components';
+import {
+  useAuthStateContext,
+  useBannerStateContext,
+  useMallStateContext,
+  usePageScriptsActionContext,
+  useProductDetailStateContext,
+  useShopbyStatisticsRecorder,
+} from '@shopby/react-components';
 import { PLATFORM_TYPE } from '@shopby/shared';
 
 import { META_TAG_KEY } from '../../constants/common';
+import { platformType } from '../../utils';
 
 import ExternalServiceConfig from './ExternalServiceConfig';
 
@@ -49,12 +59,36 @@ const Meta = () => {
   const platform = isMobile ? PLATFORM_TYPE.MOBILE_WEB : PLATFORM_TYPE.PC;
   const mallUrl = mall.url?.[platform.toLocaleLowerCase()];
 
+  const location = useLocation();
+  const { profile, isProfileLoading } = useAuthStateContext();
+  const { applyPageScripts } = usePageScriptsActionContext();
+  const { clientId, mallProfile } = useMallStateContext();
+  const { isScriptLoaded, record } = useShopbyStatisticsRecorder({ clientId, mallProfile });
+
   const { type, title, image, url } = createMetaTagBy({
     product: productDetail?.baseInfo,
     bannerMap,
     mallName,
     url: mallUrl,
   });
+
+  useEffect(() => {
+    if (isScriptLoaded && !isProfileLoading) {
+      record(profile?.memberNo);
+    }
+  }, [isScriptLoaded, isProfileLoading, location.pathname]);
+
+  useEffect(() => {
+    if (!image) return;
+    if (isProfileLoading) return;
+
+    applyPageScripts('COMMON', {
+      getPlatform: () => platformType,
+      profile,
+    });
+    applyPageScripts('COMMON_HEAD');
+    applyPageScripts('COMMON_FOOTER');
+  }, [image, profile, isProfileLoading, location]);
 
   if (!image) return <></>;
 
