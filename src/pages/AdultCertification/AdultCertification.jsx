@@ -31,11 +31,14 @@ const AdultCertificationButton = () => {
 
   useEffect(() => {
     if (isAgeVerified()) {
-      window.location.replace(location.state?.from ?? '/', {
-        state: {
-          ...location.state,
-        },
-      });
+      setTimeout(() => {
+        // 성인인증 여부 데이터가 업데이트 되기까지 지연
+        window.location.replace(location.state?.from ?? '/', {
+          state: {
+            ...location.state,
+          },
+        });
+      }, 600);
     }
   }, [isAgeVerified]);
 

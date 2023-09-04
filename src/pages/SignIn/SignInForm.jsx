@@ -93,7 +93,7 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
   };
 
   const [params] = useSearchParams();
-  const orderSheetNo = params.get('orderSheetNo');
+  const orderSheetNo = params.get('orderSheetNo') ?? state?.orderSheetNo;
 
   useEffect(() => {
     if (orderSheetNo) {
@@ -112,9 +112,13 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
     } else if (orderSheetNo) {
       location.href = `/order/${orderSheetNo}`;
     } else {
-      const from = location.state?.from?.includes('sign-in') ? '/' : location.state?.from;
+      const _state = {
+        ...location.state,
+        ...state,
+      };
+      const from = _state?.from?.includes('sign-in') ? '/' : _state?.from;
 
-      location.href = from ?? '/';
+      location.replace(from ?? '/');
     }
   };
 
@@ -216,7 +220,7 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
           <Link className="sign-in-link__item" to="/find-password">
             비밀번호찾기
           </Link>
-          <Link className="sign-in-link__item" to="/sign-up">
+          <Link className="sign-in-link__item" to="/sign-up" state={{ ...state }}>
             회원가입
           </Link>
         </div>
@@ -226,7 +230,7 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
           TruthyComponent={
             <>
               {hasGuestOrderSheetUrl && (
-                <Link className="guest-order-link" to={`/order/${orderSheetNo}`}>
+                <Link className="guest-order-link" to={`/order/${orderSheetNo}`} state={{ ...state, orderSheetNo }}>
                   비회원 주문하기
                 </Link>
               )}
@@ -260,7 +264,12 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
         />
         {openIdJoinConfig.providers && (
           <div className="sign-in-open-id">
-            <OpenIdSignIn label="로그인" orderSheetNo={orderSheetNo} providers={openIdJoinConfig.providers} />
+            <OpenIdSignIn
+              label="로그인"
+              orderSheetNo={orderSheetNo}
+              providers={openIdJoinConfig.providers}
+              state={{ ...state }}
+            />
           </div>
         )}
       </section>
