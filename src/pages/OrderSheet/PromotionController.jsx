@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import {
   InputWithUnit,
@@ -13,6 +13,7 @@ import { convertToKoreanCurrency } from '@shopby/shared';
 import CouponModal from './CouponModal';
 
 const PromotionController = () => {
+  const { state } = useLocation();
   const navigate = useNavigate();
   const {
     orderSheetNo,
@@ -55,7 +56,11 @@ const PromotionController = () => {
   };
 
   const handleSignInBtnClick = () => {
-    navigate('/sign-in');
+    navigate('/sign-in', {
+      state: {
+        ...state,
+      },
+    });
   };
 
   if (!isSignedIn)

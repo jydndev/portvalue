@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import { bool } from 'prop-types';
 
@@ -30,6 +30,7 @@ const UNPURCHASABLE_STATUS = ['READY', 'FINISHED', 'STOP', 'PROHIBITION'];
 
 const Purchase = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const productNo = Number(searchParams.get('productNo'));
   const channelType = searchParams.get('channelType');
 
@@ -51,13 +52,8 @@ const Purchase = () => {
     [originProductDetail?.status]
   );
 
-  const handleMakeOrderBtnClick = (data) => {
-    if (isSignedIn()) {
-      location.href = `/order/${data.orderSheetNo}`;
-
-      return;
-    }
-    location.href = `/sign-in?orderSheetNo=${data.orderSheetNo}`;
+  const handleMakeOrderBtnClick = ({ orderSheetNo }) => {
+    isSignedIn() ? navigate(`/order/${orderSheetNo}`) : navigate('/sign-in', { state: { orderSheetNo } });
   };
 
   const handleCartBtnClick = () => {
