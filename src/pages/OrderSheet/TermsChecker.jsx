@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-import { Button , Checkbox, useOrderSheetActionContext, useOrderSheetStateContext } from '@shopby/react-components';
+import { Button, Checkbox, useOrderSheetActionContext, useOrderSheetStateContext } from '@shopby/react-components';
 
+import { CustomTerms } from '../../components/CustomTerms';
 import FullModal from '../../components/FullModal';
 import Sanitized from '../../components/Sanitized/Sanitized';
 
@@ -44,6 +45,7 @@ const TermsChecker = () => {
           {contents && <Button label="보기" onClick={() => showDetailBtnClick(title, contents)} />}
         </div>
       ))}
+      <CustomTerms isRounded={true} />
       {Boolean(isTermContentsModalOpen && clickedTerm) && (
         <FullModal title={clickedTerm.title} onClose={handleTermContentModalClose}>
           <Sanitized html={clickedTerm.contents} style={{ padding: '20px' }} />

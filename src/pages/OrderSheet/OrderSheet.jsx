@@ -16,8 +16,10 @@ import {
   DEFAULT_ORDER_SHEET_PROVIDER_STATE,
   usePageScriptsActionContext,
   useMallStateContext,
+  CustomTermsProvider,
+  useCustomTermsStateContext,
 } from '@shopby/react-components';
-import { getPlatformByMobile, isSignedIn, parsePhoneNumber } from '@shopby/shared';
+import { getPlatformByMobile, isSignedIn, parsePhoneNumber, CUSTOM_TERMS_CATEGORY_TYPE } from '@shopby/shared';
 
 import { useErrorBoundaryActionContext } from '../../components/ErrorBoundary';
 import useLayoutChanger from '../../hooks/useLayoutChanger';
@@ -39,6 +41,11 @@ const CUSTOM_ORDER_SHEET_TERMS = [
     isRequired: true,
   },
 ];
+
+const filterAgreementTypes = (termsStatus) =>
+  Object.keys(termsStatus).filter(
+    (termsType) => !CUSTOM_ORDER_SHEET_TERMS.map(({ termsType }) => termsType).includes(termsType)
+  );
 
 const OrderSheetContent = () => {
   const { state } = useLocation();
@@ -78,6 +85,7 @@ const OrderSheetContent = () => {
     selectedPayMethod,
     myPayInfo,
   } = useOrderSheetStateContext();
+  const { agreedAllRequiredTerms, agreedTermsNos: customTermsNos } = useCustomTermsStateContext();
   const { applyPageScripts } = usePageScriptsActionContext();
   const { fetchMyShippingAddress } = useMyShippingAddressActionContext();
   const { defaultAddress } = useMyShippingAddressStateContext();
@@ -150,6 +158,7 @@ const OrderSheetContent = () => {
       shippingAddressInfo,
       needsShippingAddressInfo: hasDeliverableProduct,
       termsStatus,
+      agreedAllRequiredTerms,
       needsDepositBankForm,
       bankAccountToDeposit,
       remitterName,
@@ -159,9 +168,13 @@ const OrderSheetContent = () => {
     if (!isValid) return;
 
     try {
+      const agreementTypes = filterAgreementTypes(termsStatus);
+
       order({
         platform: isMobile ? 'MOBILE_WEB' : 'PC',
         confirmUrl: `${location.origin}/order/confirm?deliverable=${convertBooleanToYorN(hasDeliverableProduct)}`,
+        customTermsNos,
+        agreementTypes,
       });
     } catch (e) {
       catchError(e);
@@ -199,7 +212,9 @@ const OrderSheet = () => {
     >
       <MyShippingAddressProvider>
         <MyPayProvider clientId={clientId} mallProfile={mallProfile} platform={getPlatformByMobile(isMobile)}>
-          <OrderSheetContent />
+          <CustomTermsProvider customCategoryType={CUSTOM_TERMS_CATEGORY_TYPE.ORDER}>
+            <OrderSheetContent />
+          </CustomTermsProvider>
         </MyPayProvider>
       </MyShippingAddressProvider>
     </OrderSheetProvider>

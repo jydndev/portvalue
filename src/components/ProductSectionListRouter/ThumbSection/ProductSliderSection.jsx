@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { bool, string, oneOf, number, array, object } from 'prop-types';
 
 import { Slide, Slider, ThumbItem } from '@shopby/react-components';
@@ -29,7 +31,7 @@ const ProductSliderSection = ({
           promotionText,
           salePrice,
           immediateDiscountAmt,
-          additionalDiscountAmt,
+          additionDiscountAmt,
         }) =>
           frontDisplayYn && (
             <Slide key={productNo}>
@@ -42,17 +44,17 @@ const ProductSliderSection = ({
               >
                 <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
                 {displayType === THUMB_LIST_TYPE.SIMPLE_IMAGE ? (
-                  <a href={`/product-detail?productNo=${productNo}`}>
+                  <Link to={`/product-detail?productNo=${productNo}`}>
                     <ProductThumbInfo
                       promotionText={promotionText}
                       productName={productName}
                       salePrice={calculateDiscountedPrice({
                         salePrice,
                         immediateDiscountAmt,
-                        additionalDiscountAmt,
+                        additionDiscountAmt,
                       })}
                     />
-                  </a>
+                  </Link>
                 ) : (
                   <ProductThumbInfo
                     promotionText={promotionText}
@@ -60,7 +62,7 @@ const ProductSliderSection = ({
                     salePrice={calculateDiscountedPrice({
                       salePrice,
                       immediateDiscountAmt,
-                      additionalDiscountAmt,
+                      additionDiscountAmt,
                     })}
                   />
                 )}

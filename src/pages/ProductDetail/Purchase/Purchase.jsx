@@ -29,8 +29,8 @@ import OptionSelector from './OptionSelector';
 const UNPURCHASABLE_STATUS = ['READY', 'FINISHED', 'STOP', 'PROHIBITION'];
 
 const Purchase = () => {
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const productNo = Number(searchParams.get('productNo'));
   const channelType = searchParams.get('channelType');
 
@@ -102,7 +102,7 @@ const Purchase = () => {
         });
       }
     })();
-  }, [limitations?.naverPayHandling]);
+  }, [productNo, limitations?.naverPayHandling]);
 
   return (
     <div className="purchase product-detail">

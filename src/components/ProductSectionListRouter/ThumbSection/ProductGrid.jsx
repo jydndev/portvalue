@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { bool, number, object, string, oneOf, array } from 'prop-types';
 
@@ -117,7 +117,7 @@ const ProductGrid = ({ className, style, displayType, products }) => (
         promotionText,
         productName,
         immediateDiscountAmt,
-        additionalDiscountAmt,
+        additionDiscountAmt,
         frontDisplayYn,
         liked,
       }) =>
@@ -149,18 +149,26 @@ const ProductGrid = ({ className, style, displayType, products }) => (
           >
             <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
             {displayType === THUMB_LIST_TYPE.SIMPLE_IMAGE ? (
-              <a href={`/product-detail?productNo=${productNo}`}>
+              <Link to={`/product-detail?productNo=${productNo}`}>
                 <ProductThumbInfo
                   promotionText={promotionText}
                   productName={productName}
-                  salePrice={calculateDiscountedPrice({ salePrice, immediateDiscountAmt, additionalDiscountAmt })}
+                  salePrice={calculateDiscountedPrice({
+                    salePrice,
+                    immediateDiscountAmt,
+                    additionDiscountAmt,
+                  })}
                 />
-              </a>
+              </Link>
             ) : (
               <ProductThumbInfo
                 promotionText={promotionText}
                 productName={productName}
-                salePrice={calculateDiscountedPrice({ salePrice, immediateDiscountAmt, additionalDiscountAmt })}
+                salePrice={calculateDiscountedPrice({
+                  salePrice,
+                  immediateDiscountAmt,
+                  additionDiscountAmt,
+                })}
               />
             )}
           </ThumbItem>
