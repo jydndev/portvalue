@@ -205,7 +205,6 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
               placeholder="비밀번호"
               onChange={handlePasswordChange}
               onKeyDown={handlePasswordKeyDown}
-              value={password}
               type="password"
               valid="NO_SPACE"
             />
@@ -253,7 +252,6 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
                       placeholder="주문번호 비밀번호 입력"
                       onChange={handleOrderPasswordChange}
                       onKeyDown={handleOrderPasswordKeyDown}
-                      value={orderPassword}
                     />
                   </div>
                   <Button label="조회하기" onClick={handleSearchGuestOrdersBtnClick} />

@@ -10,6 +10,8 @@ import {
   useClaimActionContext,
   useClaimStateContext,
   useMallStateContext,
+  useModalActionContext,
+  useNextActionActionContext,
 } from '@shopby/react-components';
 import { parsePhoneNumber } from '@shopby/shared';
 
@@ -42,6 +44,8 @@ const CollectionInfoForm = ({ refs }) => {
     buyerReturnInfo: { deliveryCompany, invoiceNo },
   } = useClaimStateContext();
   const { mallName } = useMallStateContext();
+  const { openAlert } = useModalActionContext();
+  const { checkNextActionStatus } = useNextActionActionContext();
 
   const isMallShippingArea = claimInfo.originalOption?.shippingAreaType === 'MALL_SHIPPING_AREA';
 
@@ -102,6 +106,31 @@ const CollectionInfoForm = ({ refs }) => {
     updateBuyerReturnInfo({ invoiceNo });
   };
 
+  const handleReturnWayChange = (value) => {
+    const { data } = checkNextActionStatus({
+      pgType: claimInfo.payType,
+      nextActionType: 'RETURN',
+      returnWay: value,
+    });
+
+    if (data?.canDoNextAction) {
+      updateReturnWay(value);
+    } else {
+      data?.reason &&
+        openAlert({
+          message: data.reason,
+        });
+    }
+  };
+
+  const returnType = useMemo(() => {
+    if (claimInfo.payType === 'NAVER_PAY') {
+      return 'BUYER_DIRECT_RETURN';
+    }
+
+    return returnWay;
+  }, [returnWay, claimInfo.payType]);
+
   return (
     <section className="claim__section claim__section--no-padding claim__address">
       <p className="claim__title">반품 수거 정보</p>
@@ -115,14 +144,15 @@ const CollectionInfoForm = ({ refs }) => {
                 className={`claim__radio${option.value === returnWay ? ' claim__radio--checked' : ''}`}
                 name="collection-method"
                 {...option}
-                checked={option.value === returnWay}
-                onChange={() => updateReturnWay(option.value)}
+                checked={option.value === returnType}
+                onClick={() => handleReturnWayChange(option.value)}
+                onChange={() => handleReturnWayChange(option.value)}
               />
             ))}
           </div>
         </div>
 
-        {returnWay === 'SELLER_COLLECT' && (
+        {returnType === 'SELLER_COLLECT' && (
           <>
             <div className="claim__address-form-item">
               <p className="claim__address-form-title">반품자명</p>
@@ -181,7 +211,7 @@ const CollectionInfoForm = ({ refs }) => {
           </>
         )}
 
-        {returnWay === 'BUYER_DIRECT_RETURN' && (
+        {returnType === 'BUYER_DIRECT_RETURN' && (
           <>
             <div className="claim__address-form-item">
               <p className="claim__address-form-title">반품 주소지</p>

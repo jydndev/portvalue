@@ -130,7 +130,6 @@ const OrdererInfoForm = ({ refs }) => {
               <label className="order-sheet__item-subject">{t('password')}</label>
               <TextField
                 ref={refs.passwordInputRef}
-                value={guestInfo.password}
                 onChange={(e) => handleNonMemberInfoChange(e, 'password')}
                 type="password"
                 maxLength={20}
@@ -144,7 +143,6 @@ const OrdererInfoForm = ({ refs }) => {
               <label className="order-sheet__item-subject">{t('passwordForConfirmation')}</label>
               <TextField
                 ref={refs.passwordForConfirmationInputRef}
-                value={guestInfo.passwordForConfirmation}
                 onChange={(e) => handleNonMemberInfoChange(e, 'passwordForConfirmation')}
                 type="password"
                 maxLength={20}

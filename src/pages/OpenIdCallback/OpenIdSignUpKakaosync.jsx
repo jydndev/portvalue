@@ -133,7 +133,6 @@ const OpenIdSignUpKakaosync = ({ orderSheetNo, previousPath, nextPath }) => {
             type="password"
             placeholder="비밀번호"
             onChange={handleKakaosyncSignUpMemberPassword}
-            value={password}
             valid={'NO_SPACE'}
           />
         </div>

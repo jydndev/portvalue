@@ -56,6 +56,8 @@ const OrderDetailProductTable = () => {
             deliveryCompanyTypeLabel,
             invoiceNo,
             deliverable,
+            claimStatusType,
+            delivery,
           }) => (
             <div key={optionNo} className="order-detail__product">
               <p className="order-detail__product-top-label">
@@ -67,7 +69,11 @@ const OrderDetailProductTable = () => {
                   if (actionOfViewDelivery) {
                     return (
                       <span className="order-detail__delivery-info">
-                        <span>{`${deliveryCompanyTypeLabel} ${invoiceNo}`}</span>
+                        <VisibleComponent
+                          shows={delivery.deliveryType === 'DIRECT_DELIVERY'}
+                          TruthyComponent={<span>직접배송</span>}
+                          FalsyComponent={<span>{`${deliveryCompanyTypeLabel} ${invoiceNo}`}</span>}
+                        />
                         <NextActionButton
                           productNo={productNo}
                           optionNo={optionNo}
@@ -75,6 +81,9 @@ const OrderDetailProductTable = () => {
                           nextActionType={'VIEW_DELIVERY'}
                           trackingDeliveryUri={actionOfViewDelivery.uri}
                           pgType={orderDetail?.payType}
+                          claimStatusType={claimStatusType}
+                          orderStatusType={orderStatusType}
+                          deliveryType={delivery.deliveryType}
                         />
                       </span>
                     );
@@ -118,6 +127,8 @@ const OrderDetailProductTable = () => {
                           productImageUrl={imageUrl}
                           deliverable={deliverable}
                           pgType={orderDetail?.payType}
+                          claimStatusType={claimStatusType}
+                          deliveryType={delivery.deliveryType}
                         />
                       ))}
                   </div>

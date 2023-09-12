@@ -26,7 +26,7 @@ const SignUpForm = () => {
   } = useSignUpActionContext();
 
   const {
-    signUpMemberInfo: { memberId, password, passwordCheck, memberName },
+    signUpMemberInfo: { memberId, password, memberName },
     timerTime,
     authenticationsRemainTimeBySeconds,
   } = useSignUpStateContext();
@@ -147,7 +147,6 @@ const SignUpForm = () => {
           <TextField
             name="password"
             id="password"
-            value={password}
             placeholder="비밀번호 (영문, 숫자, 특수문자 8-15자)"
             type="password"
             onChange={handleFormValueChange}
@@ -167,7 +166,6 @@ const SignUpForm = () => {
           <TextField
             name="passwordCheck"
             id="passwordCheck"
-            value={passwordCheck}
             placeholder="비밀번호 재입력"
             type="password"
             onChange={handleFormValueChange}

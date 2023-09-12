@@ -67,6 +67,10 @@ const Purchase = () => {
     });
   };
 
+  const handleError = (error) => {
+    catchError(error, () => navigate(0));
+  };
+
   useEffect(() => {
     (async () => {
       const usesNaverPayOrder = await checkUsesNaverPayOrder();
@@ -166,8 +170,8 @@ const Purchase = () => {
           </em>
         </p>
         <div className="purchase__btns">
-          <AddToCartBtn onClick={handleCartBtnClick} onError={(e) => catchError(e)} channelType={channelType} />
-          <MakeOrderBtn onClick={handleMakeOrderBtnClick} onError={(e) => catchError(e)} channelType={channelType} />
+          <AddToCartBtn onClick={handleCartBtnClick} onError={(e) => handleError(e)} channelType={channelType} />
+          <MakeOrderBtn onClick={handleMakeOrderBtnClick} onError={(e) => handleError(e)} channelType={channelType} />
         </div>
         <div id="naver-pay" className="purchase__naver-pay-btn" />
       </div>

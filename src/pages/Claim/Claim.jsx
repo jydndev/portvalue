@@ -6,6 +6,7 @@ import { oneOf } from 'prop-types';
 
 import {
   ClaimProvider,
+  NextActionProvider,
   useClaimActionContext,
   useClaimStateContext,
   useModalActionContext,
@@ -157,7 +158,9 @@ const Claim = () => {
   const claimType = useMemo(() => searchParams.get('claimType'), [searchParams]);
   return (
     <ClaimProvider claimType={claimType}>
-      <ClaimContent claimType={claimType} />
+      <NextActionProvider>
+        <ClaimContent claimType={claimType} />
+      </NextActionProvider>
     </ClaimProvider>
   );
 };
