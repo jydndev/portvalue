@@ -2,7 +2,6 @@ import { forwardRef, useImperativeHandle, useState } from 'react';
 
 import { Button, Checkbox, useOrderSheetActionContext, useOrderSheetStateContext } from '@shopby/react-components';
 
-import { CustomTerms } from '../../components/CustomTerms';
 import FullModal from '../../components/FullModal';
 import Sanitized from '../../components/Sanitized/Sanitized';
 import { EXTERNAL_CUSTOM_ORDER_SHEET_TERMS } from '../../constants';
