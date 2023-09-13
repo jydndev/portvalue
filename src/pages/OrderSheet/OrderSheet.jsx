@@ -16,12 +16,11 @@ import {
   DEFAULT_ORDER_SHEET_PROVIDER_STATE,
   usePageScriptsActionContext,
   useMallStateContext,
-  CustomTermsProvider,
-  useCustomTermsStateContext,
 } from '@shopby/react-components';
-import { getPlatformByMobile, isSignedIn, parsePhoneNumber, CUSTOM_TERMS_CATEGORY_TYPE } from '@shopby/shared';
+import { getPlatformByMobile, isSignedIn, parsePhoneNumber } from '@shopby/shared';
 
 import { useErrorBoundaryActionContext } from '../../components/ErrorBoundary';
+import { EXTERNAL_CUSTOM_ORDER_SHEET_TERMS } from '../../constants';
 import useLayoutChanger from '../../hooks/useLayoutChanger';
 import { convertBooleanToYorN } from '../../utils';
 
@@ -33,19 +32,6 @@ import PromotionController from './PromotionController';
 import ShippingAddressInfoForm from './ShippingAddressInfoForm';
 import TermsChecker from './TermsChecker';
 import useValidateFormMaker from './useValidateFormMaker';
-
-const CUSTOM_ORDER_SHEET_TERMS = [
-  {
-    label: '구매하실 상품의 결제 정보를 확인하였으며, 구매 진행에 동의합니다.',
-    termsType: '구매하실 상품의 결제 정보를 확인하였으며, 구매 진행에 동의합니다.', // 확장성 고려
-    isRequired: true,
-  },
-];
-
-const filterAgreementTypes = (termsStatus) =>
-  Object.keys(termsStatus).filter(
-    (termsType) => !CUSTOM_ORDER_SHEET_TERMS.map(({ termsType }) => termsType).includes(termsType)
-  );
 
 const OrderSheetContent = () => {
   const { state } = useLocation();
@@ -67,6 +53,7 @@ const OrderSheetContent = () => {
       bankAccountSelectRef: createRef(),
       remitterNameInputRef: createRef(),
     },
+    termsCheckerRef: createRef(),
   };
   const { orderSheetNo } = useParams();
   const { t } = useTranslation('title');
@@ -85,7 +72,6 @@ const OrderSheetContent = () => {
     selectedPayMethod,
     myPayInfo,
   } = useOrderSheetStateContext();
-  const { agreedAllRequiredTerms, agreedTermsNos: customTermsNos } = useCustomTermsStateContext();
   const { applyPageScripts } = usePageScriptsActionContext();
   const { fetchMyShippingAddress } = useMyShippingAddressActionContext();
   const { defaultAddress } = useMyShippingAddressStateContext();
@@ -158,7 +144,6 @@ const OrderSheetContent = () => {
       shippingAddressInfo,
       needsShippingAddressInfo: hasDeliverableProduct,
       termsStatus,
-      agreedAllRequiredTerms,
       needsDepositBankForm,
       bankAccountToDeposit,
       remitterName,
@@ -168,7 +153,7 @@ const OrderSheetContent = () => {
     if (!isValid) return;
 
     try {
-      const agreementTypes = filterAgreementTypes(termsStatus);
+      const { customTermsNos, agreementTypes } = orderSheetRef.termsCheckerRef.current;
 
       order({
         platform: isMobile ? 'MOBILE_WEB' : 'PC',
@@ -189,7 +174,7 @@ const OrderSheetContent = () => {
       <PromotionController />
       <PaymentInfo />
       <PayMethodSelector refs={orderSheetRef.depositBankFormRef} />
-      <TermsChecker />
+      <TermsChecker ref={orderSheetRef.termsCheckerRef} />
       <Button className="order-sheet__pay-btn" label={'결제 하기'} onClick={handleOrderBtnClick} />
     </div>
   );
@@ -204,17 +189,10 @@ const OrderSheet = () => {
   }, []);
 
   return (
-    <OrderSheetProvider
-      clientId={clientId}
-      mallProfile={mallProfile}
-      customTerms={CUSTOM_ORDER_SHEET_TERMS}
-      termTypesToExclude={'ORDER_INFO_AGREE'}
-    >
+    <OrderSheetProvider clientId={clientId} mallProfile={mallProfile} customTerms={EXTERNAL_CUSTOM_ORDER_SHEET_TERMS}>
       <MyShippingAddressProvider>
         <MyPayProvider clientId={clientId} mallProfile={mallProfile} platform={getPlatformByMobile(isMobile)}>
-          <CustomTermsProvider customCategoryType={CUSTOM_TERMS_CATEGORY_TYPE.ORDER}>
-            <OrderSheetContent />
-          </CustomTermsProvider>
+          <OrderSheetContent />
         </MyPayProvider>
       </MyShippingAddressProvider>
     </OrderSheetProvider>

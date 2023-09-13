@@ -7,13 +7,13 @@ import FullModal from '../FullModal';
 import Sanitized from '../Sanitized';
 
 const CustomTerms = ({ isRounded = false }) => {
-  const { customTerms: customTermsForMember, customTerm, openCustomTermModal } = useCustomTermsStateContext();
+  const { customTerms, customTerm, openCustomTermModal } = useCustomTermsStateContext();
 
   const { updateCheckStateBy, updateCustomTerm, resetCustomTerm } = useCustomTermsActionContext();
 
   return (
     <ul className="custom-terms">
-      {customTermsForMember.map(({ termsNo, title, required, content, checked, disabled = false }) => {
+      {customTerms.map(({ termsNo, title, required, content, checked, disabled = false }) => {
         const disabledClassName = disabled ? 'disabled' : '';
 
         return (

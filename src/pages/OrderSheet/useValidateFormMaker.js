@@ -43,7 +43,6 @@ const useValidateFormMaker = (ref) => {
     termsStatus,
     selectedPayMethod,
     myPayInfo,
-    agreedAllRequiredTerms,
   }) => {
     const ordererInfoValidation = {
       isOrdererNameEmpty: () => {
@@ -306,7 +305,7 @@ const useValidateFormMaker = (ref) => {
     const termsStatusValidation = {
       isSomeRequiredTermNotChecked: () => {
         const requiredTermsStatusValues = Object.values(termsStatus).filter(({ isRequired }) => isRequired);
-        if (requiredTermsStatusValues.every(({ isChecked }) => isChecked) && agreedAllRequiredTerms) return false;
+        if (requiredTermsStatusValues.every(({ isChecked }) => isChecked)) return false;
 
         openAlert({
           message: '약관 동의 필수 항목에 체크하여야 결제를 진행할 수 있습니다.',
