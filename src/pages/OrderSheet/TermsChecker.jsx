@@ -80,7 +80,6 @@ const TermsChecker = forwardRef((_, ref) => {
           )}
         </div>
       ))}
-      <CustomTerms isRounded={true} />
       {Boolean(isTermContentsModalOpen && clickedTerm) && (
         <FullModal title={clickedTerm.title} onClose={handleTermContentModalClose}>
           <Sanitized html={clickedTerm.contents} style={{ padding: '20px' }} />
