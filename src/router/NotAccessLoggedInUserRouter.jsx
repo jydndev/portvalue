@@ -9,6 +9,10 @@ const NotAccessLoggedInUserRouter = ({ children }) => {
 
   if (!isSignedIn() || state?.shouldRoute) return children;
 
+  if (state?.to === location.pathname) {
+    return children;
+  }
+
   if (state?.to) {
     return <Navigate to={state.to} state={{ ...state }} replace={true} />;
   }

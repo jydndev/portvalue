@@ -87,6 +87,15 @@ const OpenIdCallbackForm = () => {
 
     if (code) {
       divideProfileStatus();
+    } else {
+      const error = params.get('error');
+      error &&
+        navigate('/', {
+          state: {
+            shouldRoute: true,
+          },
+          replace: true,
+        });
     }
   }, []);
 
