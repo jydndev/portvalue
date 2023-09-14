@@ -185,7 +185,7 @@ const LikeList = () => {
               productName={productInformation?.productName}
               productImageUrl={productInformation?.imageUrls[0]}
               ButtonGroup={(props) => (
-                <div className="board-form__button-group">
+                <>
                   <Button
                     className="review-form__submit-btn review-form__btn"
                     theme="dark"
@@ -198,7 +198,7 @@ const LikeList = () => {
                     label="등록"
                     onClick={() => handleProductInquiryFormSubmit(props)}
                   />
-                </div>
+                </>
               )}
             />
           </FullModal>

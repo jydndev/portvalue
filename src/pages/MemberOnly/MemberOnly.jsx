@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { SignInProvider, OpenIdSignInProvider, CustomTermsProvider } from '@shopby/react-components';
-import { CUSTOM_TERMS_CATEGORY_TYPE, isSignedIn } from '@shopby/shared';
+import { SignInProvider, OpenIdSignInProvider } from '@shopby/react-components';
+import { isSignedIn } from '@shopby/shared';
 
 import SignInForm from '../SignIn/SignInForm';
 
@@ -31,11 +31,9 @@ const MemberOnly = () => {
       </p>
 
       <SignInProvider>
-        <CustomTermsProvider customCategoryType={CUSTOM_TERMS_CATEGORY_TYPE.MEMBER}>
-          <OpenIdSignInProvider>
-            <SignInForm usesOnlySignIn={true} onSignIn={handleSignIn} />
-          </OpenIdSignInProvider>
-        </CustomTermsProvider>
+        <OpenIdSignInProvider>
+          <SignInForm usesOnlySignIn={true} onSignIn={handleSignIn} />
+        </OpenIdSignInProvider>
       </SignInProvider>
     </div>
   );

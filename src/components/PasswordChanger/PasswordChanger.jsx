@@ -37,10 +37,6 @@ const PasswordChanger = ({ useNextChanger = false, onSubmit, onNext }) => {
 
     if (!newPasswordChanger.isValid) return newPasswordChanger.message;
 
-    if (newPasswordChanger.password === currentPasswordChanger.password) {
-      return '현재 비밀번호와 동일한 비밀번호는 사용할 수 없습니다.';
-    }
-
     return '';
   };
 

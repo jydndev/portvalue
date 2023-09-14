@@ -189,10 +189,12 @@ const MyPage = () => {
             </Link>
           }
         />
-        <Link className="my-link" to="/member-modification">
-          회원정보 수정
-          <IconBtn className="my-link__ico" iconType="angle-down" />
-        </Link>
+        {profile.memberType === 'MALL' && (
+          <Link className="my-link" to="/member-modification">
+            회원정보 수정
+            <IconBtn className="my-link__ico" iconType="angle-down" />
+          </Link>
+        )}
         <Link className="my-link" to="/my-page/shipping-address">
           배송지 관리
           <IconBtn className="my-link__ico" iconType="angle-down" />

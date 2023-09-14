@@ -36,7 +36,9 @@ const MemberModificationEmailForm = () => {
   } = useMemberModificationStateContext();
   const { mallJoinConfig } = useMallStateContext();
 
-  const [emailId = '', emailDomain = ''] = useMemo(() => newEmail?.split('@') ?? [], [newEmail]);
+  const emailSeparation = useMemo(() => newEmail.split('@'), [newEmail]);
+  const emailId = [emailSeparation[0]];
+  const emailDomain = [emailSeparation[1]];
   const emailRef = useRef(null);
   const [domainSelectorValue, setDomainSelectorValue] = useState('');
 
