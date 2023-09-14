@@ -89,6 +89,7 @@ const CheckMemberPassword = ({ onAuthenticationBtnClick }) => {
             }}
           />
           <Button
+            className="verification"
             label="인증하기"
             onClick={() => {
               checkPasswordBtnClick(password);

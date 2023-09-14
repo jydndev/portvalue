@@ -72,9 +72,10 @@ const Review = () => {
       requestOption: {
         sortType: sortOption.sortType,
         sortDirectionType: sortOption.sortDirectionType,
+        productNo,
       },
     });
-  }, [sortType]);
+  }, [productNo, sortType]);
 
   return (
     <div className="product-content-review">
