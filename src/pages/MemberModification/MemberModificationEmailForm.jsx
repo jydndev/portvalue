@@ -27,18 +27,18 @@ const MemberModificationEmailForm = () => {
     updateValidationStatus,
     validateEmail,
   } = useMemberModificationActionContext();
-
   const {
     newEmail,
     certificatedNumber,
     authenticationsRemainTimeBySeconds,
     isAuthenticationReSend,
     authenticateEmail,
-    memberModificationInfo,
   } = useMemberModificationStateContext();
   const { mallJoinConfig } = useMallStateContext();
 
-  const [emailId = '', emailDomain = ''] = useMemo(() => newEmail?.split('@') ?? [], [newEmail]);
+  const emailSeparation = useMemo(() => newEmail.split('@'), [newEmail]);
+  const emailId = [emailSeparation[0]];
+  const emailDomain = [emailSeparation[1]];
   const emailRef = useRef(null);
   const [domainSelectorValue, setDomainSelectorValue] = useState('');
 
@@ -101,8 +101,6 @@ const MemberModificationEmailForm = () => {
     return false;
   }, [mallJoinConfig]);
 
-  const isSocialMember = useMemo(() => !!memberModificationInfo?.providerType, [memberModificationInfo?.providerType]);
-
   return (
     <>
       <div className="member-modification-form__item">
@@ -117,8 +115,8 @@ const MemberModificationEmailForm = () => {
             onIdChange={handleEmailIdInputChange}
             onDomainChange={handleEmailDomainInputChange}
             onDomainBlur={handleDomainBlur}
-            idDisabled={!isSocialMember && isEmailType && isAuthenticationReSend}
-            domainDisabled={!isSocialMember && isEmailType && isAuthenticationReSend}
+            idDisabled={isEmailType && isAuthenticationReSend}
+            domainDisabled={isEmailType && isAuthenticationReSend}
           />
           <SelectBox
             hasEmptyOption={true}
@@ -126,10 +124,10 @@ const MemberModificationEmailForm = () => {
             value={domainSelectorValue}
             onSelect={handleEmailDomainSelect}
             options={EMAIL_DOMAIN_OPTIONS}
-            disabled={!isSocialMember && isEmailType && isAuthenticationReSend}
+            disabled={isEmailType && isAuthenticationReSend}
           />
         </div>
-        {mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.AUTHENTICATION_BY_EMAIL && !isSocialMember && (
+        {mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.AUTHENTICATION_BY_EMAIL && (
           <Button
             className="member-modification-form__btn--certificate"
             label={isAuthenticationReSend ? `재인증` : `인증번호 발송`}
@@ -140,7 +138,7 @@ const MemberModificationEmailForm = () => {
         )}
         <ValidationStatus name="email" />
       </div>
-      {!isSocialMember && isEmailAuthentication && (
+      {isEmailAuthentication && (
         <div className="member-modification-form__item">
           <label htmlFor="certificatedNumber" className="member-modification-form__tit">
             인증번호

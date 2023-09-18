@@ -68,7 +68,7 @@ const GalleryListPage = ({
                 promotionText,
                 productName,
                 immediateDiscountAmt,
-                additionDiscountAmt,
+                additionalDiscountAmt,
                 frontDisplayYn,
               }) =>
                 frontDisplayYn && (
@@ -85,11 +85,7 @@ const GalleryListPage = ({
                     <ProductThumbInfo
                       promotionText={promotionText}
                       productName={productName}
-                      salePrice={calculateDiscountedPrice({
-                        salePrice,
-                        immediateDiscountAmt,
-                        additionDiscountAmt,
-                      })}
+                      salePrice={calculateDiscountedPrice({ salePrice, immediateDiscountAmt, additionalDiscountAmt })}
                     />
                   </ThumbItem>
                 )

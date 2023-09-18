@@ -1,13 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  SignUpProvider,
-  IdentificationVerificationProvider,
-  AgeVerificationProvider,
-  CustomTermsProvider,
-} from '@shopby/react-components';
-import { CUSTOM_TERMS_CATEGORY_TYPE } from '@shopby/shop-sdk';
+import { SignUpProvider, IdentificationVerificationProvider, AgeVerificationProvider } from '@shopby/react-components';
 
 import useLayoutChanger from '../../hooks/useLayoutChanger';
 
@@ -29,13 +23,11 @@ const SignUp = () => {
     <SignUpProvider>
       <AgeVerificationProvider>
         <IdentificationVerificationProvider>
-          <CustomTermsProvider customCategoryType={CUSTOM_TERMS_CATEGORY_TYPE.MEMBER}>
-            <div className="sign-up-form">
-              <SignUpForm />
-              <TermsForm setIsTermsFullModalOpen={() => setIsTermsFullModalOpen(true)} />
-              <SignUpButton />
-            </div>
-          </CustomTermsProvider>
+          <div className="sign-up-form">
+            <SignUpForm />
+            <TermsForm setIsTermsFullModalOpen={() => setIsTermsFullModalOpen(true)} />
+            <SignUpButton />
+          </div>
           {isTermsFullModalOpen && <TermsModal onClose={() => setIsTermsFullModalOpen(false)} />}
         </IdentificationVerificationProvider>
       </AgeVerificationProvider>
