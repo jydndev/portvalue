@@ -7,11 +7,12 @@ import {
   useAuthStateContext,
   useBannerStateContext,
   useMallStateContext,
+  useNaverShoppingConfigurationStateContext,
   usePageScriptsActionContext,
   useProductDetailStateContext,
   useShopbyStatisticsRecorder,
 } from '@shopby/react-components';
-import { PLATFORM_TYPE } from '@shopby/shared';
+import { PLATFORM_TYPE, initializeNaverShoppingConfiguration } from '@shopby/shared';
 
 import { META_TAG_KEY } from '../../constants/common';
 import { platformType } from '../../utils';
@@ -53,7 +54,7 @@ const createMetaTagBy = ({ product, mallName, url, bannerMap } = {}) => {
 };
 
 const Meta = () => {
-  const { mallName, mall } = useMallStateContext();
+  const { mallName, mall, externalServiceConfig } = useMallStateContext();
   const { productDetail } = useProductDetailStateContext();
   const { bannerMap } = useBannerStateContext();
   const platform = isMobile ? PLATFORM_TYPE.MOBILE_WEB : PLATFORM_TYPE.PC;
@@ -64,6 +65,7 @@ const Meta = () => {
   const { applyPageScripts } = usePageScriptsActionContext();
   const { clientId, mallProfile } = useMallStateContext();
   const { isScriptLoaded, record } = useShopbyStatisticsRecorder({ clientId, mallProfile });
+  const { configuration } = useNaverShoppingConfigurationStateContext();
 
   const { type, title, image, url } = createMetaTagBy({
     product: productDetail?.baseInfo,
@@ -71,6 +73,15 @@ const Meta = () => {
     mallName,
     url: mallUrl,
   });
+
+  const naverWebmaster = externalServiceConfig?.naverWebmaster;
+
+  useEffect(() => {
+    initializeNaverShoppingConfiguration({
+      naverWebmaster,
+      configuration,
+    });
+  }, [naverWebmaster, configuration]);
 
   useEffect(() => {
     if (isScriptLoaded && !isProfileLoading) {
@@ -114,9 +125,6 @@ const Meta = () => {
         <title>{mallName}</title>
       </Helmet>
       <ExternalServiceConfig />
-      <Helmet>
-        <script type="text/javascript" src="https://wcs.naver.net/wcslog.js"></script>
-      </Helmet>
     </>
   );
 };

@@ -2,17 +2,6 @@ import { Helmet } from 'react-helmet';
 
 import { useMallStateContext } from '@shopby/react-components';
 
-const getNaverWebmasterTag = (externalServiceConfig) => {
-  const naverWebmaster = externalServiceConfig?.naverWebmaster;
-  if (!naverWebmaster) return <></>;
-
-  return (
-    <Helmet>
-      <meta name="naver-site-verification" content={naverWebmaster} />
-    </Helmet>
-  );
-};
-
 const getGoogleAnalyticsScriptTag = (externalServiceConfig) => {
   const id = externalServiceConfig?.googleAnalytics;
   const GOOGLE_TAG_MANAGER_URL = '//www.googletagmanager.com';
@@ -56,12 +45,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 const ExternalServiceConfig = () => {
   const { externalServiceConfig } = useMallStateContext();
 
-  return (
-    <>
-      {getNaverWebmasterTag(externalServiceConfig)}
-      {getGoogleAnalyticsScriptTag(externalServiceConfig)}
-    </>
-  );
+  return <>{getGoogleAnalyticsScriptTag(externalServiceConfig)}</>;
 };
 
 export default ExternalServiceConfig;

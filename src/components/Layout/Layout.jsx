@@ -11,6 +11,7 @@ import {
   SearchAddressProvider,
   useBoardConfigurationContextAction,
   ProductDetailProvider,
+  useNaverShoppingConfigurationActionContext,
 } from '@shopby/react-components';
 import { PLATFORM_TYPE } from '@shopby/shared';
 
@@ -30,6 +31,7 @@ const platformType = isMobile ? PLATFORM_TYPE.MOBILE_WEB : PLATFORM_TYPE.PC;
 const Layout = () => {
   const [searchParams] = useSearchParams();
   const { fetchBoardConfiguration } = useBoardConfigurationContextAction();
+  const { fetchConfiguration } = useNaverShoppingConfigurationActionContext();
 
   const pageRef = useRef();
   const pageInnerRef = useRef();
@@ -37,6 +39,7 @@ const Layout = () => {
 
   useEffect(() => {
     scrollToTop();
+    fetchConfiguration();
     fetchBoardConfiguration();
   }, []);
 
