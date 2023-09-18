@@ -1,6 +1,6 @@
 {
   "name": "@shopby/react-skin",
-  "version": "1.0.57",
+  "version": "1.0.58",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -15,7 +15,7 @@
     ".": "./src/index.js"
   },
   "dependencies": {
-    "@shopby/react-components": "git+https://skins.shopby.co.kr/developers/react-components.git#v1.0.50"
+    "@shopby/react-components": "git+https://skins.shopby.co.kr/developers/react-components.git#v1.0.51"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
