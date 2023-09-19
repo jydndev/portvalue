@@ -29,7 +29,7 @@ const ProductSliderSection = ({
           promotionText,
           salePrice,
           immediateDiscountAmt,
-          additionalDiscountAmt,
+          additionDiscountAmt,
         }) =>
           frontDisplayYn && (
             <Slide key={productNo}>
@@ -49,7 +49,7 @@ const ProductSliderSection = ({
                       salePrice={calculateDiscountedPrice({
                         salePrice,
                         immediateDiscountAmt,
-                        additionalDiscountAmt,
+                        additionDiscountAmt,
                       })}
                     />
                   </a>
@@ -60,7 +60,7 @@ const ProductSliderSection = ({
                     salePrice={calculateDiscountedPrice({
                       salePrice,
                       immediateDiscountAmt,
-                      additionalDiscountAmt,
+                      additionDiscountAmt,
                     })}
                   />
                 )}

@@ -117,7 +117,7 @@ const ProductGrid = ({ className, style, displayType, products }) => (
         promotionText,
         productName,
         immediateDiscountAmt,
-        additionalDiscountAmt,
+        additionDiscountAmt,
         frontDisplayYn,
         liked,
       }) =>
@@ -153,14 +153,22 @@ const ProductGrid = ({ className, style, displayType, products }) => (
                 <ProductThumbInfo
                   promotionText={promotionText}
                   productName={productName}
-                  salePrice={calculateDiscountedPrice({ salePrice, immediateDiscountAmt, additionalDiscountAmt })}
+                  salePrice={calculateDiscountedPrice({
+                    salePrice,
+                    immediateDiscountAmt,
+                    additionDiscountAmt,
+                  })}
                 />
               </a>
             ) : (
               <ProductThumbInfo
                 promotionText={promotionText}
                 productName={productName}
-                salePrice={calculateDiscountedPrice({ salePrice, immediateDiscountAmt, additionalDiscountAmt })}
+                salePrice={calculateDiscountedPrice({
+                  salePrice,
+                  immediateDiscountAmt,
+                  additionDiscountAmt,
+                })}
               />
             )}
           </ThumbItem>
