@@ -12,7 +12,7 @@ const ClaimProductTable = ({ claimTypeLabel }) => {
   const { openAlert } = useModalActionContext();
   const { t } = useTranslation('claim');
 
-  const handleClaimAmountChange = ({ value, orderOptionNo, pgType, isQuantityDiscount }) => {
+  const handleClaimAmountChange = ({ quantity, orderOptionNo, pgType, isQuantityDiscount }) => {
     if (pgType === 'NAVER_PAY') {
       openAlert({
         message: '네이버페이 주문형 주문은 수량을 나누어 취소/반품할 수 없습니다.\n전체 수량을 선택 후 신청해 주세요.',
@@ -29,7 +29,7 @@ const ClaimProductTable = ({ claimTypeLabel }) => {
       return;
     }
 
-    changeClaimAmount({ [orderOptionNo]: value });
+    changeClaimAmount({ [orderOptionNo]: quantity });
   };
 
   return (
