@@ -146,22 +146,26 @@ const OrderDetailContent = () => {
               subtractionTotalAmt={subtractionTotalAmt}
               payTypeLabel={PAY_TYPE_MAP[payType]}
             />
-            <ClaimDetailCollectionInfo
-              returnWay={returnWayType}
-              returnerName={returnAddress.name}
-              returnerMobilePhoneNumber={returnAddress.contact1}
-              returnerPhoneNumber={returnAddress.contact2}
-              returnNote={returnAddress.note}
-              returnAddress={returnAddress.addressStr}
-            />
-            <ClaimDetailExchangeDeliveryInfo
-              exchangeOrderOption={exchangeOrderOption}
-              receiverName={exchangeAddress.name}
-              receiverAddress={exchangeAddress.addressStr}
-              receiverMobilePhoneNumber={exchangeAddress.contact1}
-              deliveryMemo={exchangeAddress.note}
-              customsId={exchangeAddress.customsIdNumber}
-            />
+            {returnAddress && (
+              <ClaimDetailCollectionInfo
+                returnWay={returnWayType}
+                returnerName={returnAddress.name}
+                returnerMobilePhoneNumber={returnAddress.contact1}
+                returnerPhoneNumber={returnAddress.contact2}
+                returnNote={returnAddress.note}
+                returnAddress={returnAddress.addressStr}
+              />
+            )}
+            {exchangeAddress && (
+              <ClaimDetailExchangeDeliveryInfo
+                exchangeOrderOption={exchangeOrderOption}
+                receiverName={exchangeAddress.name}
+                receiverAddress={exchangeAddress.addressStr}
+                receiverMobilePhoneNumber={exchangeAddress.contact1}
+                deliveryMemo={exchangeAddress.note}
+                customsId={exchangeAddress.customsIdNumber}
+              />
+            )}
           </Fragment>
         )
       )}

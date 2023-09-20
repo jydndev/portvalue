@@ -112,7 +112,7 @@ const AdultCertification = () => {
       </p>
       <p className="adult-certification__description">
         본 상품 및 내용은{' '}
-        <span className="highlight">
+        <span className="caution">
           청소년에게 유해한 정보를 <br />
           포함하고있어 성인인증 절차를 거쳐야 합니다.
         </span>

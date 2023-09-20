@@ -14,8 +14,8 @@ const BoardFormModification = forwardRef(
       {...props}
       ButtonGroup={() => (
         <>
-          <Button theme="caution" label={modifyButtonLabel} onClick={onModify} />
           <Button theme="dark" label={cancelButtonLabel} onClick={onCancel} />
+          <Button theme="caution" label={modifyButtonLabel} onClick={onModify} />
         </>
       )}
     />
