@@ -1,7 +1,0 @@
-{
-  "id-label": "아이디",
-  "password-label": "비밀번호",
-  "password-placeholder": "비밀번호 (영문, 숫자, 특수문자 8-20자)",
-  "passwordCheck-label": "비밀번호 재입력",
-  "memberName-label": "이름"
-}

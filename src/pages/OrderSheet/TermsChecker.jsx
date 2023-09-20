@@ -1,82 +1,47 @@
-import { forwardRef, useImperativeHandle, useState } from 'react';
+import { useState } from 'react';
 
-import { Button, Checkbox, useOrderSheetActionContext, useOrderSheetStateContext } from '@shopby/react-components';
+import { Button , Checkbox, useOrderSheetActionContext, useOrderSheetStateContext } from '@shopby/react-components';
 
 import FullModal from '../../components/FullModal';
 import Sanitized from '../../components/Sanitized/Sanitized';
-import { EXTERNAL_CUSTOM_ORDER_SHEET_TERMS } from '../../constants';
 
-const externalCustomOrderSheetValues = EXTERNAL_CUSTOM_ORDER_SHEET_TERMS.map(({ value }) => value);
-
-const filterValidTermsValues = (terms) =>
-  terms
-    .filter(({ isChecked, value }) => isChecked && !externalCustomOrderSheetValues.includes(value))
-    .map(({ value }) => value);
-
-const TermsChecker = forwardRef((_, ref) => {
+const TermsChecker = () => {
   const { termsStatus } = useOrderSheetStateContext();
   const { updateTermsStatus } = useOrderSheetActionContext();
   const [isTermContentsModalOpen, setIsTermContentsModalOpen] = useState(false);
   const [clickedTerm, setClickedTerm] = useState(null);
 
-  const terms = Object.values(termsStatus).filter(({ isCustom }) => !isCustom);
-  const customTerms = Object.values(termsStatus).filter(({ isCustom }) => isCustom);
+  const handleTermCheckboxClick = (e, termsType) => {
+    const isChecked = e.currentTarget.checked;
 
-  const handleTermCheckboxClick = ({ isChecked, value }) => {
     updateTermsStatus({
-      [value]: {
-        ...termsStatus[value],
+      [termsType]: {
+        ...termsStatus[termsType],
         isChecked,
       },
     });
+  };
+
+  const showDetailBtnClick = (title, contents) => {
+    setClickedTerm({ title, contents });
+    setIsTermContentsModalOpen(true);
   };
 
   const handleTermContentModalClose = () => {
     setIsTermContentsModalOpen(false);
   };
 
-  const showDetailBtnClick = ({ title, content }) => {
-    setClickedTerm({ title, contents: content });
-    setIsTermContentsModalOpen(true);
-  };
-
-  useImperativeHandle(
-    ref,
-    () => ({
-      agreementTypes: filterValidTermsValues(terms),
-      customTermsNos: filterValidTermsValues(customTerms).filter((v) => v > 0),
-    }),
-    [terms, customTerms]
-  );
-
   return (
     <section className="l-page order-sheet__terms">
-      {[...terms, ...customTerms].map(({ title, isChecked, isRequired, value, content }) => (
-        <div key={value} className="order-sheet__term-checker">
+      {Object.entries(termsStatus).map(([termsType, { isChecked, isRequired, title, contents }]) => (
+        <div key={termsType} className="order-sheet__term-checker">
           <Checkbox
             isRounded={true}
             label={`[${isRequired ? '필수' : '선택'}] ${title}`}
             checked={isChecked}
-            onClick={(event) => {
-              const isChecked = event.currentTarget.checked;
-
-              handleTermCheckboxClick({
-                isChecked,
-                value,
-              });
-            }}
+            onClick={(e) => handleTermCheckboxClick(e, termsType)}
           />
-          {content && (
-            <Button
-              label="보기"
-              onClick={() =>
-                showDetailBtnClick({
-                  title,
-                  content,
-                })
-              }
-            />
-          )}
+          {contents && <Button label="보기" onClick={() => showDetailBtnClick(title, contents)} />}
         </div>
       ))}
       {Boolean(isTermContentsModalOpen && clickedTerm) && (
@@ -86,8 +51,6 @@ const TermsChecker = forwardRef((_, ref) => {
       )}
     </section>
   );
-});
+};
 
 export default TermsChecker;
-
-TermsChecker.displayName = 'TermsChecker';
