@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { Button, useFindAccountActionContext, TextField } from '@shopby/react-components';
-import { REG_EX_FOR_CHECK_FORMAT } from '@shopby/shared';
+import { checkPassword, INVALID_PASSWORD_MESSAGE_MAP } from '@shopby/shared';
 
 import { useErrorBoundaryActionContext } from '../../components/ErrorBoundary';
 import FullModal from '../../components/FullModal';
@@ -24,17 +24,13 @@ export const ChangePasswordContent = () => {
   const [isChangePasswordFullModalOpen, setIsChangePasswordFullModalOpen] = useState(false);
 
   const validatePassword = () => {
-    if (!REG_EX_FOR_CHECK_FORMAT.PASSWORD.test(password)) {
-      setCautionMessage('영문, 숫자, 특수문자 3종류를 모두 조합하여 8-20자로 입력해주세요.');
+    const { isValid, message } = checkPassword(password);
+    if (!isValid) {
+      setCautionMessage(INVALID_PASSWORD_MESSAGE_MAP[message]);
 
       return false;
     }
 
-    if (password.length < 8 || password.length > 20) {
-      setCautionMessage('영문, 숫자, 특수문자 3종류를 모두 조합하여 8-20자로 입력해주세요.');
-
-      return false;
-    }
     setCautionMessage('');
 
     return true;

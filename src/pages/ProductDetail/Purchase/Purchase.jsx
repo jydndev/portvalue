@@ -61,7 +61,7 @@ const Purchase = () => {
       message: '장바구니에 담았습니다.',
       confirmLabel: '장바구니 가기',
       onConfirm: () => {
-        location.href = '/cart';
+        navigate('/cart');
       },
       cancelLabel: '쇼핑계속하기',
     });
@@ -102,7 +102,7 @@ const Purchase = () => {
         });
       }
     })();
-  }, [limitations?.naverPayHandling]);
+  }, [limitations?.naverPayHandling, productNo]);
 
   return (
     <div className="purchase product-detail">

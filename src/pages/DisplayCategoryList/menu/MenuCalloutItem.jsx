@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 
 import { useCategoriesStateContext } from '@shopby/react-components';
 
@@ -13,20 +13,20 @@ const MenuCalloutItem = () => {
   return (
     <div className="category-callout__sub">
       <nav className="category-callout__sub-nav">
-        <a
+        <Link
           className="category-callout__link"
-          href={`/products?categoryNo=${parentCategories?.categoryInfo?.categoryNo}`}
+          to={`/products?categoryNo=${parentCategories?.categoryInfo?.categoryNo}`}
         >
           전체보기 {'>'}
-        </a>
+        </Link>
         {currentCategories.categories?.map((category) => (
-          <a
+          <Link
             key={category.categoryNo}
             className={`${currentCategoryNo === category.categoryNo ? 'is-active' : ''} category-callout__link`}
-            href={`/products?categoryNo=${category.categoryNo}&depth=${category.depth}`}
+            to={`/products?categoryNo=${category.categoryNo}&depth=${category.depth}`}
           >
             {category.label}
-          </a>
+          </Link>
         ))}
       </nav>
     </div>

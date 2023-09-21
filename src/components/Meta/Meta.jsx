@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { Helmet } from 'react-helmet';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import {
   useAuthStateContext,
@@ -54,6 +54,7 @@ const createMetaTagBy = ({ product, mallName, url, bannerMap } = {}) => {
 };
 
 const Meta = () => {
+  const [searchParams] = useSearchParams();
   const { mallName, mall, externalServiceConfig } = useMallStateContext();
   const { productDetail } = useProductDetailStateContext();
   const { bannerMap } = useBannerStateContext();
@@ -75,6 +76,7 @@ const Meta = () => {
   });
 
   const naverWebmaster = externalServiceConfig?.naverWebmaster;
+  const productNo = Number(searchParams.get('productNo'));
 
   useEffect(() => {
     initializeNaverShoppingConfiguration({
@@ -87,7 +89,7 @@ const Meta = () => {
     if (isScriptLoaded && !isProfileLoading) {
       record(profile?.memberNo);
     }
-  }, [isScriptLoaded, isProfileLoading, location.pathname]);
+  }, [isScriptLoaded, isProfileLoading, location.pathname, productNo]);
 
   useEffect(() => {
     if (!image) return;

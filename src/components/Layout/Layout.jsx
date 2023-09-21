@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { isMobile } from 'react-device-detect';
-import { Outlet, useSearchParams } from 'react-router-dom';
+import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 
 import { bool } from 'prop-types';
 
