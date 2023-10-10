@@ -6,6 +6,7 @@ import { node } from 'prop-types';
 
 import { useMallStateContext } from '@shopby/react-components';
 import { INTRO_PAGE_TYPE_MAP, isAgeVerified, isSignedIn } from '@shopby/shared';
+import { isPreview } from '@shopby/shared/utils';
 
 const platformType = isMobile ? 'mobile' : 'pc';
 
@@ -52,8 +53,10 @@ const IntroPageRoute = ({ children }) => {
   const condition = INTRO_PAGE_ROUTING_MAP[mall.introRedirection[platformType]];
 
   useEffect(() => {
+    const shouldAcceptIntroPage = !exceptPaths.includes(location.pathname) && !isPreview();
+
     if (condition) {
-      if (!condition?.shouldGoToOwnPage() && !exceptPaths.includes(location.pathname)) {
+      if (!condition?.shouldGoToOwnPage() && shouldAcceptIntroPage) {
         navigate(condition.next, {
           replace: true,
           state: {

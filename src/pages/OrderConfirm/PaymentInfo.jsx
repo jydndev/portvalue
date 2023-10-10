@@ -19,6 +19,7 @@ const PaymentInfo = () => {
         subPayAmt,
         chargeAmt,
       },
+      accumulationAmtWhenBuyConfirm,
     },
   } = useOrderConfirmStateContext();
 
@@ -41,6 +42,7 @@ const PaymentInfo = () => {
       totalDiscountAmt={totalDiscountAmt}
       subPayAmt={subPayAmt}
       chargeAmt={chargeAmt}
+      accumulationAmtWhenBuyConfirm={accumulationAmtWhenBuyConfirm}
     />
   );
 };
