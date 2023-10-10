@@ -42,10 +42,12 @@ export const ChangePasswordContent = () => {
 
       return false;
     }
+
     setCautionMessage('');
 
     return true;
   };
+
   const handlePasswordChange = ({ currentTarget: { value } }) => {
     setPassword(value);
   };
