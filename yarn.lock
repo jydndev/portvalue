@@ -1459,11 +1459,11 @@
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.9.0.tgz#9033238b41c4cbe1e961eccb3f79e2c588328cf6"
   integrity sha512-bV63itrKBC0zdT27qYm6SDZHlkXwFL1xMBuhkn+X7l0+IIhNaH5wuuvZKp6eKhCD4KFhujhfhCT1YxXW6esUIA==
 
-"@shopby/react-components@git+https://skins.shopby.co.kr/developers/react-components.git#v1.2.3":
-  version "1.2.3"
-  resolved "git+https://skins.shopby.co.kr/developers/react-components.git#77300f792367be058f2312c0ed3241c5de59bf71"
+"@shopby/react-components@git+https://skins.shopby.co.kr/developers/react-components.git#v1.2.4":
+  version "1.2.4"
+  resolved "git+https://skins.shopby.co.kr/developers/react-components.git#7a075055e0ef648e76f42db3e33b2b15932a282a"
   dependencies:
-    "@shopby/shared" "git+https://skins.shopby.co.kr/developers/shared.git#v1.2.3"
+    "@shopby/shared" "git+https://skins.shopby.co.kr/developers/shared.git#v1.2.4"
     html-react-parser "^3.0.7"
     https-browserify "^1.0.0"
     react "^18.2.0"
@@ -1471,9 +1471,9 @@
     react-router-dom "^6.4.3"
     swiper "^8.4.5"
 
-"@shopby/shared@git+https://skins.shopby.co.kr/developers/shared.git#v1.2.3":
-  version "1.2.3"
-  resolved "git+https://skins.shopby.co.kr/developers/shared.git#8dc2f355279f5c3e1df06fb07a0f9a0ba2b3abb0"
+"@shopby/shared@git+https://skins.shopby.co.kr/developers/shared.git#v1.2.4":
+  version "1.2.4"
+  resolved "git+https://skins.shopby.co.kr/developers/shared.git#48ff6ead28fc92614b2eddddfba74353d2f62973"
   dependencies:
     "@shopby/shop-sdk" "1.63.17"
     fetch-jsonp "^1.2.3"
@@ -2807,7 +2807,7 @@ chalk@^3.0.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.1:
+chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
@@ -2824,6 +2824,11 @@ chardet@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
+
+child_process@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/child_process/-/child_process-1.0.2.tgz#b1f7e7fc73d25e7fd1d455adc94e143830182b5a"
+  integrity sha512-Wmza/JzL0SiWz7kl6MhIKT5ceIlnFPJX+lwUGj7Clhy5MMldsSoJR0+uvRzOS5Kv45Mq7t1PoE8TsOA9bzvb6g==
 
 chokidar@^3.4.2, chokidar@^3.5.3:
   version "3.5.3"
@@ -4958,7 +4963,7 @@ inline-style-parser@0.1.1:
   resolved "https://registry.yarnpkg.com/inline-style-parser/-/inline-style-parser-0.1.1.tgz#ec8a3b429274e9c0a1f1c4ffa9453a7fef72cea1"
   integrity sha512-7NXolsK4CAS5+xvdj5OMMbI962hU/wvwoxk+LWR9Ek9bVtyuuYScDN6eS0rUm6TxApFpw7CX1o4uJzcd4AyD3Q==
 
-inquirer@^8.2.0:
+inquirer@^8.2.0, inquirer@^8.2.4:
   version "8.2.6"
   resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-8.2.6.tgz#733b74888195d8d400a67ac332011b5fae5ea562"
   integrity sha512-M1WuAmb7pn9zdFRtQYk26ZBoY043Sse0wVDdk4Bppr+JOXyQYybdtvK+l9wUibhtjdjvtoiNy8tk+EgsYIUqKg==

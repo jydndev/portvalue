@@ -1,6 +1,6 @@
 {
   "name": "@shopby/react-skin",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -13,9 +13,6 @@
   },
   "exports": {
     ".": "./src/index.js"
-  },
-  "dependencies": {
-    "@shopby/react-components": "git+https://skins.shopby.co.kr/developers/react-components.git#v1.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
@@ -70,7 +67,10 @@
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.11.1",
     "webpack-merge": "^5.8.0",
-    "whatwg-fetch": "^3.6.2"
+    "whatwg-fetch": "^3.6.2",
+    "child_process": "^1.0.2",
+    "inquirer": "^8.2.4",
+    "chalk": "^4.1.2"
   },
   "msw": {
     "workerDirectory": "public"
@@ -85,5 +85,8 @@
       "prettier --write",
       "eslint --fix"
     ]
+  },
+  "dependencies": {
+    "@shopby/react-components": "git+https://skins.shopby.co.kr/developers/react-components.git#v1.2.4"
   }
 }
