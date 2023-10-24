@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -78,6 +78,12 @@ const MemberInformation = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const memberTypeLabel = useMemo(() => {
+    if (profile.memberType === 'MALL' || profile.providerType.includes('NCPSTORE')) return '쇼핑몰';
+
+    return profile.providerType;
+  }, [profile.memberType, profile.providerType]);
+
   useEffect(() => {
     fetchProfileGrade();
   }, []);
@@ -98,9 +104,7 @@ const MemberInformation = () => {
           </span>
         </Button>
       </div>
-      <span className="my-info__member-type">
-        {profile.memberType === 'MALL' ? '쇼핑몰' : profile.providerType} 아이디 회원
-      </span>
+      <span className="my-info__member-type">{memberTypeLabel} 아이디 회원</span>
       <VisibleComponent
         shows={isOpen}
         TruthyComponent={

@@ -46,6 +46,7 @@ const PayMethodSelector = ({ refs }) => {
     needsDepositBankForm,
     hasMyPayPayment,
     myPayInfo: selectedMyPayInfo,
+    paymentInfo: { paymentAmt },
   } = useOrderSheetStateContext();
   const {
     updateSelectedPayMethod,
@@ -161,6 +162,7 @@ const PayMethodSelector = ({ refs }) => {
       </div>
       {selectedPayMethod?.pgType === PG_TYPES_MAP.MY_PAY && (
         <MyPay
+          paymentAmt={paymentAmt}
           myPayInfo={orderSheet?.myPayInfo}
           selectedMyPayInfo={selectedMyPayInfo}
           onClickWithdrawFromMyPayService={handleClickWithdrawFromMyPayService}

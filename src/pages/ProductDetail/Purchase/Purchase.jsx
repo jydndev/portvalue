@@ -84,7 +84,7 @@ const Purchase = () => {
           onBeforeBuyButtonClick: async () => {
             const {
               data: { products },
-            } = await fetchOptionToMakeOrder();
+            } = await fetchOptionToMakeOrder({ channelType });
 
             const naverPayItems = products.map(({ orderCnt, channelType, optionInputs, optionNo, productNo }) => ({
               orderCnt,

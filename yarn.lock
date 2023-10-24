@@ -1459,9 +1459,9 @@
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.9.0.tgz#9033238b41c4cbe1e961eccb3f79e2c588328cf6"
   integrity sha512-bV63itrKBC0zdT27qYm6SDZHlkXwFL1xMBuhkn+X7l0+IIhNaH5wuuvZKp6eKhCD4KFhujhfhCT1YxXW6esUIA==
 
-"@shopby/react-components@git+https://skins.shopby.co.kr/developers/react-components.git#v1.2.4":
-  version "1.2.4"
-  resolved "git+https://skins.shopby.co.kr/developers/react-components.git#7a075055e0ef648e76f42db3e33b2b15932a282a"
+"@shopby/react-components@git+https://skins.shopby.co.kr/developers/react-components.git#v1.2.5":
+  version "1.2.5"
+  resolved "git+https://skins.shopby.co.kr/developers/react-components.git#68f9f6c1d80b1a093867a2fb351845e719f27468"
   dependencies:
     "@shopby/shared" "git+https://skins.shopby.co.kr/developers/shared.git#v1.2.4"
     html-react-parser "^3.0.7"
