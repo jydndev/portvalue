@@ -20,6 +20,9 @@ module.exports = {
     static: {
       directory: './dist',
     },
+    client: {
+      overlay: false,
+    },
   },
   output: {
     filename: '[name].[chunkhash].bundle.js',
@@ -80,8 +83,8 @@ module.exports = {
         test: /\.(jpg|jpeg|png|gif|svg|mp4)$/,
         type: 'asset/resource',
         generator: {
-          filename: '[name].[ext]?[hash]'
-        }
+          filename: '[name].[ext]?[hash]',
+        },
       },
       {
         test: /\.(ico)$/,
