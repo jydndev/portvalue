@@ -73,10 +73,14 @@ const ClaimsContent = () => {
 
   const initializeClaims = useCallback(
     debounce(async (claimsRequestOption) => {
-      await fetchClaims({ ...claimsRequestOption, pageNumber: 1 });
-      setPageNumber(1);
-      setIsInfiniteScrollLoaderDisabled(false);
-      setIsLoading(false);
+      try {
+        await fetchClaims({ ...claimsRequestOption, pageNumber: 1 });
+        setPageNumber(1);
+        setIsInfiniteScrollLoaderDisabled(false);
+        setIsLoading(false);
+      } catch (e) {
+        catchError(e);
+      }
     }, 500),
     []
   );

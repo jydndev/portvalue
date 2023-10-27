@@ -10,6 +10,7 @@ import {
   VisibleComponent,
 } from '@shopby/react-components';
 
+import { useErrorBoundaryActionContext } from '../../../components/ErrorBoundary';
 import StartYmdSelector from '../../../components/StartYmdSelector';
 import useLayoutChanger from '../../../hooks/useLayoutChanger';
 
@@ -34,6 +35,7 @@ const OrdersContent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isInfiniteScrollLoaderDisabled, setIsInfiniteScrollLoaderDisabled] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
+  const { catchError } = useErrorBoundaryActionContext();
 
   useLayoutChanger({
     title: '주문/배송 목록',
@@ -61,10 +63,14 @@ const OrdersContent = () => {
 
   useEffect(() => {
     (async () => {
-      await fetchOrders({ ...ordersRequestOption, pageNumber: 1 });
-      setPageNumber(1);
-      setIsInfiniteScrollLoaderDisabled(false);
-      setIsLoading(false);
+      try {
+        await fetchOrders({ ...ordersRequestOption, pageNumber: 1 });
+        setPageNumber(1);
+        setIsInfiniteScrollLoaderDisabled(false);
+        setIsLoading(false);
+      } catch (e) {
+        catchError(e);
+      }
     })();
   }, [ordersRequestOption]);
 
