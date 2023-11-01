@@ -18,7 +18,7 @@ const Main = () => {
   }, []);
 
   return (
-    <ProductSectionProvider>
+    <ProductSectionProvider platformType={platformType}>
       <MainContents platformType={platformType} />
     </ProductSectionProvider>
   );
