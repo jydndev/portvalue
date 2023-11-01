@@ -1459,11 +1459,11 @@
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.9.0.tgz#9033238b41c4cbe1e961eccb3f79e2c588328cf6"
   integrity sha512-bV63itrKBC0zdT27qYm6SDZHlkXwFL1xMBuhkn+X7l0+IIhNaH5wuuvZKp6eKhCD4KFhujhfhCT1YxXW6esUIA==
 
-"@shopby/react-components@git+https://skins.shopby.co.kr/developers/react-components.git#v1.2.6":
-  version "1.2.6"
-  resolved "git+https://skins.shopby.co.kr/developers/react-components.git#6a6500c896c07430ea4b25d8af59ec06adb747cb"
+"@shopby/react-components@git+https://skins.shopby.co.kr/developers/react-components.git#v1.2.7":
+  version "1.2.7"
+  resolved "git+https://skins.shopby.co.kr/developers/react-components.git#ec2c14d28f0509f8a0ad0c4cd68b19743e852939"
   dependencies:
-    "@shopby/shared" "git+https://skins.shopby.co.kr/developers/shared.git#v1.2.4"
+    "@shopby/shared" "git+https://skins.shopby.co.kr/developers/shared.git#v1.2.5"
     html-react-parser "^3.0.7"
     https-browserify "^1.0.0"
     react "^18.2.0"
@@ -1471,9 +1471,9 @@
     react-router-dom "^6.4.3"
     swiper "^8.4.5"
 
-"@shopby/shared@git+https://skins.shopby.co.kr/developers/shared.git#v1.2.4":
-  version "1.2.4"
-  resolved "git+https://skins.shopby.co.kr/developers/shared.git#48ff6ead28fc92614b2eddddfba74353d2f62973"
+"@shopby/shared@git+https://skins.shopby.co.kr/developers/shared.git#v1.2.5":
+  version "1.2.5"
+  resolved "git+https://skins.shopby.co.kr/developers/shared.git#c0530fccfe8508ef115a0b87d3ed1eb4dddfc2e6"
   dependencies:
     "@shopby/shop-sdk" "1.63.17"
     fetch-jsonp "^1.2.3"
