@@ -126,7 +126,10 @@ const ClaimContent = ({ claimType }) => {
         )}
       </p>
 
-      <ClaimReasonForm refs={pick(refs, ['claimReasonSelectRef', 'claimReasonDetailTextareaRef'])} />
+      <ClaimReasonForm
+        refs={pick(refs, ['claimReasonSelectRef', 'claimReasonDetailTextareaRef'])}
+        useImageUploader={claimType === 'RETURN'}
+      />
       {isAccountFormNecessary && (
         <ClaimAccountForm refs={pick(refs, ['bankSelectRef', 'bankAccountInputRef', 'bankDepositorNameInputRef'])} />
       )}
