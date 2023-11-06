@@ -87,6 +87,6 @@
     ]
   },
   "dependencies": {
-    "@shopby/react-components": "git+https://skins.shopby.co.kr/developers/shared#v1.2.7-alpha-06"
+    "@shopby/react-components": "git+https://skins.shopby.co.kr/developers/shared.git#v1.2.7-alpha-07"
   }
 }
