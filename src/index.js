@@ -14,8 +14,6 @@ import './i18n';
 import { initializeShopApi } from './utils';
 
 const renderApp = async () => {
-  console.log('deploy test');
-  
   const usesMock = false; // Whether or not to use msw worker/
 
   const { clientId, profile } = await initializeShopApi();

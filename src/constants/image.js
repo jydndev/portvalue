@@ -1,7 +1,5 @@
 export const BOARD_IMAGE = {
   THUMB_NAIL_SIZE: '100x100',
-  LIMIT_COUNT: 10,
-  LIMIT_MEGA_BYTES: 5,
 };
 
 export const REVIEW_IMAGE = {

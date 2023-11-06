@@ -149,20 +149,18 @@ const EventContents = ({ sortBy }) => {
         </nav>
       )}
 
-      {currentProducts.length > 0 && (
-        <GalleryListPage
-          style={style}
-          totalCount={currentProducts.length}
-          products={displayProducts}
-          sortType={sortType}
-          sortBy={sortBy}
-          updateSortType={updateSortType}
-          handleIntersect={handleInterSect}
-          disabled={disabled}
-          isLoading={isLoading}
-          className="event-list"
-        />
-      )}
+      <GalleryListPage
+        style={style}
+        totalCount={currentProducts.length}
+        products={displayProducts}
+        sortType={sortType}
+        sortBy={sortBy}
+        updateSortType={updateSortType}
+        handleIntersect={handleInterSect}
+        disabled={disabled}
+        isLoading={isLoading}
+        className="event-list"
+      />
     </>
   );
 };

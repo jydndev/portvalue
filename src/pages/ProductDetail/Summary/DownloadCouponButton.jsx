@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo, useEffect } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { debounce } from 'lodash-es';
@@ -40,7 +40,7 @@ const DownloadCouponButton = () => {
   const [allIssued, setAllIssued] = useState(false);
 
   const {
-    productDetail: { baseInfo, price },
+    productDetail: { baseInfo },
   } = useProductDetailStateContext();
   const { coupons, issuedCouponNos } = useCouponByProductStateContext();
   const { openAlert } = useModalActionContext();
@@ -133,39 +133,33 @@ const DownloadCouponButton = () => {
     setAllIssued(false);
   };
 
-  useEffect(() => {
-    fetchCoupons();
-  }, []);
-
-  if (baseInfo?.couponUseYn === 'N') {
-    return <p className="product-summary__coupon-unissuable">쿠폰사용 불가</p>;
-  }
-
-  if (!price?.couponDiscountAmt) {
-    return <></>;
-  }
-
   return (
-    <>
-      <button type="button" className="product-summary__coupon-download-btn" onClick={handleCouponModalClick}>
-        쿠폰 받기
-        <span className="ico ico--download-white"></span>
-      </button>
-      <VisibleComponent
-        shows={visibleCouponModal}
-        TruthyComponent={
-          <FullModal title="쿠폰 받기" onClose={closeCouponModal}>
-            <CouponList allIssued={allIssued} channelType={channelType} />
-            <Button
-              className={`coupons__download-btn ${downloadAllButtonInformation.disabled && 'disabled'}`}
-              label="쿠폰 한번에 받기"
-              {...downloadAllButtonInformation}
-              onClick={() => handleDownloadCouponsBtnClick(coupons, issuedCouponNos)}
-            />
-          </FullModal>
-        }
-      />
-    </>
+    <VisibleComponent
+      shows={baseInfo?.couponUseYn === 'N'}
+      TruthyComponent={<p className="product-summary__coupon-unissuable">쿠폰사용 불가</p>}
+      FalsyComponent={
+        <>
+          <button type="button" className="product-summary__coupon-download-btn" onClick={handleCouponModalClick}>
+            쿠폰 받기
+            <span className="ico ico--download-white"></span>
+          </button>
+          <VisibleComponent
+            shows={visibleCouponModal}
+            TruthyComponent={
+              <FullModal title="쿠폰 받기" onClose={closeCouponModal}>
+                <CouponList allIssued={allIssued} channelType={channelType} />
+                <Button
+                  className={`coupons__download-btn ${downloadAllButtonInformation.disabled && 'disabled'}`}
+                  label="쿠폰 한번에 받기"
+                  {...downloadAllButtonInformation}
+                  onClick={() => handleDownloadCouponsBtnClick(coupons, issuedCouponNos)}
+                />
+              </FullModal>
+            }
+          />
+        </>
+      }
+    />
   );
 };
 export default DownloadCouponButton;

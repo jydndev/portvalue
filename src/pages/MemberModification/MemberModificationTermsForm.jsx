@@ -6,10 +6,8 @@ import {
   useMemberModificationActionContext,
   useMemberModificationStateContext,
   useAuthStateContext,
-  useCustomTermsActionContext,
 } from '@shopby/react-components';
 
-import { CustomTerms } from '../../components/CustomTerms';
 import FullModal from '../../components/FullModal';
 import Sanitized from '../../components/Sanitized';
 
@@ -18,19 +16,17 @@ const MemberModificationTermsForm = () => {
   const { getTerms, checkSingle, updateTermsInfo, updateIsTermsContentFullModalOpen, updateTermStatus } =
     useMemberModificationActionContext();
   const { termStatus, termsInfo, isTermsContentFullModalOpen } = useMemberModificationStateContext();
-  const { updateInitialCustomTermsNos } = useCustomTermsActionContext();
 
   const initialTermStatus = [
-    { id: 'use', label: '[필수] 이용약관', checked: true, require: true, termsType: 'USE', disabled: true },
+    { id: 'use', label: '[필수] 이용약관', checked: true, require: true, termsType: 'USE' },
     {
       id: 'pi',
       label: '[필수] 개인정보 수집 / 이용동의',
       checked: true,
       require: true,
       termsType: 'PI_COLLECTION_AND_USE_REQUIRED',
-      disabled: true,
     },
-    { id: 'age', label: '[필수] 만 14세 이상입니다', checked: true, require: true, disabled: true },
+    { id: 'age', label: '[필수] 만 14세 이상입니다', checked: true, require: true },
   ];
 
   const handleCheckSingle = (isChecked, label) => {
@@ -44,9 +40,6 @@ const MemberModificationTermsForm = () => {
 
   useEffect(() => {
     updateTermStatus(initialTermStatus);
-
-    const customTermsNos = profile?.customTermsAgreement?.map(({ customTermsNo }) => customTermsNo);
-    customTermsNos?.length > 0 && updateInitialCustomTermsNos(customTermsNos);
   }, [profile]);
 
   return (
@@ -62,7 +55,6 @@ const MemberModificationTermsForm = () => {
                   label={item.label}
                   checked={item.checked}
                   onChange={() => handleCheckSingle(item.checked, item.label)}
-                  disabled={item?.disabled}
                 />
                 {item.termsType && (
                   <Button
@@ -76,7 +68,6 @@ const MemberModificationTermsForm = () => {
             </li>
           ))}
         </ul>
-        <CustomTerms />
 
         {isTermsContentFullModalOpen && (
           <FullModal
