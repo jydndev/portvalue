@@ -13,7 +13,6 @@ import {
   useModalActionContext,
   useNextActionActionContext,
 } from '@shopby/react-components';
-import { parsePhoneNumber } from '@shopby/shared';
 
 import AddressForm from '../../components/AddressForm';
 import {
@@ -53,10 +52,10 @@ const CollectionInfoForm = ({ refs }) => {
 
   const returnWarehouse = useMemo(() => {
     const { receiverName = '', contact = '', summary = '' } = claimInfo?.returnWarehouse ?? {};
-    const dashedContact = contact ? Object.values(parsePhoneNumber(contact, { isWithDash: false })).join('-') : '';
+
     return {
       receiverName,
-      contact: dashedContact,
+      contact: contact ? contact : '-',
       summary,
     };
   }, [claimInfo]);
