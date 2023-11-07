@@ -1,4 +1,4 @@
-import { string, oneOfType } from 'prop-types';
+import { string, oneOfType, arrayOf } from 'prop-types';
 
 import { RETURN_WAY_TYPE_MAP } from '@shopby/shared';
 
@@ -9,6 +9,7 @@ const ClaimDetailCollectionInfo = ({
   returnerPhoneNumber,
   returnNote,
   returnAddress,
+  claimImageUrls,
 }) => {
   if (returnWay === 'BUYER_DIRECT_RETURN')
     return (
@@ -39,6 +40,18 @@ const ClaimDetailCollectionInfo = ({
         <dd>{returnerPhoneNumber}</dd>
         <dt>수거 시 참고사항</dt>
         <dd>{returnNote}</dd>
+        {claimImageUrls?.length > 0 && (
+          <>
+            <dt>반품 이미지</dt>
+            <dd className="order-detail__section-images">
+              {claimImageUrls.map((src) => (
+                <span key={src} className="order-detail__section-image">
+                  <img src={src} alt="반품 이미지" />
+                </span>
+              ))}
+            </dd>
+          </>
+        )}
       </dl>
     </section>
   );
@@ -53,4 +66,5 @@ ClaimDetailCollectionInfo.propTypes = {
   returnerPhoneNumber: string,
   returnNote: string,
   returnAddress: string,
+  claimImageUrls: arrayOf(string),
 };

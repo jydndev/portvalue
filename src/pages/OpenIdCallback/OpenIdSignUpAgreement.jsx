@@ -4,8 +4,17 @@ import { useNavigate } from 'react-router-dom';
 
 import { string } from 'prop-types';
 
-import { Button, Checkbox, useOpenIdSignInActionContext, useOpenIdSignInValueContext } from '@shopby/react-components';
+import {
+  Button,
+  Checkbox,
+  useModalActionContext,
+  useOpenIdSignInActionContext,
+  useOpenIdSignInValueContext,
+  useCustomTermsActionContext,
+  useCustomTermsStateContext,
+} from '@shopby/react-components';
 
+import { CustomTerms } from '../../components/CustomTerms';
 import { useErrorBoundaryActionContext } from '../../components/ErrorBoundary';
 import FullModal from '../../components/FullModal';
 import Sanitized from '../../components/Sanitized';
@@ -30,6 +39,12 @@ const OpenIdSignUpAgreement = ({ orderSheetNo, previousPath, nextPath }) => {
   } = useOpenIdSignInActionContext();
   const { allChecked, termStatus, termsInfo, isTermsContentFullModalOpen } = useOpenIdSignInValueContext();
   const { catchError } = useErrorBoundaryActionContext();
+  const { openAlert } = useModalActionContext();
+
+  // 약관 추가항목 관리
+  const { isAllChecked, agreedAllRequiredTerms, agreedTermsNos } = useCustomTermsStateContext();
+  const { updateCheckStateBy } = useCustomTermsActionContext();
+
   const locationState = useMemo(() => {
     const shouldCertifyAsAdult = nextPath === '/adult-certification';
 
@@ -55,6 +70,9 @@ const OpenIdSignUpAgreement = ({ orderSheetNo, previousPath, nextPath }) => {
 
   const handleAllCheck = (isChecked) => {
     allCheck(isChecked);
+    updateCheckStateBy({
+      checked: isChecked,
+    });
   };
 
   const handleSingleCheck = (isChecked, label) => {
@@ -67,8 +85,18 @@ const OpenIdSignUpAgreement = ({ orderSheetNo, previousPath, nextPath }) => {
   };
 
   const handleOpenIdSignUp = async () => {
+    if (!agreedAllRequiredTerms) {
+      openAlert({
+        message: '필수 입력 사항을 확인 바랍니다.',
+      });
+
+      return;
+    }
+
     try {
-      await openIdSignUp();
+      await openIdSignUp({
+        customTermsNos: agreedTermsNos,
+      });
 
       navigate('/sign-up-confirm', {
         state: {
@@ -95,7 +123,7 @@ const OpenIdSignUpAgreement = ({ orderSheetNo, previousPath, nextPath }) => {
         <div className="open-id-agreement-form__checkbox--check-all">
           <Checkbox
             label="아래 약관에 모두 동의합니다."
-            checked={allChecked}
+            checked={allChecked && isAllChecked}
             onChange={(e) => {
               handleAllCheck(e.target.checked);
             }}
@@ -123,6 +151,7 @@ const OpenIdSignUpAgreement = ({ orderSheetNo, previousPath, nextPath }) => {
           </li>
         ))}
       </ul>
+      <CustomTerms />
 
       {isTermsContentFullModalOpen && (
         <FullModal
