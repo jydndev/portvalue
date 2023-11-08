@@ -25,6 +25,8 @@ import CollectionComment from './CollectionComment';
 import CollectionInfoForm from './CollectionInfoForm';
 import useValidateClaimFormMaker from './useValidateClaimFormMaker';
 
+const IMAGE_UPLOADABLE_CLAIM_TYPES = ['RETURN', 'EXCHANGE'];
+
 const ClaimContent = ({ claimType }) => {
   const [searchParams] = useSearchParams();
   const {
@@ -126,7 +128,10 @@ const ClaimContent = ({ claimType }) => {
         )}
       </p>
 
-      <ClaimReasonForm refs={pick(refs, ['claimReasonSelectRef', 'claimReasonDetailTextareaRef'])} />
+      <ClaimReasonForm
+        refs={pick(refs, ['claimReasonSelectRef', 'claimReasonDetailTextareaRef'])}
+        useImageUploader={IMAGE_UPLOADABLE_CLAIM_TYPES.includes(claimType)}
+      />
       {isAccountFormNecessary && (
         <ClaimAccountForm refs={pick(refs, ['bankSelectRef', 'bankAccountInputRef', 'bankDepositorNameInputRef'])} />
       )}

@@ -1,15 +1,18 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { shape, object } from 'prop-types';
+import { shape, object, bool } from 'prop-types';
 
-import { SelectBox, useClaimActionContext, useClaimStateContext } from '@shopby/react-components';
+import { SelectBox, VisibleComponent, useClaimActionContext, useClaimStateContext } from '@shopby/react-components';
 
+import ImageUploader from '../../components/ImageUploader';
 import { CLAIM_REASON_DETAIL_MAX_LENGTH } from '../../constants/form';
+import { CLAIM_IMAGE } from '../../constants/image';
 
-const ClaimReasonForm = ({ refs }) => {
+const ClaimReasonForm = ({ refs, useImageUploader = false }) => {
   const { claimReasonSelectRef, claimReasonDetailTextareaRef } = refs ?? {};
   const { claimInfo, claimReason, claimReasonDetail } = useClaimStateContext();
-  const { updateClaimReason, updateClaimReasonDetail } = useClaimActionContext();
+  const { updateClaimReason, updateClaimReasonDetail, updateClaimImageUrls } = useClaimActionContext();
+  const [images, setImages] = useState([]);
 
   const claimReasonOptions = useMemo(
     () => claimInfo?.claimReasonTypes.map(({ claimReasonType: value, label }) => ({ label, value })) ?? [],
@@ -25,6 +28,10 @@ const ClaimReasonForm = ({ refs }) => {
 
     updateClaimReasonDetail(isLengthOverflow ? value.slice(0, CLAIM_REASON_DETAIL_MAX_LENGTH) : value);
   };
+
+  useEffect(() => {
+    updateClaimImageUrls(images.map(({ imageUrl }) => imageUrl));
+  }, [images]);
 
   return (
     <section className="claim__section claim__reason">
@@ -45,6 +52,12 @@ const ClaimReasonForm = ({ refs }) => {
         value={claimReasonDetail}
         onChange={handleClaimReasonDetailChange}
       />
+      <VisibleComponent
+        shows={useImageUploader}
+        TruthyComponent={
+          <ImageUploader canAttach={true} images={images} onChangeImages={setImages} configuration={CLAIM_IMAGE} />
+        }
+      />
     </section>
   );
 };
@@ -56,4 +69,5 @@ ClaimReasonForm.propTypes = {
     claimReasonSelectRef: object,
     claimReasonDetailTextareaRef: object,
   }),
+  useImageUploader: bool,
 };

@@ -1,12 +1,30 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { func } from 'prop-types';
 
-import { useSignUpActionContext, useSignUpStateContext, Checkbox, Button } from '@shopby/react-components';
+import {
+  useSignUpActionContext,
+  useSignUpStateContext,
+  Checkbox,
+  Button,
+  useCustomTermsActionContext,
+  useCustomTermsStateContext,
+} from '@shopby/react-components';
+
+import { CustomTerms } from '../../components/CustomTerms';
 
 const TermsForm = ({ setIsTermsFullModalOpen }) => {
   const { checkboxModalToggle, checkboxSingleCheck, checkboxAllCheck, setTermStatus } = useSignUpActionContext();
   const { termStatus } = useSignUpStateContext();
+
+  // 약관 추가항목 관리
+  const { isAllChecked: isAllCustomTermsChecked } = useCustomTermsStateContext();
+  const { updateCheckStateBy } = useCustomTermsActionContext();
+
+  const isAllChecked = useMemo(
+    () => termStatus.every(({ checked }) => checked) && isAllCustomTermsChecked,
+    [termStatus, isAllCustomTermsChecked]
+  );
 
   const initialTermStatus = [
     {
@@ -32,7 +50,12 @@ const TermsForm = ({ setIsTermsFullModalOpen }) => {
 
   const handleModalToggle = (id) => checkboxModalToggle(id);
   const handleSingleCheck = (checked, id) => checkboxSingleCheck(checked, id);
-  const handleAllCheck = (checked) => checkboxAllCheck(checked);
+  const handleAllCheck = (checked) => {
+    checkboxAllCheck(checked);
+    updateCheckStateBy({
+      checked,
+    });
+  };
 
   useEffect(() => {
     setTermStatus(initialTermStatus);
@@ -48,7 +71,7 @@ const TermsForm = ({ setIsTermsFullModalOpen }) => {
               onChange={(e) => {
                 handleAllCheck(e.target.checked);
               }}
-              checked={termStatus.every((el) => el.checked)}
+              checked={isAllChecked}
               name="checkAll"
               label={'아래 약관에 모두 동의합니다.'}
             />
@@ -77,6 +100,7 @@ const TermsForm = ({ setIsTermsFullModalOpen }) => {
               </li>
             ))}
           </ul>
+          <CustomTerms />
         </div>
       </div>
       <div className="notice-list">

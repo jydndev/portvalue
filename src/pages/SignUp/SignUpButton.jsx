@@ -1,7 +1,12 @@
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { useSignUpActionContext, useSignUpStateContext, useModalActionContext } from '@shopby/react-components';
+import {
+  useSignUpActionContext,
+  useSignUpStateContext,
+  useModalActionContext,
+  useCustomTermsStateContext,
+} from '@shopby/react-components';
 
 import { useErrorBoundaryActionContext } from '../../components/ErrorBoundary';
 
@@ -15,6 +20,7 @@ const SignUpButton = () => {
     useSignUpActionContext();
   const { validationStatus, signUpMemberInfo } = useSignUpStateContext();
   const { catchError } = useErrorBoundaryActionContext();
+  const { agreedAllRequiredTerms, agreedTermsNos } = useCustomTermsStateContext();
 
   const navigate = useNavigate();
 
@@ -41,7 +47,7 @@ const SignUpButton = () => {
   const handleSignUp = async () => {
     validate();
 
-    if (hasEmpty()) {
+    if (hasEmpty() || !agreedAllRequiredTerms) {
       openAlert({
         message: '필수 입력 사항을 확인 바랍니다.',
       });
@@ -62,7 +68,9 @@ const SignUpButton = () => {
     }
 
     try {
-      await postProfile();
+      await postProfile({
+        customTermsNos: agreedTermsNos,
+      });
     } catch (e) {
       catchError(e);
     }
