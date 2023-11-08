@@ -7,12 +7,12 @@ export const TERMS_MENUS = [
     termsKey: TERMS_KEY_TYPE.MALL_INTRODUCTION,
   },
   {
-    path: 'policy-service',
+    path: 'service-policy',
     title: '이용약관',
     termsKey: TERMS_KEY_TYPE.USE,
   },
   {
-    path: 'policy-privacy',
+    path: 'privacy-policy',
     title: '개인정보처리방침',
     bold: true,
     termsKey: TERMS_KEY_TYPE.PI_PROCESS,

@@ -249,11 +249,11 @@ const Router = () =>
           element: <TermsDetail termsKey={TERMS_KEY_TYPE.MALL_INTRODUCTION} />,
         },
         {
-          path: 'policy-service',
+          path: 'service-policy',
           element: <TermsDetail termsKey={TERMS_KEY_TYPE.USE} />,
         },
         {
-          path: 'policy-privacy',
+          path: 'privacy-policy',
           element: <TermsDetail termsKey={TERMS_KEY_TYPE.PI_PROCESS} />,
         },
         {

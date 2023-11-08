@@ -41,6 +41,8 @@ const TermsDetail = ({ termsKey }) => {
     [termsHistory]
   );
 
+  const unableSelectOption = termsHistorySelectOptions?.length === 1;
+
   const scrollIntoView = () => {
     contentRef?.current?.scrollIntoView({
       block: 'start',
@@ -75,6 +77,8 @@ const TermsDetail = ({ termsKey }) => {
         shows={showHistory}
         TruthyComponent={
           <SelectBox
+            disabled={unableSelectOption}
+            className={unableSelectOption ? 'disabled' : ''}
             value={termsNo}
             options={termsHistorySelectOptions}
             onSelect={({ currentTarget }) => {
