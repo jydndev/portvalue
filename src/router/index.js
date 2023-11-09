@@ -1,6 +1,8 @@
 import { lazy } from 'react';
 import { useRoutes } from 'react-router-dom';
 
+import { TERMS_KEY_TYPE } from '@shopby/shared';
+
 const MemberRoute = lazy(() => import('./MemberRoute'));
 const IntroPageRoute = lazy(() => import('./IntroPageRoute'));
 const NotAccessLoggedInUserRouter = lazy(() => import('./NotAccessLoggedInUserRouter'));
@@ -35,6 +37,9 @@ const Event = lazy(() => import('../pages/Event'));
 const Claim = lazy(() => import('../pages/Claim'));
 const OrderDetail = lazy(() => import('../pages/OrderDetail'));
 const DesignWindowPopup = lazy(() => import('../components/DesignPopup/DesignWindowPopup'));
+
+// Service
+const TermsDetail = lazy(() => import('../components/TermsDetail'));
 
 // MyPage
 const MyPageProductReview = lazy(() => import('../pages/MyPage/ProductReview'));
@@ -237,6 +242,23 @@ const Router = () =>
               element: <MyPageShippingAddress />,
             },
           ],
+        },
+        // service
+        {
+          path: 'company',
+          element: <TermsDetail termsKey={TERMS_KEY_TYPE.MALL_INTRODUCTION} />,
+        },
+        {
+          path: 'service-policy',
+          element: <TermsDetail termsKey={TERMS_KEY_TYPE.USE} />,
+        },
+        {
+          path: 'privacy-policy',
+          element: <TermsDetail termsKey={TERMS_KEY_TYPE.PI_PROCESS} />,
+        },
+        {
+          path: 'service-guide',
+          element: <TermsDetail termsKey={TERMS_KEY_TYPE.ACCESS_GUIDE} />,
         },
       ],
     },

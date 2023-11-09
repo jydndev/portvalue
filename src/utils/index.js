@@ -5,3 +5,4 @@ export * from './date';
 export * from './design';
 export * from './api';
 export * from './domain';
+export * from './terms';

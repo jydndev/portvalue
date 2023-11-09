@@ -12,6 +12,7 @@ import {
   IconBtn,
   CartBtn,
   IconSVG,
+  useAuthStateContext,
 } from '@shopby/react-components';
 
 import useSearchKeyword from '../../hooks/useSearchKeyword';
@@ -116,6 +117,7 @@ const Header = () => {
     hasCancelBtnOnHeader = false,
     title = '',
   } = useLayoutValueContext();
+  const { profile } = useAuthStateContext();
   const { openCanvas } = useOffCanvasActionContext();
   const navigate = useNavigate();
 
@@ -137,7 +139,7 @@ const Header = () => {
           <div className="header__cart-btn">
             <Link to="/cart">
               <span className="a11y">장바구니 페이지 이동</span>
-              <CartBtn />
+              <CartBtn memberStatus={profile?.memberStatus} />
             </Link>
           </div>
         )}
