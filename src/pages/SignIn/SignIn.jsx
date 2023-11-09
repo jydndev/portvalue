@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { SignInProvider, OpenIdSignInProvider, CustomTermsProvider } from '@shopby/react-components';
-import { CUSTOM_TERMS_CATEGORY_TYPE } from '@shopby/shop-sdk';
+import { SignInProvider, OpenIdSignInProvider } from '@shopby/react-components';
 
 import useLayoutChanger from '../../hooks/useLayoutChanger';
 
@@ -17,11 +16,9 @@ const SignIn = () => {
 
   return (
     <SignInProvider>
-      <CustomTermsProvider customCategoryType={CUSTOM_TERMS_CATEGORY_TYPE.MEMBER}>
-        <OpenIdSignInProvider>
-          <SignInForm />
-        </OpenIdSignInProvider>
-      </CustomTermsProvider>
+      <OpenIdSignInProvider>
+        <SignInForm />
+      </OpenIdSignInProvider>
     </SignInProvider>
   );
 };

@@ -5,9 +5,7 @@ import {
   MemberWithdrawalProvider,
   OpenIdSignInProvider,
   useAuthStateContext,
-  CustomTermsProvider,
 } from '@shopby/react-components';
-import { CUSTOM_TERMS_CATEGORY_TYPE } from '@shopby/shop-sdk';
 
 import CheckMemberPassword from '../../components/CheckMemberPassword';
 import FullModal from '../../components/FullModal';
@@ -39,41 +37,39 @@ const MemberWithdrawal = () => {
 
   return (
     <MemberWithdrawalProvider>
-      <CustomTermsProvider customCategoryType={CUSTOM_TERMS_CATEGORY_TYPE.MEMBER}>
-        <CheckMemberPasswordProvider>
-          <OpenIdSignInProvider>
-            <MemberWithdrawalContent />
-            {isCheckPasswordFullModalOpen && (
-              <FullModal
-                title={'회원탈퇴'}
-                onClose={() => {
-                  location.href = 'my-page';
+      <CheckMemberPasswordProvider>
+        <OpenIdSignInProvider>
+          <MemberWithdrawalContent />
+          {isCheckPasswordFullModalOpen && (
+            <FullModal
+              title={'회원탈퇴'}
+              onClose={() => {
+                location.href = 'my-page';
+              }}
+            >
+              <CheckMemberPassword
+                onAuthenticationBtnClick={() => {
+                  setIsCheckPasswordFullModalOpen(false);
                 }}
-              >
-                <CheckMemberPassword
-                  onAuthenticationBtnClick={() => {
-                    setIsCheckPasswordFullModalOpen(false);
-                  }}
-                />
-              </FullModal>
-            )}
-            {isCheckOpenIdMemberFullModalOpen && (
-              <FullModal
-                title={'회원탈퇴'}
-                onClose={() => {
-                  location.href = 'my-page';
+              />
+            </FullModal>
+          )}
+          {isCheckOpenIdMemberFullModalOpen && (
+            <FullModal
+              title={'회원탈퇴'}
+              onClose={() => {
+                location.href = 'my-page';
+              }}
+            >
+              <CheckOpenIdMember
+                onAuthenticationBtnClick={() => {
+                  setIsCheckOpenIdMemberFullModalOpen(false);
                 }}
-              >
-                <CheckOpenIdMember
-                  onAuthenticationBtnClick={() => {
-                    setIsCheckOpenIdMemberFullModalOpen(false);
-                  }}
-                />
-              </FullModal>
-            )}
-          </OpenIdSignInProvider>
-        </CheckMemberPasswordProvider>
-      </CustomTermsProvider>
+              />
+            </FullModal>
+          )}
+        </OpenIdSignInProvider>
+      </CheckMemberPasswordProvider>
     </MemberWithdrawalProvider>
   );
 };

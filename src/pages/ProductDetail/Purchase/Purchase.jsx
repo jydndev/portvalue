@@ -29,8 +29,8 @@ import OptionSelector from './OptionSelector';
 const UNPURCHASABLE_STATUS = ['READY', 'FINISHED', 'STOP', 'PROHIBITION'];
 
 const Purchase = () => {
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const productNo = Number(searchParams.get('productNo'));
   const channelType = searchParams.get('channelType');
 
