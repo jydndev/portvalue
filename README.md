@@ -12,22 +12,24 @@
 ### 저장소 클론
 
 ```sh
-$ git clone https://skins.shopby.co.kr/shopby/aurora-skin.git
+$ git clone https://toke:{ACCESS_TOKEN}@skins.shopby.co.kr/{그룹명}/{프로젝트명}.git
+
+# 예시
+$ git clone https://toke:abcdef@skins.shopby.co.kr/team-1027/adaptive-web-aurora.git
 ```
 
-> 계정정보와 비밀번호를 요구할 수 있다. 깃랩 저장소 권한에 필요한 정보를 입력해준다.
-> <img width="840" alt="스크린샷 2023-03-05 오후 10 14 58" src="https://user-images.githubusercontent.com/43128697/222962726-23602985-a654-4ddf-a76e-5c7935b3eb67.png"> > <br>
+> <img width="840" alt="스크린샷 2023-11-09 오전 11 21 58" src="https://github.nhnent.com/storage/user/2230/files/e0524b69-aa0b-4207-b979-ae0d14982142">
 
 - 소스코드가 정상적으로 클론되어 있는지 확인하고, 해당 프로젝트로 이동한다.
 
 ```sh
 $ ls
 
-$ cd aurora-skin
+$ cd adaptive-web-aurora
 ```
 
 > nvm이 설치 되어 있다면 자동으로 노드 버전을 설정해 줄 것이다.
-> <img width="840" alt="스크린샷 2023-03-05 오후 10 17 31" src="https://user-images.githubusercontent.com/43128697/222962817-09cde967-80bd-4695-ab49-f67c6c238f49.png">
+> <img width="840" alt="스크린샷 2023-11-09 오전 11 22 10" src="https://github.nhnent.com/storage/user/2230/files/b454afa0-62dd-46ee-8869-50028273ec87">
 
 ### 의존성 설치
 
@@ -80,14 +82,41 @@ $ yarn build
 
 ```sh
 $ git remote add upstream https://skins.shopby.co.kr/shopby/aurora-skin.git
+
+$ git remove -v
+
 ```
+
+<img width="1064" alt="스크린샷 2023-03-05 오후 11 05 08" src="https://github.nhnent.com/storage/user/2230/files/74b50d97-95d9-43f4-9ec3-20da748f8945">
 
 `main`을 패치한다.
 
 ```sh
 $ git fetch upstream main
-$ git merge upstream/main --allow-unrelated-histories
+
 ```
 
-패치받은 버전을 병합하면 충돌이 발생할 수 있다.
-충돌 해결 후 개발 저장소에 `commit & push` 한다.
+<img width="1064" alt="스크린샷 2023-03-05 오후 11 05 08" src="https://github.nhnent.com/storage/user/2230/files/eee1e3b7-678f-41c7-bc94-205a5c5e094a">
+
+패치한 `main`을 병합한다.
+
+```sh
+
+$ git merge upstream/main
+
+```
+
+<img width="1064" alt="스크린샷 2023-03-05 오후 11 05 08" src="https://github.nhnent.com/storage/user/2230/files/0159bfd9-e54e-4a25-9a4a-c29f2fa0c0fa">
+
+`unrelated histories` 오류가 발생한다면 하기 명령어로 병합한다.
+
+```sh
+
+$ git merge upstream/main --allow-unrelated-histories
+
+```
+
+<img width="1064" alt="스크린샷 2023-03-05 오후 11 05 08" src="https://github.nhnent.com/storage/user/2230/files/45d6c950-b96b-4622-8cbd-e72bd3b4df5f">
+
+패치받은 버전을 병합하면 충돌이 발생할 수 있다. <br />
+에디터에서 충돌 해결 후 개발 저장소에 `push` 한다.
