@@ -17,12 +17,12 @@ import { INFINITY_SCROLL_PAGE_SIZE } from '../../../constants/common';
 const today = getDateLabel();
 
 const ACCUMULATION_STATUS_MAP = {
-  GIVE: {
+  PAYMENT: {
     modifier: 'give',
     sign: '+',
     label: '지급',
   },
-  SUBTRACTION: {
+  DEDUCTION: {
     modifier: 'subtraction',
     sign: '-',
     label: '차감',
@@ -110,10 +110,10 @@ const AccumulationList = () => {
                   accumulationAmt,
                   startYmdt,
                   expireYmdt,
-                  accumulationStatus,
+                  accumulationStatusGroupType,
                 }) => {
                   const date = expireYmdt ? `${startYmdt} ~ ${expireYmdt}` : '';
-                  const accumulationStatusMap = ACCUMULATION_STATUS_MAP[accumulationStatus.split('_').at(0)];
+                  const accumulationStatusMap = ACCUMULATION_STATUS_MAP[accumulationStatusGroupType];
                   return (
                     <li className="my-page-accumulation__item" key={accumulationNo}>
                       <p className="my-page-accumulation__date my-page-accumulation__date--register">
