@@ -27,6 +27,7 @@ const ProductThumbItem = ({
 
   return (
     <ThumbItem
+      productNo={productNo}
       href={isRedirectingDisabled ? '#' : `/product-detail?productNo=${productNo}`}
       src={imageUrl}
       className="product-thumb-item"

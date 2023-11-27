@@ -124,6 +124,7 @@ const ProductGrid = ({ className, style, displayType, products }) => (
         frontDisplayYn && (
           <ThumbItem
             key={productNo}
+            productNo={productNo}
             resize="220x220"
             className={className}
             href={`/product-detail?productNo=${productNo}`}

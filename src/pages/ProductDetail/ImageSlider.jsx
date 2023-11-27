@@ -34,7 +34,11 @@ const ImageSlider = () => {
           <Slider className="product-image-slider" {...sliderConfig}>
             {images.map((imageInfo, idx) => (
               <Slide key={idx}>
-                <ThumbItem {...imageInfo} href={`/product-detail?productNo=${baseInfo?.productNo}`} />
+                <ThumbItem
+                  {...imageInfo}
+                  href={`/product-detail?productNo=${baseInfo?.productNo}`}
+                  productNo={baseInfo?.productNo}
+                />
               </Slide>
             ))}
           </Slider>

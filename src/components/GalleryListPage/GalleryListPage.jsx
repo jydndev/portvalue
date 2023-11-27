@@ -79,6 +79,7 @@ const GalleryListPage = ({
                     src={listImageUrls[0]}
                     adult={adult}
                     alt={productName}
+                    productNo={productNo}
                   >
                     <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
 
