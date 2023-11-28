@@ -1,10 +1,16 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { array } from 'prop-types';
 
 import { VisibleComponent, useMallStateContext } from '@shopby/react-components';
+import { TERMS_HISTORY_KEY_TYPE } from '@shopby/shared/constants';
 
-const ServiceInformation = ({ services }) => {
+import TermsDetail from '../TermsDetail';
+
+const ServiceInformation = ({ terms }) => {
+  const [modalType, setModalType] = useState(null);
+
   const { termsConfig, serviceBasicInfo, since, businessRegistrationNumberInformation, ...restMall } =
     useMallStateContext();
 
@@ -13,11 +19,22 @@ const ServiceInformation = ({ services }) => {
       <div className="footer__info">
         {/* nav */}
         <nav className="footer__nav">
-          {services.map(({ path, title, bold }) => (
-            <Link key={path} className={`footer__link${bold ? ' footer__link--bold' : ''}`} to={`/${path}`}>
-              {title}
-            </Link>
+          {terms.map(({ key, label, content }) => (
+            <div key={key}>
+              <button
+                className={`footer__link footer__link--${key === TERMS_HISTORY_KEY_TYPE.PI_PROCESS ? 'bold' : ''}`}
+                onClick={() => setModalType(key)}
+              >
+                {label}
+              </button>
+              {modalType === key && (
+                <TermsDetail termsKey={key} title={label} onClose={() => setModalType(null)} content={content} />
+              )}
+            </div>
           ))}
+          <Link className="footer__link" to="/customer-center">
+            고객센터
+          </Link>
         </nav>
         {/* == nav == */}
         <p className="footer__company">
@@ -96,5 +113,5 @@ const ServiceInformation = ({ services }) => {
 export default ServiceInformation;
 
 ServiceInformation.propTypes = {
-  services: array,
+  terms: array,
 };

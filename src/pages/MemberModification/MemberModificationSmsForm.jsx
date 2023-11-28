@@ -40,7 +40,6 @@ const MemberModificationSmsForm = () => {
     certificatedNumber,
     authenticationsRemainTimeBySeconds,
     isAuthenticationReSend,
-    memberModificationInfo,
   } = useMemberModificationStateContext();
   const { isIdentificationVerificationReSend, isCiExist } = useIdentificationVerificationStateContext();
   const { mallJoinConfig } = useMallStateContext();
@@ -117,8 +116,6 @@ const MemberModificationSmsForm = () => {
     return false;
   }, [mallJoinConfig]);
 
-  const isSocialMember = useMemo(() => !!memberModificationInfo?.providerType, [memberModificationInfo?.providerType]);
-
   return (
     <>
       <div className="member-modification-form__item">
@@ -136,12 +133,12 @@ const MemberModificationSmsForm = () => {
             onFirstSerialChange={handlePhoneFirstSerialNumberChange}
             onSecondSerialChange={handlePhoneSecondSerialNumberChange}
             onSecondSerialBlur={handleOnSecondSerialBlur}
-            carrierNumberDisabled={!isSocialMember && isMobileType && isAuthenticationReSend}
-            firstSerialDisabled={!isSocialMember && isMobileType && isAuthenticationReSend}
-            secondSerialDisabled={!isSocialMember && isMobileType && isAuthenticationReSend}
+            carrierNumberDisabled={isMobileType && isAuthenticationReSend}
+            firstSerialDisabled={isMobileType && isAuthenticationReSend}
+            secondSerialDisabled={isMobileType && isAuthenticationReSend}
           />
         </div>
-        {!isSocialMember && mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.SMS_AUTHENTICATION && (
+        {mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.SMS_AUTHENTICATION && (
           <Button
             className="member-modification-form__btn--certificate"
             label={authenticationBtnLabel}
@@ -150,7 +147,7 @@ const MemberModificationSmsForm = () => {
             }}
           />
         )}
-        {!isSocialMember && mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.AUTHENTICATION_BY_PHONE && (
+        {mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.AUTHENTICATION_BY_PHONE && (
           <>
             <IdentificationVerificationBtn
               className="member-modification-form__btn--certificate"
@@ -164,7 +161,7 @@ const MemberModificationSmsForm = () => {
         <ValidationStatus name="mobileNo" />
       </div>
 
-      {!isSocialMember && isSmsAuthentication && (
+      {isSmsAuthentication && (
         <div className="member-modification-form__item">
           <label htmlFor="certificatedNumber" className="member-modification-form__tit">
             인증번호

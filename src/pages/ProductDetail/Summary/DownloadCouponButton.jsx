@@ -134,11 +134,8 @@ const DownloadCouponButton = () => {
   };
 
   useEffect(() => {
-    if (!productNo) return;
-    if (!price?.couponDiscountAmt) return;
-
     fetchCoupons();
-  }, [productNo, price?.couponDiscountAmt]);
+  }, []);
 
   if (baseInfo?.couponUseYn === 'N') {
     return <p className="product-summary__coupon-unissuable">쿠폰사용 불가</p>;
