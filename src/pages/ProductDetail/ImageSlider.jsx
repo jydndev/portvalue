@@ -11,7 +11,7 @@ import {
 
 const ImageSlider = () => {
   const {
-    productDetail: { images },
+    productDetail: { images, baseInfo },
   } = useProductDetailStateContext();
 
   const sliderConfig = useMemo(
@@ -34,7 +34,7 @@ const ImageSlider = () => {
           <Slider className="product-image-slider" {...sliderConfig}>
             {images.map((imageInfo, idx) => (
               <Slide key={idx}>
-                <ThumbItem {...imageInfo} />
+                <ThumbItem {...imageInfo} productNo={baseInfo?.productNo} />
               </Slide>
             ))}
           </Slider>

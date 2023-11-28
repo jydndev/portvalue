@@ -187,13 +187,13 @@ const LikeList = () => {
               ButtonGroup={(props) => (
                 <div className="board-form__button-group">
                   <Button
-                    className="review-form__submit-btn review-form__btn"
+                    className="review-form__submit-btn review-form__btn inquiry-form__btn--cancel"
                     theme="dark"
                     label="취소"
                     onClick={() => setIsRegistrationModalOpen(false)}
                   />
                   <Button
-                    className="review-form__submit-btn review-form__btn"
+                    className="review-form__submit-btn review-form__btn inquiry-form__btn--register"
                     theme="caution"
                     label="등록"
                     onClick={() => handleProductInquiryFormSubmit(props)}

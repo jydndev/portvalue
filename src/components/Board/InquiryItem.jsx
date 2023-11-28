@@ -101,8 +101,8 @@ const InquiryItem = ({
             shows={_canModify}
             TruthyComponent={
               <div className="board-form__buttons--small">
-                <Button label="삭제" onClick={handleDeleteButtonClick} />
-                <Button label="수정" onClick={handleModifyButtonClick} />
+                <Button label="삭제" onClick={handleDeleteButtonClick} className="inquiry-form__btn--delete" />
+                <Button label="수정" onClick={handleModifyButtonClick} className="inquiry-form__btn--modify" />
               </div>
             }
           />

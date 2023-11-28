@@ -36,6 +36,7 @@ const ProductSliderSection = ({
           frontDisplayYn && (
             <Slide key={productNo}>
               <ThumbItem
+                productNo={productNo}
                 resize="220x220"
                 href={`/product-detail?productNo=${productNo}`}
                 src={listImageUrls[0]}

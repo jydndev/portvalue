@@ -205,13 +205,15 @@ const ReviewForm = ({
 
         <div className="board-form__button-group">
           <Button
-            className="board-form__cancel-btn board-form__btn"
+            className="board-form__cancel-btn board-form__btn review-form__btn--cancel"
             theme="dark"
             label="취소"
             onClick={() => onCancel?.()}
           />
           <Button
-            className="board-form__modify-btn board-form__btn"
+            className={`board-form__modify-btn board-form__btn review-form__btn--${
+              isRegisterMode ? 'register' : 'modify'
+            }`}
             theme="caution"
             label={isRegisterMode ? '등록' : '수정'}
             onClick={handleSubmit}
