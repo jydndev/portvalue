@@ -205,7 +205,7 @@ const NextActionButton = ({
   return (
     <>
       <Button
-        className={className}
+        className={`${className} btn--${nextActionType?.toLowerCase?.()}`}
         onClick={() => {
           const { data } = checkNextActionStatus({
             pgType,

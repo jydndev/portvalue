@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useState, useMemo, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { debounce } from 'lodash-es';
@@ -40,7 +40,7 @@ const DownloadCouponButton = () => {
   const [allIssued, setAllIssued] = useState(false);
 
   const {
-    productDetail: { baseInfo },
+    productDetail: { baseInfo, price },
   } = useProductDetailStateContext();
   const { coupons, issuedCouponNos } = useCouponByProductStateContext();
   const { openAlert } = useModalActionContext();
@@ -132,6 +132,21 @@ const DownloadCouponButton = () => {
     setVisibleCouponModal(false);
     setAllIssued(false);
   };
+
+  useEffect(() => {
+    if (!productNo) return;
+    if (!price?.couponDiscountAmt) return;
+
+    fetchCoupons();
+  }, [productNo, price?.couponDiscountAmt]);
+
+  if (baseInfo?.couponUseYn === 'N') {
+    return <p className="product-summary__coupon-unissuable">쿠폰사용 불가</p>;
+  }
+
+  if (!price?.couponDiscountAmt) {
+    return <></>;
+  }
 
   return (
     <VisibleComponent
