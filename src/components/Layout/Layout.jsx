@@ -35,7 +35,6 @@ const Layout = () => {
 
   const pageRef = useRef();
   const pageInnerRef = useRef();
-
   const productNo = Number(searchParams.get('productNo'));
 
   useEffect(() => {

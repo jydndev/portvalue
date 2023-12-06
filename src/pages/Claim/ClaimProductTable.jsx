@@ -28,7 +28,6 @@ const ClaimProductTable = ({ claimTypeLabel }) => {
 
       return;
     }
-
     changeClaimAmount({ [orderOptionNo]: quantity });
   };
 

@@ -31,7 +31,7 @@ const ProductSectionWrap = ({ platformType, sectionsId }) => {
 
   return (
     <>
-      <article className="product-section l-panel">
+      <article className="product-section l-panel" data-section-code={sectionsId}>
         <h2 className="product-section__title">{label}</h2>
         <ProductSectionListRouter platformType={platformType} displayType={displayType} products={sliceProducts} />
         <Link className="product-section__more btn" to={`/display/${sectionsId}`}>
