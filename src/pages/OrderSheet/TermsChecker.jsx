@@ -51,34 +51,38 @@ const TermsChecker = forwardRef((_, ref) => {
 
   return (
     <section className="l-page order-sheet__terms">
-      {[...terms, ...customTerms].map(({ title, isChecked, isRequired, value, content }) => (
-        <div key={value} className="order-sheet__term-checker">
-          <Checkbox
-            isRounded={true}
-            label={`[${isRequired ? '필수' : '선택'}] ${title}`}
-            checked={isChecked}
-            onClick={(event) => {
-              const isChecked = event.currentTarget.checked;
+      {[...terms, ...customTerms].map(({ title, isChecked, isRequired, value, content }) => {
+        const label = `[${isRequired ? '필수' : '선택'}] ${title}`;
 
-              handleTermCheckboxClick({
-                isChecked,
-                value,
-              });
-            }}
-          />
-          {content && (
-            <Button
-              label="보기"
-              onClick={() =>
-                showDetailBtnClick({
-                  title,
-                  content,
-                })
-              }
+        return (
+          <div key={value} className="order-sheet__term-checker">
+            <Checkbox
+              isRounded={true}
+              label={label}
+              checked={isChecked}
+              onClick={(event) => {
+                const isChecked = event.currentTarget.checked;
+
+                handleTermCheckboxClick({
+                  isChecked,
+                  value,
+                });
+              }}
             />
-          )}
-        </div>
-      ))}
+            {content && (
+              <Button
+                label="보기"
+                onClick={() =>
+                  showDetailBtnClick({
+                    title: label,
+                    content,
+                  })
+                }
+              />
+            )}
+          </div>
+        );
+      })}
       {Boolean(isTermContentsModalOpen && clickedTerm) && (
         <FullModal title={clickedTerm.title} onClose={handleTermContentModalClose}>
           <Sanitized html={clickedTerm.contents} style={{ padding: '20px' }} />
