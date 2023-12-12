@@ -5,22 +5,15 @@ import { string, func } from 'prop-types';
 import { SelectBox, VisibleComponent, useTermsActionContext, useTermsStateContext } from '@shopby/react-components';
 import { TERMS_HISTORY_KEY_TYPE } from '@shopby/shared';
 
-import { TERMS_MENUS } from '../../constants';
-import useLayoutChanger from '../../hooks/useLayoutChanger';
 import { isSameOrAfter } from '../../utils';
+import FullModal from '../FullModal';
 import Sanitized from '../Sanitized';
 
 const termsHistoryKeys = [TERMS_HISTORY_KEY_TYPE.USE, TERMS_HISTORY_KEY_TYPE.PI_PROCESS];
 
-const TermsDetail = ({ termsKey }) => {
-  const { termsHistory, termsDetail, terms } = useTermsStateContext();
+const TermsDetail = ({ termsKey, content, title, onClose }) => {
+  const { termsHistory, termsDetail } = useTermsStateContext();
   const { fetchTermsHistory, fetchTermsDetail } = useTermsActionContext();
-  const termsState = terms[termsKey];
-  const title = useMemo(
-    () => TERMS_MENUS.filter(({ termsKey: _termsKey }) => _termsKey === termsKey).at(0).title,
-    [termsKey]
-  );
-  const showHistory = termsHistoryKeys.includes(termsKey);
 
   const [termsNo, setTermsNo] = useState(0);
 
@@ -41,29 +34,14 @@ const TermsDetail = ({ termsKey }) => {
     [termsHistory]
   );
 
-  const unableSelectOption = termsHistorySelectOptions?.length === 1;
-
-  const scrollIntoView = () => {
-    contentRef?.current?.scrollIntoView({
-      block: 'start',
-      behavior: 'smooth',
-    });
-  };
-
   const changeTermsNo = (termsNo) => {
     fetchTermsDetail(termsNo);
     setTermsNo(termsNo);
-    scrollIntoView();
+    contentRef?.current?.scrollIntoView();
   };
 
-  useLayoutChanger({
-    hasBackBtnOnHeader: true,
-    title,
-  });
-
   useEffect(() => {
-    showHistory && fetchTermsHistory({ termsHistoryType: termsKey });
-    scrollIntoView();
+    termsHistoryKeys.includes(termsKey) && fetchTermsHistory({ termsHistoryType: termsKey });
   }, [termsKey]);
 
   useEffect(() => {
@@ -71,14 +49,12 @@ const TermsDetail = ({ termsKey }) => {
   }, [currentTermsHistory]);
 
   return (
-    <div ref={contentRef} className="agreement">
-      <Sanitized html={showHistory && termsDetail.contents ? termsDetail.contents : termsState?.contents} />
+    <FullModal className="agreement" title={title} onClose={onClose}>
+      <Sanitized ref={contentRef} html={termsDetail.contents ? termsDetail.contents : content} />
       <VisibleComponent
-        shows={showHistory}
+        shows={termsNo}
         TruthyComponent={
           <SelectBox
-            disabled={unableSelectOption}
-            className={unableSelectOption ? 'disabled' : ''}
             value={termsNo}
             options={termsHistorySelectOptions}
             onSelect={({ currentTarget }) => {
@@ -87,7 +63,7 @@ const TermsDetail = ({ termsKey }) => {
           />
         }
       />
-    </div>
+    </FullModal>
   );
 };
 

@@ -40,7 +40,7 @@ const DownloadCouponButton = () => {
   const [allIssued, setAllIssued] = useState(false);
 
   const {
-    productDetail: { baseInfo },
+    productDetail: { baseInfo, price },
   } = useProductDetailStateContext();
   const { coupons, issuedCouponNos } = useCouponByProductStateContext();
   const { openAlert } = useModalActionContext();
@@ -134,14 +134,17 @@ const DownloadCouponButton = () => {
   };
 
   useEffect(() => {
-    productNo > 0 && fetchCoupons();
-  }, [productNo]);
+    if (!productNo) return;
+    if (!price?.couponDiscountAmt) return;
+
+    fetchCoupons();
+  }, [productNo, price?.couponDiscountAmt]);
 
   if (baseInfo?.couponUseYn === 'N') {
     return <p className="product-summary__coupon-unissuable">쿠폰사용 불가</p>;
   }
 
-  if (!coupons?.length) {
+  if (!price?.couponDiscountAmt) {
     return <></>;
   }
 
