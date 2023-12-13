@@ -149,32 +149,26 @@ const DownloadCouponButton = () => {
   }
 
   return (
-    <VisibleComponent
-      shows={baseInfo?.couponUseYn === 'N'}
-      TruthyComponent={<p className="product-summary__coupon-unissuable">쿠폰사용 불가</p>}
-      FalsyComponent={
-        <>
-          <button type="button" className="product-summary__coupon-download-btn" onClick={handleCouponModalClick}>
-            쿠폰 받기
-            <span className="ico ico--download-white"></span>
-          </button>
-          <VisibleComponent
-            shows={visibleCouponModal}
-            TruthyComponent={
-              <FullModal title="쿠폰 받기" onClose={closeCouponModal}>
-                <CouponList allIssued={allIssued} channelType={channelType} />
-                <Button
-                  className={`coupons__download-btn ${downloadAllButtonInformation.disabled && 'disabled'}`}
-                  label="쿠폰 한번에 받기"
-                  {...downloadAllButtonInformation}
-                  onClick={() => handleDownloadCouponsBtnClick(coupons, issuedCouponNos)}
-                />
-              </FullModal>
-            }
-          />
-        </>
-      }
-    />
+    <>
+      <button type="button" className="product-summary__coupon-download-btn" onClick={handleCouponModalClick}>
+        쿠폰 받기
+        <span className="ico ico--download-white"></span>
+      </button>
+      <VisibleComponent
+        shows={visibleCouponModal}
+        TruthyComponent={
+          <FullModal title="쿠폰 받기" onClose={closeCouponModal}>
+            <CouponList allIssued={allIssued} channelType={channelType} />
+            <Button
+              className={`coupons__download-btn ${downloadAllButtonInformation.disabled && 'disabled'}`}
+              label="쿠폰 한번에 받기"
+              {...downloadAllButtonInformation}
+              onClick={() => handleDownloadCouponsBtnClick(coupons, issuedCouponNos)}
+            />
+          </FullModal>
+        }
+      />
+    </>
   );
 };
 export default DownloadCouponButton;

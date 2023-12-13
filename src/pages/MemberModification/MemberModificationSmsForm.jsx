@@ -78,7 +78,6 @@ const MemberModificationSmsForm = () => {
   };
 
   const handleAuthenticateMobile = (newMobileNo) => {
-    // 회원 정보 수정에서 사용 안됨
     if (!validateMobile()) {
       return;
     }
