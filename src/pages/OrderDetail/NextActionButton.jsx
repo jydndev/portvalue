@@ -14,7 +14,6 @@ import {
   useNextActionActionContext,
 } from '@shopby/react-components';
 
-import { useErrorBoundaryActionContext } from '../../components/ErrorBoundary';
 import FullModal from '../../components/FullModal/FullModal';
 import ReviewForm from '../../components/ReviewForm';
 import { convertBooleanToYorN } from '../../utils';
@@ -62,7 +61,6 @@ const NextActionButton = ({
 }) => {
   const navigate = useNavigate();
   const { openAlert, openConfirm } = useModalActionContext();
-  const { catchError } = useErrorBoundaryActionContext();
 
   const { withdrawClaimByOrderOptionNo, cancelOrder } = useClaimActionContext();
   const { confirmOrder, fetchOrderDetail } = useMyOrderActionContext();
@@ -158,15 +156,11 @@ const NextActionButton = ({
     CONFIRM_ORDER: {
       label: '구매 확정',
       execute: async () => {
-        try {
-          await confirmOrder(orderOptionNo.toString());
-          openAlert({
-            message: '구매확정 처리되었습니다.',
-            onClose: () => fetchOrderDetail(orderNo),
-          });
-        } catch (e) {
-          catchError(e);
-        }
+        await confirmOrder(orderOptionNo.toString());
+        openAlert({
+          message: '구매확정 처리되었습니다.',
+          onClose: () => fetchOrderDetail(orderNo),
+        });
       },
     },
     WRITE_REVIEW: {

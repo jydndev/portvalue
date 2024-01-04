@@ -136,7 +136,6 @@ const OrderDetailContent = () => {
           returnWayType,
           returnAddress,
           exchangeAddress,
-          claimImageUrls,
         }) => (
           <Fragment key={claimNo}>
             <ClaimDetailAdditionalPayInfo
@@ -155,7 +154,6 @@ const OrderDetailContent = () => {
                 returnerPhoneNumber={returnAddress.contact2}
                 returnNote={returnAddress.note}
                 returnAddress={returnAddress.addressStr}
-                claimImageUrls={claimImageUrls}
               />
             )}
             {exchangeAddress && (
@@ -186,7 +184,6 @@ const OrderDetailContent = () => {
           refundMainPayAmt,
           refundTypeLabel,
           exchangeOrderOption,
-          claimImageUrls,
         }) => (
           <Fragment key={claimNo}>
             {refundType !== 'ZERO_REFUND' && (
@@ -208,7 +205,6 @@ const OrderDetailContent = () => {
                 returnerPhoneNumber={returnAddress.contact2}
                 returnNote={returnAddress.note}
                 returnAddress={returnAddress.addressStr}
-                claimImageUrls={claimImageUrls}
               />
             )}
             {exchangeAddress && (
