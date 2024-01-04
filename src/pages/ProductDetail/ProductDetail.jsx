@@ -81,7 +81,7 @@ const ProductDetailContent = () => {
   useEffect(() => {
     if (!originProductDetail) return;
 
-    applyPageScripts('PRODUCT', { product: originProductDetail });
+    applyPageScripts('PRODUCT', { product: originProductDetail }, true);
   }, [originProductDetail]);
 
   useEffect(() => {

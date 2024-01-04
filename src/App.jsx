@@ -14,6 +14,7 @@ import {
   BoardConfigurationProvider,
   NaverShoppingConfigurationProvider,
 } from '@shopby/react-components';
+import { TERMS_KEY_TYPE } from '@shopby/shared';
 
 import { ErrorBoundary } from './components/ErrorBoundary';
 import Router from './router';
@@ -25,7 +26,14 @@ const App = ({ clientId, profile }) => (
         <MallProvider clientId={clientId} mallProfile={profile}>
           <BoardConfigurationProvider>
             <AuthProvider>
-              <TermsProvider termsTypes={['MALL_INTRODUCTION', 'USE', 'PI_PROCESS', 'ACCESS_GUIDE']}>
+              <TermsProvider
+                termsTypes={[
+                  TERMS_KEY_TYPE.MALL_INTRODUCTION,
+                  TERMS_KEY_TYPE.USE,
+                  TERMS_KEY_TYPE.PI_PROCESS,
+                  TERMS_KEY_TYPE.ACCESS_GUIDE,
+                ]}
+              >
                 <PageScriptsProvider platform={isMobile ? 'MOBILE' : 'PC'}>
                   <NaverShoppingConfigurationProvider>
                     <DesignPopupProvider>

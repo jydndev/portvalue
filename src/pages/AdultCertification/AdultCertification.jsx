@@ -11,8 +11,9 @@ import {
   Button,
   VisibleComponent,
   AgeVerificationProvider,
+  CustomTermsProvider,
 } from '@shopby/react-components';
-import { isAgeVerified } from '@shopby/shared';
+import { CUSTOM_TERMS_CATEGORY_TYPE, isAgeVerified } from '@shopby/shared';
 
 import IdentificationVerificationBtn from '../../components/IdentificationVerificationBtn/IdentificationVerificationBtn';
 import useLayoutChanger from '../../hooks/useLayoutChanger';
@@ -75,11 +76,13 @@ const SignInForAdultCertification = ({ onSignIn }) => {
       />
       <div className="l-panel adult-certification__sign-in">
         <p className="adult-certification__sign-in-title">회원 로그인</p>
-        <SignInProvider>
-          <OpenIdSignInProvider>
-            <SignInForm usesOnlySignIn={true} onSignIn={onSignIn} />
-          </OpenIdSignInProvider>
-        </SignInProvider>
+        <CustomTermsProvider customCategoryType={CUSTOM_TERMS_CATEGORY_TYPE.MEMBER}>
+          <SignInProvider>
+            <OpenIdSignInProvider>
+              <SignInForm usesOnlySignIn={true} onSignIn={onSignIn} />
+            </OpenIdSignInProvider>
+          </SignInProvider>
+        </CustomTermsProvider>
       </div>
     </>
   );

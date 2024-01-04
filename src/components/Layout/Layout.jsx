@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { isMobile } from 'react-device-detect';
-import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 import { bool } from 'prop-types';
 
@@ -35,7 +35,6 @@ const Layout = () => {
 
   const pageRef = useRef();
   const pageInnerRef = useRef();
-
   const productNo = Number(searchParams.get('productNo'));
 
   useEffect(() => {

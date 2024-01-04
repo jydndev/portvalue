@@ -1,12 +1,15 @@
-import { SignInProvider, OpenIdSignInProvider } from '@shopby/react-components';
+import { SignInProvider, OpenIdSignInProvider, CustomTermsProvider } from '@shopby/react-components';
+import { CUSTOM_TERMS_CATEGORY_TYPE } from '@shopby/shop-sdk';
 
 import OpenIdCallbackForm from './OpenIdCallbackForm';
 
 const OpenIdCallback = () => (
   <SignInProvider>
-    <OpenIdSignInProvider>
-      <OpenIdCallbackForm />
-    </OpenIdSignInProvider>
+    <CustomTermsProvider customCategoryType={CUSTOM_TERMS_CATEGORY_TYPE.MEMBER}>
+      <OpenIdSignInProvider>
+        <OpenIdCallbackForm />
+      </OpenIdSignInProvider>
+    </CustomTermsProvider>
   </SignInProvider>
 );
 
