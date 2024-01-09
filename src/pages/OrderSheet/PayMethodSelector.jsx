@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { isEqual } from 'lodash-es';
@@ -86,8 +86,12 @@ const PayMethodSelector = ({ refs }) => {
     return `${bankName} ${bankAccount}`;
   }, [bankAccountToDeposit]);
 
-  const payMethodsToBeExposed = sortWithPriority(availablePayMethods, PAY_TYPES_WITH_PRIORITY, 'payType').filter(
-    ({ payType, pgType }) => !HIDDEN_PAY_TYPE.includes(payType) && !HIDDEN_PG_TYPE.includes(pgType)
+  const payMethodsToBeExposed = useMemo(
+    () =>
+      sortWithPriority(availablePayMethods, PAY_TYPES_WITH_PRIORITY, 'payType').filter(
+        ({ payType, pgType }) => !HIDDEN_PAY_TYPE.includes(payType) && !HIDDEN_PG_TYPE.includes(pgType)
+      ),
+    [availablePayMethods]
   );
 
   const handlePayMethodBtnClick = (payMethod) => {
@@ -137,6 +141,10 @@ const PayMethodSelector = ({ refs }) => {
   const handleClickMyPayPayment = ({ payToken, payMethod, bankCardCode, selectQuota }) => {
     selectMyPayPayment({ payToken, payMethod, bankCardCode, selectQuota });
   };
+
+  useEffect(() => {
+    updateSelectedPayMethod(payMethodsToBeExposed[0] ?? null);
+  }, [payMethodsToBeExposed]);
 
   return (
     <section className="l-panel order-sheet__pay-method">

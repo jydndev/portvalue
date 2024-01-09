@@ -14,6 +14,7 @@ import { calculateRatingScoreByCurrentWidth } from '@shopby/shared';
 import { RATING_STAR } from '../../constants/rate';
 import BoardNoticeList from '../BoardNoticeList/BoardNoticeList';
 import BoardProductItem from '../BoardProductItem';
+import { useErrorBoundaryActionContext } from '../ErrorBoundary';
 import ReviewAccumulation from '../ReviewAccumulation';
 
 import ReviewImage from './ReviewImage';
@@ -77,6 +78,7 @@ const ReviewForm = ({
 
   const { openAlert, openConfirm } = useModalActionContext();
   const { postReviewBy, putReviewBy } = useProductReviewFormActionContext();
+  const { catchError } = useErrorBoundaryActionContext();
 
   const optionLabel = optionDisplayLabel ?? (optionName && optionValue) ? `${optionName}: ${optionValue}` : '';
 
@@ -106,37 +108,45 @@ const ReviewForm = ({
   };
 
   const saveReview = async ({ content, urls, rate }) => {
-    const request = {
-      content,
-      urls,
-      rate,
-      productNo,
-      optionNo,
-      orderOptionNo,
-    };
+    try {
+      const request = {
+        content,
+        urls,
+        rate,
+        productNo,
+        optionNo,
+        orderOptionNo,
+      };
 
-    await postReviewBy(request);
+      await postReviewBy(request);
 
-    await openAlert({
-      message: '상품후기가 등록되었습니다.',
-      onClose: async () => {
-        await onSubmit?.();
-      },
-    });
+      await openAlert({
+        message: '상품후기가 등록되었습니다.',
+        onClose: async () => {
+          await onSubmit?.();
+        },
+      });
+    } catch (e) {
+      catchError(e);
+    }
   };
 
   const modifyReview = async (reviewDetail) => {
-    await putReviewBy({
-      reviewNo,
-      ...reviewDetail,
-    });
+    try {
+      await putReviewBy({
+        reviewNo,
+        ...reviewDetail,
+      });
 
-    openAlert({
-      message: '상품후기가 수정되었습니다.',
-      onClose: async () => {
-        await onModify?.();
-      },
-    });
+      openAlert({
+        message: '상품후기가 수정되었습니다.',
+        onClose: async () => {
+          await onModify?.();
+        },
+      });
+    } catch (e) {
+      catchError(e);
+    }
   };
 
   const checkConditionsForAccumulation = (reviewDetail) => {
