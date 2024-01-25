@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,10 +27,13 @@ const CartContent = () => {
   const navigate = useNavigate();
   const { fetchCartDetail } = useCartActionContext();
   const { applyPageScripts } = usePageScriptsActionContext();
-  const { checkedProducts, checkedCartNos, cartDetail } = useCartStateContext();
+  const { checkedProducts, checkedCartNos, cartDetail, checkingStatusPerCartNo } = useCartStateContext();
   const { showNaverPayButton, prepareNaverPay, checkUsesNaverPayOrder } = useNaverPayActionContext();
   const { makeOrderSheet } = useOrderSheetActionContext();
   const { catchError } = useErrorBoundaryActionContext();
+
+  const [usesNaverPayOrder, setUsesNaverPayOrder] = useState(false);
+  const allCartNosLength = useMemo(() => Object.keys(checkingStatusPerCartNo).length, [checkingStatusPerCartNo]);
 
   useLayoutChanger({
     hasBackBtnOnHeader: true,
@@ -69,15 +72,19 @@ const CartContent = () => {
   useEffect(() => {
     (async () => {
       const usesNaverPayOrder = await checkUsesNaverPayOrder();
-      if (usesNaverPayOrder) {
-        showNaverPayButton({
-          containerElementId: 'naver-pay',
-          isCartPage: true,
-          redirectUrlAfterBuying: '/order/confirm',
-        });
-      }
+      setUsesNaverPayOrder(usesNaverPayOrder);
     })();
   }, []);
+
+  useEffect(() => {
+    if (allCartNosLength > 0 && usesNaverPayOrder) {
+      showNaverPayButton({
+        containerElementId: 'naver-pay',
+        isCartPage: true,
+        redirectUrlAfterBuying: '/order/confirm',
+      });
+    }
+  }, [allCartNosLength, usesNaverPayOrder]);
 
   useEffect(() => {
     if (!checkedProducts) return;
