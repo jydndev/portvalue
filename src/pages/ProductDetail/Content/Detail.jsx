@@ -87,7 +87,7 @@ const Detail = () => {
               </div>
             }
             FalsyComponent={
-              <div>
+              <div className="product-content__editor-box">
                 {contents.map((html, index) => (
                   <Sanitized key={`product-detail-content-${index}`} html={html ?? ''} />
                 ))}

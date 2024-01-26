@@ -18,7 +18,7 @@ const OptionSelector = () => {
           TruthyComponent={
             <SelectBox
               value={option.selectedOptionDepthKey}
-              hasEmptyOption={true}
+              hasEmptyOption={!option.selectedOptionDepthKey}
               emptyOptionLabel={option.emptyOptionLabel}
               options={option.options?.map((option) => ({
                 disabled: option.disabled,
