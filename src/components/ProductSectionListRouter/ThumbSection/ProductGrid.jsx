@@ -162,15 +162,17 @@ const ProductGrid = ({ className, style, displayType, products }) => (
                 />
               </Link>
             ) : (
-              <ProductThumbInfo
-                promotionText={promotionText}
-                productName={productName}
-                salePrice={calculateDiscountedPrice({
-                  salePrice,
-                  immediateDiscountAmt,
-                  additionDiscountAmt,
-                })}
-              />
+              <Link to={`/product-detail?productNo=${productNo}`}>
+                <ProductThumbInfo
+                  promotionText={promotionText}
+                  productName={productName}
+                  salePrice={calculateDiscountedPrice({
+                    salePrice,
+                    immediateDiscountAmt,
+                    additionDiscountAmt,
+                  })}
+                />
+              </Link>
             )}
           </ThumbItem>
         )

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import { object, bool, func, array, number, string } from 'prop-types';
 
@@ -83,15 +83,17 @@ const GalleryListPage = ({
                   >
                     <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
 
-                    <ProductThumbInfo
-                      promotionText={promotionText}
-                      productName={productName}
-                      salePrice={calculateDiscountedPrice({
-                        salePrice,
-                        immediateDiscountAmt,
-                        additionDiscountAmt,
-                      })}
-                    />
+                    <Link to={`/product-detail?productNo=${productNo}`}>
+                      <ProductThumbInfo
+                        promotionText={promotionText}
+                        productName={productName}
+                        salePrice={calculateDiscountedPrice({
+                          salePrice,
+                          immediateDiscountAmt,
+                          additionDiscountAmt,
+                        })}
+                      />
+                    </Link>
                   </ThumbItem>
                 )
             )}
