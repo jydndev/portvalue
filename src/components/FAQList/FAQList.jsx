@@ -80,7 +80,7 @@ const FAQList = ({ questions, faqNo, isLoading }) => {
                     <IconBtn className="arrow" iconType="angle-down" />
                   </div>
                   {showsAnswer(faq.articleNo) && articleDetail.content && (
-                    <div className="faq-list__content faq-list__answer customer-center__content customer-center__content--answer">
+                    <div className="faq-list__content editor faq-list__answer customer-center__content customer-center__content--answer">
                       <span className="ico ico--a"></span>
                       <Sanitized className="sanitize-wrap" html={articleDetail.content} style={{ width: '100%' }} />
                     </div>
