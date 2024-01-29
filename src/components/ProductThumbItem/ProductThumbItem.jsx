@@ -22,6 +22,7 @@ const ProductThumbItem = ({
   OptionComponent = null,
   AmountComponent = null,
   isRedirectingDisabled = false,
+  resize,
 }) => {
   if (!frontDisplayYn) return <></>;
 
@@ -32,6 +33,7 @@ const ProductThumbItem = ({
       src={imageUrl}
       className="product-thumb-item"
       alt={productName}
+      resize={resize}
     >
       <VisibleComponent shows={brandName} TruthyComponent={<p className="product-thumb-item__brand">{brandName}</p>} />
       <div>
@@ -79,4 +81,5 @@ ProductThumbItem.propTypes = {
   quantityChangerValue: number,
   onQuantityChange: func,
   isRedirectingDisabled: bool,
+  resize: string,
 };

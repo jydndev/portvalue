@@ -38,6 +38,7 @@ const ImageSlider = () => {
                   {...imageInfo}
                   href={`/product-detail?productNo=${baseInfo?.productNo}`}
                   productNo={baseInfo?.productNo}
+                  resize="500x500"
                 />
               </Slide>
             ))}
