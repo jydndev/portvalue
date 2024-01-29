@@ -25,7 +25,12 @@ const RelatedProduct = () => {
           {relatedProducts.map(
             ({ productNo, productName, discountedPrice, originalPrice, hasOnlyOriginalPrice, ...rest }) => (
               <Slide key={productNo} className="related-product__item">
-                <ThumbItem {...rest} href={`/product-detail?productNo=${productNo}`} productNo={productNo}>
+                <ThumbItem
+                  {...rest}
+                  href={`/product-detail?productNo=${productNo}`}
+                  productNo={productNo}
+                  resize="220x220"
+                >
                   <span className="related-product__product-name">{productName}</span>
                   <span className="related-product__price">
                     <strong>{convertToKoreanCurrency(discountedPrice)}원</strong>
