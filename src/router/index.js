@@ -165,7 +165,11 @@ const Router = () =>
         },
         {
           path: 'member-modification',
-          element: <MemberModification />,
+          element: (
+            <MemberRoute>
+              <MemberModification />
+            </MemberRoute>
+          ),
         },
         {
           path: 'find-id',

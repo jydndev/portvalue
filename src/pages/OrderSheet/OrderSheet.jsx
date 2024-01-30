@@ -20,6 +20,7 @@ import {
 import { getPlatformByMobile, isSignedIn, parsePhoneNumber } from '@shopby/shared';
 
 import { useErrorBoundaryActionContext } from '../../components/ErrorBoundary';
+import { EXTERNAL_CUSTOM_ORDER_SHEET_TERMS } from '../../constants';
 import useLayoutChanger from '../../hooks/useLayoutChanger';
 import { convertBooleanToYorN } from '../../utils';
 
@@ -31,14 +32,6 @@ import PromotionController from './PromotionController';
 import ShippingAddressInfoForm from './ShippingAddressInfoForm';
 import TermsChecker from './TermsChecker';
 import useValidateFormMaker from './useValidateFormMaker';
-
-const CUSTOM_ORDER_SHEET_TERMS = [
-  {
-    label: '구매하실 상품의 결제 정보를 확인하였으며, 구매 진행에 동의합니다.',
-    termsType: '구매하실 상품의 결제 정보를 확인하였으며, 구매 진행에 동의합니다.', // 확장성 고려
-    isRequired: true,
-  },
-];
 
 const OrderSheetContent = () => {
   const { state } = useLocation();
@@ -60,6 +53,7 @@ const OrderSheetContent = () => {
       bankAccountSelectRef: createRef(),
       remitterNameInputRef: createRef(),
     },
+    termsCheckerRef: createRef(),
   };
   const { orderSheetNo } = useParams();
   const { t } = useTranslation('title');
@@ -159,9 +153,13 @@ const OrderSheetContent = () => {
     if (!isValid) return;
 
     try {
+      const { customTermsAgrees, agreementTermsAgrees } = orderSheetRef.termsCheckerRef.current;
+
       order({
         platform: isMobile ? 'MOBILE_WEB' : 'PC',
         confirmUrl: `${location.origin}/order/confirm?deliverable=${convertBooleanToYorN(hasDeliverableProduct)}`,
+        customTermsAgrees,
+        agreementTermsAgrees,
       });
     } catch (e) {
       catchError(e);
@@ -176,7 +174,7 @@ const OrderSheetContent = () => {
       <PromotionController />
       <PaymentInfo />
       <PayMethodSelector refs={orderSheetRef.depositBankFormRef} />
-      <TermsChecker />
+      <TermsChecker ref={orderSheetRef.termsCheckerRef} />
       <Button className="order-sheet__pay-btn" label={'결제 하기'} onClick={handleOrderBtnClick} />
     </div>
   );
@@ -191,12 +189,7 @@ const OrderSheet = () => {
   }, []);
 
   return (
-    <OrderSheetProvider
-      clientId={clientId}
-      mallProfile={mallProfile}
-      customTerms={CUSTOM_ORDER_SHEET_TERMS}
-      termTypesToExclude={'ORDER_INFO_AGREE'}
-    >
+    <OrderSheetProvider clientId={clientId} mallProfile={mallProfile} customTerms={EXTERNAL_CUSTOM_ORDER_SHEET_TERMS}>
       <MyShippingAddressProvider>
         <MyPayProvider clientId={clientId} mallProfile={mallProfile} platform={getPlatformByMobile(isMobile)}>
           <OrderSheetContent />

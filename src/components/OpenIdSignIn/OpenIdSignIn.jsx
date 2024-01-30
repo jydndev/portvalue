@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
-import { string, array } from 'prop-types';
+import { string, array, bool } from 'prop-types';
 
 import { VisibleComponent, useOpenIdSignInActionContext } from '@shopby/react-components';
 
-const OpenIdSignIn = ({ label, orderSheetNo, providers }) => {
+const OpenIdSignIn = ({ label, orderSheetNo, providers, reauthenticate = false }) => {
   const { openIdSignIn, setPathToLocalStorage } = useOpenIdSignInActionContext();
   const { t } = useTranslation('provider');
 
@@ -34,7 +34,7 @@ const OpenIdSignIn = ({ label, orderSheetNo, providers }) => {
                     data-action="oauth"
                     onClick={() => {
                       setPathToLocalStorage({ previousPath, nextPath, orderSheetPath });
-                      openIdSignIn({ provider, redirectUri });
+                      openIdSignIn({ provider, redirectUri, reauthenticate });
                     }}
                   >
                     {t(provider?.toUpperCase())}
@@ -55,4 +55,5 @@ OpenIdSignIn.propTypes = {
   label: string,
   providers: array,
   orderSheetNo: string,
+  reauthenticate: bool,
 };
