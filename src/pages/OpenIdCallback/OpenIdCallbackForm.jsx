@@ -14,7 +14,8 @@ import OpenIdSignUpKakaosync from './OpenIdSignUpKakaosync';
 
 const OpenIdCallbackForm = () => {
   const {
-    getOauthOpenId,
+    // getOauthOpenId,
+    postOauthOpenId,
     getProfile,
     getPathFromLocalStorage,
     removePath,
@@ -55,34 +56,39 @@ const OpenIdCallbackForm = () => {
 
   useEffect(() => {
     const divideProfileStatus = async () => {
-      const {
-        data: { dormantMemberResponse, accessToken },
-      } = await getOauthOpenId({ code, redirectUri });
+      try {
+        const {
+          data: { dormantMemberResponse, accessToken },
+        } = await postOauthOpenId({ code, redirectUri });
 
-      const isDormantMember =
-        dormantMemberResponse?.memberName || dormantMemberResponse?.email || dormantMemberResponse?.mobileNo;
+        const isDormantMember =
+          dormantMemberResponse?.memberName || dormantMemberResponse?.email || dormantMemberResponse?.mobileNo;
 
-      if (isDormantMember) {
-        openConfirm({
-          message: (
-            <>
-              장기 미접속으로 인해 휴면회원 전환 상태입니다. <br />
-              휴면해제 하시겠습니까?
-            </>
-          ),
-          confirmLabel: '확인',
-          onConfirm: () => reactivate({ accessToken }),
-          onCancel: async () => {
-            await signOut();
+        if (isDormantMember) {
+          openConfirm({
+            message: (
+              <>
+                장기 미접속으로 인해 휴면회원 전환 상태입니다. <br />
+                휴면해제 하시겠습니까?
+              </>
+            ),
+            confirmLabel: '확인',
+            onConfirm: () => reactivate({ accessToken }),
+            onCancel: async () => {
+              await signOut();
 
-            window.location.href = '/';
-          },
-        });
+              window.location.href = '/';
+            },
+          });
 
-        return;
+          return;
+        }
+
+        await getProfile();
+      } catch (error) {
+        await signOut();
+        window.location.href = '/';
       }
-
-      await getProfile();
     };
 
     if (code) {

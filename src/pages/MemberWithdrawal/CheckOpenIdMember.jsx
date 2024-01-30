@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { func } from 'prop-types';
+import { func, bool } from 'prop-types';
 
 import { useOpenIdSignInActionContext, useAuthStateContext, useModalActionContext } from '@shopby/react-components';
 
 import OpenIdSignIn from '../../components/OpenIdSignIn';
-const CheckOpenIdMember = ({ onAuthenticationBtnClick }) => {
+const CheckOpenIdMember = ({ onAuthenticationBtnClick, reauthenticate = false }) => {
   const location = useLocation();
   const { setOauthIdNoToLocalStorage, getOauthCompareResultToLocalStorage, removeOauthCompareResultToLocalStorage } =
     useOpenIdSignInActionContext();
@@ -49,7 +49,11 @@ const CheckOpenIdMember = ({ onAuthenticationBtnClick }) => {
         계정을 재인증 해주세요.
       </p>
       <div className="open-id-authentication__link">
-        <OpenIdSignIn label="로그인" providers={[profile?.providerType.toLowerCase().replace('_', '-')]} />
+        <OpenIdSignIn
+          label="로그인"
+          providers={[profile?.providerType.toLowerCase().replace('_', '-')]}
+          reauthenticate={reauthenticate}
+        />
       </div>
     </div>
   );
@@ -59,4 +63,5 @@ export default CheckOpenIdMember;
 
 CheckOpenIdMember.propTypes = {
   onAuthenticationBtnClick: func,
+  reauthenticate: bool,
 };

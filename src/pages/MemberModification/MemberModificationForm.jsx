@@ -5,6 +5,8 @@ import {
   useMemberModificationStateContext,
   useMemberModificationActionContext,
   useMallStateContext,
+  useCustomTermsStateContext,
+  useModalActionContext,
 } from '@shopby/react-components';
 import { AUTHENTICATION_TYPE } from '@shopby/shared/constants';
 
@@ -23,6 +25,10 @@ const MemberModificationForm = () => {
   const { memberModificationInfo } = useMemberModificationStateContext();
   const { mallJoinConfig } = useMallStateContext();
   const { catchError } = useErrorBoundaryActionContext();
+  const { openAlert } = useModalActionContext();
+
+  // 약관 추가항목 관리
+  const { agreedAllRequiredTerms, agreedTermsNos } = useCustomTermsStateContext();
 
   const handleModifyBtnClick = async () => {
     if (!validateKey()) {
@@ -32,8 +38,18 @@ const MemberModificationForm = () => {
       return;
     }
 
+    if (!agreedAllRequiredTerms) {
+      openAlert({
+        message: '필수 입력 사항을 확인 바랍니다.',
+      });
+
+      return;
+    }
+
     try {
-      const modifyResult = await modifyProfile();
+      const modifyResult = await modifyProfile({
+        customTermsNos: agreedTermsNos,
+      });
 
       if (modifyResult) {
         location.href = '/my-page';
