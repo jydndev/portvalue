@@ -1,3 +1,4 @@
+import cookie from 'js-cookie';
 import { createContext, useContext, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -221,6 +222,16 @@ const ErrorBoundary = ({ children }) => {
 
     if (error?.serverError?.status === 404) {
       window.location.href = NOT_FOUND_PATH;
+    }
+
+    if (error?.serverError?.status === 401) {
+      cookie.remove('SSID');
+      cookie.remove('SSDID');
+      cookie.remove('SS_AGE');
+
+      navigate('/', {
+        replace: true,
+      });
     }
   };
 
