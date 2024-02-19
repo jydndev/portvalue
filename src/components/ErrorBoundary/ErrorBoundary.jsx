@@ -1,7 +1,7 @@
+import cookie from 'js-cookie';
 import { createContext, useContext, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import cookie from 'js-cookie';
 import { node, element, oneOfType } from 'prop-types';
 
 import { useModalActionContext } from '@shopby/react-components';
