@@ -23,18 +23,34 @@ import {
   ProfileGradeProvider,
   useProfileGradeActionContext,
   usePageScriptsActionContext,
+  useInquiryActionContext,
+  useProfileProductInquiryActionContext,
+  useProfileProductReviewActionContext,
+  InquiryProvider,
+  ProfileProductInquiryProvider,
+  ProfileProductReviewProvider,
+  useMyOrderActionContext,
+  MyOrderProvider,
 } from '@shopby/react-components';
-import { convertToKoreanCurrency } from '@shopby/shared';
+import { convertToKoreanCurrency, getDateLabel } from '@shopby/shared';
 
 import TitleModal from '../../components/TitleModal';
 import useLayoutChanger from '../../hooks/useLayoutChanger';
+import { lastHalfYear } from '../../utils/date';
 
 import MyGrade from './MyGrade';
+
+const today = getDateLabel();
 
 const MyPageSummary = () => {
   const { fetchProfileCouponSummary } = useCouponActionContext();
   const { fetchProfileLikeProductCount } = useProfileLikeActionContext();
   const { fetchAccumulationSummary } = useProfileAccumulationActionContext();
+  const { fetchInquiries } = useInquiryActionContext();
+  const { fetchProfileProductInquiries } = useProfileProductInquiryActionContext();
+  const { fetchProfileReviewableProducts, fetchProfileReviewedProducts } = useProfileProductReviewActionContext();
+  const { applyPageScripts } = usePageScriptsActionContext();
+  const { fetchProfileOrdersSummaryStatus } = useMyOrderActionContext();
 
   const {
     profileCouponSummary: { usableCouponCnt },
@@ -45,10 +61,66 @@ const MyPageSummary = () => {
     accumulationConfig: { accumulationName },
   } = useMallStateContext();
 
+  const handleGlobalsVariableMyPage = async () => {
+    const response = await Promise.all([
+      fetchInquiries({
+        hasTotalCount: true,
+        inquiryStatuses: ['ISSUED', 'IN_PROGRESS'],
+        startYmd: '2020-01-01',
+      }),
+      fetchInquiries({
+        hasTotalCount: true,
+        inquiryStatuses: ['ANSWERED'],
+        startYmd: '2020-01-01',
+      }),
+      fetchProfileProductInquiries({
+        hasAnswers: false,
+        hasTotalCount: true,
+        startYmd: '2020-01-01',
+      }),
+      fetchProfileProductInquiries({
+        hasAnswers: true,
+        hasTotalCount: true,
+        startYmd: '2020-01-01',
+      }),
+      fetchProfileReviewableProducts({
+        hasTotalCount: true,
+        startDate: '2020-01-01',
+      }),
+      fetchProfileReviewedProducts({
+        hasTotalCount: true,
+        startYmd: '2020-01-01',
+      }),
+      fetchProfileOrdersSummaryStatus({
+        startYmd: lastHalfYear,
+        endYmd: today,
+      }),
+    ]);
+
+    const [
+      progressInquiry,
+      answeredInquiry,
+      progressProductInquiry,
+      answeredProductInquiry,
+      possibleProductReview,
+      myProductReview,
+      orderSummary,
+    ] = response.map(({ data }) => data);
+
+    applyPageScripts('PROFILE_INQUIRIES_PROGRESS', { profileInquiriesProgress: progressInquiry });
+    applyPageScripts('PROFILE_INQUIRIES_ANSWERED', { profileInquiriesAnswered: answeredInquiry });
+    applyPageScripts('PROFILE_PRODUCT_INQUIRIES_PROGRESS', { profileProductInquiriesProgress: progressProductInquiry });
+    applyPageScripts('PROFILE_PRODUCT_INQUIRIES_ANSWERED', { profileProductInquiresAnswered: answeredProductInquiry });
+    applyPageScripts('PROFILE_PRODUCT_REVIEWABLE', { profileProductReviewable: possibleProductReview });
+    applyPageScripts('PROFILE_PRODUCT_REVIEWED', { profileProductReviewed: myProductReview });
+    applyPageScripts('PROFILE_ORDERS_SUMMARY_STATUS', { profileOrdersSummaryStatus: orderSummary });
+  };
+
   useEffect(() => {
     fetchProfileCouponSummary();
     fetchProfileLikeProductCount();
     fetchAccumulationSummary();
+    handleGlobalsVariableMyPage();
   }, []);
 
   return (
@@ -151,7 +223,15 @@ const MyPage = () => {
       <CouponProvider>
         <ProfileLikeProvider>
           <ProfileAccumulationProvider>
-            <MyPageSummary />
+            <InquiryProvider>
+              <ProfileProductInquiryProvider>
+                <ProfileProductReviewProvider>
+                  <MyOrderProvider willOrdersBeAccumulated={true}>
+                    <MyPageSummary />
+                  </MyOrderProvider>
+                </ProfileProductReviewProvider>
+              </ProfileProductInquiryProvider>
+            </InquiryProvider>
           </ProfileAccumulationProvider>
         </ProfileLikeProvider>
       </CouponProvider>
