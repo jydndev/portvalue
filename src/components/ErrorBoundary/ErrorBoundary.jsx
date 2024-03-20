@@ -51,40 +51,42 @@ const alertError = ({ alert, description, openAlert, navigate, shouldReload }) =
   const message = alert?.message ?? description;
   const { to, from } = getToAndFrom(alert, location);
 
-  openAlert({
-    message,
-    onClose: () => {
-      alert?.next &&
-        navigate(to, {
-          state: {
-            from,
-            to,
-          },
-        });
+  message &&
+    openAlert({
+      message,
+      onClose: () => {
+        alert?.next &&
+          navigate(to, {
+            state: {
+              from,
+              to,
+            },
+          });
 
-      shouldReload && navigate(0);
-    },
-  });
+        shouldReload && navigate(0);
+      },
+    });
 };
 
 const confirmError = ({ confirm, openConfirm, description, navigate, shouldReload }) => {
   const message = confirm?.message ?? description;
   const { to, from } = getToAndFrom(confirm, location);
 
-  openConfirm({
-    message,
-    onConfirm: () => {
-      confirm?.next &&
-        navigate(to, {
-          state: {
-            from,
-            to,
-          },
-        });
+  message &&
+    openConfirm({
+      message,
+      onConfirm: () => {
+        confirm?.next &&
+          navigate(to, {
+            state: {
+              from,
+              to,
+            },
+          });
 
-      shouldReload && navigate(0);
-    },
-  });
+        shouldReload && navigate(0);
+      },
+    });
 };
 
 const alertLocationError = ({
@@ -97,20 +99,21 @@ const alertLocationError = ({
   const message = unexpectedServerErrorBoundaryInformation?.message ?? description;
   const { to, from } = getToAndFrom(unexpectedServerErrorBoundaryInformation, location);
 
-  openAlert({
-    message,
-    onClose: () => {
-      unexpectedServerErrorBoundaryInformation?.next &&
-        navigate(to, {
-          state: {
-            from,
-            to,
-          },
-        });
+  message &&
+    openAlert({
+      message,
+      onClose: () => {
+        unexpectedServerErrorBoundaryInformation?.next &&
+          navigate(to, {
+            state: {
+              from,
+              to,
+            },
+          });
 
-      shouldReload && navigate(0);
-    },
-  });
+        shouldReload && navigate(0);
+      },
+    });
 };
 
 // 예상하지 못한 서버 오류 핸들맵
@@ -142,7 +145,7 @@ const getStatusErrorHandleMap = (event) => {
 
   if (status === 402) return EXPIRED_MALL_PATH;
 
-  if (`${status}`?.startsWith('5')) return SERVICE_CHECK_PATH;
+  if (status === 503) return SERVICE_CHECK_PATH;
 
   return '';
 };
@@ -164,7 +167,7 @@ const ErrorBoundary = ({ children }) => {
     const shouldReload = reloadMap[location.pathname]?.(code);
 
     const unexpectedServerErrorBoundaryInformation = getUnexpectedServerErrorHandleMap(event.reason?.error);
-
+    console.error(error);
     if (exceptCodes.includes(code)) {
       return;
     }
