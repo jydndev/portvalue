@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -23,6 +23,11 @@ const SignUp = () => {
     title: t('signUp'),
   });
 
+  const refs = {
+    emailRef: useRef(),
+    mobilePhoneNumberInputRef: useRef(),
+  };
+
   const [isTermsFullModalOpen, setIsTermsFullModalOpen] = useState(false);
 
   return (
@@ -31,9 +36,9 @@ const SignUp = () => {
         <IdentificationVerificationProvider>
           <CustomTermsProvider customCategoryType={CUSTOM_TERMS_CATEGORY_TYPE.MEMBER}>
             <div className="sign-up-form">
-              <SignUpForm />
+              <SignUpForm refs={refs} />
               <TermsForm setIsTermsFullModalOpen={() => setIsTermsFullModalOpen(true)} />
-              <SignUpButton />
+              <SignUpButton refs={refs} />
             </div>
           </CustomTermsProvider>
           {isTermsFullModalOpen && <TermsModal onClose={() => setIsTermsFullModalOpen(false)} />}

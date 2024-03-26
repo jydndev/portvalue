@@ -79,8 +79,8 @@ const Purchase = () => {
         showNaverPayButton({
           containerElementId: 'naver-pay',
           usesWishListButton: true,
-          redirectUrlAfterBuying: `${location.origin}/orders/confirm`,
-          redirectUrlAfterWishing: location.origin,
+          redirectUrlAfterBuying: location.href, // backUrl
+          redirectUrlAfterWishing: location.href, // backUrl
           onBeforeBuyButtonClick: async () => {
             const {
               data: { products },

@@ -15,8 +15,7 @@ import locationMap from './locationMap';
 import reloadMap from './reloadMap';
 
 const getErrorState = (event) => {
-  const error = event?.reason?.error ?? event.error?.error ?? event.error;
-
+  const error = event?.reason?.error ?? event.error?.error ?? event.error ?? event;
   if (error?.code) {
     return {
       code: error?.code,

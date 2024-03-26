@@ -1,7 +1,19 @@
-import { useMemberModificationStateContext, useMemberModificationActionContext, Radio } from '@shopby/react-components';
+import {
+  useMemberModificationStateContext,
+  useMemberModificationActionContext,
+  Radio,
+  useMallStateContext,
+} from '@shopby/react-components';
 
+import { NOT_USED } from '../../constants/form';
+
+// eslint-disable-next-line complexity
 const MemberModificationReceiveAgreement = () => {
   const { updateMemberModificationInfo } = useMemberModificationActionContext();
+
+  const {
+    memberJoinConfig: { smsAgreement, emailAgreement },
+  } = useMallStateContext();
 
   const {
     memberModificationInfo: { smsAgreed, directMailAgreed },
@@ -17,61 +29,65 @@ const MemberModificationReceiveAgreement = () => {
 
   return (
     <>
-      <div className="member-modification-form__item member-modification-form__radio-field">
-        <div className="radio-field__content">
-          <label htmlFor="email" className="member-modification-form__tit">
-            SMS 수신
-          </label>
-          <div className="member-modification-form__input-wrap">
-            <Radio
-              label="수신동의"
-              checked={smsAgreed}
-              onChange={() => {
-                handleSmsAgreedChange(true);
-              }}
-            />
-            <Radio
-              label="동의안함"
-              checked={!smsAgreed}
-              onChange={() => {
-                handleSmsAgreedChange(false);
-              }}
-            />
+      {smsAgreement !== NOT_USED && (
+        <div className="member-modification-form__item member-modification-form__radio-field">
+          <div className="radio-field__content">
+            <label htmlFor="email" className="member-modification-form__tit">
+              SMS 수신
+            </label>
+            <div className="member-modification-form__input-wrap">
+              <Radio
+                label="수신동의"
+                checked={smsAgreed}
+                onChange={() => {
+                  handleSmsAgreedChange(true);
+                }}
+              />
+              <Radio
+                label="동의안함"
+                checked={!smsAgreed}
+                onChange={() => {
+                  handleSmsAgreedChange(false);
+                }}
+              />
+            </div>
           </div>
-        </div>
 
-        {smsAgreeYmdt && <p className="receive-agreement-time">수신동의하신 시간 : {smsAgreeYmdt}</p>}
-        {smsDisagreeYmdt && <p className="receive-agreement-time">수신거부하신 시간 : {smsDisagreeYmdt}</p>}
-        <span className="member-modification-form__description">* 상품/이벤트 정보 수신동의</span>
-      </div>
-      <div className="member-modification-form__item member-modification-form__radio-field">
-        <div className="radio-field__content">
-          <label htmlFor="email" className="member-modification-form__tit">
-            E-Mail 수신
-          </label>
-          <div className="member-modification-form__input-wrap">
-            <Radio
-              label="수신동의"
-              checked={directMailAgreed}
-              onChange={() => {
-                handleDirectMailAgreedChange(true);
-              }}
-            />
-            <Radio
-              label="동의안함"
-              checked={!directMailAgreed}
-              onChange={() => {
-                handleDirectMailAgreedChange(false);
-              }}
-            />
-          </div>
+          {smsAgreeYmdt && <p className="receive-agreement-time">수신동의하신 시간 : {smsAgreeYmdt}</p>}
+          {smsDisagreeYmdt && <p className="receive-agreement-time">수신거부하신 시간 : {smsDisagreeYmdt}</p>}
+          <span className="member-modification-form__description">* 상품/이벤트 정보 수신동의</span>
         </div>
-        {directMailAgreeYmdt && <p className="receive-agreement-time">수신동의하신 시간 : {directMailAgreeYmdt}</p>}
-        {directMailDisagreeYmdt && (
-          <p className="receive-agreement-time">수신거부하신 시간 : {directMailDisagreeYmdt}</p>
-        )}
-        <span className="member-modification-form__description">* 상품/이벤트 정보 수신동의</span>
-      </div>
+      )}
+      {emailAgreement !== NOT_USED && (
+        <div className="member-modification-form__item member-modification-form__radio-field">
+          <div className="radio-field__content">
+            <label htmlFor="email" className="member-modification-form__tit">
+              E-Mail 수신
+            </label>
+            <div className="member-modification-form__input-wrap">
+              <Radio
+                label="수신동의"
+                checked={directMailAgreed}
+                onChange={() => {
+                  handleDirectMailAgreedChange(true);
+                }}
+              />
+              <Radio
+                label="동의안함"
+                checked={!directMailAgreed}
+                onChange={() => {
+                  handleDirectMailAgreedChange(false);
+                }}
+              />
+            </div>
+          </div>
+          {directMailAgreeYmdt && <p className="receive-agreement-time">수신동의하신 시간 : {directMailAgreeYmdt}</p>}
+          {directMailDisagreeYmdt && (
+            <p className="receive-agreement-time">수신거부하신 시간 : {directMailDisagreeYmdt}</p>
+          )}
+          <span className="member-modification-form__description">* 상품/이벤트 정보 수신동의</span>
+        </div>
+      )}
     </>
   );
 };

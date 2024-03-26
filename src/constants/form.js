@@ -39,3 +39,21 @@ export const DELIVERY_COMPANY_OPTIONS = Object.entries(DELIVERY_COMPANY_TYPE_MAP
 export const BANK_OPTIONS = Object.entries(BANK_MAP)
   .map(([value, label]) => ({ label, value }))
   .filter(({ value }) => value !== 'ANONYMOUS');
+
+export const NOT_USED = 'NOT_USED';
+export const REQUIRED = 'REQUIRED';
+export const PHONE_NUMBER_MAX_LENGTH = 13;
+export const YEAR_SELECT_OPTION_LENGTH = 120;
+export const MONTH_SELECT_OPTION_LENGTH = 12;
+export const DATE_SELECT_OPTION_LENGTH = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+export const SEX_SELECT_OPTIONS = [
+  { value: '', label: '선택 안 함' },
+  { value: 'M', label: '남자' },
+  { value: 'F', label: '여자' },
+];
+
+export const PI_14_AGE_TERM_TYPE = 'PI_14_AGE';
+
+export const NICKNAME_MAX_LENGTH = 20;
+
+export const CERTIFICATION_TYPE = { mobile: 'MOBILE', sms: 'SMS', email: 'EMAIL' };
