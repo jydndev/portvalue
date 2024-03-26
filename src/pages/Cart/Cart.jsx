@@ -81,7 +81,8 @@ const CartContent = () => {
       showNaverPayButton({
         containerElementId: 'naver-pay',
         isCartPage: true,
-        redirectUrlAfterBuying: '/order/confirm',
+        redirectUrlAfterBuying: location.href, // backUrl
+        redirectUrlAfterWishing: location.href, // backUrl
       });
     }
   }, [allCartNosLength, usesNaverPayOrder]);

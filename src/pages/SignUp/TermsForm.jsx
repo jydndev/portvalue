@@ -12,9 +12,11 @@ import {
 } from '@shopby/react-components';
 
 import { CustomTerms } from '../../components/CustomTerms';
+import { PI_14_AGE_TERM_TYPE } from '../../constants/form';
 
 const TermsForm = ({ setIsTermsFullModalOpen }) => {
-  const { checkboxModalToggle, checkboxSingleCheck, checkboxAllCheck, setTermStatus } = useSignUpActionContext();
+  const { checkboxModalToggle, checkboxSingleCheck, checkboxAllCheck, setTermStatus, getTerms } =
+    useSignUpActionContext();
   const { termStatus } = useSignUpStateContext();
 
   // 약관 추가항목 관리
@@ -45,8 +47,17 @@ const TermsForm = ({ setIsTermsFullModalOpen }) => {
       termsType: 'PI_COLLECTION_AND_USE_REQUIRED',
       isFullModalOpen: false,
     },
-    { id: 'age', title: '[필수] 만 14세 이상입니다', checked: false, require: true },
   ];
+
+  const ageTermStatus = {
+    id: 'age',
+    title: '[필수] 만 14세 이상 가입 동의',
+    checked: false,
+    require: true,
+    hasDetailView: true,
+    termsType: 'PI_14_AGE',
+    isFullModalOpen: false,
+  };
 
   const handleModalToggle = (id) => checkboxModalToggle(id);
   const handleSingleCheck = (checked, id) => checkboxSingleCheck(checked, id);
@@ -57,8 +68,16 @@ const TermsForm = ({ setIsTermsFullModalOpen }) => {
     });
   };
 
+  const addAgeTerm = async () => {
+    const res = await getTerms({ termsTypes: PI_14_AGE_TERM_TYPE });
+    if (res?.pi_14_age?.used) {
+      setTermStatus([...initialTermStatus, ageTermStatus]);
+    } else {
+      setTermStatus(initialTermStatus);
+    }
+  };
   useEffect(() => {
-    setTermStatus(initialTermStatus);
+    addAgeTerm();
   }, []);
 
   return (

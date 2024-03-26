@@ -41,6 +41,58 @@ ReviewFormModal.propTypes = {
   onClose: func,
 };
 
+const CLAIM_NOTICE_FOR_ESCROW = {
+  CANCEL_ALL: '에스크로 결제 건은 전체 취소만 가능합니다. 취소하시겠습니까?',
+  CANCEL:
+    '에스크로 결제 건은 모든 상품이 결제완료 상태에서만 취소 신청이 가능합니다. 취소신청은 1:1문의를 통해 문의해주세요.',
+  RETURN: '에스크로 결제 건에 대한 클레임이 불가능합니다. 고객센터를 통해 확인해주세요.',
+  EXCHANGE: '에스크로 결제 건은 교환 신청이 불가합니다. 취소/반품 후 재주문으로 처리해 주세요.',
+  CONFIRM_ORDER: '에스크로 주문은 구매확정으로 변경할 수 없습니다.',
+  WRITE_REVIEW: '에스크로 결제 건은 구매확정 이후 후기작성이 가능합니다.',
+};
+
+const getEscrowInfo = ({ isEscrow, nextAction, orderStatus }) => {
+  if (!isEscrow) {
+    return {
+      next: true,
+      message: '',
+    };
+  }
+
+  if (orderStatus === 'DEPOSIT_WAIT') {
+    const message = CLAIM_NOTICE_FOR_ESCROW[nextAction];
+
+    return {
+      next: true,
+      message,
+    };
+  }
+
+  if (['PAY_DONE', 'PRODUCT_PREPARE', 'DELIVERY_PREPARE'].includes(orderStatus)) {
+    const message = CLAIM_NOTICE_FOR_ESCROW[nextAction];
+    if (message) {
+      return {
+        next: false,
+        message,
+      };
+    }
+  }
+
+  const message = CLAIM_NOTICE_FOR_ESCROW[nextAction];
+
+  if (message) {
+    return {
+      next: false,
+      message,
+    };
+  }
+
+  return {
+    next: true,
+    message: '',
+  };
+};
+
 const NextActionButton = ({
   orderStatusType,
   nextActionType,
@@ -59,6 +111,7 @@ const NextActionButton = ({
   claimStatusType = null,
   deliveryType = null,
   flattenedOrderOptions = [],
+  payType = null,
 }) => {
   const navigate = useNavigate();
   const { openAlert, openConfirm } = useModalActionContext();
@@ -70,12 +123,20 @@ const NextActionButton = ({
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const isEscrow = payType?.includes('ESCROW');
+
   const nextAction = {
     CANCEL_ALL: {
       label: '전체 주문 취소',
       execute: () => {
+        const { message } = getEscrowInfo({
+          isEscrow,
+          nextAction,
+          orderStatus: orderStatusType,
+        });
+
         openConfirm({
-          message: '전체 주문을 취소하시겠습니까?',
+          message: message ? message : '전체 주문을 취소하시겠습니까?',
           onConfirm: async () => {
             await cancelOrder(orderNo);
             openAlert({
@@ -89,19 +150,55 @@ const NextActionButton = ({
     CANCEL: {
       label: '취소 신청',
       execute: () => {
-        navigate(`/claim/${orderOptionNo}?claimType=CANCEL`);
+        const { next, message } = getEscrowInfo({
+          isEscrow,
+          nextAction,
+          orderStatus: orderStatusType,
+        });
+
+        if (message) {
+          openAlert({
+            message,
+          });
+        }
+
+        next && navigate(`/claim/${orderOptionNo}?claimType=CANCEL`);
       },
     },
     EXCHANGE: {
       label: '교환 신청',
       execute: () => {
-        navigate(`/claim/${orderOptionNo}?claimType=EXCHANGE`);
+        const { next, message } = getEscrowInfo({
+          isEscrow,
+          nextAction,
+          orderStatus: orderStatusType,
+        });
+
+        if (message) {
+          openAlert({
+            message,
+          });
+        }
+
+        next && navigate(`/claim/${orderOptionNo}?claimType=EXCHANGE`);
       },
     },
     RETURN: {
       label: '반품 신청',
       execute: () => {
-        navigate(`/claim/${orderOptionNo}?claimType=RETURN&deliverable=${convertBooleanToYorN(deliverable)}`);
+        const { next, message } = getEscrowInfo({
+          isEscrow,
+          nextAction,
+          orderStatus: orderStatusType,
+        });
+
+        if (message) {
+          openAlert({
+            message,
+          });
+        }
+
+        next && navigate(`/claim/${orderOptionNo}?claimType=RETURN&deliverable=${convertBooleanToYorN(deliverable)}`);
       },
     },
     WITHDRAW_CANCEL: {
@@ -292,6 +389,7 @@ NextActionButton.propTypes = {
   optionValue: string,
   deliverable: bool,
   pgType: string,
+  payType: string,
   claimStatusType: string,
   deliveryType: string,
   flattenedOrderOptions: array,

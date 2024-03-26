@@ -12,11 +12,18 @@ import {
 import { CustomTerms } from '../../components/CustomTerms';
 import FullModal from '../../components/FullModal';
 import Sanitized from '../../components/Sanitized';
+import { PI_14_AGE_TERM_TYPE } from '../../constants/form';
 
 const MemberModificationTermsForm = () => {
   const { profile } = useAuthStateContext();
-  const { getTerms, checkSingle, updateTermsInfo, updateIsTermsContentFullModalOpen, updateTermStatus } =
-    useMemberModificationActionContext();
+  const {
+    getTerms,
+    checkSingle,
+    updateTermsInfo,
+    updateIsTermsContentFullModalOpen,
+    updateTermStatus,
+    updateValidationStatus,
+  } = useMemberModificationActionContext();
   const { termStatus, termsInfo, isTermsContentFullModalOpen } = useMemberModificationStateContext();
   const { updateInitialCustomTermsNos } = useCustomTermsActionContext();
 
@@ -30,26 +37,68 @@ const MemberModificationTermsForm = () => {
       termsType: 'PI_COLLECTION_AND_USE_REQUIRED',
       disabled: true,
     },
-    { id: 'age', label: '[필수] 만 14세 이상입니다', checked: true, require: true, disabled: true },
   ];
+
+  const ageTermStatus = {
+    id: 'age',
+    label: '[필수] 만 14세 이상 가입 동의',
+    require: true,
+    termsType: 'PI_14_AGE',
+    disabled: false,
+    checked: false,
+  };
 
   const handleCheckSingle = (isChecked, label) => {
     checkSingle({ isChecked, label });
   };
 
-  const handleGetTerms = ({ termsTypes, title }) => {
-    getTerms({ termsTypes });
-    updateTermsInfo({ title });
+  const handleGetTerms = async ({ termsTypes, title }) => {
+    const terms = await getTerms({ termsTypes });
+    const termContentValues = Object.values(terms);
+    const [termData] = termContentValues;
+    const { contents } = termData;
+
+    updateIsTermsContentFullModalOpen(true);
+    updateTermsInfo({ title, contents });
+  };
+
+  const addAgeTerm = async () => {
+    const res = await getTerms({ termsTypes: PI_14_AGE_TERM_TYPE });
+    if (res?.pi_14_age?.used) {
+      ageTermStatus.checked = profile?.agreedTerms.includes(ageTermStatus.termsType);
+      ageTermStatus.disabled = ageTermStatus.checked;
+      updateTermStatus([...initialTermStatus, ageTermStatus]);
+    } else {
+      updateTermStatus(initialTermStatus);
+    }
   };
 
   useEffect(() => {
-    updateTermStatus(initialTermStatus);
+    addAgeTerm();
 
     const customTermsNos = profile?.customTermsAgreement
       ?.filter(({ isAgree }) => isAgree)
       .map(({ customTermsNo }) => customTermsNo);
     customTermsNos?.length > 0 && updateInitialCustomTermsNos(customTermsNos);
   }, [profile]);
+
+  useEffect(() => {
+    const termStatusItems = [...termStatus];
+    const requireTypeItem = termStatusItems.filter((el) => el.require);
+    const checkJoinRequireAgreements = requireTypeItem.filter((el) => el.checked === false);
+
+    if (checkJoinRequireAgreements.length !== 0) {
+      updateValidationStatus((prev) => ({
+        ...prev,
+        joinTermsAgreements: { result: false, message: '필수 약관을 체크해 주세요.' },
+      }));
+    } else {
+      updateValidationStatus((prev) => ({
+        ...prev,
+        joinTermsAgreements: { result: true, message: '' },
+      }));
+    }
+  }, [termStatus]);
 
   return (
     <div className="member-modification-form__item">

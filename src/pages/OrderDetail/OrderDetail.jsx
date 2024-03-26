@@ -88,6 +88,7 @@ const OrderDetailContent = () => {
             nextActionType={'CANCEL_ALL'}
             flattenedOrderOptions={flattenedOrderOptions}
             pgType={orderDetail?.pgType}
+            payType={orderDetail?.payType}
           />
         )}
       </OrderNoLabel>

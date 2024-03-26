@@ -81,6 +81,7 @@ const OrderDetailProductTable = () => {
                           nextActionType={'VIEW_DELIVERY'}
                           trackingDeliveryUri={actionOfViewDelivery.uri}
                           pgType={orderDetail?.payType}
+                          payType={orderDetail?.payType}
                           claimStatusType={claimStatusType}
                           orderStatusType={orderStatusType}
                           deliveryType={delivery.deliveryType}
@@ -108,10 +109,17 @@ const OrderDetailProductTable = () => {
                 TruthyComponent={
                   <div className="order-detail__next-action-btns">
                     {sortWithPriority(nextActions, NEXT_ACTIONS_WITH_PRIORITY, 'nextActionType')
-                      .filter(
-                        ({ nextActionType }) =>
-                          !NEXT_ACTIONS_TO_BE_NOT_RENDERED_IN_BUTTON_GROUP.includes(nextActionType)
-                      )
+                      .filter(({ nextActionType }) => {
+                        if (nextActionType === 'CANCEL' && orderDetail?.payType === 'ESCROW_VIRTUAL_ACCOUNT') {
+                          return false;
+                        }
+
+                        if (nextActionType === 'CANCEL_ALL' && orderDetail?.payType.includes('ESCROW')) {
+                          return true;
+                        }
+
+                        return !NEXT_ACTIONS_TO_BE_NOT_RENDERED_IN_BUTTON_GROUP.includes(nextActionType);
+                      })
                       .map(({ nextActionType }) => (
                         <NextActionButton
                           key={nextActionType}

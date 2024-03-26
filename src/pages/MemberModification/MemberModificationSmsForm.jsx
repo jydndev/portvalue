@@ -15,6 +15,7 @@ import { AUTHENTICATION_TYPE } from '@shopby/shared/constants';
 
 import IdentificationVerificationBtn from '../../components/IdentificationVerificationBtn/IdentificationVerificationBtn';
 import Timer from '../../components/Timer';
+import { REQUIRED } from '../../constants/form';
 
 import ValidationStatus from './ValidationStatus';
 
@@ -30,6 +31,7 @@ const MemberModificationSmsForm = () => {
     updateFirstSerial,
     updateSecondSerial,
     validateMobile,
+    updateMemberModificationInfo,
   } = useMemberModificationActionContext();
 
   const {
@@ -43,10 +45,50 @@ const MemberModificationSmsForm = () => {
     memberModificationInfo,
   } = useMemberModificationStateContext();
   const { isIdentificationVerificationReSend, isCiExist } = useIdentificationVerificationStateContext();
-  const { mallJoinConfig } = useMallStateContext();
+  const {
+    mallJoinConfig: { authenticationTimeType, authenticationType },
+    memberJoinConfig: { mobileNo: mobileNoConfig },
+  } = useMallStateContext();
+  const { AUTHENTICATION_BY_PHONE, SMS_AUTHENTICATION } = AUTHENTICATION_TYPE;
 
   const identificationBtnLabel = isIdentificationVerificationReSend ? '재인증' : '휴대폰 본인인증';
   const authenticationBtnLabel = isAuthenticationReSend ? `재인증` : `인증번호 발송`;
+
+  const resetValidationStatus = (key) => {
+    updateValidationStatus((prev) => ({ ...prev, [key]: { result: true, message: '' } }));
+  };
+
+  const isMobileType = useMemo(() => {
+    if (authenticationType === AUTHENTICATION_BY_PHONE || authenticationType === SMS_AUTHENTICATION) {
+      return true;
+    }
+
+    return false;
+  }, [authenticationType]);
+
+  const isMobileRequired = useMemo(() => {
+    const isMobileAuthentication = isMobileType && authenticationTimeType === 'JOIN_TIME';
+
+    if (mobileNoConfig === REQUIRED || isMobileAuthentication) {
+      return true;
+    }
+
+    return false;
+  }, [authenticationTimeType, isMobileType]);
+
+  const isMobileNoEmpty = () => {
+    if (!carrierNumber || !firstSerial || !secondSerial) {
+      updateValidationStatus((prev) => ({
+        ...prev,
+        mobileNo: { result: false, message: '휴대폰 번호를 입력해주세요.' },
+      }));
+
+      return true;
+    }
+    resetValidationStatus('mobileNo');
+
+    return false;
+  };
 
   const handlePhoneCarrierNumberSelect = ({ currentTarget: { value } }) => {
     updateCarrierNumber(value);
@@ -68,6 +110,16 @@ const MemberModificationSmsForm = () => {
   };
 
   const handleOnSecondSerialBlur = () => {
+    if (!firstSerial && !secondSerial) {
+      if (isMobileRequired) {
+        isMobileNoEmpty();
+
+        return;
+      }
+      resetValidationStatus('mobileNo');
+
+      return;
+    }
     validateMobile();
   };
 
@@ -76,6 +128,10 @@ const MemberModificationSmsForm = () => {
     updateCarrierNumber(newNumber.slice(0, 3));
     updateFirstSerial(newNumber.slice(3, 7));
     updateSecondSerial(newNumber.slice(7));
+  };
+
+  const handleUpdateNewMemberModificationInfo = ({ birthday, name, sexCode }) => {
+    updateMemberModificationInfo({ birthday, memberName: name, sex: sexCode === '01' ? 'M' : 'F' });
   };
 
   const handleAuthenticateMobile = (newMobileNo) => {
@@ -95,26 +151,12 @@ const MemberModificationSmsForm = () => {
   }, [isCiExist]);
 
   const isSmsAuthentication = useMemo(() => {
-    if (
-      mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.SMS_AUTHENTICATION &&
-      authenticationsRemainTimeBySeconds
-    ) {
+    if (authenticationType === SMS_AUTHENTICATION && authenticationsRemainTimeBySeconds) {
       return true;
     }
 
     return false;
-  }, [mallJoinConfig, authenticationsRemainTimeBySeconds]);
-
-  const isMobileType = useMemo(() => {
-    if (
-      mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.AUTHENTICATION_BY_PHONE ||
-      mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.SMS_AUTHENTICATION
-    ) {
-      return true;
-    }
-
-    return false;
-  }, [mallJoinConfig]);
+  }, [authenticationType, authenticationsRemainTimeBySeconds]);
 
   const isSocialMember = useMemo(() => !!memberModificationInfo?.providerType, [memberModificationInfo?.providerType]);
 
@@ -123,6 +165,7 @@ const MemberModificationSmsForm = () => {
       <div className="member-modification-form__item">
         <label htmlFor="mobileNo" className="member-modification-form__tit">
           휴대폰번호
+          {isMobileRequired && <div className="required"></div>}
         </label>
         <div className="member-modification-form__input-wrap">
           <PhoneNumberInput
@@ -140,7 +183,7 @@ const MemberModificationSmsForm = () => {
             secondSerialDisabled={!isSocialMember && isMobileType && isAuthenticationReSend}
           />
         </div>
-        {!isSocialMember && mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.SMS_AUTHENTICATION && (
+        {!isSocialMember && authenticationType === SMS_AUTHENTICATION && (
           <Button
             className="member-modification-form__btn--certificate"
             label={authenticationBtnLabel}
@@ -149,13 +192,14 @@ const MemberModificationSmsForm = () => {
             }}
           />
         )}
-        {!isSocialMember && mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.AUTHENTICATION_BY_PHONE && (
+        {!isSocialMember && authenticationType === AUTHENTICATION_BY_PHONE && (
           <>
             <IdentificationVerificationBtn
               className="member-modification-form__btn--certificate"
               label={identificationBtnLabel}
               type="memberModify"
               onSetNewPhoneNumber={handleSetNewPhoneNumber}
+              onUpdateMemberModificationInfo={handleUpdateNewMemberModificationInfo}
             />
             <ValidationStatus name="certificatedNumber" />
           </>

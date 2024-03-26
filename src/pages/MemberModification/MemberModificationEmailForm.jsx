@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState, useEffect } from 'react';
 
 import {
   Button,
@@ -13,7 +13,7 @@ import {
 import { AUTHENTICATION_TYPE } from '@shopby/shared/constants';
 
 import Timer from '../../components/Timer/Timer';
-import { EMAIL_DOMAIN_OPTIONS } from '../../constants/form';
+import { EMAIL_DOMAIN_OPTIONS, REQUIRED } from '../../constants/form';
 
 import ValidationStatus from './ValidationStatus';
 
@@ -22,6 +22,7 @@ const MemberModificationEmailForm = () => {
     updateNewEmail,
     updateCertificatedNumber,
     verifyExistEmail,
+    authenticateEmail,
     confirmAuthenticationEmail,
     updateIsAuthenticationReSend,
     updateValidationStatus,
@@ -33,14 +34,36 @@ const MemberModificationEmailForm = () => {
     certificatedNumber,
     authenticationsRemainTimeBySeconds,
     isAuthenticationReSend,
-    authenticateEmail,
     memberModificationInfo,
+    validationStatus,
   } = useMemberModificationStateContext();
-  const { mallJoinConfig } = useMallStateContext();
+  const {
+    mallJoinConfig,
+    memberJoinConfig: { email: emailConfig },
+  } = useMallStateContext();
 
   const [emailId = '', emailDomain = ''] = useMemo(() => newEmail?.split('@') ?? [], [newEmail]);
   const emailRef = useRef(null);
   const [domainSelectorValue, setDomainSelectorValue] = useState('');
+
+  const resetValidationStatus = (key) => {
+    updateValidationStatus((prev) => ({ ...prev, [key]: { result: true, message: '' } }));
+  };
+
+  const isEmailEmpty = () => {
+    if (!emailId || !emailDomain) {
+      updateValidationStatus((prev) => ({
+        ...prev,
+        email: { result: false, message: '이메일을 입력해주세요.' },
+      }));
+
+      return true;
+    }
+
+    resetValidationStatus('email');
+
+    return false;
+  };
 
   const handleEmailIdInputChange = ({ currentTarget: { value } }) => {
     updateNewEmail(`${value}@${emailDomain}`);
@@ -52,12 +75,6 @@ const MemberModificationEmailForm = () => {
   const handleEmailDomainSelect = ({ currentTarget: { value } }) => {
     updateNewEmail(`${emailId}@${value}`);
     setDomainSelectorValue(value);
-
-    if (!validateEmail()) {
-      return;
-    }
-
-    verifyExistEmail(newEmail);
   };
 
   const handleCertificatedNumber = ({ currentTarget: { value } }) => {
@@ -65,6 +82,16 @@ const MemberModificationEmailForm = () => {
   };
 
   const handleDomainBlur = () => {
+    if (!emailId && !emailDomain) {
+      if (emailConfig !== REQUIRED) {
+        resetValidationStatus('email');
+
+        return;
+      }
+      isEmailEmpty();
+
+      return;
+    }
     if (!validateEmail()) {
       return;
     }
@@ -76,7 +103,7 @@ const MemberModificationEmailForm = () => {
     if (!validateEmail()) {
       return;
     }
-    if (!ValidationStatus.email.result) {
+    if (!validationStatus.email.result) {
       return;
     }
     authenticateEmail(newEmail);
@@ -103,11 +130,29 @@ const MemberModificationEmailForm = () => {
 
   const isSocialMember = useMemo(() => !!memberModificationInfo?.providerType, [memberModificationInfo?.providerType]);
 
+  useEffect(() => {
+    if (!emailDomain || (!emailId && !validateEmail())) {
+      return;
+    }
+
+    if (newEmail === memberModificationInfo.email) {
+      updateValidationStatus((prev) => ({
+        ...prev,
+        email: { result: true, message: '같은 이메일일 경우 인증을 하지 않습니다.' },
+      }));
+
+      return;
+    }
+
+    verifyExistEmail(newEmail);
+  }, [domainSelectorValue]);
+
   return (
     <>
       <div className="member-modification-form__item">
         <label htmlFor="emailId" className="member-modification-form__tit">
           이메일
+          {emailConfig === REQUIRED && <div className="required"></div>}
         </label>
         <div className="member-modification-form__input-wrap">
           <EmailInput
@@ -115,6 +160,7 @@ const MemberModificationEmailForm = () => {
             id={emailId}
             domain={emailDomain}
             onIdChange={handleEmailIdInputChange}
+            onIdBlur={handleDomainBlur}
             onDomainChange={handleEmailDomainInputChange}
             onDomainBlur={handleDomainBlur}
             idDisabled={!isSocialMember && isEmailType && isAuthenticationReSend}

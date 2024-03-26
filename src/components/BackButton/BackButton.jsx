@@ -8,7 +8,7 @@ const BackButton = ({ label, className, onClick }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (history.state && history.state.idx === 0) {
+    if (history.state && history.state.idx === 0 && history.length <= 0) {
       navigate('/');
 
       return;

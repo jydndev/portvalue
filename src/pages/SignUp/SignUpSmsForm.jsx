@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { forwardRef, useEffect, useMemo } from 'react';
 
 import {
   useMallStateContext,
@@ -14,12 +14,16 @@ import {
 import { AUTHENTICATION_TYPE } from '@shopby/shared/constants';
 
 import IdentificationVerificationBtn from '../../components/IdentificationVerificationBtn/IdentificationVerificationBtn';
+import { NOT_USED, REQUIRED } from '../../constants/form';
 
 import ValidationStatus from './ValidationStatus';
 
 // eslint-disable-next-line complexity
-const SignUpSmsForm = () => {
-  const { mallJoinConfig } = useMallStateContext();
+const SignUpSmsForm = forwardRef((_, ref) => {
+  const {
+    mallJoinConfig: { authenticationTimeType, authenticationType },
+    memberJoinConfig: { smsAgreement, mobileNo: mobileNoConfig },
+  } = useMallStateContext();
   const { isIdentificationVerificationReSend, isCiExist, ci } = useIdentificationVerificationStateContext();
   const {
     validateMobile,
@@ -39,6 +43,36 @@ const SignUpSmsForm = () => {
     authenticationReSend,
   } = useSignUpStateContext();
 
+  const { AUTHENTICATION_BY_PHONE, SMS_AUTHENTICATION } = AUTHENTICATION_TYPE;
+
+  const isMobileRequired = useMemo(() => {
+    const isMobileType = authenticationType === AUTHENTICATION_BY_PHONE || authenticationType === SMS_AUTHENTICATION;
+
+    const isMobileAuthentication = isMobileType && authenticationTimeType === 'JOIN_TIME';
+
+    if (mobileNoConfig === REQUIRED || isMobileAuthentication) {
+      return true;
+    }
+
+    return false;
+  }, [authenticationType, authenticationTimeType]);
+
+  const isMobileNoEmpty = () => {
+    if (!carrierNumber || !firstSerial || !secondSerial) {
+      setValidationStatus((prev) => ({
+        ...prev,
+        mobileNo: { result: false, message: '휴대폰 번호를 입력해주세요.' },
+      }));
+
+      return true;
+    }
+    setValidationStatus((prev) => ({
+      ...prev,
+      mobileNo: { result: true, message: '' },
+    }));
+
+    return false;
+  };
   const handleFormValueChange = (event) => {
     setSignUpMemberInfo((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
@@ -56,6 +90,19 @@ const SignUpSmsForm = () => {
   };
 
   const handleSecondSerialBlur = () => {
+    if (!firstSerial && !secondSerial) {
+      if (isMobileRequired) {
+        isMobileNoEmpty();
+
+        return;
+      }
+      setValidationStatus((prev) => ({
+        ...prev,
+        mobileNo: { result: true, message: '' },
+      }));
+
+      return;
+    }
     validateMobile();
   };
 
@@ -90,9 +137,11 @@ const SignUpSmsForm = () => {
       <div className="sign-up-form__item">
         <label htmlFor="mobileNo" className="sign-up-form__tit">
           휴대폰 번호
+          {isMobileRequired && <div className="required"></div>}
         </label>
         <div className="sign-up-form__input-wrap">
           <PhoneNumberInput
+            ref={ref}
             name="mobileNo"
             id="mobileNo"
             carrierNumber={carrierNumber}
@@ -104,35 +153,32 @@ const SignUpSmsForm = () => {
             onSecondSerialBlur={handleSecondSerialBlur}
           />
           <VisibleComponent
-            shows={
-              mallJoinConfig.authenticationTimeType === 'JOIN_TIME' &&
-              mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.SMS_AUTHENTICATION
-            }
+            shows={authenticationTimeType === 'JOIN_TIME' && authenticationType === SMS_AUTHENTICATION}
             TruthyComponent={
               <Button label={authenticationReSend ? '재인증' : '인증번호 발송'} onClick={handleVerifyMobile} />
             }
           />
 
-          {mallJoinConfig.authenticationTimeType === 'JOIN_TIME' &&
-            mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.AUTHENTICATION_BY_PHONE && (
-              <IdentificationVerificationBtn
-                label={isIdentificationVerificationReSend ? '재인증' : '휴대폰 본인인증'}
-                type="signUp"
-              />
-            )}
+          {authenticationTimeType === 'JOIN_TIME' && authenticationType === AUTHENTICATION_BY_PHONE && (
+            <IdentificationVerificationBtn
+              label={isIdentificationVerificationReSend ? '재인증' : '휴대폰 본인인증'}
+              type="signUp"
+            />
+          )}
 
           <ValidationStatus name="mobileNo" />
         </div>
       </div>
-      <ul className="sign-up-form__agree-list">
-        <li key={smsReceiveInfo.id}>
-          <div className="sign-up-form__checkbox--partial">
-            <Checkbox onChange={handleSmsCheck} checked={smsReceiveInfo.checked} label={smsReceiveInfo.title} />
-          </div>
-        </li>
-      </ul>
-      {mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.SMS_AUTHENTICATION &&
-      authenticationsRemainTimeBySeconds ? (
+      {smsAgreement !== NOT_USED && (
+        <ul className="sign-up-form__agree-list">
+          <li key={smsReceiveInfo.id}>
+            <div className="sign-up-form__checkbox--partial">
+              <Checkbox onChange={handleSmsCheck} checked={smsReceiveInfo.checked} label={smsReceiveInfo.title} />
+            </div>
+          </li>
+        </ul>
+      )}
+      {authenticationType === SMS_AUTHENTICATION && authenticationsRemainTimeBySeconds ? (
         <div className="sign-up-form__item">
           <label htmlFor="certificatedNumber" className="sign-up-form__tit">
             인증번호
@@ -166,6 +212,8 @@ const SignUpSmsForm = () => {
       )}
     </>
   );
-};
+});
 
 export default SignUpSmsForm;
+
+SignUpSmsForm.displayName = 'SignUpSmsForm';

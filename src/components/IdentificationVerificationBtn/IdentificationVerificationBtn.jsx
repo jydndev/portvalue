@@ -11,7 +11,14 @@ import {
   useAgeVerificationActionContext,
 } from '@shopby/react-components';
 
-const IdentificationVerificationButton = ({ className, label, type, onSubmit, onSetNewPhoneNumber = () => {} }) => {
+const IdentificationVerificationButton = ({
+  className,
+  label,
+  type,
+  onSubmit,
+  onSetNewPhoneNumber = () => {},
+  onUpdateMemberModificationInfo = () => {},
+}) => {
   const { getIdVerificationResponse, verifyCi, updateIsCiExist, updateIsIdentificationVerificationReSend, updateCi } =
     useIdentificationVerificationActionContext();
   const { isIdentificationVerificationReSend } = useIdentificationVerificationStateContext();
@@ -34,14 +41,17 @@ const IdentificationVerificationButton = ({ className, label, type, onSubmit, on
 
   const verifyMemberExist = async () => {
     const {
-      data: { ci, phone },
+      data: { ci, phone, birthday, name, sexCode },
     } = await getIdVerificationResponse({ key });
 
     updateCi(ci);
 
     const { data: verifyResult } = await verifyCi({ ci });
 
-    if (type === 'memberModify' && !verifyResult.exist) onSetNewPhoneNumber(phone);
+    if (type === 'memberModify' && !verifyResult.exist) {
+      onSetNewPhoneNumber(phone);
+      onUpdateMemberModificationInfo({ birthday, name, sexCode });
+    }
 
     if (verifyResult.exist) {
       updateIsCiExist(true);
@@ -105,4 +115,5 @@ IdentificationVerificationButton.propTypes = {
   className: string,
   onSubmit: func,
   onSetNewPhoneNumber: func,
+  onUpdateMemberModificationInfo: func,
 };

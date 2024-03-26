@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { forwardRef, useEffect } from 'react';
 
 import {
   useMallStateContext,
@@ -12,13 +12,18 @@ import {
 } from '@shopby/react-components';
 import { AUTHENTICATION_TYPE } from '@shopby/shared/constants';
 
-import { EMAIL_DOMAIN_OPTIONS } from '../../constants/form';
+import { EMAIL_DOMAIN_OPTIONS, NOT_USED, REQUIRED } from '../../constants/form';
 
 import ValidationStatus from './ValidationStatus';
+
 // eslint-disable-next-line complexity
-const SignUpEmailForm = () => {
-  const { mallJoinConfig } = useMallStateContext();
+const SignUpEmailForm = forwardRef((_, ref) => {
   const {
+    mallJoinConfig,
+    memberJoinConfig: { email: emailConfig, emailAgreement },
+  } = useMallStateContext();
+  const {
+    setValidationStatus,
     verifyUserEmail,
     validateEmail,
     postAuthenticationsEmail,
@@ -34,6 +39,25 @@ const SignUpEmailForm = () => {
     authenticationReSend,
     emailReceiveInfo,
   } = useSignUpStateContext();
+
+  const resetValidationStatus = (key) => {
+    setValidationStatus((prev) => ({ ...prev, [key]: { result: true, message: '' } }));
+  };
+
+  const isEmailEmpty = () => {
+    if (!emailId || !emailDomain) {
+      setValidationStatus((prev) => ({
+        ...prev,
+        email: { result: false, message: '이메일을 입력해주세요.' },
+      }));
+
+      return true;
+    }
+
+    resetValidationStatus('email');
+
+    return false;
+  };
 
   const handleFormValueChange = (event) => {
     setSignUpMemberInfo((prev) => ({ ...prev, [event.target.name]: event.target.value }));
@@ -53,17 +77,20 @@ const SignUpEmailForm = () => {
       emailDomain: currentTarget.value,
       domainSelectorValue: currentTarget.value,
     }));
+  };
 
-    if (!emailId && !validateEmail()) {
+  const handleDomainBlur = () => {
+    if (!emailId && !emailDomain) {
+      if (emailConfig !== REQUIRED) {
+        resetValidationStatus('email');
+
+        return;
+      }
+      isEmailEmpty();
+
       return;
     }
 
-    verifyUserEmail();
-  };
-
-  const emailRef = useRef(null);
-
-  const handleDomainBlur = () => {
     if (!validateEmail()) {
       return;
     }
@@ -79,15 +106,23 @@ const SignUpEmailForm = () => {
       : setEmailReceiveInfo((prev) => ({ ...prev, checked: false }));
   };
 
+  useEffect(() => {
+    if (!emailDomain || (!emailId && !validateEmail())) {
+      return;
+    }
+    verifyUserEmail();
+  }, [domainSelectorValue]);
+
   return (
     <>
       <div className="sign-up-form__item">
         <label htmlFor="email" className="sign-up-form__tit">
           이메일 주소
+          {emailConfig === REQUIRED && <div className="required"></div>}
         </label>
         <div className="sign-up-form__input-wrap">
           <EmailInput
-            ref={emailRef}
+            ref={ref}
             id={emailId}
             domain={emailDomain}
             onIdChange={handleEmailIdInputChange}
@@ -117,13 +152,15 @@ const SignUpEmailForm = () => {
           )}
         </div>
       </div>
-      <ul className="sign-up-form__agree-list">
-        <li key={emailReceiveInfo.id}>
-          <div className="sign-up-form__checkbox--partial">
-            <Checkbox onChange={handleEmailCheck} checked={emailReceiveInfo.checked} label={emailReceiveInfo.title} />
-          </div>
-        </li>
-      </ul>
+      {emailAgreement !== NOT_USED && (
+        <ul className="sign-up-form__agree-list">
+          <li key={emailReceiveInfo.id}>
+            <div className="sign-up-form__checkbox--partial">
+              <Checkbox onChange={handleEmailCheck} checked={emailReceiveInfo.checked} label={emailReceiveInfo.title} />
+            </div>
+          </li>
+        </ul>
+      )}
       {mallJoinConfig.authenticationType === AUTHENTICATION_TYPE.AUTHENTICATION_BY_EMAIL &&
       authenticationsRemainTimeBySeconds ? (
         <div className="sign-up-form__item">
@@ -159,6 +196,8 @@ const SignUpEmailForm = () => {
       )}
     </>
   );
-};
+});
 
 export default SignUpEmailForm;
+
+SignUpEmailForm.displayName = 'SignUpEmailForm';
