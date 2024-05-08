@@ -1,9 +1,12 @@
 {
   /////////////////////////////
   // ESLint
-  "eslint.validate": ["html", "javascript", "javascriptreact"],
+  "eslint.validate": [
+    "html",
+    "javascript",
+    "javascriptreact"
+  ],
   "eslint.alwaysShowStatus": true,
-
   /////////////////////////////
   // Prettier
   "editor.formatOnSave": true,
@@ -11,10 +14,20 @@
     "source.fixAll.eslint": true
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["dompurify", "insta", "shopby", "slidersperview", "SSID", "swiper", "Swiper", "testid"],
-
+  "cSpell.words": [
+    "dompurify",
+    "insta",
+    "shopby",
+    "slidersperview",
+    "SSID",
+    "swiper",
+    "Swiper",
+    "testid"
+  ],
   "markdownlint.config": {
     "default": true,
-    "MD007": { "indent": 4 }
+    "MD007": {
+      "indent": 4
+    }
   }
 }

@@ -12,10 +12,10 @@
 ### 저장소 클론
 
 ```sh
-$ git clone https://toke:{ACCESS_TOKEN}@skins.shopby.co.kr/{그룹명}/{프로젝트명}.git
+$ git clone https://token:{ACCESS_TOKEN}@skins.shopby.co.kr/{그룹명}/{프로젝트명}.git
 
 # 예시
-$ git clone https://toke:abcdef@skins.shopby.co.kr/team-1027/adaptive-web-aurora.git
+$ git clone https://token:abcdef@skins.shopby.co.kr/team-1027/adaptive-web-aurora.git
 ```
 
 > <img width="840" alt="스크린샷 2023-11-09 오전 11 21 58" src="https://github.nhnent.com/storage/user/2230/files/e0524b69-aa0b-4207-b979-ae0d14982142">
@@ -116,7 +116,7 @@ $ git merge upstream/main --allow-unrelated-histories
 
 ```
 
-<img width="1064" alt="스크린샷 2023-03-05 오후 11 05 08" src="https://github.nhnent.com/storage/user/2230/files/45d6c950-b96b-4622-8cbd-e72bd3b4df5f">
+<img width="1064" alt="스크린샷 2023-03-05 오후 11 05 08" src="https://github.com/nhn-commerce-fe/design-system/assets/131448949/7490bc4e-a729-467c-b4ea-55d1bf5cb413">
 
 패치받은 버전을 병합하면 충돌이 발생할 수 있다. <br />
 에디터에서 충돌 해결 후 개발 저장소에 `push` 한다.
