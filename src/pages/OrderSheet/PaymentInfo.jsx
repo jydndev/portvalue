@@ -20,8 +20,11 @@ const PaymentInfo = () => {
       totalImmediateDiscountAmt,
     },
   } = useOrderSheetStateContext();
-  const totalDiscountAmt = productCouponAmt + cartCouponAmt + totalAdditionalDiscountAmt + totalImmediateDiscountAmt;
-  const totalDeliveryAmt = deliveryAmt + remoteDeliveryAmt;
+  const totalDiscountAmt = useMemo(
+    () => productCouponAmt + cartCouponAmt + totalAdditionalDiscountAmt + totalImmediateDiscountAmt,
+    [productCouponAmt, cartCouponAmt, totalAdditionalDiscountAmt, totalImmediateDiscountAmt]
+  );
+  const totalDeliveryAmt = useMemo(() => deliveryAmt + remoteDeliveryAmt, [deliveryAmt, remoteDeliveryAmt]);
 
   const finalAmount = useMemo(
     () => ({
@@ -50,7 +53,7 @@ const PaymentInfo = () => {
         amountLabel: `+ ${convertToKoreanCurrency(totalDeliveryAmt)}`,
       },
     ],
-    [totalDiscountAmt, totalDiscountAmt, usedAccumulationAmt, deliveryAmt, remoteDeliveryAmt]
+    [totalStandardAmt, totalDiscountAmt, usedAccumulationAmt, totalDeliveryAmt]
   );
 
   const numberOfCOD = useMemo(
