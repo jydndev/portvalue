@@ -36,6 +36,8 @@ const useValidateFormMaker = (ref) => {
       mobilePhoneNumber: receiverMobilePhoneNumber,
       addressDetail,
     },
+    accumulationInputValue,
+    selectedCoupon,
     needsShippingAddressInfo,
     needsDepositBankForm,
     bankAccountToDeposit,
@@ -43,6 +45,7 @@ const useValidateFormMaker = (ref) => {
     termsStatus,
     selectedPayMethod,
     myPayInfo,
+    blockUseAccumulationWhenUseCoupon,
   }) => {
     const ordererInfoValidation = {
       isOrdererNameEmpty: () => {
@@ -261,6 +264,24 @@ const useValidateFormMaker = (ref) => {
       },
     };
 
+    const promotionValidation = {
+      isAccumulationCouponBlocked: () => {
+        if (!blockUseAccumulationWhenUseCoupon) return false;
+
+        const { cartCouponIssueNo, productCoupons } = selectedCoupon;
+
+        const isCouponSelected = cartCouponIssueNo || productCoupons?.length;
+
+        if (!accumulationInputValue || !isCouponSelected) return false;
+
+        openAlert({
+          message: '쿠폰, 적립금을 함께 사용하실 수 없습니다.',
+        });
+
+        return true;
+      },
+    };
+
     const depositBankFormValidation = {
       isBankAccountToDepositNotSelected: () => {
         if (!needsDepositBankForm || (bankAccountToDeposit?.bankAccount && bankAccountToDeposit?.bankCode))
@@ -318,6 +339,7 @@ const useValidateFormMaker = (ref) => {
     const validations = [
       ...Object.values(ordererInfoValidation),
       needsShippingAddressInfo ? [...Object.values(shippingAddressInfoValidation)] : () => false,
+      ...Object.values(promotionValidation),
       ...Object.values(depositBankFormValidation),
       ...Object.values(myPayValidation),
       ...Object.values(termsStatusValidation),

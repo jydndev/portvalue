@@ -10,6 +10,8 @@ import {
   useOrderSheetCouponStateContext,
   useOrderSheetCouponActionContext,
   useMallStateContext,
+  useOrderSheetStateContext,
+  useOrderSheetActionContext,
 } from '@shopby/react-components';
 import { ParameterTypeError, convertToKoreanCurrency } from '@shopby/shared';
 
@@ -28,8 +30,10 @@ const CouponModalContent = ({ orderSheetNo, initialCoupon, onClose, onApplyCoupo
   } = useMallStateContext();
   const { selectCouponIndividually, isUsingCoupon, fetchCouponStatus, getSelectedCoupon } =
     useOrderSheetCouponActionContext();
+  const { accumulationInputValue, blockUseAccumulationWhenUseCoupon } = useOrderSheetStateContext();
+  const { updateAccumulationInputValue } = useOrderSheetActionContext();
   const allCouponAmt = useMemo(() => cartCouponDiscountAmt + productCouponDiscountAmt);
-  const { openAlert } = useModalActionContext();
+  const { openAlert, openConfirm } = useModalActionContext();
 
   const couponNotices = useMemo(
     () => [
@@ -65,7 +69,39 @@ const CouponModalContent = ({ orderSheetNo, initialCoupon, onClose, onApplyCoupo
   };
 
   const handleApplyCouponBtnClick = () => {
-    onApplyCouponBtnClick?.(getSelectedCoupon());
+    const selectedCoupon = getSelectedCoupon();
+
+    if (!blockUseAccumulationWhenUseCoupon) {
+      onApplyCouponBtnClick?.(selectedCoupon);
+
+      return;
+    }
+
+    const { cartCouponIssueNo, productCoupons } = selectedCoupon;
+
+    const isCouponSelected = cartCouponIssueNo || productCoupons?.length;
+
+    const isUseAccumulationWhenUseCoupon = accumulationInputValue && isCouponSelected;
+
+    if (isUseAccumulationWhenUseCoupon) {
+      openConfirm({
+        message: (
+          <>
+            쿠폰 적용 시 적립금 사용이 불가합니다. <br />
+            쿠폰을 적용하시겠습니까?
+          </>
+        ),
+        confirmLabel: '확인',
+        onConfirm: () => {
+          updateAccumulationInputValue(0);
+          onApplyCouponBtnClick?.(selectedCoupon);
+        },
+        cancelLabel: '취소',
+        onCancel: () => null,
+      });
+    } else {
+      onApplyCouponBtnClick?.(selectedCoupon);
+    }
   };
 
   return (

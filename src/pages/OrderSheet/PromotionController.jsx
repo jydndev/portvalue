@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import {
@@ -7,6 +7,8 @@ import {
   useOrderSheetStateContext,
   useOrderSheetActionContext,
   useAuthActionContext,
+  useModalActionContext,
+  DEFAULT_ORDER_SHEET_PROVIDER_STATE,
 } from '@shopby/react-components';
 import { convertToKoreanCurrency } from '@shopby/shared';
 
@@ -18,14 +20,23 @@ const PromotionController = () => {
   const {
     orderSheetNo,
     accumulationInputValue,
-    paymentInfo: { availableMaxAccumulationAmt, accumulationAmt, cartCouponAmt, productCouponAmt },
+    paymentInfo: {
+      availableMaxAccumulationAmt,
+      accumulationAmt,
+      cartCouponAmt,
+      productCouponAmt,
+      minAccumulationLimit,
+    },
     selectedCoupon,
+    blockUseAccumulationWhenUseCoupon,
   } = useOrderSheetStateContext();
   const { updateAccumulationInputValue, updateSelectedCoupon } = useOrderSheetActionContext();
   const { isSignedIn: checkIsSignedIn } = useAuthActionContext();
   const isSignedIn = useMemo(() => checkIsSignedIn(), []);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
+  const [accumulationChangeInputValue, setAccumulationChangeInputValue] = useState(accumulationInputValue);
   const allCouponAmt = useMemo(() => cartCouponAmt + productCouponAmt, [cartCouponAmt, productCouponAmt]);
+  const { openConfirm } = useModalActionContext();
 
   const handleAccumulationInputChange = ({ currentTarget: { value } }) => {
     let valueByNumber = Number(value);
@@ -34,11 +45,85 @@ const PromotionController = () => {
       valueByNumber = availableMaxAccumulationAmt;
     }
 
-    updateAccumulationInputValue(valueByNumber);
+    setAccumulationChangeInputValue(valueByNumber);
   };
 
   const handleUseAllAccumulationBtnClick = () => {
-    updateAccumulationInputValue(availableMaxAccumulationAmt);
+    if (!blockUseAccumulationWhenUseCoupon) {
+      updateAccumulationInputValue(availableMaxAccumulationAmt);
+
+      return;
+    }
+
+    const isCouponSelected = selectedCoupon?.cartCouponIssueNo || selectedCoupon?.productCoupons?.length;
+
+    if (isCouponSelected) {
+      openConfirm({
+        message: (
+          <>
+            적립금 사용 시 쿠폰 사용이 불가합니다.
+            <br />
+            적립금을 사용하시겠습니까?
+          </>
+        ),
+        confirmLabel: '확인',
+        onConfirm: () => {
+          updateSelectedCoupon(DEFAULT_ORDER_SHEET_PROVIDER_STATE.selectedCoupon);
+          updateAccumulationInputValue(availableMaxAccumulationAmt);
+        },
+        cancelLabel: '취소',
+        onCancel: () => {
+          updateAccumulationInputValue(0);
+          setAccumulationChangeInputValue(0);
+        },
+      });
+    } else {
+      updateAccumulationInputValue(availableMaxAccumulationAmt);
+    }
+  };
+
+  const validateUseAccumulationAndWhenUseCoupon = (accumulationValue) => {
+    const { cartCouponIssueNo, productCoupons } = selectedCoupon;
+
+    const isCouponSelected = cartCouponIssueNo || productCoupons?.length;
+
+    if (isCouponSelected) {
+      openConfirm({
+        message: (
+          <>
+            적립금 사용 시 쿠폰 사용이 불가합니다.
+            <br />
+            적립금을 사용하시겠습니까?
+          </>
+        ),
+        confirmLabel: '확인',
+        onConfirm: () => {
+          updateSelectedCoupon(DEFAULT_ORDER_SHEET_PROVIDER_STATE.selectedCoupon);
+          updateAccumulationInputValue(accumulationValue);
+        },
+        cancelLabel: '취소',
+        onCancel: () => {
+          updateAccumulationInputValue(0);
+          setAccumulationChangeInputValue(0);
+        },
+      });
+    } else {
+      updateAccumulationInputValue(accumulationValue);
+    }
+  };
+
+  const handleAccumulationInputBlur = () => {
+    const accumulationValue = Math.min(accumulationChangeInputValue, availableMaxAccumulationAmt);
+
+    const isAccumulationValueLessThanMinOrZero = accumulationValue < minAccumulationLimit || !accumulationValue;
+
+    if (isAccumulationValueLessThanMinOrZero || !blockUseAccumulationWhenUseCoupon) {
+      updateAccumulationInputValue(accumulationValue);
+
+      return;
+    }
+
+    validateUseAccumulationAndWhenUseCoupon(accumulationValue);
   };
 
   const handleOpenCouponModalBtnClick = () => {
@@ -62,6 +147,10 @@ const PromotionController = () => {
       },
     });
   };
+
+  useEffect(() => {
+    setAccumulationChangeInputValue(accumulationInputValue);
+  }, [accumulationInputValue]);
 
   if (!isSignedIn)
     return (
@@ -109,9 +198,10 @@ const PromotionController = () => {
               id="accumulation-input"
               unitLabel="원"
               onChange={handleAccumulationInputChange}
-              value={accumulationInputValue}
+              value={accumulationChangeInputValue}
               valid="NUMBER"
               showsComma={true}
+              onBlur={handleAccumulationInputBlur}
             />
             <Button label="모두 사용" onClick={handleUseAllAccumulationBtnClick} />
           </p>

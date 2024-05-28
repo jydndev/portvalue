@@ -13,6 +13,7 @@ import {
   DesignPopupProvider,
   BoardConfigurationProvider,
   NaverShoppingConfigurationProvider,
+  EventProvider,
 } from '@shopby/react-components';
 
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -29,8 +30,10 @@ const App = ({ clientId, profile }) => (
                 <PageScriptsProvider platform={isMobile ? 'MOBILE' : 'PC'}>
                   <NaverShoppingConfigurationProvider>
                     <DesignPopupProvider>
-                      <Router />
-                      <Modal />
+                      <EventProvider>
+                        <Router />
+                        <Modal />
+                      </EventProvider>
                     </DesignPopupProvider>
                   </NaverShoppingConfigurationProvider>
                 </PageScriptsProvider>
