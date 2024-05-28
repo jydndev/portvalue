@@ -1,12 +1,9 @@
 {
   /////////////////////////////
   // ESLint
-  "eslint.validate": [
-    "html",
-    "javascript",
-    "javascriptreact"
-  ],
+  "eslint.validate": ["html", "javascript", "javascriptreact"],
   "eslint.alwaysShowStatus": true,
+
   /////////////////////////////
   // Prettier
   "editor.formatOnSave": true,
@@ -22,12 +19,14 @@
     "SSID",
     "swiper",
     "Swiper",
-    "testid"
+    "testid",
+    "naver",
+    "renderable",
+    "metas"
   ],
+
   "markdownlint.config": {
     "default": true,
-    "MD007": {
-      "indent": 4
-    }
+    "MD007": { "indent": 4 }
   }
 }

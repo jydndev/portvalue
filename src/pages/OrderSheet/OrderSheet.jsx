@@ -16,6 +16,7 @@ import {
   DEFAULT_ORDER_SHEET_PROVIDER_STATE,
   usePageScriptsActionContext,
   useMallStateContext,
+  useModalActionContext,
 } from '@shopby/react-components';
 import { getPlatformByMobile, isSignedIn, parsePhoneNumber } from '@shopby/shared';
 
@@ -71,11 +72,19 @@ const OrderSheetContent = () => {
     remitterName,
     selectedPayMethod,
     myPayInfo,
+    accumulationInputValue,
+    selectedCoupon,
+    blockUseAccumulationWhenUseCoupon,
+    paymentInfo: { minAccumulationLimit },
   } = useOrderSheetStateContext();
   const { applyPageScripts } = usePageScriptsActionContext();
   const { fetchMyShippingAddress } = useMyShippingAddressActionContext();
   const { defaultAddress } = useMyShippingAddressStateContext();
   const { validateForm } = useValidateFormMaker(orderSheetRef);
+  const { openAlert } = useModalActionContext();
+  const {
+    accumulationConfig: { accumulationName },
+  } = useMallStateContext();
 
   const hasDeliverableProduct = useMemo(
     () =>
@@ -142,6 +151,8 @@ const OrderSheetContent = () => {
     const isValid = validateForm({
       ordererInfo,
       shippingAddressInfo,
+      accumulationInputValue,
+      selectedCoupon,
       needsShippingAddressInfo: hasDeliverableProduct,
       termsStatus,
       needsDepositBankForm,
@@ -149,11 +160,21 @@ const OrderSheetContent = () => {
       remitterName,
       selectedPayMethod,
       myPayInfo,
+      blockUseAccumulationWhenUseCoupon,
     });
     if (!isValid) return;
 
     try {
       const { customTermsAgrees, agreementTermsAgrees } = orderSheetRef.termsCheckerRef.current;
+
+      const isAccumulationInputValueLessThanMin =
+        accumulationInputValue && accumulationInputValue < minAccumulationLimit;
+
+      if (isAccumulationInputValueLessThanMin) {
+        openAlert({ message: `최소 사용 가능 ${accumulationName} 은(는) ${minAccumulationLimit} 입니다.` });
+
+        return;
+      }
 
       order({
         platform: isMobile ? 'MOBILE_WEB' : 'PC',

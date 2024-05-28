@@ -8,4 +8,5 @@ export const YorN = {
 export const META_TAG_KEY = {
   PRODUCT: 'PRODUCT',
   COMMON: 'COMMON',
+  EVENT: 'EVENT',
 };

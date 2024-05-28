@@ -12,18 +12,6 @@ module.exports = {
   entry: {
     index: resolve(__dirname, '../src/index.js'),
   },
-  devServer: {
-    historyApiFallback: true,
-    hot: true,
-    compress: true,
-    open: false,
-    static: {
-      directory: './dist',
-    },
-    client: {
-      overlay: false,
-    },
-  },
   output: {
     filename: '[name].[chunkhash].bundle.js',
     clean: {
