@@ -116,6 +116,12 @@ const Meta = () => {
     applyPageScripts('COMMON_FOOTER');
   }, [renderableMetas, profile, isProfileLoading, location]);
 
+  useEffect(() => {
+    if (!pageScriptTitleTag?.textContent && titleContent) {
+      document.title = titleContent;
+    }
+  }, [titleContent]);
+
   return (
     <>
       <Helmet>
@@ -129,7 +135,6 @@ const Meta = () => {
 
           return <meta key={`${index}-${name ? name : property}`} {...info} />;
         })}
-        {!pageScriptTitleTag?.textContent && <title>{titleContent}</title>}
       </Helmet>
       <ExternalServiceConfig />
     </>
