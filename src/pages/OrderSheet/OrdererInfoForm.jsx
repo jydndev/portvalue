@@ -116,9 +116,9 @@ const OrdererInfoForm = ({ refs }) => {
           <label className="order-sheet__item-subject">{t('mobilePhoneNumber')}</label>
           <PhoneNumberInput
             ref={refs.phoneNumberInputRef}
-            carrierNumber={phoneNumber.carrierNumber}
-            firstSerial={phoneNumber.firstSerial}
-            secondSerial={phoneNumber.secondSerial}
+            carrierNumber={phoneNumber?.carrierNumber}
+            firstSerial={phoneNumber?.firstSerial}
+            secondSerial={phoneNumber?.secondSerial}
             onCarrierNumberSelect={handlePhoneCarrierNumberSelect}
             onFirstSerialChange={(e) => handlePhoneSerialNumberChange(e, 'FIRST')}
             onSecondSerialChange={(e) => handlePhoneSerialNumberChange(e, 'SECOND')}
