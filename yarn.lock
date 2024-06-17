@@ -1459,11 +1459,11 @@
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.9.0.tgz#9033238b41c4cbe1e961eccb3f79e2c588328cf6"
   integrity sha512-bV63itrKBC0zdT27qYm6SDZHlkXwFL1xMBuhkn+X7l0+IIhNaH5wuuvZKp6eKhCD4KFhujhfhCT1YxXW6esUIA==
 
-"@shopby/react-components@git+https://skins.shopby.co.kr/developers/react-components.git#v1.4.3":
-  version "1.4.3"
-  resolved "git+https://skins.shopby.co.kr/developers/react-components.git#d816deef2e94ea68794717106fa23b4f1221756a"
+"@shopby/react-components@git+https://skins.shopby.co.kr/developers/react-components.git#v1.4.6":
+  version "1.4.6"
+  resolved "git+https://skins.shopby.co.kr/developers/react-components.git#b3a529f3ec8588e16ae95868a3658a3a200eae3a"
   dependencies:
-    "@shopby/shared" "git+https://skins.shopby.co.kr/developers/shared.git#v1.4.2"
+    "@shopby/shared" "git+https://skins.shopby.co.kr/developers/shared.git#v1.4.5"
     html-react-parser "^3.0.7"
     https-browserify "^1.0.0"
     react "^18.2.0"
@@ -1471,18 +1471,18 @@
     react-router-dom "^6.4.3"
     swiper "^8.4.5"
 
-"@shopby/shared@git+https://skins.shopby.co.kr/developers/shared.git#v1.4.2":
-  version "1.4.2"
-  resolved "git+https://skins.shopby.co.kr/developers/shared.git#cce52e40ef37e7c69f8ef64b833cd16d983a14ed"
+"@shopby/shared@git+https://skins.shopby.co.kr/developers/shared.git#v1.4.5":
+  version "1.4.5"
+  resolved "git+https://skins.shopby.co.kr/developers/shared.git#ee88c120e52bafa9ddfc011fd5ea7897645d24be"
   dependencies:
-    "@shopby/shop-sdk" "1.72.2"
+    "@shopby/shop-sdk" "1.73.7"
     fetch-jsonp "^1.2.3"
     webpack-spritesmith "^1.1.0"
 
-"@shopby/shop-sdk@1.72.2":
-  version "1.72.2"
-  resolved "https://registry.yarnpkg.com/@shopby/shop-sdk/-/shop-sdk-1.72.2.tgz#41028df8a5c309e88778febb42e4b70bfe4fe7fc"
-  integrity sha512-sELVLAY3FFNVqt1Y22yS3hBoor77y14BEjX5HNJJlGHTzz1QtGdZV6opGX4U+zdav274w6xRTbYZu18zOIQxgQ==
+"@shopby/shop-sdk@1.73.7":
+  version "1.73.7"
+  resolved "https://registry.yarnpkg.com/@shopby/shop-sdk/-/shop-sdk-1.73.7.tgz#03595b4a5be9604c95b5b9c39ad61c2c87531ead"
+  integrity sha512-ZBGoXFM6W52VRV2ewQxechoWy2NDuIWsjO9niPA2u3N2V1F/XNmJ8UYmKc7UTJgIYJTFRj7GQuFcQ489u/TrBA==
   dependencies:
     "@types/lodash.curry" "^4.1.6"
     lodash.curry "^4.1.1"
