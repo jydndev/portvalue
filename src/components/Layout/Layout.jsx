@@ -75,7 +75,6 @@ const Layout = () => {
                   <span className="fab-top-down">
                     <button className="fab-btn fab-btn--top" onClick={scrollToTop}>
                       <Icon name="angle-down" className="fab-btn__top" />
-                      <span className="a11y">페이지 상단으로 가기</span>
                     </button>
                   </span>
                 </div>

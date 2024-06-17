@@ -26,7 +26,6 @@ import MallLogo from './MallLogo';
 const MainHeader = ({ openCanvas }) => (
   <button className="hamburger-menu header__left-btn" onClick={openCanvas}>
     <IconSVG name="hamburger" size={50} strokeWidth={3} />
-    <span className="a11y">좌측 메뉴 보기</span>
   </button>
 );
 MainHeader.propTypes = {
@@ -138,7 +137,6 @@ const Header = () => {
         {canShowShoppingBasket && (
           <div className="header__cart-btn">
             <Link to="/cart">
-              <span className="a11y">장바구니 페이지 이동</span>
               <CartBtn memberStatus={profile?.memberStatus} />
             </Link>
           </div>

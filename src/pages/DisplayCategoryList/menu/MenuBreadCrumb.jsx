@@ -12,7 +12,6 @@ const MenuBreadCrumb = () => {
 
   return (
     <section className="breadcrumb">
-      <h2 className="a11y">메뉴보기</h2>
       <div className="breadcrumb__section">
         <span className="breadcrumb__link">
           <Link

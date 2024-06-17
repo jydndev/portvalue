@@ -17,12 +17,11 @@ const DefaultSliderOption = {
   },
 };
 
-const CustomSlider = ({ a11y = '슬라이드', slideOption = {}, bannerImages = [], width = 'auto', height = 'auto' }) => {
+const CustomSlider = ({ slideOption = {}, bannerImages = [], width = 'auto', height = 'auto' }) => {
   if (!bannerImages.length) return <></>;
 
   return (
     <>
-      <h2 className="a11y">{a11y}</h2>
       <Slider {...DefaultSliderOption} {...slideOption}>
         {bannerImages.map(({ description, imageNo, imageUrl, landingUrl, openLocationType }) => (
           <Slide key={imageNo}>
@@ -45,7 +44,6 @@ const CustomSlider = ({ a11y = '슬라이드', slideOption = {}, bannerImages = 
 export default CustomSlider;
 
 CustomSlider.propTypes = {
-  a11y: string,
   slideOption: object,
   bannerImages: arrayOf(
     shape({

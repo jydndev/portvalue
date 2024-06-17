@@ -16,7 +16,6 @@ const MenuCallout = () => {
 
   return (
     <section className="category-callout">
-      <h3 className="a11y">하위 메뉴 패널</h3>
       <menu className="category-callout__list">
         {parentCategories.categories.map((category) => (
           <li

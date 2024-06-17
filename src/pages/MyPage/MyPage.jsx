@@ -162,7 +162,6 @@ const MemberInformation = () => {
 
   return (
     <article className="my-info">
-      <h2 className="a11y">회원 정보</h2>
       <div className="my-info__summary">
         <p className="my-info__greeting">
           {profile.memberName ?? profile.memberId} 님은

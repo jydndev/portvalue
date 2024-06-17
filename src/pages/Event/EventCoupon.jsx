@@ -31,7 +31,6 @@ const EventCoupon = ({ coupons, channelType }) => {
 
   return (
     <article className="event-coupon-list">
-      <h3 className="a11y">할인 쿠폰 다운로드</h3>
       <ul>
         {coupons.map((item) =>
           item.imageUrl ? (
@@ -65,9 +64,7 @@ const EventCoupon = ({ coupons, channelType }) => {
                   onClick={() => {
                     handleCouponDownload(item.couponNo);
                   }}
-                >
-                  <span className="a11y">{item.couponName} 쿠폰 다운 받기</span>
-                </button>
+                ></button>
               }
             />
           )

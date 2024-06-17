@@ -83,9 +83,7 @@ const PriceInformation = ({ discountRate, discountedPrice, originalPrice }) => {
             TruthyComponent={
               <del className="product-summary__original-price">
                 {convertToKoreanCurrency(originalPrice)}
-                <button className="help-btn" onClick={() => setVisibleDiscountPriceModal((prev) => !prev)}>
-                  <span className="a11y">할인 내역 툴팁 보기</span>
-                </button>
+                <button className="help-btn" onClick={() => setVisibleDiscountPriceModal((prev) => !prev)}></button>
               </del>
             }
           />

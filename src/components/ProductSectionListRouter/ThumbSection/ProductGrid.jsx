@@ -21,7 +21,7 @@ import { useErrorBoundaryActionContext } from '../../ErrorBoundary';
 import ProductThumbBadge from '../../ProductThumbBadge';
 import ProductThumbInfo from '../../ProductThumbInfo';
 
-const LikeAddCart = ({ productNo, productName, isSoldOut, liked }) => {
+const LikeAddCart = ({ productNo, isSoldOut, liked }) => {
   const [searchParams] = useSearchParams();
   const { fetchProductOption } = useOptionActionContext();
   const { addCart } = useCartActionContext();
@@ -85,9 +85,6 @@ const LikeAddCart = ({ productNo, productName, isSoldOut, liked }) => {
           setIsActive(data.isActive);
         }}
       >
-        <span className="a11y">
-          {productName} {!isActive ? '좋아요' : '좋아요 취소하기'}
-        </span>
         <IconSVG fill={isActive ? '#f92626' : '#fff'} strokeWidth={0} size={40} name="fill-heart" />
       </LikeBtn>
 
@@ -97,7 +94,6 @@ const LikeAddCart = ({ productNo, productName, isSoldOut, liked }) => {
         className="thumb-fab thumb-fab--cart sc-cart-button"
         onClick={handleCartBtnClick}
       >
-        <span className="a11y">{productName} 장바구니 담기</span>
         <IconSVG size={40} name="shopping-bag" />
       </button>
     </>

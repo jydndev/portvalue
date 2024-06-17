@@ -188,7 +188,6 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
   return (
     <>
       <section className="sign-in">
-        <h2 className="a11y">로그인</h2>
         <div className="normal-sign-in">
           <div className="normal-sign-in__input-wrap">
             <TextField

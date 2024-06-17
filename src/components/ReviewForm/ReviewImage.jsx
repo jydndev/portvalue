@@ -30,9 +30,7 @@ const ReviewImage = ({ images, onChange }) => {
         {images.map((image, index) => (
           <li key={index} id={`${index}_${image.originName}`} className="review-form__image">
             <img src={`${image.imageUrl}?${BOARD_IMAGE.THUMB_NAIL_SIZE}`} alt={image.originName} loading="lazy" />
-            <button className="delete" onClick={() => handleImageDelete(image.imageUrl)}>
-              <span className="a11y">첨부 이미지 삭제</span>
-            </button>
+            <button className="delete" onClick={() => handleImageDelete(image.imageUrl)}></button>
           </li>
         ))}
       </ul>
