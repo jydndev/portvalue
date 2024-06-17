@@ -47,7 +47,6 @@ const SignInButton = () => {
       </p>
       <button className="category-nav-sign-in__close" onClick={closeCanvas}>
         <IconSVG name="x" stroke="#fff" size={30} />
-        <span className="a11y">메뉴 닫기</span>
       </button>
     </div>
   );

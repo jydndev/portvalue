@@ -11,7 +11,6 @@ const CategoryNavLinks = () => {
     <div className="category-nav-content">
       {multiLevelCategories.length > 0 ? (
         <nav className="l-panel category-nav-links">
-          <h2 className="a11y">상품 카테고리</h2>
           {multiLevelCategories.map((category) => (
             <Link
               key={category.categoryNo}

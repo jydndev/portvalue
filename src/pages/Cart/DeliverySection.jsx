@@ -126,9 +126,7 @@ const DeliverySection = () => {
                               optionValue={optionValue}
                               optionInputs={optionInputs}
                             />
-                            <button className="cart__delete-btn" onClick={() => handleDeleteBtnClick(cartNo)}>
-                              <span className="a11y">상품 삭제</span>
-                            </button>
+                            <button className="cart__delete-btn" onClick={() => handleDeleteBtnClick(cartNo)}></button>
                           </div>
                         </>
                       )}

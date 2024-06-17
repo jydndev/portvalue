@@ -6,7 +6,7 @@ import CustomSlider from '../../components/CustomSlider/CustomSlider';
 
 const setColor = (customVariable, color) => document.documentElement.style.setProperty(customVariable, color);
 
-const HeroContents = ({ a11y, config, bannerImages, imageSize }) => {
+const HeroContents = ({ config, bannerImages, imageSize }) => {
   const [autoPlay, setAutoPlay] = useState(true);
   const [pagination, setPagination] = useState(false);
   const [navigation, setNavigation] = useState(false);
@@ -42,7 +42,6 @@ const HeroContents = ({ a11y, config, bannerImages, imageSize }) => {
 
       renderBullet: (index, className) =>
         `<span class="${className} ${config.slideNavigationInfo?.buttonSizeType.toLowerCase()} ${config.slideNavigationInfo?.buttonBorderType.toLowerCase()}">
-          <span class="a11y">${index + 1}번째 슬라이드 배너 이미지</span>
         </span>`,
     });
   }, [config]);
@@ -81,7 +80,6 @@ const HeroContents = ({ a11y, config, bannerImages, imageSize }) => {
   return (
     <article className="hero">
       <CustomSlider
-        a11y={a11y}
         slideOption={slideOptions}
         bannerImages={bannerImages}
         width={imageSize.width}
@@ -89,12 +87,8 @@ const HeroContents = ({ a11y, config, bannerImages, imageSize }) => {
       />
       {config.usableSlideButton && (
         <>
-          <button className="slide-prev swiper-button-prev">
-            <span className="a11y">움직이는 배너 좌측 전환 버튼</span>
-          </button>
-          <button className="slide-next swiper-button-next">
-            <span className="a11y">움직이는 배너 우측 전환 버튼</span>
-          </button>
+          <button className="slide-prev swiper-button-prev"></button>
+          <button className="slide-next swiper-button-next"></button>
         </>
       )}
     </article>
@@ -104,7 +98,6 @@ const HeroContents = ({ a11y, config, bannerImages, imageSize }) => {
 export default HeroContents;
 
 HeroContents.propTypes = {
-  a11y: string,
   config: shape({
     slideEffectType: oneOf(['SLIDE', 'FADE']),
     slideNavigationType: string,

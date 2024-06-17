@@ -40,7 +40,6 @@ const FreightInformation = ({ areaType, partnerCompanyName, canFreight, conditio
         />
       </dt>
       <dd className={`product-summary__display-label${canFreight ? '' : ' product-summary__display-label--unable'}`}>
-        <span className="a11y">배송비</span>
         {feeLabel}
         <VisibleComponent shows={!!conditionLabel} TruthyComponent={<em>{conditionLabel}</em>} />
       </dd>
