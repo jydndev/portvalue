@@ -147,7 +147,6 @@ const Header = () => {
           <IconBtn className="header__cancel-btn" iconType="x-black" onClick={() => navigate('/')} size="xs" />
         )}
       </header>
-      {isMain && <Nav />}
     </>
   );
 };

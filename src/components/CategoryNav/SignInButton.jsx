@@ -9,6 +9,7 @@ import {
   useOffCanvasStateContext,
 } from '@shopby/react-components';
 import { isSignedIn } from '@shopby/shared';
+import { ExitIcon } from '../Icon/ExitIcon';
 
 const SignInButton = () => {
   const { profile } = useAuthStateContext();
@@ -31,22 +32,8 @@ const SignInButton = () => {
 
   return (
     <div className="category-nav-sign-in">
-      <p>
-        {userName ? (
-          <>
-            <Link to="/my-page">{userName}</Link> 님
-          </>
-        ) : (
-          <>
-            <Link className="category-nav-sign-in__link" to="/sign-in" state={{ from: '/' }}>
-              로그인
-            </Link>
-            을 해주세요.
-          </>
-        )}
-      </p>
       <button className="category-nav-sign-in__close" onClick={closeCanvas}>
-        <IconSVG name="x" stroke="#fff" size={30} />
+        <ExitIcon size={32} />
       </button>
     </div>
   );

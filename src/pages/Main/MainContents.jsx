@@ -9,6 +9,7 @@ import { SECTION_CODE } from '../../constants/display';
 
 import Hero from './Hero';
 import ProductSectionWrap from './ProductSectionWrap';
+import CategoryNavigation from '../../components/CategoryNavigation/CategoryNavigation';
 
 const MainContents = ({ platformType }) => {
   const { fetchDisplaySections } = useProductSectionActionContext();
@@ -20,6 +21,7 @@ const MainContents = ({ platformType }) => {
   return (
     <div className="main-view">
       <Hero bannerId="BNSLIDE" />
+      <CategoryNavigation platformType={platformType} />
       <ProductSectionWrap platformType={platformType} sectionsId={SECTION_CODE[platformType][0]} />
       <AdminBanner bannerId="BANNER01" />
       <ProductSectionWrap platformType={platformType} sectionsId={SECTION_CODE[platformType][1]} />

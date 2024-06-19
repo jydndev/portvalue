@@ -1,22 +1,28 @@
-/* 예시파일 */
-
 :root {
   --layout-color: #fff;
 }
-
-/* 메인페이지 */
 
 .l-content {
   min-height: 600px;
 }
 
+.l-panel {
+  box-shadow: none;
+  border: none;
+  margin-bottom: 0;
+}
+
+/* 메인페이지 */
+
+.main-view {
+  margin-bottom: 60px;
+}
+
 .header {
   background-color: #fff;
+  justify-content: space-between;
   min-height: 56px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 12px 20px;
 }
 
 .hamburger-menu {
@@ -38,7 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 396px;
+  max-width: 100%;
   margin: 0;
   line-height: normal;
 }
@@ -62,12 +68,6 @@
   bottom: 15px;
 }
 
-.main-view {
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-
 /* 하단 네비게이션 */
 
 .bottom-nav__link-btn {
@@ -80,7 +80,89 @@
 /* 메인 배너 */
 
 .hero {
-  border-radius: 12px;
   margin-top: 12px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 12px;
+  height: 140px;
   overflow: hidden;
+}
+
+/* 메인 카테고리 */
+
+.main-category {
+  margin-top: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.category-container {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.button-container-first,
+.button-container-second {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+  margin-top: 20px;
+}
+
+/* 상품 정렬 */
+
+.product-section {
+  margin-top: 60px;
+  margin-left: 20px;
+}
+
+.product-section__title {
+  font-size: 20px;
+  font-weight: 800;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.product-section--slide .swiper {
+  margin: 0;
+}
+
+.product-section__more {
+  margin-top: 12px;
+  margin-right: 20px;
+  margin-left: 0;
+  height: 48px;
+  background-color: #f5f6f8;
+  padding: 16px;
+  border-radius: 8px;
+  border: none;
+}
+
+.thumb-item__media {
+  border-radius: 8px;
+}
+
+.thumb-item-badges {
+  overflow: hidden;
+  border-radius: 8px;
+  top: 8px;
+  left: 8px;
+}
+
+/* 카테고리 */
+
+.category-nav-sign-in {
+  height: 56px;
+  background-color: #fff;
+}
+
+/* 푸터 */
+
+.footer {
+  background-color: #f5f6f8;
+  border: none;
 }

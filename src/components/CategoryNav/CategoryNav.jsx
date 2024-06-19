@@ -8,7 +8,6 @@ const CategoryNav = () => (
   <OffCanvas className="category-nav">
     <SignInButton />
     <CategoryNavLinks />
-    <Cs />
   </OffCanvas>
 );
 

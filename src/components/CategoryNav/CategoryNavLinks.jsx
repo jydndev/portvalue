@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
-import { IconSVG, useMallStateContext } from '@shopby/react-components';
+import { useMallStateContext } from '@shopby/react-components';
+import { RightIcon } from '../../components/Icon/RightIcon';
 
 const CategoryNavLinks = () => {
   const {
@@ -11,6 +12,7 @@ const CategoryNavLinks = () => {
     <div className="category-nav-content">
       {multiLevelCategories.length > 0 ? (
         <nav className="l-panel category-nav-links">
+          <h2 className="a11y">상품 카테고리</h2>
           {multiLevelCategories.map((category) => (
             <Link
               key={category.categoryNo}
@@ -20,7 +22,7 @@ const CategoryNavLinks = () => {
             >
               {category.label}
               <span className="category-nav-links__arrow">
-                <IconSVG name="angle-r" size={20} />
+                <RightIcon size={16} />
               </span>
             </Link>
           ))}
