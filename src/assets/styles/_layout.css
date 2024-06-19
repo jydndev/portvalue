@@ -6,23 +6,22 @@
 
 /**메인페이지**/
 
+.l-content {
+  min-height: 600px;
+}
+
 .header {
+  background-color: #fff;
   min-height: 56px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.header__logo-img {
+.hamburger-menu {
   height: 32px;
-}
-
-.header__title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 364px;
-  height: 56px;
-  line-height: normal;
-  margin-left: 12px;
-  margin-right: 12px;
+  width: 32px;
 }
 
 .header__left-btn {
@@ -33,4 +32,32 @@
   width: 56px;
   height: 56px;
   top: 50%;
+}
+
+.header__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 396px;
+  margin: 0;
+  line-height: normal;
+}
+
+.header__logo-img {
+  height: 32px;
+}
+
+.header__cart-btn {
+  height: 32px;
+  width: 32px;
+  position: static;
+  transform: none;
+}
+
+.shopping-basket {
+  width: 0;
+}
+
+.shopping-basket__count {
+  bottom: 15px;
 }

@@ -11,7 +11,6 @@ import {
   useOffCanvasActionContext,
   IconBtn,
   CartBtn,
-  IconSVG,
   useAuthStateContext,
 } from '@shopby/react-components';
 
@@ -19,13 +18,15 @@ import useSearchKeyword from '../../hooks/useSearchKeyword';
 import { getPageTypeInformation } from '../../utils';
 import BackButton from '../BackButton';
 import { useLayoutValueContext } from '../LayoutProvider';
+import { HamburgerIconTop } from '../Icon/HamburgerIconTop';
+import { CartIcon } from '../Icon/CartIcon';
 import Nav from '../Nav/Nav';
 
 import MallLogo from './MallLogo';
 
 const MainHeader = ({ openCanvas }) => (
-  <button className="hamburger-menu header__left-btn" onClick={openCanvas}>
-    <IconSVG name="hamburger" size={50} strokeWidth={3} />
+  <button className="hamburger-menu" onClick={openCanvas}>
+    <HamburgerIconTop size={32} />
   </button>
 );
 MainHeader.propTypes = {
@@ -137,6 +138,7 @@ const Header = () => {
         {canShowShoppingBasket && (
           <div className="header__cart-btn">
             <Link to="/cart">
+              <CartIcon className="cart__icon" size={32} />
               <CartBtn memberStatus={profile?.memberStatus} />
             </Link>
           </div>
