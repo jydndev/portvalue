@@ -1,11 +1,11 @@
 @charset 'utf-8';
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 
 :root {
   --whole-color: #fff;
   --background-color: #f5f6f8;
-  --point-color: #f92626;
-  --point-color-secondary: #2869f7;
+  --point-color: #327bff;
+  --point-color-secondary: #f2335c;
   --black-color: #111;
   --dark-gray-color: #262626;
 
@@ -20,3 +20,8 @@
 }
 
 @import './styles/_layout.css';
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard Variable', Pretendard, Roboto,
+    'Noto Sans KR', 'Segoe UI', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+}

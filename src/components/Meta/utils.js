@@ -70,15 +70,15 @@ const createMetaTagBy = ({ product, mallName, url, bannerMap, eventInfo, isProdu
 const getMetaMap = ({ mallName, title, image, type, url }) => ({
   author: {
     attr: 'name',
-    content: mallName,
+    content: '단성비',
   },
   description: {
     attr: 'name',
-    content: mallName,
+    content: '다양한 단백질 식품들을 확인하고 나에게 맞는 상품을 구매해보세요',
   },
   keywords: {
     attr: 'name',
-    content: mallName,
+    content: '단백질, 단백질 식품, 단백질 비교, 단백질 성분, 건강 식품, 피트니스, 헬스, 영양 보충제, 근육, 건강한 식단',
   },
   'twitter:card': {
     attr: 'name',
@@ -86,19 +86,19 @@ const getMetaMap = ({ mallName, title, image, type, url }) => ({
   },
   'twitter:title': {
     attr: 'name',
-    content: title,
+    content: '단성비 | 단백질 식품 성분 비교 서비스',
   },
   'twitter:description': {
     attr: 'name',
-    content: '여기를 눌러 링크를 확인하세요.',
+    content: '다양한 단백질 식품들을 확인하고 나에게 맞는 상품을 구매해보세요',
   },
   'twitter:image': {
     attr: 'name',
-    content: image,
+    content: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240524T073536647Z_portvalue.png',
   },
   'og:site_name': {
     attr: 'property',
-    content: mallName,
+    content: '단성비 | 단백질 식품 성분 비교 서비스',
   },
   'og:type': {
     attr: 'property',
@@ -106,11 +106,11 @@ const getMetaMap = ({ mallName, title, image, type, url }) => ({
   },
   'og:title': {
     attr: 'property',
-    content: title,
+    content: '단성비 | 단백질 식품 성분 비교 서비스',
   },
   'og:image': {
     attr: 'property',
-    content: image,
+    content: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240524T073536647Z_portvalue.png',
   },
   'og:url': {
     attr: 'property',
@@ -118,15 +118,15 @@ const getMetaMap = ({ mallName, title, image, type, url }) => ({
   },
   'og:description': {
     attr: 'property',
-    content: '여기를 눌러 링크를 확인하세요.',
+    content: '다양한 단백질 식품들을 확인하고 나에게 맞는 상품을 구매해보세요',
   },
   'og:image:width': {
     attr: 'property',
-    content: '436',
+    content: '800',
   },
   'og:image:height': {
     attr: 'property',
-    content: '134',
+    content: '400',
   },
 });
 
