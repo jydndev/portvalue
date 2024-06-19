@@ -4,7 +4,7 @@
   --layout-color: #fff;
 }
 
-/**메인페이지**/
+/* 메인페이지 */
 
 .l-content {
   min-height: 600px;
@@ -60,4 +60,27 @@
 
 .shopping-basket__count {
   bottom: 15px;
+}
+
+.main-view {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+
+/* 하단 네비게이션 */
+
+.bottom-nav__link-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+/* 메인 배너 */
+
+.hero {
+  border-radius: 12px;
+  margin-top: 12px;
+  overflow: hidden;
 }
