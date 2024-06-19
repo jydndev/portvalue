@@ -7,10 +7,30 @@
 /**메인페이지**/
 
 .header {
-  min-height: 60px;
-  height: 60px;
+  min-height: 56px;
 }
 
 .header__logo-img {
-  height: 36px;
+  height: 32px;
+}
+
+.header__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 364px;
+  height: 56px;
+  line-height: normal;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.header__left-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  width: 56px;
+  height: 56px;
+  top: 50%;
 }
