@@ -20,7 +20,6 @@ import BackButton from '../BackButton';
 import { useLayoutValueContext } from '../LayoutProvider';
 import { HamburgerIconTop } from '../Icon/HamburgerIconTop';
 import { CartIcon } from '../Icon/CartIcon';
-import Nav from '../Nav/Nav';
 
 import MallLogo from './MallLogo';
 
@@ -134,7 +133,9 @@ const Header = () => {
         ) : (
           hasBackBtnOnHeader && <BackButton label="페이지 뒤로 가기" className="header__left-btn" />
         )}
-        <Content isMain={isMain} hasSearchKeywordHeader={hasSearchKeywordHeader} title={title} />
+        <div className="header__title">
+          <Content isMain={isMain} hasSearchKeywordHeader={hasSearchKeywordHeader} title={title} />
+        </div>
         {canShowShoppingBasket && (
           <div className="header__cart-btn">
             <Link to="/cart">

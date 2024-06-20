@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { cloneDeep } from 'lodash-es';
 import { oneOf, string } from 'prop-types';
 
-import { IconSVG, useProductSectionStateContext } from '@shopby/react-components';
+import { useProductSectionStateContext } from '@shopby/react-components';
+import { RightIcon } from '../../components/Icon/RightIcon';
 
 import GallerySkeleton from '../../components/GallerySkeleton';
 import ProductSectionListRouter from '../../components/ProductSectionListRouter';
@@ -37,7 +38,7 @@ const ProductSectionWrap = ({ platformType, sectionsId }) => {
         <Link className="product-section__more btn" to={`/display/${sectionsId}`}>
           더보기
           <span className="product-section__more-ico">
-            <IconSVG name="angle-r" size={20} />
+            <RightIcon size={16} />
           </span>
         </Link>
       </article>

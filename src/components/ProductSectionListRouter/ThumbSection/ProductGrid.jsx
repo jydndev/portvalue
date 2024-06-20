@@ -111,6 +111,7 @@ const ProductGrid = ({ className, style, displayType, products }) => (
         saleStatusType,
         salePrice,
         promotionText,
+        brandName,
         productName,
         immediateDiscountAmt,
         additionDiscountAmt,
@@ -148,6 +149,7 @@ const ProductGrid = ({ className, style, displayType, products }) => (
             {displayType === THUMB_LIST_TYPE.SIMPLE_IMAGE ? (
               <Link to={`/product-detail?productNo=${productNo}`}>
                 <ProductThumbInfo
+                  brandName={brandName}
                   promotionText={promotionText}
                   productName={productName}
                   salePrice={calculateDiscountedPrice({
@@ -160,6 +162,7 @@ const ProductGrid = ({ className, style, displayType, products }) => (
             ) : (
               <Link to={`/product-detail?productNo=${productNo}`}>
                 <ProductThumbInfo
+                  brandName={brandName}
                   promotionText={promotionText}
                   productName={productName}
                   salePrice={calculateDiscountedPrice({

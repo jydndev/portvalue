@@ -2,19 +2,23 @@ import { oneOf, arrayOf, shape, number, string, func } from 'prop-types';
 
 import { SelectBox } from '@shopby/react-components';
 import { convertToKoreanCurrency } from '@shopby/shared';
+import { OrderIcon } from '../Icon/OrderIcon';
 
 const TotalCountAndSort = ({ totalCount, sortType, updateSortType, sortBy }) => (
   <div className="total-sort">
     <p className="total-sort__count">
       총 <em className="highlight">{convertToKoreanCurrency(totalCount)}</em>개
     </p>
-    <SelectBox
-      className="total-sort__select-box"
-      hasSortOption={true}
-      value={sortType}
-      onSelect={({ target }) => updateSortType(target.value)}
-      options={sortBy}
-    />
+    <div className="total-sort__select">
+      <SelectBox
+        className="total-sort__select-box"
+        hasSortOption={true}
+        value={sortType}
+        onSelect={({ target }) => updateSortType(target.value)}
+        options={sortBy}
+      />
+      <OrderIcon className="OrderIcon" />
+    </div>
   </div>
 );
 export default TotalCountAndSort;

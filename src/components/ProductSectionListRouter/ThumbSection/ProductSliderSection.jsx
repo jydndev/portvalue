@@ -21,6 +21,7 @@ const ProductSliderSection = ({
     <Slider navigation={navigation} slidesPerView={slidesPerView} spaceBetween={spaceBetween} {...sliderOption}>
       {products.map(
         ({
+          brandName,
           frontDisplayYn,
           productNo,
           listImageUrls,
@@ -47,6 +48,7 @@ const ProductSliderSection = ({
                 {displayType === THUMB_LIST_TYPE.SIMPLE_IMAGE ? (
                   <Link to={`/product-detail?productNo=${productNo}`}>
                     <ProductThumbInfo
+                      brandName={brandName}
                       promotionText={promotionText}
                       productName={productName}
                       salePrice={calculateDiscountedPrice({
@@ -59,6 +61,7 @@ const ProductSliderSection = ({
                 ) : (
                   <Link to={`/product-detail?productNo=${productNo}`}>
                     <ProductThumbInfo
+                      brandName={brandName}
                       promotionText={promotionText}
                       productName={productName}
                       salePrice={calculateDiscountedPrice({

@@ -7,12 +7,12 @@ import { convertToKoreanCurrency } from '@shopby/shared';
 // ===========================
 // 상품 아이템 정보
 // ===========================
-const ProductThumbInfo = ({ promotionText, productName, salePrice }) => {
+const ProductThumbInfo = ({ brandName, promotionText, productName, salePrice }) => {
   const { t } = useTranslation('unit');
   return (
     <>
       <p className="product-thumb-title">
-        {promotionText} {productName}
+        {brandName} {promotionText} {productName}
       </p>
       <p className="product-thumb-price-info">
         <span>
@@ -27,6 +27,7 @@ const ProductThumbInfo = ({ promotionText, productName, salePrice }) => {
 export default ProductThumbInfo;
 
 ProductThumbInfo.propTypes = {
+  brandName: string,
   promotionText: string,
   productName: string,
   salePrice: number,

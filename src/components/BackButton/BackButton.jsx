@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
 import { string, func } from 'prop-types';
+import { BackIcon } from '../Icon/BackIcon';
 
-import { IconBtn } from '@shopby/react-components';
 
 const BackButton = ({ label, className, onClick }) => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const BackButton = ({ label, className, onClick }) => {
     onClick ? onClick() : navigate(-1);
   };
 
-  return <IconBtn label={label} className={className} iconType="arrow-left" onClick={handleClick} />;
+  return <BackIcon label={label} className={className} iconType="arrow-left" onClick={handleClick} />;
 };
 
 export default BackButton;
