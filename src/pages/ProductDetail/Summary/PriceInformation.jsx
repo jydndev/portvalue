@@ -43,7 +43,7 @@ const DiscountPriceInformation = () => {
         ))}
       </ul>
       <div className="discount-price-information__total">
-        <p>총 할인금액</p>
+        <p>총 할인 금액</p>
         <p>- {convertToKoreanCurrency(totalDiscountPrice)}원</p>
       </div>
       <ul className="discount-price-information__description">

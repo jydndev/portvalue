@@ -8,15 +8,15 @@ const CartPriceTag = () => {
 
   const paymentDetails = [
     {
-      name: '상품금액 합계',
+      name: '총 상품 금액',
       amountLabel: convertToKoreanCurrency(paymentInfo.standardAmt),
     },
     {
-      name: '할인금액 합계',
+      name: '총 할인 금액',
       amountLabel: `- ${convertToKoreanCurrency(paymentInfo.discountAmt)}`,
     },
     {
-      name: '배송비 합계',
+      name: '배송비',
       amountLabel: `+ ${convertToKoreanCurrency(paymentInfo.totalPrePaidDeliveryAmt)}`,
     },
   ];

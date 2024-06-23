@@ -51,6 +51,7 @@
   height: 32px;
   position: static;
   transform: none;
+  cursor: pointer;
 }
 
 .hamburger-menu {
@@ -164,6 +165,10 @@
 
 :where(.thumb-GALLERY, .thumb-CART, .thumb-SIMPLE_IMAGE) .thumb-item {
   width: 48%;
+}
+
+:where(:where(.thumb-GALLERY,.thumb-CART,.thumb-SIMPLE_IMAGE).PC) .thumb-item:nth-child(n+1) {
+  margin-left: 0;
 }
 
 .thumb-item PC {
@@ -557,13 +562,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 56px;
-  height: 56px;
+  width: 32px;
+  height: 32px;
+  position: static;
+  transform: none;
   padding-right: 0px;
 }
 
 .search-keyword-modal__top {
   width: 100%;
+  padding: 12px 20px;
   margin: 0;
   height: 56px;
   border-bottom: 2px solid #f5f6f8;
@@ -580,7 +588,11 @@
 }
 
 .search-field__submit-btn {
-  margin-right: 10px;
+  margin: 0px;
+}
+
+.search-keyword-modal .text-field input {
+  font-size: 16px;
 }
 
 /* 주문 페이지 */
@@ -693,10 +705,14 @@
 }
 
 .my-info__greeting {
+  color: #333d4b;
   font-size: 24px;
   font-weight: 800;
   margin-right: 8px;
   margin-bottom: 0px;
+}
+
+.my-info__member-type {
 }
 
 .member-grade-name {
@@ -713,7 +729,7 @@
 }
 
 .my-info__member-benefit-label {
-  font-weight: 200;
+  font-weight: 400;
   color: #6b7684;
 }
 
@@ -730,7 +746,7 @@
 }
 
 .my-coupon-data__link {
-  font-weight: 100;
+  font-weight: 400;
   padding-top: 0px;
   padding-bottom: 0px;
   padding-right: 0px;
@@ -748,6 +764,12 @@
 .my-orders {
   padding: 20px 20px;
   background-color: #ffffff;
+}
+
+.my-orders__link {
+  width: 100%;
+  height: 48px;
+  background-color: #f8f8f8;
 }
 
 .my-orders-link__check {
@@ -824,6 +846,13 @@
   border-color: #f5f6f8;
 }
 
+.phone-number-input .select-box, .sign-up-form__input-wrap > .select-box {
+  height: 56px;
+  background: #f8f8f8;
+  border-color: #f5f6f8;
+  overflow: hidden;
+}
+
 .shipping-address-form__buttons button {
   height: 48px;
   border-radius: 8px;
@@ -850,6 +879,15 @@
 .title-modal--full {
   min-width: 100%;
   max-width: 500px;
+}
+
+.sign-up-confirm {
+  padding: 40px 20px;
+}
+
+.sign-up-confirm__notice-description {
+  margin-top: 20px;
+  font-size: 16px;
 }
 
 
@@ -957,9 +995,22 @@
   padding-right: 16px;
 }
 
+.sign-up-form__item {
+  margin-top: 24px;
+}
+
 .sign-up-form__input-wrap .phone-number-input + .btn--default,
 .sign-up-form__input-wrap .text-field + .btn--default {
   height: 56px;
+}
+
+.sign-up-form__input-wrap .text-field input {
+  background-color: #f8f8f8;
+  line-height: 1.5;
+  height: 56px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 8px;
 }
 
 .sign-up-confirm__nav {
@@ -1102,6 +1153,44 @@
 
 .sign-up-menu__link-open-id {
   margin-top: 20px;
+}
+
+.email-input {
+  margin-bottom: 8px;
+}
+
+.phone-number-input .select-box,
+.sign-up-form__input-wrap > .select-box {
+  line-height: 1.5;
+  height: 56px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 8px;
+}
+
+.sign-up-form__input-wrap .select-box select {
+  line-height: 1.5;
+  height: 56px;
+  padding: 0px;
+}
+
+.sign-up-form__checkbox--all {
+  display: flex;
+  justify-content: left;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 1;
   height: 48px;
 }
 
+.sign-up-form__confirm {
+  margin-top: 20px;
+}
+
+.sign-up-form__confirm button {
+  padding: 8px;
+  height: 48px;
+  border-radius: 8px;
+  font-weight: 800;
+}

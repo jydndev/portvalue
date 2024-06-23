@@ -28,7 +28,7 @@ const PaymentInfo = () => {
 
   const finalAmount = useMemo(
     () => ({
-      name: '최종 결제금액',
+      name: '총 결제 금액',
       amountLabel: convertToKoreanCurrency(paymentAmt),
     }),
     [paymentAmt]
@@ -37,19 +37,19 @@ const PaymentInfo = () => {
   const details = useMemo(
     () => [
       {
-        name: '상품금액 합계',
+        name: '총 상품 금액',
         amountLabel: convertToKoreanCurrency(totalStandardAmt),
       },
       {
-        name: '할인금액 합계',
+        name: '총 할인 금액',
         amountLabel: `- ${convertToKoreanCurrency(totalDiscountAmt)}`,
       },
       {
-        name: '적립금 사용 금액 합계',
+        name: '적립금 사용 금액',
         amountLabel: `- ${convertToKoreanCurrency(usedAccumulationAmt)}`,
       },
       {
-        name: '배송비 합계',
+        name: '배송비',
         amountLabel: `+ ${convertToKoreanCurrency(totalDeliveryAmt)}`,
       },
     ],

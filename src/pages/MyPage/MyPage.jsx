@@ -175,7 +175,6 @@ const MemberInformation = () => {
           </span>
         </Button>
       </div>
-      <span className="my-info__member-type">{memberTypeLabel} 아이디 회원</span>
       <VisibleComponent
         shows={isOpen}
         TruthyComponent={
@@ -235,10 +234,10 @@ const MyPage = () => {
         </ProfileLikeProvider>
       </CouponProvider>
       <div className="my-orders">
-        <Link className="my-orders__link" to="/orders">
+        <Link className="my-orders-link__check" to="/orders">
           주문/배송 조회
         </Link>
-        <Link className="my-orders__link" to="/claims">
+        <Link className="my-orders-link__claim" to="/claims">
           클레임 내역
         </Link>
       </div>
