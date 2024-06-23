@@ -64,30 +64,27 @@ const PriceInformation = ({ discountRate, discountedPrice, originalPrice }) => {
   return (
     <>
       <div className="product-summary__price-detail">
-        <VisibleComponent
-          shows={discountRate > 0}
-          TruthyComponent={
-            <p className="product-summary__off-percent">
-              {discountRate}
-              <span>%</span>
-            </p>
-          }
-        />
         <div className="product-summary__discounted-price">
+          <p className="product-summary__off-percent">
+            {discountRate}
+            <span>%</span>
+          </p>
           <p className="product-summary__price">
             {convertToKoreanCurrency(discountedPrice)}
             <span>원</span>
           </p>
-          <VisibleComponent
-            shows={discountRate > 0}
-            TruthyComponent={
+        </div>
+        <VisibleComponent
+          shows={discountRate > 0}
+          TruthyComponent={
+            <div className="product-summary__top">
               <del className="product-summary__original-price">
                 {convertToKoreanCurrency(originalPrice)}
-                <button className="help-btn" onClick={() => setVisibleDiscountPriceModal((prev) => !prev)}></button>
+                <span>원</span>
               </del>
-            }
-          />
-        </div>
+            </div>
+          }
+        />
       </div>
       <VisibleComponent
         shows={visibleDiscountPriceModal}

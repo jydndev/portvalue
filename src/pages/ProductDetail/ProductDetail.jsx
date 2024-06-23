@@ -35,22 +35,22 @@ const makeTabs = ({ reviewCount = 0, inquiryCount = 0, hasGuide = false } = {}) 
   const tabs = [
     {
       value: 'DETAIL',
-      label: '상품 상세정보',
+      label: '상세정보',
     },
     {
       value: 'REVIEW',
-      label: `상품후기 (${reviewCount})`,
+      label: `후기 (${reviewCount})`,
     },
     {
       value: 'INQUIRY',
-      label: `상품 Q&A (${inquiryCount})`,
+      label: `Q&A (${inquiryCount})`,
     },
   ];
 
   if (hasGuide) {
     tabs.push({
       value: 'SHIPPING_CLAIM',
-      label: '배송/교환/반품',
+      label: '배송/반품',
     });
   }
 

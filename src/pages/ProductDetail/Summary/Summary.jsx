@@ -12,9 +12,9 @@ const Summary = () => {
 
   return (
     <div className="product-summary">
+      <div className="product-summary__brand-info">{summary.brandName}</div>
       <h1 className="product-summary__combined">
-        {' '}
-        {summary.brandName} {summary.productName}{' '}
+        {summary.brandName} {summary.productName}
       </h1>
       <div className="product-summary__price-info">
         <PriceInformation {...summary} />

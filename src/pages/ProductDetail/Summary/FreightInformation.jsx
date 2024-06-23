@@ -29,7 +29,7 @@ const FreightInformation = ({ areaType, partnerCompanyName, canFreight, conditio
   return (
     <dl className="product-summary__freight">
       <dt>
-        <span className="ico ico--shipping-car"></span>
+        <span className="delivery">🚚</span>
         <VisibleComponent
           shows={areaType === 'PARTNER_SHIPPING_AREA'}
           TruthyComponent={

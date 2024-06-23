@@ -73,7 +73,6 @@ const Detail = () => {
         <div className="product-content__content-box">
           <VisibleComponent
             shows={hasContent || showsOptionImages}
-            TruthyComponent={<p className="product-content__title">상품상세정보</p>}
           />
           <VisibleComponent
             shows={showsOptionImages}

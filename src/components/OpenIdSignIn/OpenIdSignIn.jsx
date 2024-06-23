@@ -20,9 +20,6 @@ const OpenIdSignIn = ({ label, orderSheetNo, providers, reauthenticate = false }
       shows={providers?.length > 0}
       TruthyComponent={
         <div className="open-id-sign-in">
-          <p className="open-id-sign-in__title">
-            <span>간편로그인</span>
-          </p>
           <ul className="open-id-sign-in__list">
             {providers
               ?.sort((a, b) => b.charCodeAt(0) - a.charCodeAt(0))

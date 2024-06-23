@@ -15,10 +15,11 @@ import { useErrorBoundaryActionContext } from '../ErrorBoundary';
 import FullModal from '../FullModal/FullModal';
 import ListSkeleton from '../ListSkeleton/ListSkeleton';
 import ProductInquiryForm from '../ProductInquiryForm/ProductInquiryForm';
+import { InformationIcon } from '../Icon/InformationIcon';
 
 const EmptyInquiryList = () => (
   <div className="product-board-list__empty">
-    <span className="ico ico--exclamation-white-bg"></span>
+    <InformationIcon size={40} />
     <span className="product-board-list__empty-notes">아직 등록된 상품 Q&A가 없어요.</span>
   </div>
 );

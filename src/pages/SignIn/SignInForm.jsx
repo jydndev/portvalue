@@ -188,7 +188,43 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
   return (
     <>
       <section className="sign-in">
+        <p className="sign-in__logo">
+          <img
+            src="https://dansungbee.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdsb_logo_black.5d98e63b.png&w=256&q=75"
+            alt="단성비 로고"
+          ></img>
+        </p>
+        <p className="sign-in__image">
+          <img
+            src="https://dansungbee.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fsign_in_danbeeall.b67f777d.png&w=2048&q=75"
+            alt="단성비 회원가입"
+          ></img>
+        </p>
+        <p className="sign-in__title">
+          <span>
+            {' '}
+            지금 단성비와 함께<br></br>단백질을 골라보세요!{' '}
+          </span>
+        </p>
+        <p className="sign-in__description">
+          <span> 영양,가격 비교분석부터 솔직한 후기까지 </span>
+        </p>
+        {openIdJoinConfig.providers && (
+          <div className="sign-in-open-id">
+            <OpenIdSignIn
+              label="로그인"
+              orderSheetNo={orderSheetNo}
+              providers={openIdJoinConfig.providers}
+              state={{ ...state }}
+            />
+          </div>
+        )}
+
+        <h2 className="a11y">로그인</h2>
         <div className="normal-sign-in">
+          <p className="normal-sign-in__title">
+            <span>또는</span>
+          </p>
           <div className="normal-sign-in__input-wrap">
             <TextField
               name="memberId"
@@ -259,16 +295,6 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
             </>
           }
         />
-        {openIdJoinConfig.providers && (
-          <div className="sign-in-open-id">
-            <OpenIdSignIn
-              label="로그인"
-              orderSheetNo={orderSheetNo}
-              providers={openIdJoinConfig.providers}
-              state={{ ...state }}
-            />
-          </div>
-        )}
       </section>
       <VisibleComponent
         shows={isOpen}
@@ -281,7 +307,7 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
                   회원님께서는 장기간 비밀번호를 변경하지 않고, 동일한 비밀번호를 사용 중이십니다.
                 </p>
                 <span className="long-term-notice__description">
-                  {mallName}에서는 회워님의 소중한 개인정보를 보호하기 위하여 비밀번호 변경을 안내해드리고 있습니다.
+                  {mallName}에서는 회원님의 소중한 개인정보를 보호하기 위하여 비밀번호 변경을 안내해드리고 있습니다.
                   <br />
                   정기적인 비밀번호 변경으로 회원님의 개인정보를 보호해 주세요.
                 </span>

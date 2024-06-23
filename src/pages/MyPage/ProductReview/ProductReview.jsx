@@ -15,11 +15,11 @@ import useLayoutChanger from '../../../hooks/useLayoutChanger';
 const DEFAULT_TABS = [
   {
     value: 'REVIEWABLE',
-    label: '작성 가능 후기',
+    label: '후기 작성',
   },
   {
     value: 'REVIEWED',
-    label: '작성 완료 후기',
+    label: '작성한 후기',
   },
 ];
 

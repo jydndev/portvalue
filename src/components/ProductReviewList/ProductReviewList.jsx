@@ -7,12 +7,12 @@ import { SelectBox, ThumbList, VisibleComponent, useBoardConfigurationContextSta
 import ListSkeleton from '../ListSkeleton/ListSkeleton';
 import ProductThumbItem from '../ProductThumbItem';
 import ReviewAccumulation from '../ReviewAccumulation/ReviewAccumulation';
-
+import { InformationIcon } from '../Icon/InformationIcon';
 import ProductReviewItem from './ProductReviewItem';
 
 const EmptyReviewList = memo(() => (
   <div className="product-board-list__empty">
-    <span className="ico ico--exclamation-white-bg"></span>
+    <InformationIcon size={40} />
     <span className="product-board-list__empty-notes">아직 작성 된 상품후기가 없어요.</span>
     <p className="product-board-list__accumulation-notes">
       구매 후 상품후기를 남겨주세요!

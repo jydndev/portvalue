@@ -1,3 +1,5 @@
+import React, { useEffect } from 'react';
+
 import { useTranslation } from 'react-i18next';
 
 import { SignInProvider, OpenIdSignInProvider, CustomTermsProvider } from '@shopby/react-components';
@@ -9,6 +11,14 @@ import SignInForm from './SignInForm';
 
 const SignIn = () => {
   const { t } = useTranslation('title');
+
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   useLayoutChanger({
     hasBackBtnOnHeader: true,

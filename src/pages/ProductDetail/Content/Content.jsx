@@ -17,7 +17,15 @@ const ActiveComponent = () => {
   const boxRef = useRef(null);
 
   useEffect(() => {
-    boxRef?.current.scrollIntoView({ behavior: 'smooth' });
+    const box = boxRef.current;
+    if (box) {
+      const boxTop = box.getBoundingClientRect().top + window.scrollY;
+      const newScrollPosition = boxTop - 100;
+      window.scrollTo({
+        top: newScrollPosition,
+        behavior: 'smooth',
+      });
+    }
   }, [currentTab]);
 
   useEffect(() => {

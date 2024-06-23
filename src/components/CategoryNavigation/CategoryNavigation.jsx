@@ -4,12 +4,12 @@ import { useOffCanvasActionContext } from '@shopby/react-components';
 const categories = [
   {
     name: '신규',
-    url: '/display/SCMO0001',
+    url: '/display/SCMO0002',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134228333Z_portvalue.png',
   },
   {
     name: '인기',
-    url: '/display/SCMO0002',
+    url: '/display/SCMO0001',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134226543Z_portvalue.png',
   },
   {
@@ -65,15 +65,15 @@ const CategoryNavigation = ({ platformType }) => {
       openCanvas();
     } else if (category.name === '인기') {
       if (platformType === 'PC') {
-        goToCategory('/display/SCPC0001');
-      } else if (platformType === 'MOBILE_WEB') {
-        goToCategory('/display/SCMO0001');
-      }
-    } else if (category.name === '신규') {
-      if (platformType === 'PC') {
         goToCategory('/display/SCPC0002');
       } else if (platformType === 'MOBILE_WEB') {
         goToCategory('/display/SCMO0002');
+      }
+    } else if (category.name === '신규') {
+      if (platformType === 'PC') {
+        goToCategory('/display/SCPC0001');
+      } else if (platformType === 'MOBILE_WEB') {
+        goToCategory('/display/SCMO0001');
       }
     } else {
       goToCategory(category.url);
