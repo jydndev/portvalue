@@ -196,7 +196,7 @@ const OrderSheetContent = () => {
       <PaymentInfo />
       <PayMethodSelector refs={orderSheetRef.depositBankFormRef} />
       <TermsChecker ref={orderSheetRef.termsCheckerRef} />
-      <Button className="order-sheet__pay-btn" label={'결제 하기'} onClick={handleOrderBtnClick} />
+      <Button className="order-sheet__pay-btn" label={'결제하기'} onClick={handleOrderBtnClick} />
     </div>
   );
 };

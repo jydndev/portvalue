@@ -63,7 +63,7 @@ const Purchase = () => {
       onConfirm: () => {
         navigate('/cart');
       },
-      cancelLabel: '쇼핑계속하기',
+      cancelLabel: '닫기',
     });
   };
 

@@ -167,7 +167,7 @@
   width: 48%;
 }
 
-:where(:where(.thumb-GALLERY,.thumb-CART,.thumb-SIMPLE_IMAGE).PC) .thumb-item:nth-child(n+1) {
+:where(:where(.thumb-GALLERY, .thumb-CART, .thumb-SIMPLE_IMAGE).PC) .thumb-item:nth-child(n + 1) {
   margin-left: 0;
 }
 
@@ -277,9 +277,17 @@
 
 /* 상세페이지 */
 
+.portal .modal {
+  border-radius: 8px;
+}
+
 .modal__content {
   border-radius: 8px;
   padding: 20px;
+}
+
+.modal__btns .btn:nth-of-type(n + 2) {
+  border-radius: 0px 0px 8px 0px !important;
 }
 
 .modal__btns .btn {
@@ -426,7 +434,6 @@
 .product-detail .product-content-review {
   padding: 20px;
 }
-
 
 .product-review-summary__title {
   margin-top: 0;
@@ -597,6 +604,10 @@
 
 /* 주문 페이지 */
 
+.accordion__title {
+  padding: 20px 20px 0px 20px;
+}
+
 .order-sheet .accordion__title {
   border-width: 0;
 }
@@ -639,6 +650,7 @@
 }
 
 .order-sheet__domain-select {
+  border: 1px #f5f6f8;
   margin-top: 12px;
 }
 
@@ -846,8 +858,8 @@
   border-color: #f5f6f8;
 }
 
-.phone-number-input .select-box, .sign-up-form__input-wrap > .select-box {
-  height: 56px;
+.phone-number-input .select-box,
+.sign-up-form__input-wrap > .select-box {
   background: #f8f8f8;
   border-color: #f5f6f8;
   overflow: hidden;
@@ -889,7 +901,6 @@
   margin-top: 20px;
   font-size: 16px;
 }
-
 
 /* 로그인 */
 
@@ -943,7 +954,7 @@
 }
 
 .sign-in__description {
-  color: #6B7684;
+  color: #6b7684;
   line-height: 1.5;
   font-size: 16px;
   font-weight: 400;
