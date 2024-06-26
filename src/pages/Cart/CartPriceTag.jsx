@@ -25,7 +25,7 @@ const CartPriceTag = () => {
     <>
       <PriceTag
         finalAmount={{
-          name: '총 결제금액',
+          name: '총 결제 금액',
           amountLabel: convertToKoreanCurrency(paymentInfo.totalAmt),
         }}
         details={paymentDetails}

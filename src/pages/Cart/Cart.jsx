@@ -105,6 +105,7 @@ const CartContent = () => {
     <div className="cart">
       <CartTopSelectManager />
       <DeliverySection />
+      <div className='divider'/>
       <section className="l-panel cart__payment-info">
         <CartPriceTag />
         <Button className="cart__order-btn" label="주문하기" onClick={handleOrderBtnClick} />

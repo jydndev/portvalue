@@ -19,6 +19,11 @@
   height: 32px;
 }
 
+.divider {
+  height: 12px;
+  background-color: #f5f6f8;
+}
+
 /* 푸터 */
 
 .footer {
@@ -861,7 +866,6 @@
 .phone-number-input .select-box,
 .sign-up-form__input-wrap > .select-box {
   background: #f8f8f8;
-  border-color: #f5f6f8;
   overflow: hidden;
 }
 
@@ -1204,4 +1208,11 @@
   height: 48px;
   border-radius: 8px;
   font-weight: 800;
+}
+
+/* 장바구니 */
+
+.cart__quantity-controller {
+  background-color: transparent;
+  padding: 12px 0px;
 }

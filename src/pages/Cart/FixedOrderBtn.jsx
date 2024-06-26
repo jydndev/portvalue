@@ -12,7 +12,7 @@ const FixedOrderBtn = ({ onOrderBtnClick }) => {
     <div className="cart__fixed-order-btn">
       <div className="cart__fixed-summary">
         <div className="cart__fixed-summary-label">
-          <span>총 결제금액</span>
+          <span>총 결제 금액</span>
           <span className="cart__fixed-summary-number">({checkedCartNos.length}개)</span>
         </div>
         <em>
