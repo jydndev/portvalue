@@ -75,6 +75,10 @@
   font-weight: 800;
 }
 
+.header__title.PRODUCT {
+  font-size: 0;
+}
+
 .header__logo-img {
   height: 24px;
 }
@@ -363,6 +367,7 @@
   font-size: 24px;
   font-weight: 800;
   line-height: 1.5;
+  padding-bottom: 4px;
 }
 
 .product-summary__discounted-price span {

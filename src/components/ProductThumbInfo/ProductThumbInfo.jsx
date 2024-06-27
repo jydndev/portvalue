@@ -12,7 +12,7 @@ const ProductThumbInfo = ({ brandName, promotionText, productName, salePrice }) 
   return (
     <>
       <p className="product-thumb-title">
-        {brandName} {promotionText} {productName}
+        [{brandName}] {promotionText} {productName}
       </p>
       <p className="product-thumb-price-info">
         <span>
