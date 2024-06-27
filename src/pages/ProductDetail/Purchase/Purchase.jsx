@@ -111,7 +111,6 @@ const Purchase = () => {
         TruthyComponent={
           <IconBtn
             className={`purchase__opener ${visible ? 'is-show' : ''}`}
-            iconType="angle-down"
             label={`구매 하기 옵션 ${visible ? '닫기' : '열기'}`}
             onClick={() => setVisible((prevVisible) => !prevVisible)}
           />

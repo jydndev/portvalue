@@ -545,7 +545,11 @@
 }
 
 .purchase__buy-btn {
-  height: 48px;
+  height: 56px;
+}
+
+.purchase__btns {
+  min-height: 56px;
 }
 
 .purchase__like-btn {
@@ -553,6 +557,17 @@
   display: flex;
   align-items: center;
 }
+
+.purchase__opener {
+  width: 0;
+  height: 0;
+}
+
+.purchase .select-box {
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
 
 .purchase .quantity {
   padding: 16px;
