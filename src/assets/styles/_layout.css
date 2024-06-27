@@ -112,14 +112,13 @@
   border-radius: 12px;
   height: 140px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 /* 메인 카테고리 */
 
 .main-category {
   margin-top: 40px;
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
 .category-container {
@@ -129,6 +128,7 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 }
 
 .button-container-first,
@@ -137,6 +137,8 @@
   justify-content: space-between;
   max-width: 800px;
   margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 /* 메인 - 상품 정렬 */
@@ -148,7 +150,7 @@
 .product-section__title {
   font-size: 20px;
   font-weight: 800;
-  padding: 0px 0px;
+  padding: 0px 20px;
   margin: 0;
 }
 

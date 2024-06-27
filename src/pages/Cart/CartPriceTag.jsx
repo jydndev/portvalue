@@ -31,7 +31,7 @@ const CartPriceTag = () => {
         details={paymentDetails}
       >
         <span className="cart__mileage">
-          예상적립&nbsp;<em>{convertToKoreanCurrency(paymentInfo.accumulationAmtWhenBuyConfirm)}</em>&nbsp;M
+          예상 적립 포인트&nbsp;<em>{convertToKoreanCurrency(paymentInfo.accumulationAmtWhenBuyConfirm)}</em>&nbsp;
         </span>
       </PriceTag>
     </>
