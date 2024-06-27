@@ -247,6 +247,10 @@
 
 /* 카테고리 */
 
+.breadcrumb__section {
+  cursor: pointer;
+}
+
 .total-sort {
   position: sticky;
   top: 56px;
@@ -280,6 +284,7 @@
 .select-box--sort select {
   padding: 0px 4px 0px 8px;
   font-weight: 400;
+  cursor: pointer;
 }
 
 /* 상세페이지 */
@@ -581,6 +586,7 @@
   position: static;
   transform: none;
   padding-right: 0px;
+  cursor: pointer;
 }
 
 .search-keyword-modal__top {
@@ -892,11 +898,6 @@
 .customer-center__inquiry-button {
   height: 48px;
   border-radius: 8px;
-}
-
-.title-modal--full {
-  min-width: 100%;
-  max-width: 500px;
 }
 
 .sign-up-confirm {

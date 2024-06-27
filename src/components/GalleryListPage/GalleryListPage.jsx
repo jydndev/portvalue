@@ -31,7 +31,7 @@ const NoSearchProduct = () => {
           </p>
         </div>
       ) : (
-        <p className="not-found-product">상품이 존재하지 않습니다.</p>
+        <p className="not-found-product">준비 중인 카테고리입니다.</p>
       )}
     </>
   );
