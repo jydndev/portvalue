@@ -558,11 +558,6 @@
   align-items: center;
 }
 
-.purchase__opener {
-  width: 0;
-  height: 0;
-}
-
 .purchase .select-box {
   border-radius: 8px;
   margin-bottom: 12px;
