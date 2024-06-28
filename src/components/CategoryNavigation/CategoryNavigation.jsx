@@ -14,39 +14,42 @@ const categories = [
   },
   {
     name: '플틴박스',
-    url: '/products?categoryNo=769128',
+    url: '/product-detail?productNo=120889541',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134140949Z_portvalue.png',
   },
   {
     name: '골라담기',
-    url: '/products?categoryNo=769397',
+    url: '/product-detail?productNo=120889592',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134145058Z_portvalue.png',
   },
   {
     name: '단백질칩',
-    url: '/products?categoryNo=769395',
+    url: '/products?categoryNo=789438',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134142590Z_portvalue.png',
   },
   {
     name: '단백질바',
+    url: '/products?categoryNo=789437',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134605397Z_portvalue.png',
   },
   {
     name: '단백질 쿠키',
-    url: '/products?categoryNo=769397',
+    url: '/products?categoryNo=789439',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134415517Z_portvalue.png',
   },
   {
     name: '단백질 볼',
-    url: '/products?categoryNo=769399',
+    url: '/products?categoryNo=789440',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134138636Z_portvalue.png',
   },
   {
     name: '음료',
+    url: '/products?categoryNo=789441',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134456650Z_portvalue.png',
   },
   {
     name: '파우치',
+    url: '/products?categoryNo=789442',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134440493Z_portvalue.png',
   },
 ];
@@ -86,7 +89,12 @@ const CategoryNavigation = ({ platformType }) => {
       <div className="button-container-first">
         {firstRow.map((category, index) => (
           <div key={index} className="category-container" onClick={() => handleCategoryClick(category)}>
-            <img className="category-img" src={category.image} alt={category.name} style={{ width: '48px', height: '48px' }} />
+            <img
+              className="category-img"
+              src={category.image}
+              alt={category.name}
+              style={{ width: '48px', height: '48px' }}
+            />
             <div className="category-name">{category.name}</div>
           </div>
         ))}
@@ -94,7 +102,12 @@ const CategoryNavigation = ({ platformType }) => {
       <div className="button-container-second">
         {secondRow.map((category, index) => (
           <div key={index} className="category-container" onClick={() => handleCategoryClick(category)}>
-            <img className="category-img" src={category.image} alt={category.name} style={{ width: '48px', height: '48px' }} />
+            <img
+              className="category-img"
+              src={category.image}
+              alt={category.name}
+              style={{ width: '48px', height: '48px' }}
+            />
             <div className="category-name">{category.name}</div>
           </div>
         ))}
