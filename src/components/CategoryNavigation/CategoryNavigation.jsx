@@ -65,15 +65,15 @@ const CategoryNavigation = ({ platformType }) => {
       openCanvas();
     } else if (category.name === '인기') {
       if (platformType === 'PC') {
-        goToCategory('/display/SCPC0002');
-      } else if (platformType === 'MOBILE_WEB') {
-        goToCategory('/display/SCMO0002');
-      }
-    } else if (category.name === '신규') {
-      if (platformType === 'PC') {
         goToCategory('/display/SCPC0001');
       } else if (platformType === 'MOBILE_WEB') {
         goToCategory('/display/SCMO0001');
+      }
+    } else if (category.name === '신규') {
+      if (platformType === 'PC') {
+        goToCategory('/display/SCPC0002');
+      } else if (platformType === 'MOBILE_WEB') {
+        goToCategory('/display/SCMO0002');
       }
     } else {
       goToCategory(category.url);
