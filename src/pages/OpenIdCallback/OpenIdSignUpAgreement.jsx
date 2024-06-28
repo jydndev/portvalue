@@ -121,6 +121,11 @@ const OpenIdSignUpAgreement = ({ orderSheetNo, previousPath, nextPath }) => {
   return (
     <div className="open-id-agreement-form">
       <div className="open-id-agreement-form__input-wrap">
+        <div className="open-id-agreement-form__title">
+          <span>
+            서비스 이용 약관에<br></br>동의해주세요
+          </span>
+        </div>
         <div className="open-id-agreement-form__checkbox--check-all">
           <Checkbox
             label="아래 약관에 모두 동의합니다."

@@ -151,6 +151,7 @@
 }
 
 .product-section__title {
+  height: 24px;
   font-size: 20px;
   font-weight: 800;
   padding: 0px 20px;
@@ -188,7 +189,7 @@
 }
 
 .thumb-item__info {
-  padding: 8px 4px;
+  padding: 8px 0px;
 }
 
 .thumb-item-badges {
@@ -205,11 +206,14 @@
 }
 
 .product-thumb-price {
+  height: 20px;
   font-size: 16px;
   font-weight: 900;
 }
 
 .product-thumb-unit {
+  padding-left: 1px;
+  vertical-align: baseline;
   font-size: 16px;
   font-weight: 900;
   margin: 0;
@@ -1223,6 +1227,13 @@
   height: 48px;
   border-radius: 8px;
   font-weight: 800;
+}
+
+.open-id-agreement-form__title {
+  line-height: 1.5;
+  font-size: 32px;
+  font-weight: 800;
+  text-align: center;
 }
 
 /* 장바구니 */
