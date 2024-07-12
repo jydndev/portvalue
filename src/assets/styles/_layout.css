@@ -525,6 +525,7 @@
 }
 
 .product-content__title {
+  padding-left: 20px;
   font-size: 24px;
   font-weight: 800;
   margin-top: 0px;
@@ -542,6 +543,19 @@
 
 .product-content-shipping-claim .editor {
   padding-bottom: 20px;
+}
+
+.product-content__certification {
+  border-top: 1px;
+  border-bottom: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin: 0;
+  padding: 20px
+}
+
+.product-content__certification--duty-info dt {
+  width: 140px;
 }
 
 .purchase__buy-btn {
