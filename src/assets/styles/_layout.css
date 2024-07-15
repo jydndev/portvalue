@@ -1256,6 +1256,23 @@
 
 /* 공지사항 */
 
-.notice-detail__content editor {
+.notice-detail__content {
   padding: 0px;
+  margin-bottom: 0px;
 }
+
+.notice-button-link {
+  height: 56px;
+  width: 100%;
+  background-color: #327BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 800;
+  line-height: 40px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  }

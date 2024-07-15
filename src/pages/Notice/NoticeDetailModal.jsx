@@ -101,7 +101,7 @@ const NoticeDetailModal = ({ noticeNo: initialNoticeNo, onClose }) => {
             </button>
           }
         />
-        <GoToList onClick={onClose} title="목록보기" />
+        <button className='notice-button-link' onclick="window.location.href='https://naver.me/GKUlYbmw'">참여하기</button>
       </div>
     </FullModal>
   );
