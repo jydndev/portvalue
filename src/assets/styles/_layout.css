@@ -1255,6 +1255,14 @@
 
 /* 공지사항 */
 
+.notice__title {
+  height: 56px;
+}
+
+.notice__tit {
+  font-weight: 800;
+}
+
 .notice-detail__content {
   padding: 0px;
   margin-bottom: 0px;
