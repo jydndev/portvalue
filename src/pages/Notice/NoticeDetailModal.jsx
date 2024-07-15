@@ -101,7 +101,9 @@ const NoticeDetailModal = ({ noticeNo: initialNoticeNo, onClose }) => {
             </button>
           }
         />
-        <button className='notice-button-link' onclick="window.location.href='https://naver.me/GKUlYbmw'">참여하기</button>
+        <a className="notice-button-link" href="https://naver.me/GKUlYbmw" target="_blank" rel="noopener noreferrer">
+          <button className="notice-button-link-button">참여하기</button>
+        </a>
       </div>
     </FullModal>
   );
