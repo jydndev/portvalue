@@ -107,7 +107,7 @@ const CartContent = () => {
       <DeliverySection />
       <div className='divider'/>
       <section className="l-panel cart__payment-info">
-        <CartPriceTag />
+        <Cartya />
         <Button className="cart__order-btn" label="주문하기" onClick={handleOrderBtnClick} />
         <div className="cart__naver-pay-btn" id="naver-pay" />
       </section>

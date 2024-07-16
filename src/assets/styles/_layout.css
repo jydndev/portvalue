@@ -525,7 +525,6 @@
 }
 
 .product-content__title {
-  padding-left: 20px;
   font-size: 24px;
   font-weight: 800;
   margin-top: 0px;
@@ -705,7 +704,6 @@
 
 .price-tag {
   border: 0;
-  padding: 0;
 }
 
 .price-tag__details {
@@ -727,6 +725,21 @@
 .order-sheet__payment-info {
   padding: 20px;
   margin: 0;
+}
+
+.order-detail__product-top-label {
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.order-detail__next-action-btns .btn {
+  height: 48px;
+  border-radius: 8px;
+}
+
+.order-detail__list-btn-wrap .btn {
+  height: 56px;
+  border-radius: 8px;
 }
 
 /* 마이페이지 */
@@ -761,9 +774,6 @@
   font-weight: 800;
   margin-right: 8px;
   margin-bottom: 0px;
-}
-
-.my-info__member-type {
 }
 
 .member-grade-name {
