@@ -704,6 +704,7 @@
 
 .price-tag {
   border: 0;
+  padding: 0;
 }
 
 .price-tag__details {
