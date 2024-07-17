@@ -145,7 +145,7 @@ const Header = () => {
           </div>
         )}
         {hasCancelBtnOnHeader && (
-          <IconBtn className="header__cancel-btn" iconType="x-black" onClick={() => navigate('/')} size="xs" />
+          <IconBtn className="header__cancel-btn" icontype="x-black" onClick={() => navigate('/')} size="xs" />
         )}
       </header>
     </>
