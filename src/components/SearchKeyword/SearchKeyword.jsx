@@ -1,9 +1,10 @@
 import { func } from 'prop-types';
 
-import { CustomModal, SearchField, RecentKeyword, RecentKeywordProvider } from '@shopby/react-components';
+import { CustomModal, SearchField, RecentKeyword, RecentKeywordProvider, IconBtn } from '@shopby/react-components';
 
 import useSearchKeyword from '../../hooks/useSearchKeyword';
 import BackButton from '../BackButton';
+import { SearchIcon } from '../Icon/SearchIcon';
 
 const SearchKeywordContent = ({ openModal }) => {
   const { keyword, searchProductsByKeyword, removeKeyword, updateKeyword } = useSearchKeyword('');
@@ -23,6 +24,7 @@ const SearchKeywordContent = ({ openModal }) => {
           onClearBtnClick={removeKeyword}
           onChange={({ target }) => updateKeyword(target.value)}
         />
+        {/* Custom search icon can be modified in _layout.css */}
       </div>
       <RecentKeyword onKeywordClick={(_keyword) => searchKeyword(_keyword)} />
     </>
