@@ -13,6 +13,7 @@ const SignIn = lazy(() => import('../pages/SignIn'));
 const OrderSheet = lazy(() => import('../pages/OrderSheet'));
 const Notice = lazy(() => import('../pages/Notice'));
 const CustomerCenter = lazy(() => import('../pages/CustomerCenter'));
+const Category = lazy(() => import('../components/CategoryNav/CategoryNavLinks'));
 const ProductDetail = lazy(() => import('../pages/ProductDetail'));
 const DisplayCategoryList = lazy(() => import('../pages/DisplayCategoryList'));
 const SignUp = lazy(() => import('../pages/SignUp'));
@@ -114,6 +115,10 @@ const Router = () =>
         {
           path: 'customer-center',
           element: <CustomerCenter />,
+        },
+        {
+          path: 'category',
+          element: <Category />,
         },
         {
           path: 'product-detail',
