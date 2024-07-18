@@ -74,11 +74,12 @@ const getMetaMap = ({ mallName, title, image, type, url }) => ({
   },
   description: {
     attr: 'name',
-    content: '다양한 단백질 식품들을 확인하고 나에게 맞는 상품을 구매해보세요',
+    content: '단백질칩, 바, 쿠키 등 다양한 단백질 간식들을 확인하고 나에게 맞는 상품을 구매해보세요',
   },
   keywords: {
     attr: 'name',
-    content: '단백질, 단백질 식품, 단백질 비교, 단백질 성분, 건강 식품, 피트니스, 헬스, 영양 보충제, 근육, 건강한 식단',
+    content:
+      '단백질칩, 단백질바, 단백질쿠키, 단백질볼, 단백질음료, 단백질파우치, 단성비, 단성비마켓, 근육, 건강한 식단',
   },
   'twitter:card': {
     attr: 'name',
@@ -86,11 +87,11 @@ const getMetaMap = ({ mallName, title, image, type, url }) => ({
   },
   'twitter:title': {
     attr: 'name',
-    content: '단성비 | 단백질 식품 성분 비교 서비스',
+    content: '단성비마켓 | 단백질 간식 전문 스토어',
   },
   'twitter:description': {
     attr: 'name',
-    content: '다양한 단백질 식품들을 확인하고 나에게 맞는 상품을 구매해보세요',
+    content: '단백질칩, 바, 쿠키 등 다양한 단백질 간식들을 확인하고 나에게 맞는 상품을 구매해보세요',
   },
   'twitter:image': {
     attr: 'name',
@@ -98,7 +99,7 @@ const getMetaMap = ({ mallName, title, image, type, url }) => ({
   },
   'og:site_name': {
     attr: 'property',
-    content: '단성비 | 단백질 식품 성분 비교 서비스',
+    content: '단성비마켓 | 단백질 간식 전문 스토어',
   },
   'og:type': {
     attr: 'property',
@@ -106,7 +107,7 @@ const getMetaMap = ({ mallName, title, image, type, url }) => ({
   },
   'og:title': {
     attr: 'property',
-    content: '단성비 | 단백질 식품 성분 비교 서비스',
+    content: '단성비마켓 | 단백질 간식 전문 스토어',
   },
   'og:image': {
     attr: 'property',
@@ -118,7 +119,7 @@ const getMetaMap = ({ mallName, title, image, type, url }) => ({
   },
   'og:description': {
     attr: 'property',
-    content: '다양한 단백질 식품들을 확인하고 나에게 맞는 상품을 구매해보세요',
+    content: '단백질칩, 바, 쿠키 등 다양한 단백질 간식들을 확인하고 나에게 맞는 상품을 구매해보세요',
   },
   'og:image:width': {
     attr: 'property',
