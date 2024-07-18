@@ -95,7 +95,7 @@ const getMetaMap = ({ mallName, title, image, type, url }) => ({
   },
   'twitter:image': {
     attr: 'name',
-    content: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240524T073536647Z_portvalue.png',
+    content: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240718T024323175Z_portvalue.png',
   },
   'og:site_name': {
     attr: 'property',
@@ -111,7 +111,7 @@ const getMetaMap = ({ mallName, title, image, type, url }) => ({
   },
   'og:image': {
     attr: 'property',
-    content: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240524T073536647Z_portvalue.png',
+    content: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240718T024323175Z_portvalue.png',
   },
   'og:url': {
     attr: 'property',
