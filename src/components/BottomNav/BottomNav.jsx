@@ -9,8 +9,6 @@ import { HamburgerIconBottom } from '../Icon/HamburgerIconBottom';
 import { useOffCanvasActionContext } from '@shopby/react-components';
 
 const BottomNav = ({ className = '', search }) => {
-  const { openCanvas } = useOffCanvasActionContext();
-
   return (
     <>
       <nav className={`bottom-nav ${className}`}>
@@ -18,7 +16,7 @@ const BottomNav = ({ className = '', search }) => {
           <HomeIcon size={28} />
           <span className="bottom-nav__label">홈</span>
         </Link>
-        <Link to="category" className="bottom-nav__link-btn" onClick={openCanvas}>
+        <Link to="category" className="bottom-nav__link-btn">
           <HamburgerIconBottom size={28} />
           <span className="bottom-nav__label">카테고리</span>
         </Link>

@@ -2,11 +2,16 @@ import { Link } from 'react-router-dom';
 
 import { useMallStateContext } from '@shopby/react-components';
 import { RightIcon } from '../../components/Icon/RightIcon';
+import useLayoutChanger from '../../hooks/useLayoutChanger';
 
 const CategoryNavLinks = () => {
   const {
     categories: { multiLevelCategories },
   } = useMallStateContext();
+
+  useLayoutChanger({
+    hasBackBtnOnHeader: true,
+  });
 
   return (
     <div className="category-nav-content">

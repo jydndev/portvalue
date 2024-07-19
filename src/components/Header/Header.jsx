@@ -23,15 +23,6 @@ import { CartIcon } from '../Icon/CartIcon';
 
 import MallLogo from './MallLogo';
 
-const MainHeader = ({ openCanvas }) => (
-  <button className="hamburger-menu" onClick={openCanvas}>
-    <HamburgerIconTop size={32} />
-  </button>
-);
-MainHeader.propTypes = {
-  openCanvas: func,
-};
-
 const SearchKeywordHeader = ({ title }) => {
   const { openAlert } = useModalActionContext();
   const [showsSearchKeyword, setShowsSearchKeyword] = useState(false);
@@ -128,11 +119,7 @@ const Header = () => {
   return (
     <>
       <header className={`header ${!isMain ? 'header--sub' : ''}`}>
-        {isMain ? (
-          <MainHeader openCanvas={openCanvas} />
-        ) : (
-          hasBackBtnOnHeader && <BackButton label="페이지 뒤로 가기" className="header__left-btn" />
-        )}
+        {hasBackBtnOnHeader && <BackButton label="페이지 뒤로 가기" className="header__left-btn" />}
         <div className="header__title">
           <Content isMain={isMain} hasSearchKeywordHeader={hasSearchKeywordHeader} title={title} />
         </div>
