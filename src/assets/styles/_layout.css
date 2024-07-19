@@ -111,6 +111,9 @@
 
 .hero {
   margin-top: 12px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
 }
