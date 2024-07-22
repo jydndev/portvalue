@@ -46,6 +46,10 @@
   padding: 12px 20px;
 }
 
+.header--sub {
+  border-bottom: 1px solid #F5F5F5;
+}
+
 .hamburger-menu {
   height: 32px;
   width: 32px;
