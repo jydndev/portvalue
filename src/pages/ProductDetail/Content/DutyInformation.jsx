@@ -8,7 +8,7 @@ const DutyInformation = ({ hasDutyInfo, includesKcInDutyInfo, contents = [], cer
   <>
     <VisibleComponent
       shows={hasDutyInfo}
-      TruthyComponent={<p className="product-content__title">상품정보제공고시</p>}
+      TruthyComponent={<p className="product-content__dutyinfo">상품정보제공고시</p>}
     />
     <VisibleComponent
       shows={hasDutyInfo}

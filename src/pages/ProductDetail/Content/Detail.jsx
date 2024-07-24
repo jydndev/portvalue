@@ -121,7 +121,7 @@ const Detail = () => {
             TruthyComponent={
               <div className="product-content__more-btn">
                 <button onClick={() => setIsOpen((prev) => !prev)}>
-                  {isOpen ? '상세정보 접기' : '상세정보 펼쳐보기'}
+                  {isOpen ? '상세정보 접기' : '상세정보 더보기'}
                 </button>
               </div>
             }

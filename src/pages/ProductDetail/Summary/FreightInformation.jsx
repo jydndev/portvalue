@@ -29,7 +29,7 @@ const FreightInformation = ({ areaType, partnerCompanyName, canFreight, conditio
   return (
     <dl className="product-summary__freight">
       <dt>
-        <span className="delivery">🚚</span>
+        <span className="product_shipping_condition">배송비</span>
         <VisibleComponent
           shows={areaType === 'PARTNER_SHIPPING_AREA'}
           TruthyComponent={
