@@ -494,6 +494,15 @@
   justify-content: center;
 }
 
+.product-content__dutyinfo {
+  margin-left: 20px !important;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 2;
+  display: flex;
+  align-items: center;
+}
+
 .product-detail .product-content-review::before {
   position: absolute;
   content: '';
@@ -609,8 +618,8 @@
   border-bottom: 0px;
   border-left: 0px;
   border-right: 0px;
+  padding: 0px 20px;
   margin: 0;
-  padding: 20px;
 }
 
 .product-content__certification--duty-info dt {
