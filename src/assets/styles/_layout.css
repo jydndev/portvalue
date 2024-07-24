@@ -634,7 +634,7 @@
 }
 
 .npay_type_MA_1 {
-  width: 100%;
+  width: 100% !important;
 }
 
 /* 검색 */
