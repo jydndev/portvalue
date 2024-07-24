@@ -121,6 +121,7 @@ const ProductDetailContent = () => {
     <div className="product-detail">
       <ImageSlider />
       <Summary />
+      <div className="divider" />
       {relatedProducts?.length > 0 && <RelatedProduct />}
       <AdminBanner bannerId="BNDETAIL" />
       <Content />

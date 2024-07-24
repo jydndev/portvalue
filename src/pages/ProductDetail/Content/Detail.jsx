@@ -71,9 +71,7 @@ const Detail = () => {
     <>
       <div ref={productDetailRef} className={`editor product-content__content ${isOpen ? '' : 'hidden'}`}>
         <div className="product-content__content-box">
-          <VisibleComponent
-            shows={hasContent || showsOptionImages}
-          />
+          <VisibleComponent shows={hasContent || showsOptionImages} />
           <VisibleComponent
             shows={showsOptionImages}
             TruthyComponent={
@@ -128,6 +126,7 @@ const Detail = () => {
           />
         </div>
       </div>
+      <div className="divider"></div>
       <Review />
     </>
   );
