@@ -13,12 +13,11 @@ const SignIn = lazy(() => import('../pages/SignIn'));
 const OrderSheet = lazy(() => import('../pages/OrderSheet'));
 const Notice = lazy(() => import('../pages/Notice'));
 const CustomerCenter = lazy(() => import('../pages/CustomerCenter'));
-const CategoryNav = lazy(() => import('../components/CategoryNav'));
+const Category = lazy(() => import('../components/CategoryNav/CategoryNavLinks'));
 const ProductDetail = lazy(() => import('../pages/ProductDetail'));
 const DisplayCategoryList = lazy(() => import('../pages/DisplayCategoryList'));
 const SignUp = lazy(() => import('../pages/SignUp'));
 const SignUpConfirm = lazy(() => import('../pages/SignUpConfirm'));
-const SearchKeyword = lazy(() => import('../components/SearchKeyword'));
 const ProductSectionList = lazy(() => import('../pages/ProductSectionList'));
 const CallBack = lazy(() => import('../pages/CallBack'));
 const FAQ = lazy(() => import('../pages/FAQ'));
@@ -119,7 +118,7 @@ const Router = () =>
         },
         {
           path: 'category',
-          element: <CategoryNav />,
+          element: <Category />,
         },
         {
           path: 'product-detail',
@@ -156,10 +155,6 @@ const Router = () =>
         {
           path: 'cart',
           element: <Cart />,
-        },
-        {
-          path: 'search',
-          element: <SearchKeyword />,
         },
         {
           path: 'sign-up',
