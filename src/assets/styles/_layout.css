@@ -700,18 +700,10 @@
   margin: 0;
   height: 56px;
   border-bottom: 2px solid #f5f6f8;
-  display: flex;
 }
 
 .recent-keyword__top {
   padding: 16px 0px;
-}
-
-.search-keyword-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
 }
 
 .search-keyword-modal .recent-keyword {
@@ -724,12 +716,10 @@
   margin: 0px;
 }
 
-/* override existing icon */
 .ico--magnet {
   visibility: hidden;
 }
 
-/* custom search icon */
 .search-field__submit-btn {
   width: 32px;
   height: 32px;
