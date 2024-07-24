@@ -384,11 +384,19 @@
   padding-bottom: 4px;
 }
 
+.summary__point {
+  margin-right: 4px;
+}
+
 .product-summary__discounted-price span {
   margin-left: 0px;
   font-size: 24px;
   font-weight: 800;
   vertical-align: top;
+}
+
+.product-summary__point dd {
+  margin: 0;
 }
 
 .product-review-summary__title {
@@ -406,6 +414,10 @@
   font-size: 12px;
   padding-left: 4px;
   line-height: 1;
+}
+
+.product-summary__point dd::before {
+  background-color: #ffffff;
 }
 
 .product-summary__freight-line {

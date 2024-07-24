@@ -21,13 +21,13 @@ const AccumulationInformation = ({ accumulatedAmount, canAccumulate }) => {
       TruthyComponent={
         <dl className="product-summary__point">
           <dt>
-            <span className="ico ico--p-circle"></span>
+            <span className="summary__point">💰</span>
             {accumulationConfig.accumulationName}
           </dt>
           <dd>
             {convertToKoreanCurrency(accumulatedAmount)}
             {` `}
-            {accumulationConfig.unit ?? 'p'}적립 {signUpAccumulationLabel}
+            {accumulationConfig.unit ?? 'p'} 적립 {signUpAccumulationLabel}
           </dd>
         </dl>
       }
