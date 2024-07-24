@@ -617,13 +617,24 @@
 .purchase__total {
   margin: 0;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 4px;
   padding-left: 12px;
   padding-right: 12px;
 }
 
 .purchase__naver-pay-btn {
-  margin: 0;
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 12px;
+}
+
+.npay_button_box {
+  border-top: 0px;
+}
+
+.npay_type_MA_1 {
+  width: 100%;
 }
 
 /* 검색 */
