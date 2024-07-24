@@ -47,7 +47,7 @@
 }
 
 .header--sub {
-  border-bottom: 1px solid #F5F5F5;
+  border-bottom: 1px solid #f5f5f5;
 }
 
 .hamburger-menu {
@@ -408,7 +408,6 @@
   background-color: transparent;
 }
 
-
 .product-review-summary__title {
   margin-top: 0;
   font-weight: 800;
@@ -463,6 +462,10 @@
   margin-bottom: 40px;
 }
 
+.product-content__content {
+  margin-bottom: 40px;
+}
+
 .product-content__content .product-content__more-btn::before {
   height: 20px;
   bottom: 40px;
@@ -479,24 +482,32 @@
 .product-content__more-btn button {
   color: #327bff;
   font-family: Pretendard-Regular;
+  font-weight: 800;
   height: 48px;
   line-height: 0px;
   border-width: 0px;
-  background-color: #ebeeff;
   border-radius: 200px;
-  border-width: 1px;
-  border-color: #acb3ea;
+  border-width: 2px;
+  border-color: #327bff;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.product-content-review {
-  padding: 20px;
+.product-detail .product-content-review::before {
+  position: absolute;
+  content: '';
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: #f5f6f8;
+  width: 100%;
+  height: 12px;
 }
 
 .product-detail .product-content-review {
-  padding: 20px;
+  position: relative;
+  padding: 40px 20px 20px 20px;
 }
 
 .product-review-summary__title {
