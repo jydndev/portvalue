@@ -20,10 +20,10 @@ const BottomNav = ({ className = '', search }) => {
           <HamburgerIconBottom size={28} />
           <span className="bottom-nav__label">카테고리</span>
         </Link>
-        <button className="bottom-nav__link-btn" onClick={search}>
+        <Link to="search" className="bottom-nav__link-btn">
           <SearchIcon size={28} />
           <span className="bottom-nav__label">검색</span>
-        </button>
+        </Link>
         <Link to="my-page" className="bottom-nav__link-btn">
           <MypageIcon size={28} />
           <span className="bottom-nav__label">마이페이지</span>
