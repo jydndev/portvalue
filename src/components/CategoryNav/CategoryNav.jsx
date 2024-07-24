@@ -1,14 +1,17 @@
-import { OffCanvas } from '@shopby/react-components';
-
 import CategoryNavLinks from './CategoryNavLinks';
-import Cs from './Cs';
-import SignInButton from './SignInButton';
+import useLayoutChanger from '../../hooks/useLayoutChanger';
 
-const CategoryNav = () => (
-  <OffCanvas className="category-nav">
-    <SignInButton />
-    <CategoryNavLinks />
-  </OffCanvas>
-);
+const CategoryNav = () => {
+  useLayoutChanger({
+    hasBackBtnOnHeader: true,
+    title: '카테고리',
+  });
+
+  return (
+    <>
+      <CategoryNavLinks />
+    </>
+  );
+};
 
 export default CategoryNav;

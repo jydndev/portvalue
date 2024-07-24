@@ -9,10 +9,6 @@ const CategoryNavLinks = () => {
     categories: { multiLevelCategories },
   } = useMallStateContext();
 
-  useLayoutChanger({
-    hasBackBtnOnHeader: true,
-  });
-
   return (
     <div className="category-nav-content">
       {multiLevelCategories.length > 0 ? (
