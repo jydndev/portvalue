@@ -7,6 +7,8 @@ import Review from '../Review';
 
 import CertificationInformation from './CertificationInformation';
 import DutyInformation from './DutyInformation';
+import Inquiry from '../Inquiry';
+import ShippingClaim from './ShippingClaim';
 
 const LIMIT_HEIGHT_TO_SHOW_PRODUCT_DETAIL = 500;
 
@@ -128,6 +130,10 @@ const Detail = () => {
       </div>
       <div className="divider"></div>
       <Review />
+      <div className="divider" />
+      <Inquiry />
+      <div className="divider" />
+      <ShippingClaim />
     </>
   );
 };
