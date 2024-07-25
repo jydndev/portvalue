@@ -726,8 +726,8 @@
 
 /* 주문 페이지 */
 
-.accordion__title {
-  padding: 20px 20px 0px 20px;
+.accordion__items {
+  padding: 0px 20px;
 }
 
 .order-sheet .accordion__title {
