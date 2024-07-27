@@ -188,12 +188,6 @@ const SignInForm = ({ usesOnlySignIn = false, onSignIn }) => {
   return (
     <>
       <section className="sign-in">
-        <p className="sign-in__logo">
-          <img
-            src="https://dansungbee.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdsb_logo_black.5d98e63b.png&w=256&q=75"
-            alt="단성비 로고"
-          ></img>
-        </p>
         <p className="sign-in__image">
           <img
             src="https://dansungbee.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fsign_in_danbeeall.b67f777d.png&w=2048&q=75"

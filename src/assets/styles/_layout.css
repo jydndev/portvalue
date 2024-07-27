@@ -1048,18 +1048,7 @@
 }
 
 .sign-in {
-  padding-top: 40px;
-}
-
-.sign-in__logo {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.sign-in__logo img {
-  height: 32px;
+  padding-top: 20px;
 }
 
 .sign-in__image {
