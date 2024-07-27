@@ -19,26 +19,26 @@ const categories = [
   },
   {
     name: '골라담기',
-    url: '/product-detail?productNo=120889592',
+    url: 'products?categoryNo=799588',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134145058Z_portvalue.png',
   },
   {
-    name: '단백질칩',
+    name: '칩',
     url: '/products?categoryNo=789438',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134142590Z_portvalue.png',
   },
   {
-    name: '단백질바',
+    name: '바',
     url: '/products?categoryNo=789437',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134605397Z_portvalue.png',
   },
   {
-    name: '단백질 쿠키',
+    name: '쿠키',
     url: '/products?categoryNo=789439',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134415517Z_portvalue.png',
   },
   {
-    name: '단백질 볼',
+    name: '볼',
     url: '/products?categoryNo=789440',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134138636Z_portvalue.png',
   },
@@ -85,7 +85,6 @@ const CategoryNavigation = ({ platformType }) => {
 
   return (
     <div className="main-category">
-      <h2 className="product-section__title">카테고리 👀</h2>
       <div className="button-container-first">
         {firstRow.map((category, index) => (
           <div key={index} className="category-container" onClick={() => handleCategoryClick(category)}>
