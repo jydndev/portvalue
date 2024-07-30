@@ -156,7 +156,6 @@
   cursor: pointer;
 }
 
-
 /* 메인 카테고리 */
 
 .main-category {
@@ -757,10 +756,12 @@
   margin: 0px;
 }
 
+/* override existing icon */
 .ico--magnet {
   visibility: hidden;
 }
 
+/* custom search icon */
 .search-field__submit-btn {
   width: 32px;
   height: 32px;
