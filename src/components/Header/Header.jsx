@@ -123,14 +123,14 @@ const Header = () => {
         <div className="header__title">
           <Content isMain={isMain} hasSearchKeywordHeader={hasSearchKeywordHeader} title={title} />
         </div>
-        {/* {canShowShoppingBasket && (
+        {canShowShoppingBasket && (
           <div className="header__cart-btn">
             <Link to="/cart">
               <CartIcon className="cart__icon" size={32} />
               <CartBtn memberStatus={profile?.memberStatus} />
             </Link>
           </div>
-        )} */}
+        )}
         {hasCancelBtnOnHeader && (
           <IconBtn className="header__cancel-btn" icontype="x-black" onClick={() => navigate('/')} size="xs" />
         )}
