@@ -71,7 +71,7 @@ const Layout = () => {
                   <SearchAddressProvider>
                     <BottomNavWrap />
                   </SearchAddressProvider>
-                  <CategoryNav />
+                  {/* <CategoryNav /> */}
                   {/* <span className="fab-top-down">
                     <button className="fab-btn fab-btn--top" onClick={scrollToTop}>
                       <Icon name="angle-down" className="fab-btn__top" />
