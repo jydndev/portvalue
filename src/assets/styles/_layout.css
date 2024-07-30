@@ -389,6 +389,7 @@
 
 .summary__point {
   font-weight: 600;
+  font-size: 14px;
   padding-right: 12px;
 }
 
@@ -423,7 +424,7 @@
 }
 
 .product-summary dd {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   padding-left: 0px;
   color: #333d4b;
@@ -431,11 +432,13 @@
 }
 
 .product-summary__display-label em {
+  font-size: 14px;
   font-weight: 400;
 }
 
 .product_shipping_condition {
   font-weight: 600;
+  font-size: 14px;
   padding-right: 12px;
 }
 
