@@ -7,40 +7,30 @@ import { VisibleComponent, useMallStateContext } from '@shopby/react-components'
 import { TERMS_HISTORY_KEY_TYPE } from '@shopby/shared/constants';
 
 import TermsDetail from '../TermsDetail';
+import { UpIcon } from '../../components/Icon/UpIcon';
+import { DownIcon } from '../../components/Icon/DownIcon';
 
 const ServiceInformation = ({ terms }) => {
   const [modalType, setModalType] = useState(null);
+  const [isAboutExpanded, setIsAboutExpanded] = useState(false);
 
   const { termsConfig, serviceBasicInfo, since, businessRegistrationNumberInformation, ...restMall } =
     useMallStateContext();
 
+  const toggleAbout = () => {
+    setIsAboutExpanded(!isAboutExpanded);
+  };
+
   return (
     <div>
       <div className="footer__info">
-        {/* nav */}
-        <nav className="footer__nav">
-          {terms.map(({ key, label, content }) => (
-            <div key={key}>
-              <button
-                className={`footer__link footer__link--${key === TERMS_HISTORY_KEY_TYPE.PI_PROCESS ? 'bold' : ''}`}
-                onClick={() => setModalType(key)}
-              >
-                {label}
-              </button>
-              {modalType === key && (
-                <TermsDetail termsKey={key} title={label} onClose={() => setModalType(null)} content={content} />
-              )}
-            </div>
-          ))}
-          <Link className="footer__link" to="/customer-center">
-            고객센터
-          </Link>
-        </nav>
-        {/* == nav == */}
-        <p className="footer__company">
-          <em>{serviceBasicInfo.companyName}</em>
-        </p>
-        <div className="footer__about">
+        <div className="footer__company" onClick={toggleAbout}>
+          <em>{serviceBasicInfo.companyName} 사업자 정보</em>
+          <span className={`footer__toggle-icon ${isAboutExpanded ? 'expanded' : ''}`}>
+            {isAboutExpanded ? <UpIcon size={16} /> : <DownIcon size={16} />}
+          </span>
+        </div>
+        <div className={`footer__about ${isAboutExpanded ? 'expanded' : ''}`}>
           <VisibleComponent
             shows={serviceBasicInfo.representativeName}
             TruthyComponent={
@@ -97,12 +87,37 @@ const ServiceInformation = ({ terms }) => {
               </p>
             }
           />
-          <p>호스트제공 : 엔에이치엔커머스(주)</p>
+          <VisibleComponent
+            shows={serviceBasicInfo.companyName}
+            TruthyComponent={
+              <p className="copyright">
+                Copyright &copy; {since} {restMall.companyName} ALL RIGHT RESERVED
+              </p>
+            }
+          />
         </div>
+        {/* nav */}
+        <nav className="footer__nav">
+          {terms.map(({ key, label, content }) => (
+            <div key={key}>
+              <button
+                className={`footer__link footer__link--${key === TERMS_HISTORY_KEY_TYPE.PI_PROCESS ? 'bold' : ''}`}
+                onClick={() => setModalType(key)}
+              >
+                {label}
+              </button>
+              {modalType === key && (
+                <TermsDetail termsKey={key} title={label} onClose={() => setModalType(null)} content={content} />
+              )}
+            </div>
+          ))}
+          <Link className="footer__link" to="/customer-center">
+            고객센터
+          </Link>
+        </nav>
+        {/* == nav == */}
       </div>
-      <p className="copyright">
-        Copyright &copy; {since} {restMall.companyName} ALL RIGHT RESERVED
-      </p>
+
       <div className="footer__extra-logo">
         {termsConfig.fairLogoUsed && <img src={termsConfig.fairLogoUrl} alt="" />}
       </div>

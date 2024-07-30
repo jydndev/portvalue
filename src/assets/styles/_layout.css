@@ -31,6 +31,34 @@
   border: none;
 }
 
+.footer__company {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.footer__toggle-icon {
+  font-size: 12px;
+  color: #000;
+  transition: transform 0.5s ease;
+}
+
+.footer__about.expanded p {
+  margin-bottom: 4px;
+}
+
+.footer__about {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.footer__about.expanded {
+  max-height: 1000px; /* 콘텐츠의 최대 높이에 맞게 조정하세요 */
+}
+
 /* 메인페이지 */
 
 .main-view {
@@ -128,6 +156,7 @@
   overflow: hidden;
   cursor: pointer;
 }
+
 
 /* 메인 카테고리 */
 

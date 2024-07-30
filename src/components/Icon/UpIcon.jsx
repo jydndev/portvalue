@@ -1,9 +1,9 @@
-export function UpIcon({ size = 20, ...props }) {
+export function UpIcon({ size = 32, ...props }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      stroke="#327bff"
+      stroke="#000000"
       strokeWidth={2}
       width={size}
       height={size}
