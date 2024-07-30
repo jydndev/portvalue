@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { string, func } from 'prop-types';
 
@@ -7,12 +7,22 @@ import { SearchIcon } from '../Icon/SearchIcon';
 import { MypageIcon } from '../Icon/MypageIcon';
 import { HamburgerIconBottom } from '../Icon/HamburgerIconBottom';
 import { useOffCanvasActionContext } from '@shopby/react-components';
+import { scrollToTop } from '../../utils';
 
 const BottomNav = ({ className = '', search }) => {
+  const navigate = useNavigate();
+
+  // force scrollToTop on clicking home
+  const goToHomeAndScrollTop = (e) => {
+    e.preventDefault();
+    navigate('/');
+    scrollToTop();
+  };
+
   return (
     <>
       <nav className={`bottom-nav ${className}`}>
-        <Link to="/" className="bottom-nav__link-btn">
+        <Link to="/" className="bottom-nav__link-btn" onClick={goToHomeAndScrollTop}>
           <HomeIcon size={28} />
           <span className="bottom-nav__label">홈</span>
         </Link>
