@@ -55,7 +55,11 @@
 }
 
 .footer__about.expanded {
-  max-height: 1000px; /* 콘텐츠의 최대 높이에 맞게 조정하세요 */
+  max-height: 1000px;
+}
+
+.footer__nav {
+  margin: 12px 0;
 }
 
 /* 메인페이지 */
