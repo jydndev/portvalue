@@ -61,45 +61,47 @@ DiscountPriceInformation.propTypes = {
 const PriceInformation = ({ discountRate, discountedPrice, originalPrice }) => {
   const [visibleDiscountPriceModal, setVisibleDiscountPriceModal] = useState(false);
 
-return (
-  <>
-    <div className="product-summary__price-detail">
-      <div className="product-summary__discounted-price">
-        {discountRate > 0 && (
-          <p className="product-summary__off-percent">
-            {discountRate}
-            <span>%</span>
-          </p>
-        )}
-        <p className="product-summary__price">
-          {convertToKoreanCurrency(discountedPrice)}
-          <span>원</span>
-        </p>
-      </div>
-      {discountRate > 0 && (
-        <div className="product-summary__top">
-          <del className="product-summary__original-price">
-            {convertToKoreanCurrency(originalPrice)}
-            <span>원</span>
-          </del>
-        </div>
-      )}
-    </div>
-    <VisibleComponent
-      shows={visibleDiscountPriceModal}
-      TruthyComponent={
-        <TitleModal
-          title="할인내역"
-          classModifier="discount-price-information"
-          onClose={() => setVisibleDiscountPriceModal(false)}
-        >
-          <DiscountPriceInformation />
-        </TitleModal>
-      }
-    />
-  </>
-);
+  // discountRate를 정수로 반올림합니다.
+  const roundedDiscountRate = Math.round(discountRate);
 
+  return (
+    <>
+      <div className="product-summary__price-detail">
+        <div className="product-summary__discounted-price">
+          {roundedDiscountRate > 0 && (
+            <p className="product-summary__off-percent">
+              {roundedDiscountRate}
+              <span>%</span>
+            </p>
+          )}
+          <p className="product-summary__price">
+            {convertToKoreanCurrency(discountedPrice)}
+            <span>원</span>
+          </p>
+        </div>
+        {roundedDiscountRate > 0 && (
+          <div className="product-summary__top">
+            <del className="product-summary__original-price">
+              {convertToKoreanCurrency(originalPrice)}
+              <span>원</span>
+            </del>
+          </div>
+        )}
+      </div>
+      <VisibleComponent
+        shows={visibleDiscountPriceModal}
+        TruthyComponent={
+          <TitleModal
+            title="할인내역"
+            classModifier="discount-price-information"
+            onClose={() => setVisibleDiscountPriceModal(false)}
+          >
+            <DiscountPriceInformation />
+          </TitleModal>
+        }
+      />
+    </>
+  );
 };
 
 PriceInformation.propTypes = {

@@ -117,64 +117,56 @@ const ProductGrid = ({ className, style, displayType, products }) => (
         additionDiscountAmt,
         frontDisplayYn,
         liked,
-      }) =>
-        frontDisplayYn && (
-          <ThumbItem
-            key={productNo}
-            productNo={productNo}
-            resize="220x220"
-            className={className}
-            href={`/product-detail?productNo=${productNo}`}
-            src={listImageUrls[0]}
-            adult={adult}
-            alt={productName}
-            HoverViewComponent={
-              <ProductOptionProvider>
-                <CartProvider>
-                  <OptionProvider>
-                    {displayType === THUMB_LIST_TYPE.CART && (
-                      <LikeAddCart
-                        productNo={Number(productNo)}
-                        productName={productName}
-                        isSoldOut={isSoldOut}
-                        liked={liked}
-                      />
-                    )}
-                  </OptionProvider>
-                </CartProvider>
-              </ProductOptionProvider>
-            }
-          >
-            <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
-            {displayType === THUMB_LIST_TYPE.SIMPLE_IMAGE ? (
+      }) => {
+        const discountedPrice = calculateDiscountedPrice({
+          salePrice,
+          immediateDiscountAmt,
+          additionDiscountAmt,
+        });
+        const discountRate = Math.round(((salePrice - discountedPrice) / salePrice) * 100);
+
+        return (
+          frontDisplayYn && (
+            <ThumbItem
+              key={productNo}
+              productNo={productNo}
+              resize="220x220"
+              className={className}
+              href={`/product-detail?productNo=${productNo}`}
+              src={listImageUrls[0]}
+              adult={adult}
+              alt={productName}
+              HoverViewComponent={
+                <ProductOptionProvider>
+                  <CartProvider>
+                    <OptionProvider>
+                      {displayType === THUMB_LIST_TYPE.CART && (
+                        <LikeAddCart
+                          productNo={Number(productNo)}
+                          productName={productName}
+                          isSoldOut={isSoldOut}
+                          liked={liked}
+                        />
+                      )}
+                    </OptionProvider>
+                  </CartProvider>
+                </ProductOptionProvider>
+              }
+            >
+              <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
               <Link to={`/product-detail?productNo=${productNo}`}>
                 <ProductThumbInfo
                   brandName={brandName}
                   promotionText={promotionText}
                   productName={productName}
-                  salePrice={calculateDiscountedPrice({
-                    salePrice,
-                    immediateDiscountAmt,
-                    additionDiscountAmt,
-                  })}
+                  salePrice={discountedPrice}
+                  discountRate={discountRate}
                 />
               </Link>
-            ) : (
-              <Link to={`/product-detail?productNo=${productNo}`}>
-                <ProductThumbInfo
-                  brandName={brandName}
-                  promotionText={promotionText}
-                  productName={productName}
-                  salePrice={calculateDiscountedPrice({
-                    salePrice,
-                    immediateDiscountAmt,
-                    additionDiscountAmt,
-                  })}
-                />
-              </Link>
-            )}
-          </ThumbItem>
-        )
+            </ThumbItem>
+          )
+        );
+      }
     )}
   </ThumbList>
 );

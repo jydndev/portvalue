@@ -11,6 +11,11 @@ import ProductThumbBadge from '../ProductThumbBadge';
 import ProductThumbInfo from '../ProductThumbInfo';
 import TotalCountAndSort from '../TotalCountAndSort';
 
+const calculateDiscountRate = (originalPrice, discountedPrice) => {
+  if (originalPrice === discountedPrice) return 0;
+  return Math.round(((originalPrice - discountedPrice) / originalPrice) * 100);
+};
+
 const SkeletonComponent = ({ isLoading }) => <GallerySkeleton rowCount={3} colCount={2} isLoading={isLoading} />;
 const NoSearchProduct = () => {
   const [searchParams] = useSearchParams();
@@ -94,6 +99,14 @@ const GalleryListPage = ({
                         brandName={brandName}
                         promotionText={promotionText}
                         productName={productName}
+                        discountRate={calculateDiscountRate(
+                          salePrice,
+                          calculateDiscountedPrice({
+                            salePrice,
+                            immediateDiscountAmt,
+                            additionDiscountAmt,
+                          })
+                        )}
                       />
                     </Link>
                   </ThumbItem>

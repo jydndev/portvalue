@@ -233,6 +233,20 @@
   margin: 0;
 }
 
+.product-thumb-discount-rate {
+  margin-right: 4px;
+  font-size: 16px;
+  font-weight: 900;
+  color: #f2335c;
+}
+
+.product-thumb-discount-rate span {
+  vertical-align: baseline;
+  font-size: 16px;
+  font-weight: 900;
+  margin: 0;
+}
+
 /* 카테고리 전체 */
 
 .category-nav-sign-in {
