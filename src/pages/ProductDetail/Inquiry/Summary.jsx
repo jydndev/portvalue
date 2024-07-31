@@ -90,7 +90,7 @@ const Summary = ({ onSubmit }) => {
 
   return (
     <div className="product-inquiry-summary">
-      <p className="product-inquiry-summary__title">상품 Q&A</p>
+      <p className="product-inquiry-summary__title">구매 문의</p>
       <div className="product-inquiry-summary__description">
         상품에 대한 궁금하신 내용을 문의해주세요.
         <br />
