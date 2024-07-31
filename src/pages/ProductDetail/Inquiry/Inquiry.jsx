@@ -56,8 +56,8 @@ const Inquiry = () => {
 
   return (
     <div className="product-content-inquiry">
+      <h2 className="product-content-inquiry__title">구매 문의</h2>
       <ProductInquiryFormProvider>
-        <Summary onSubmit={resetProductInquiries} />
         <ProductInquiryList
           productName={productName}
           mainImageUrl={mainImageUrl}
@@ -72,6 +72,7 @@ const Inquiry = () => {
           shows={accumulativeItems.length > 0}
           TruthyComponent={<InfiniteScrollLoader onIntersect={handleIntersect} disabled={isInfiniteScrollDisabled} />}
         />
+        <Summary onSubmit={resetProductInquiries} />
       </ProductInquiryFormProvider>
     </div>
   );
