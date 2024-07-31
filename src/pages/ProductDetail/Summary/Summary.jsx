@@ -15,7 +15,7 @@ import FreightInformation from './FreightInformation';
 import PriceInformation from './PriceInformation';
 import { RightIcon } from '../../../components/Icon/RightIcon';
 import { StarIcon } from '../../../components/Icon/StarIcon';
-import { RATING_STAR } from '../../../constants/rate';
+import ShareButton from './ShareButton';
 
 const Summary = () => {
   const {
@@ -48,7 +48,10 @@ const Summary = () => {
 
   return (
     <div className="product-summary">
-      <div className="product-summary__brand-info">{summary.brandName}</div>
+      <div className="product-summary__header">
+        <div className="product-summary__brand-info">{summary.brandName}</div>
+        <ShareButton />
+      </div>
       <h1 className="product-summary__combined">
         {summary.brandName} {summary.productName}
       </h1>

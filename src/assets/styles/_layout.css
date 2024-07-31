@@ -389,6 +389,28 @@
   line-height: 1.5;
 }
 
+.product-summary__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.share-button-container {
+  position: relative;
+}
+
+.share-options {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .product-summary__combined {
   font-size: 18px;
   font-weight: 400;
