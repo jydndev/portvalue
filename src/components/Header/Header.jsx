@@ -76,20 +76,9 @@ SearchKeywordHeader.propTypes = {
 const Content = ({ isMain, hasSearchKeywordHeader, title }) => {
   const { bannerMap } = useBannerStateContext();
   const { pageType } = getPageTypeInformation() ?? {};
-  const navigate = useNavigate();
-
-  const handleLogoClick = (e) => {
-    e.preventDefault();
-    navigate('/');
-    scrollToTop();
-  };
 
   if (isMain) {
-    return (
-      <Link to="/" onClick={handleLogoClick}>
-        <MallLogo banner={bannerMap.get('LOGO')} />
-      </Link>
-    );
+    return <MallLogo banner={bannerMap.get('LOGO')} />;
   }
 
   if (hasSearchKeywordHeader) {
