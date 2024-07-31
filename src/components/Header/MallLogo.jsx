@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
-
 import { arrayOf, oneOf, number, string, bool, shape } from 'prop-types';
+
+import { scrollToTop } from '../../utils';
+import { useNavigate } from 'react-router-dom';
 
 const MallLogo = ({ banner }) => {
   if (!banner) return <></>;
@@ -10,9 +12,17 @@ const MallLogo = ({ banner }) => {
   const { bannerImages } = bannerInfo;
   const [imageInfo] = bannerImages;
 
+  const navigate = useNavigate();
+
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    navigate('/');
+    scrollToTop();
+  };
+
   return (
     <h1 className="header__title">
-      <Link to={imageInfo.landingUrl} target={imageInfo.openLocationType === 'NEW' ? '_self' : '_self'}>
+      <Link to="/" target={imageInfo.openLocationType === 'NEW' ? '_self' : '_self'} onClick={handleLogoClick}>
         <img
           className="header__logo-img"
           src={imageInfo.imageUrl}
