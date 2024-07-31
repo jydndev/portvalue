@@ -447,6 +447,10 @@
 }
 
 .product-summary__point {
+  margin-top: 0px;
+}
+
+.product-summary__freight {
   margin-top: 12px;
 }
 
@@ -498,6 +502,34 @@
   padding: 16px;
   border-radius: 8px;
   background-color: #f5f6f8;
+}
+
+.new-user-discount-button {
+  padding: 16px;
+  width: 100%;
+  border: 1px solid #327bff;
+  background-color: #F7F8FF;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.new-user-discount-button .black-text {
+  color: #000000;
+}
+
+.new-user-discount-button .blue-text {
+  color: #327bff;
+}
+
+.new-user-discount-button .right-icon {
+  stroke: #327bff;
+  width: 16px;
+  height: 16px;
 }
 
 .product-detail .tabs {
