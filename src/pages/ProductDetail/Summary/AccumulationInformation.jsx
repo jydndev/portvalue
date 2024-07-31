@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-
 import { number, bool } from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { useMallStateContext, VisibleComponent } from '@shopby/react-components';
 import { convertToKoreanCurrency, isSignedIn } from '@shopby/shared';
@@ -12,7 +12,15 @@ const AccumulationInformation = ({ accumulatedAmount, canAccumulate }) => {
 
     if (isSignedIn()) return '';
 
-    return '(로그인 시 적립 가능)';
+    return (
+      <span>
+        (
+        <Link to="/sign-in" style={{ textDecoration: 'underline' }}>
+          로그인
+        </Link>{' '}
+        시 적립 가능)
+      </span>
+    );
   }, [accumulationConfig.useMemberAccumulation, isSignedIn]);
 
   return (
