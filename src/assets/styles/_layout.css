@@ -1092,6 +1092,14 @@
   margin-bottom: 10px;
 }
 
+.open-id-sign-in__item button {
+  padding: 8px;
+  height: 56px;
+  border-radius: 8px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
 .open-id-sign-in__item.type-kakao-sync button {
   padding: 8px;
   height: 56px;
