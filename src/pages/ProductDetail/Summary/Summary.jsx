@@ -72,8 +72,10 @@ const Summary = () => {
           </button>
         )}
       </div>
-      <div className="product-summary__freight-line">
+      <div className="product-summary__accumulation-line">
         <AccumulationInformation {...summary.accumulation} />
+      </div>
+      <div className="product-summary__freight-line">
         <FreightInformation {...summary.freight} />
       </div>
     </div>
