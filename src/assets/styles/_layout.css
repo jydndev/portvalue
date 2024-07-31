@@ -55,7 +55,11 @@
 }
 
 .footer__about.expanded {
-  max-height: 1000px; /* 콘텐츠의 최대 높이에 맞게 조정하세요 */
+  max-height: 1000px;
+}
+
+.footer__nav {
+  margin: 12px 0;
 }
 
 /* 메인페이지 */
@@ -385,10 +389,32 @@
   line-height: 1.5;
 }
 
+.product-summary__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.share-button-container {
+  position: relative;
+}
+
+.share-options {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .product-summary__combined {
   font-size: 18px;
   font-weight: 400;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   line-height: 1.5;
 }
 
@@ -442,15 +468,33 @@
 }
 
 .product-summary__point {
-  margin-top: 12px;
+  margin-top: 0px;
+}
+
+.product-summary__freight {
+  margin-top: 0px;
 }
 
 .product-summary__point dd {
   margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  padding-left: 0px;
+  color: #000000;
+  line-height: 1;
 }
 
 .product-summary__point dd::before {
   background-color: transparent;
+}
+
+.product-summary__freight dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  padding-left: 0px;
+  color: #999999;
+  line-height: 1;
 }
 
 .product-review-summary__title {
@@ -464,35 +508,78 @@
   margin-top: 0px;
 }
 
-.product-summary dd {
-  font-size: 14px;
-  font-weight: 400;
-  padding-left: 0px;
-  color: #333d4b;
-  line-height: 1;
-}
-
 .product-summary__display-label em {
   font-size: 14px;
   font-weight: 400;
 }
 
 .product_shipping_condition {
-  font-weight: 600;
+  font-weight: 400;
   font-size: 14px;
-  padding-right: 12px;
+  padding-right: 4px;
+  color: #999999;
 }
 
 .product-summary__display-label {
   padding: 0px;
+  color: #999999;
 }
 
-.product-summary__freight-line {
+.product-summary__accumulation-line {
   border-top: 0px;
   margin-top: 0px;
   padding: 16px;
   border-radius: 8px;
-  background-color: #f5f6f8;
+  border: 1px solid #999999;
+  margin-bottom: 16px;
+}
+
+.product-summary__freight-line {
+  margin-top: 0;
+  padding-top: 16px;
+}
+
+.product-summary__star {
+  width: 16px;
+  height: 16px;
+}
+
+.product-summary__rating {
+  margin-bottom: 12px;
+}
+
+.product-summary__rating span {
+  font-size: 16px;
+  color: #999999;
+  line-height: 1;
+}
+
+.new-user-discount-button {
+  padding: 16px;
+  width: 100%;
+  border: 1px solid #327bff;
+  background-color: #f7f8ff;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.new-user-discount-button .black-text {
+  color: #000000;
+}
+
+.new-user-discount-button .blue-text {
+  color: #327bff;
+}
+
+.new-user-discount-button .right-icon {
+  stroke: #327bff;
+  width: 16px;
+  height: 16px;
 }
 
 .product-detail .tabs {
@@ -525,22 +612,22 @@
 }
 
 .product-content__content .product-content__more-btn {
-  padding-left: 100px;
-  padding-right: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
   padding-bottom: 20px;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
 }
 
 .product-content__more-btn button {
-  color: #327bff;
+  color: #000000;
   font-family: Pretendard-Regular;
   font-weight: 800;
   height: 48px;
   line-height: 0px;
   border-width: 0px;
   border-radius: 200px;
-  border-width: 2px;
-  border-color: #327bff;
+  border-width: 1px;
+  border-color: #000000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1082,6 +1169,14 @@
 /* 로그인 */
 
 .open-id-sign-in__item.type-naver button {
+  padding: 8px;
+  height: 56px;
+  border-radius: 8px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.open-id-sign-in__item button {
   padding: 8px;
   height: 56px;
   border-radius: 8px;

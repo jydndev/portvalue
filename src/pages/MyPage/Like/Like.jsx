@@ -20,7 +20,7 @@ const LikeTotalCount = () => {
 
 const Like = () => {
   useLayoutChanger({
-    title: '좋아요 관리',
+    title: '좋아요',
     hasBackBtnOnHeader: true,
     hasCartBtnOnHeader: true,
     hasBottomNav: true,

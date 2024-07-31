@@ -1,14 +1,29 @@
 import { useMemo } from 'react';
-
 import { string, bool, number, shape, arrayOf, oneOf } from 'prop-types';
-
 import { VisibleComponent } from '@shopby/react-components';
 import { convertToKoreanCurrency } from '@shopby/shared/utils';
+
+const convertToKoreanUnit = (amount) => {
+  const units = ['', '만', '억', '조'];
+  let result = '';
+  let unitIndex = 0;
+
+  while (amount > 0) {
+    const part = amount % 10000;
+    if (part > 0) {
+      result = `${part}${units[unitIndex]} ${result}`;
+    }
+    amount = Math.floor(amount / 10000);
+    unitIndex++;
+  }
+
+  return result.trim() + '원';
+};
 
 const getConditionLabel = (freight, conditionType) => {
   if (conditionType === 'QUANTITY_PROPOSITIONAL_FEE') return `(${freight.perOrderCnt}개마다 부과)`;
 
-  if (freight.aboveDeliveryAmt > 0) return `(${convertToKoreanCurrency(freight.aboveDeliveryAmt)}원 이상 구매 시 무료)`;
+  if (freight.aboveDeliveryAmt > 0) return `(${convertToKoreanUnit(freight.aboveDeliveryAmt)} 이상 무료)`;
 
   return '';
 };
@@ -16,7 +31,7 @@ const getConditionLabel = (freight, conditionType) => {
 const getFeeLabel = (freight, conditionType) => {
   if (conditionType === 'FREE') return '무료배송';
 
-  const feeLabel = `${convertToKoreanCurrency(freight.fee)}원`;
+  const feeLabel = `${convertToKoreanUnit(freight.fee)}`;
 
   return conditionType === 'FIXED_FEE' ? `배송비 ${feeLabel}` : feeLabel;
 };
