@@ -160,7 +160,6 @@
   cursor: pointer;
 }
 
-
 /* 메인 카테고리 */
 
 .main-category {
@@ -393,7 +392,7 @@
 .product-summary__combined {
   font-size: 18px;
   font-weight: 400;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   line-height: 1.5;
 }
 
@@ -504,11 +503,26 @@
   background-color: #f5f6f8;
 }
 
+.product-summary__star {
+  width: 16px;
+  height: 16px;
+}
+
+.product-summary__rating {
+  margin-bottom: 12px;
+}
+
+.product-summary__rating span {
+  font-size: 16px;
+  color: #999999;
+  line-height: 1;
+}
+
 .new-user-discount-button {
   padding: 16px;
   width: 100%;
   border: 1px solid #327bff;
-  background-color: #F7F8FF;
+  background-color: #f7f8ff;
   border-radius: 8px;
   margin-bottom: 16px;
   font-weight: 600;
@@ -576,7 +590,7 @@
   line-height: 0px;
   border-width: 0px;
   border-radius: 200px;
-  border-width:1px;
+  border-width: 1px;
   border-color: #000000;
   display: flex;
   align-items: center;

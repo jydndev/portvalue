@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useProductDetailStateContext, useAuthStateContext, useAuthActionContext } from '@shopby/react-components';
+import {
+  useProductDetailStateContext,
+  useAuthStateContext,
+  useAuthActionContext,
+  useProductReviewStateContext,
+  RatingStar,
+} from '@shopby/react-components';
 import { isSignedIn } from '@shopby/shared';
 
 import AccumulationInformation from './AccumulationInformation';
@@ -8,7 +14,8 @@ import DownloadCouponButton from './DownloadCouponButton';
 import FreightInformation from './FreightInformation';
 import PriceInformation from './PriceInformation';
 import { RightIcon } from '../../../components/Icon/RightIcon';
-
+import { StarIcon } from '../../../components/Icon/StarIcon';
+import { RATING_STAR } from '../../../constants/rate';
 
 const Summary = () => {
   const {
@@ -18,6 +25,7 @@ const Summary = () => {
   const { profile } = useAuthStateContext();
   const { fetchProfile } = useAuthActionContext();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { rate } = useProductReviewStateContext();
 
   useEffect(() => {
     const checkLoginStatus = async () => {
@@ -44,6 +52,10 @@ const Summary = () => {
       <h1 className="product-summary__combined">
         {summary.brandName} {summary.productName}
       </h1>
+      <div className="product-summary__rating">
+        <StarIcon className="product-summary__star" />
+        <span className="product-summary__score"> {rate} </span>
+      </div>
       <div className="product-summary__price-info">
         <PriceInformation {...summary} />
         <DownloadCouponButton />
