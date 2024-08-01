@@ -70,9 +70,11 @@ const SearchKeywordHeader = ({ title }) => {
     </>
   );
 };
+
 SearchKeywordHeader.propTypes = {
   title: string,
 };
+
 const Content = ({ isMain, hasSearchKeywordHeader, title }) => {
   const { bannerMap } = useBannerStateContext();
   const { pageType } = getPageTypeInformation() ?? {};
