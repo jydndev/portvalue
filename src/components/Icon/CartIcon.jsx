@@ -3,7 +3,7 @@ export function CartIcon({ size = 32, ...props }) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      stroke="#000000"
+      stroke="#1a1a1a"
       strokeWidth={1.5}
       width={size}
       height={size}

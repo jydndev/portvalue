@@ -480,7 +480,7 @@
   font-size: 14px;
   font-weight: 400;
   padding-left: 0px;
-  color: #000000;
+  color: #1a1a1a;
   line-height: 1;
 }
 
@@ -571,7 +571,7 @@
 }
 
 .new-user-discount-button .black-text {
-  color: #000000;
+  color: #1a1a1a;
 }
 
 .new-user-discount-button .blue-text {
@@ -621,7 +621,7 @@
 }
 
 .product-content__more-btn button {
-  color: #000000;
+  color: #1a1a1a;
   font-family: Pretendard-Regular;
   font-weight: 800;
   height: 48px;
@@ -629,7 +629,7 @@
   border-width: 0px;
   border-radius: 200px;
   border-width: 1px;
-  border-color: #000000;
+  border-color: #1a1a1a;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -686,7 +686,7 @@
 }
 
 .product-board-list__total-count {
-  color: #000000;
+  color: #1a1a1a;
 }
 
 .product-board-list__search p {
@@ -717,12 +717,20 @@
 }
 
 .product-content__title {
-  font-size: 24px;
-  font-weight: 800;
+  font-size: 16px;
   margin-top: 0px;
   margin-bottom: 0px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 0px;
+  cursor: pointer;
+  border-bottom: 1px solid #ededed;
+}
+
+.product-content__toggle-icon svg {
+  stroke: #9a9a9a;
 }
 
 .product-content-shipping-claim {
@@ -732,8 +740,13 @@
 }
 
 .product-content-shipping-claim .editor {
-  padding-bottom: 20px;
+  padding: 20px 0px;
 }
+
+.product-content-shipping-claim .editor p {
+  color: #9a9a9a;
+}
+
 
 .product-content__certification {
   border-top: 1px;
