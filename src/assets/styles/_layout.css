@@ -901,6 +901,7 @@
 
 .order-sheet .accordion__title {
   border-width: 0;
+  cursor: pointer;
 }
 
 .order-sheet__promotion-title {
@@ -979,6 +980,24 @@
 .order-sheet__payment-info {
   padding: 20px;
   margin: 0;
+}
+
+.order-sheet__terms {
+  padding: 0px 20px;
+}
+
+.order-sheet__terms p {
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+}
+
+.order-sheet__term-checker {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+.order-sheet__term-checker span {
+  color: #9a9a9a;
+  font-size: 12px;
 }
 
 .order-detail__product-top-label {
