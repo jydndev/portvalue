@@ -729,8 +729,27 @@
   border-bottom: 1px solid #ededed;
 }
 
+.product-content__toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.product-content__toggle-icon.open {
+  transform: rotate(180deg);
+}
+
 .product-content__toggle-icon svg {
   stroke: #9a9a9a;
+}
+
+.shipping-claim-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.shipping-claim-content.open {
+  max-height: 1000px;
+  transition: max-height 0.5s ease-in;
 }
 
 .product-content-shipping-claim {
@@ -747,6 +766,9 @@
   color: #9a9a9a;
 }
 
+.shipping-claim-content-inner .editor {
+  color: #9a9a9a;
+}
 
 .product-content__certification {
   border-top: 1px;
@@ -1143,6 +1165,10 @@
 .shipping-address-form__buttons button {
   height: 48px;
   border-radius: 8px;
+}
+
+.shipping-claim-section {
+  margin-bottom: 10px;
 }
 
 .address-form__zip-code > .text-field,

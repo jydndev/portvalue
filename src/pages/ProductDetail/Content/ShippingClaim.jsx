@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { VisibleComponent, useProductDetailStateContext } from '@shopby/react-components';
 import Sanitized from '../../../components/Sanitized';
-import { UpIcon } from '../../../components/Icon/UpIcon';
 import { DownIcon } from '../../../components/Icon/DownIcon';
 
 const TITLE_MAP = {
@@ -45,15 +44,15 @@ const ShippingClaim = () => {
             <div key={`shipping-claim-${titleKey}`} className="shipping-claim-section">
               <button className="product-content__title" onClick={() => toggleSection(titleKey)}>
                 <span className="title-text">{TITLE_MAP[titleKey]}</span>
-                <span className="product-content__toggle-icon">
-                  {openSections[titleKey] ? <UpIcon size={16} /> : <DownIcon size={16} />}
+                <span className={`product-content__toggle-icon ${openSections[titleKey] ? 'open' : ''}`}>
+                  <DownIcon size={16} />
                 </span>
               </button>
-              {openSections[titleKey] && (
-                <div className="shipping-claim-content">
+              <div className={`shipping-claim-content ${openSections[titleKey] ? 'open' : ''}`}>
+                <div className="shipping-claim-content-inner">
                   <Sanitized html={content} />
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
