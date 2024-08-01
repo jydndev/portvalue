@@ -69,14 +69,14 @@ const Layout = () => {
                   </main>
                   <Footer />
                   <SearchAddressProvider>
-                    <BottomNavWrap />
+                    <BottomNav />
                   </SearchAddressProvider>
-                  <CategoryNav />
-                  {/* <span className="fab-top-down">
+                  {/* <CategoryNav /> */}
+                  <span className="fab-top-down">
                     <button className="fab-btn fab-btn--top" onClick={scrollToTop}>
                       <Icon name="angle-down" className="fab-btn__top" />
                     </button>
-                  </span> */}
+                  </span>
                 </div>
               </OffCanvasProvider>
             </div>
@@ -89,20 +89,20 @@ const Layout = () => {
   );
 };
 
-const BottomNavWrap = () => {
-  const { hasBottomNav } = useLayoutValueContext();
-  const [openSearchFullModal, setOpenSearchFullModal] = useState(false);
+// const BottomNavWrap = () => {
+//   const { hasBottomNav } = useLayoutValueContext();
+//   const [openSearchFullModal, setOpenSearchFullModal] = useState(false);
 
-  if (hasBottomNav)
-    return (
-      <>
-        <BottomNav search={() => setOpenSearchFullModal(true)} />
-        {openSearchFullModal && <SearchKeyword openModal={setOpenSearchFullModal} />}
-      </>
-    );
+//   if (hasBottomNav)
+//     return (
+//       <>
+//         <BottomNav search={() => setOpenSearchFullModal(true)} />
+//         {openSearchFullModal && <SearchKeyword openModal={setOpenSearchFullModal} />}
+//       </>
+//     );
 
-  return <></>;
-};
+//   return <></>;
+// };
 
 export default Layout;
 

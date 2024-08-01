@@ -15,7 +15,7 @@ import {
 } from '@shopby/react-components';
 
 import useSearchKeyword from '../../hooks/useSearchKeyword';
-import { getPageTypeInformation } from '../../utils';
+import { getPageTypeInformation, scrollToTop } from '../../utils';
 import BackButton from '../BackButton';
 import { useLayoutValueContext } from '../LayoutProvider';
 import { HamburgerIconTop } from '../Icon/HamburgerIconTop';
@@ -70,9 +70,11 @@ const SearchKeywordHeader = ({ title }) => {
     </>
   );
 };
+
 SearchKeywordHeader.propTypes = {
   title: string,
 };
+
 const Content = ({ isMain, hasSearchKeywordHeader, title }) => {
   const { bannerMap } = useBannerStateContext();
   const { pageType } = getPageTypeInformation() ?? {};

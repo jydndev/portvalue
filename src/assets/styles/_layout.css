@@ -843,10 +843,12 @@
   margin: 0px;
 }
 
+/* override existing icon */
 .ico--magnet {
   visibility: hidden;
 }
 
+/* custom search icon */
 .search-field__submit-btn {
   width: 32px;
   height: 32px;
