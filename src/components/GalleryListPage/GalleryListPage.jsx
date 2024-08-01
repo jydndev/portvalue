@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 import { object, bool, func, array, number, string } from 'prop-types';
@@ -53,74 +53,84 @@ const GalleryListPage = ({
   disabled,
   className,
   isLoading = false,
-}) => (
-  <div className="l-panel">
-    <TotalCountAndSort totalCount={totalCount} sortType={sortType} sortBy={sortBy} updateSortType={updateSortType} />
+}) => {
+  return (
+    <div className="l-panel">
+      <TotalCountAndSort totalCount={totalCount} sortType={sortType} sortBy={sortBy} updateSortType={updateSortType} />
 
-    <VisibleComponent
-      shows={products.length > 0}
-      TruthyComponent={
-        <>
-          <ThumbList style={style} displayType={THUMB_LIST_TYPE.GALLERY} className={className}>
-            {products.map(
-              ({
-                productNo,
-                adult,
-                listImageUrls,
-                isSoldOut,
-                saleStatusType,
-                salePrice,
-                promotionText,
-                productName,
-                immediateDiscountAmt,
-                additionDiscountAmt,
-                frontDisplayYn,
-                brandName,
-              }) =>
-                frontDisplayYn && (
-                  <ThumbItem
-                    key={productNo}
-                    resize="220x220"
-                    href={`/product-detail?productNo=${productNo}`}
-                    src={listImageUrls[0]}
-                    adult={adult}
-                    alt={productName}
-                    productNo={productNo}
-                  >
-                    <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
-
-                    <Link to={`/product-detail?productNo=${productNo}`}>
-                      <ProductThumbInfo
-                        salePrice={calculateDiscountedPrice({
-                          salePrice,
-                          immediateDiscountAmt,
-                          additionDiscountAmt,
-                        })}
-                        brandName={brandName}
-                        promotionText={promotionText}
-                        productName={productName}
-                        discountRate={calculateDiscountRate(
-                          salePrice,
-                          calculateDiscountedPrice({
+      <VisibleComponent
+        shows={products.length > 0}
+        TruthyComponent={
+          <>
+            <ThumbList style={style} displayType={THUMB_LIST_TYPE.GALLERY} className={className}>
+              {products.map(
+                ({
+                  productNo,
+                  adult,
+                  listImageUrls,
+                  isSoldOut,
+                  saleStatusType,
+                  salePrice,
+                  promotionText,
+                  productName,
+                  immediateDiscountAmt,
+                  additionDiscountAmt,
+                  frontDisplayYn,
+                  brandName,
+                }) =>
+                  frontDisplayYn && (
+                    <ThumbItem
+                      key={productNo}
+                      resize="220x220"
+                      href={`/product-detail?productNo=${productNo}`}
+                      src={listImageUrls[0]}
+                      adult={adult}
+                      alt={productName}
+                      productNo={productNo}
+                    >
+                      <div className="thumb-item-wrapper" style={{ position: 'relative' }}>
+                        <ShoppingCartButton onClick={(e) => handleCartClick(e, productNo)} />
+                        <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
+                      </div>
+                      <Link to={`/product-detail?productNo=${productNo}`}>
+                        <ProductThumbInfo
+                          salePrice={calculateDiscountedPrice({
                             salePrice,
                             immediateDiscountAmt,
                             additionDiscountAmt,
-                          })
-                        )}
-                      />
-                    </Link>
-                  </ThumbItem>
-                )
-            )}
-          </ThumbList>
-          <SkeletonComponent isLoading={isLoading} />
-          <InfiniteScrollLoader onIntersect={handleIntersect} disabled={disabled} />
-        </>
-      }
-      FalsyComponent={isLoading ? <SkeletonComponent isLoading={isLoading} /> : <NoSearchProduct />}
-    />
-  </div>
-);
+                          })}
+                          brandName={brandName}
+                          promotionText={promotionText}
+                          productName={productName}
+                          discountRate={calculateDiscountRate(
+                            salePrice,
+                            calculateDiscountedPrice({
+                              salePrice,
+                              immediateDiscountAmt,
+                              additionDiscountAmt,
+                            })
+                          )}
+                        />
+                      </Link>
+                    </ThumbItem>
+                  )
+              )}
+            </ThumbList>
+            <SkeletonComponent isLoading={isLoading} />
+            <InfiniteScrollLoader onIntersect={handleIntersect} disabled={disabled} />
+          </>
+        }
+        FalsyComponent={isLoading ? <SkeletonComponent isLoading={isLoading} /> : <NoSearchProduct />}
+      />
+      {selectedProductNo && (
+        <div className="purchase__btns">
+          {<AddToCartBtn onClick={handleCartBtnClick} onError={(e) => handleError(e)} channelType={channelType} />}
+          <MakeOrderBtn onClick={handleMakeOrderBtnClick} onError={(e) => handleError(e)} channelType={channelType} />
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default GalleryListPage;
 

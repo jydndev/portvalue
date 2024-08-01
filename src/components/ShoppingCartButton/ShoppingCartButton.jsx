@@ -6,14 +6,13 @@ const ShoppingCartButton = ({ productNo, onClick }) => {
       className="small-shopping-cart"
       style={{
         position: 'absolute',
-        bottom: '92px',
+        bottom: '18px',
         right: '10px',
         background: 'rgba(255, 255, 255, 0.8)',
         borderRadius: '50%',
         padding: '5px',
         boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
         cursor: 'pointer',
-        zIndex: 10, // Ensure it's above the image
       }}
       onClick={onClick}
     >
