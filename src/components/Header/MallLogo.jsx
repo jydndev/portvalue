@@ -5,24 +5,16 @@ import { scrollToTop } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 
 const MallLogo = ({ banner }) => {
-  if (!banner) return <></>;
+  if (!banner) return null;
 
   const { imageSize, banners } = banner;
   const [bannerInfo] = banners;
   const { bannerImages } = bannerInfo;
   const [imageInfo] = bannerImages;
 
-  const navigate = useNavigate();
-
-  const handleLogoClick = (e) => {
-    e.preventDefault();
-    navigate('/');
-    scrollToTop();
-  };
-
   return (
     <h1 className="header__title">
-      <Link to="/" target={imageInfo.openLocationType === 'NEW' ? '_self' : '_self'} onClick={handleLogoClick}>
+      <a href="/" target={imageInfo.openLocationType === 'NEW' ? '_self' : '_self'}>
         <img
           className="header__logo-img"
           src={imageInfo.imageUrl}
@@ -31,7 +23,7 @@ const MallLogo = ({ banner }) => {
           width={imageSize.width}
           height={imageSize.height}
         />
-      </Link>
+      </a>
     </h1>
   );
 };
