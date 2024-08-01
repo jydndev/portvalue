@@ -1222,6 +1222,13 @@
   font-size: 16px;
 }
 
+/* 회원정보수정 */
+
+.member-modification-form__btn--certificate {
+  height: 48px;
+  border-radius: 8px;
+}
+
 /* 로그인 */
 
 .open-id-sign-in__item.type-naver button {
