@@ -12,6 +12,7 @@ const MallLogo = ({ banner }) => {
   const { bannerImages } = bannerInfo;
   const [imageInfo] = bannerImages;
 
+  // test
   return (
     <h1 className="header__title">
       <a href="/" target={imageInfo.openLocationType === 'NEW' ? '_self' : '_self'}>
