@@ -15,10 +15,16 @@ const BottomNav = ({ className = '', search }) => {
   // force scrollToTop on clicking home
   const goToHomeAndScrollTop = (e) => {
     e.preventDefault();
-    navigate('/');
-    scrollToTop();
+    // logic to prevent the issue with the ChannelIO script being included twice.
+    if (location.pathname === '/') {
+      // If already on home page, just scroll to top
+      scrollToTop();
+    } else {
+      // Navigate to home and then scroll to top
+      navigate('/');
+      setTimeout(scrollToTop, 100);
+    }
   };
-
   return (
     <>
       <nav className={`bottom-nav ${className}`}>
