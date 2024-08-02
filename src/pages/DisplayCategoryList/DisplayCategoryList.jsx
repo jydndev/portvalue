@@ -31,6 +31,7 @@ const DisplayCategoryList = () => {
   const categoryNo = Number(searchParams.get('categoryNo'));
   const depth = Number(searchParams.get('depth') ?? 1);
   const { delayPageScriptLoading } = usePageScriptsActionContext();
+  const productNo = Number(searchParams.get('productNo'));
 
   if (keyword) {
     useLayoutChanger({
@@ -62,7 +63,7 @@ const DisplayCategoryList = () => {
     >
       <OrderSheetProvider>
         <CartProvider>
-          <ProductOptionProvider>
+          <ProductOptionProvider productNo={productNo}>
             <ProductSearchProvider>
               <VisibleComponent
                 shows={!keyword}
