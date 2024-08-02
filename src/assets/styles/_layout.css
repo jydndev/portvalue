@@ -278,6 +278,20 @@
   margin: 0;
 }
 
+/* purchase nav in GalleryListPage.jsx */
+.purchase-nav {
+  position: fixed;
+  bottom: 0;
+  max-width: 500px;
+  width: 100%;
+  z-index: 6;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid var(--default-color);
+}
+
+/*  */
+
 /* 카테고리 전체 */
 
 .category-nav-sign-in {
