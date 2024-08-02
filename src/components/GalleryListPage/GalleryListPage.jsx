@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 ///////////// shopping cart logic imports ///////
@@ -21,6 +21,8 @@ import OptionSelector from '../../pages/ProductDetail/Purchase/OptionSelector';
 import { convertToKoreanCurrency } from '@shopby/shared';
 import { IconBtn } from '@shopby/react-components';
 import { useErrorBoundaryActionContext } from '../ErrorBoundary';
+
+import { useProductDetailStateContext } from '@shopby/react-components';
 /////////////////////////////////////
 
 import { object, bool, func, array, number, string } from 'prop-types';
@@ -80,22 +82,34 @@ const GalleryListPage = ({
   const [selectedProductNo, setSelectedProductNo] = useState(null);
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const productNo = Number(searchParams.get('productNo'));
+  const channelType = searchParams.get('channelType');
+
   const { openConfirm } = useModalActionContext();
   const { totalPrice } = useProductOptionStateContext();
   const { fetchOptionToMakeOrder } = useProductOptionActionContext();
-
   const { catchError } = useErrorBoundaryActionContext();
+  const { isSignedIn } = useAuthActionContext();
 
-  const [searchParams] = useSearchParams();
-  const channelType = searchParams.get('channelType');
+  // naver pay button
+  const { showNaverPayButton, prepareNaverPay, checkUsesNaverPayOrder } = useNaverPayActionContext();
 
-  const handleCartClick = (e, productNo) => {
+  const {
+    productDetail: { isSoldOut, likeStatus, limitations },
+    originProductDetail,
+  } = useProductDetailStateContext();
+
+  // small cart icon button
+  const handleCartButtonClick = async (e, productNo) => {
     e.preventDefault();
     e.stopPropagation();
+    setVisible((prevVisible) => !prevVisible);
     setSelectedProductNo(productNo);
-    setVisible(true);
+    await fetchProductDetails(selectedProductNo);
   };
 
+  // add to cart button
   const handleCartBtnClick = () => {
     openConfirm({
       message: '장바구니에 담았습니다.',
@@ -116,6 +130,39 @@ const GalleryListPage = ({
   const handleError = (error) => {
     catchError(error, () => navigate(0));
   };
+
+  useEffect(() => {
+    (async () => {
+      const usesNaverPayOrder = await checkUsesNaverPayOrder();
+
+      if (usesNaverPayOrder && limitations?.naverPayHandling) {
+        showNaverPayButton({
+          containerElementId: 'naver-pay',
+          usesWishListButton: true,
+          redirectUrlAfterBuying: location.href, // backUrl
+          redirectUrlAfterWishing: location.href, // backUrl
+          onBeforeBuyButtonClick: async () => {
+            const {
+              data: { products },
+            } = await fetchOptionToMakeOrder({ channelType });
+
+            const naverPayItems = products.map(({ orderCnt, channelType, optionInputs, optionNo, productNo }) => ({
+              orderCnt,
+              channelType,
+              optionInputs,
+              optionNo,
+              productNo,
+            }));
+
+            prepareNaverPay({ items: naverPayItems });
+          },
+          onBeforeWishListButtonClick: () => {
+            prepareNaverPay({ productNo });
+          },
+        });
+      }
+    })();
+  }, [limitations?.naverPayHandling, productNo]);
 
   return (
     <div className="l-panel">
@@ -152,7 +199,7 @@ const GalleryListPage = ({
                       productNo={productNo}
                     >
                       <div className="thumb-item-wrapper" style={{ position: 'relative' }}>
-                        <ShoppingCartButton onClick={() => setVisible((prevVisible) => !prevVisible)} />
+                        <ShoppingCartButton onClick={(e) => handleCartButtonClick(e, productNo)} />
                         <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
                       </div>
                       <Link to={`/product-detail?productNo=${productNo}`}>
@@ -182,7 +229,7 @@ const GalleryListPage = ({
 
             <div className="purchase-nav" hidden={!visible}>
               <IconBtn className="purchase__close-btn" iconType="close" onClick={() => setVisible(false)} />
-              <OptionSelector productNo={selectedProductNo} />
+              <OptionSelector />
               <div className="purchase__quantity-box">
                 <OptionQuantity />
               </div>
@@ -194,11 +241,17 @@ const GalleryListPage = ({
               </p>
               <div id="naver-pay" className="purchase__naver-pay-btn" />
               <div className="purchase__btns">
-                <AddToCartBtn onClick={handleCartBtnClick} onError={(e) => handleError(e)} channelType={channelType} />
+                <AddToCartBtn
+                  onClick={handleCartBtnClick}
+                  onError={(e) => handleError(e)}
+                  channelType={channelType}
+                  productNo={selectedProductNo}
+                />
                 <MakeOrderBtn
                   onClick={handleMakeOrderBtnClick}
                   onError={(e) => handleError(e)}
                   channelType={channelType}
+                  productNo={selectedProductNo}
                 />
               </div>
             </div>
