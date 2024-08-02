@@ -28,7 +28,7 @@ const ProductReviewItem = memo(
     price,
     mainImageUrl,
     reviewNo,
-    memberId,
+    nickname,
     updatedDate,
     content,
     images,
@@ -111,7 +111,7 @@ const ProductReviewItem = memo(
                   shows={showsProductName}
                   TruthyComponent={<p className="product-review-item__product-name">{productName}</p>}
                 />
-                <p className={`product-review-item__member-id`}>{memberId}</p>
+                <p className={`product-review-item__member-id`}>{nickname}</p>
                 <p className="product-review-item__brand-name">{brandName}</p>
                 <p className={`product-review-item__option-value`}>{optionDisplayLabel}</p>
                 {price >= 0 && <p className="product-review-item__price">{convertToKoreanCurrency(price)}원</p>}
@@ -175,7 +175,7 @@ ProductReviewItem.displayName = 'ProductReviewItem';
 ProductReviewItem.propTypes = {
   productNo: number.isRequired,
   reviewNo: number.isRequired,
-  memberId: string,
+  nickname: string,
   onModify: func.isRequired,
   onDelete: func.isRequired,
   content: string.isRequired,
