@@ -11,6 +11,7 @@ import {
   ProductOptionProvider,
   OrderSheetProvider,
   TabsProvider,
+  useProductInquiryActionContext,
 } from '@shopby/react-components';
 
 import useLayoutChanger from '../../hooks/useLayoutChanger';
@@ -32,6 +33,7 @@ const DisplayCategoryList = () => {
   const depth = Number(searchParams.get('depth') ?? 1);
   const { delayPageScriptLoading } = usePageScriptsActionContext();
   const productNo = Number(searchParams.get('productNo'));
+  const { searchInquiries } = useProductInquiryActionContext();
 
   if (keyword) {
     useLayoutChanger({
@@ -53,6 +55,25 @@ const DisplayCategoryList = () => {
   useEffect(() => {
     delayPageScriptLoading();
   }, []);
+
+  useEffect(() => {
+    searchInquiries();
+
+    if (productNo > 0) {
+      fetchProductDetail({
+        productNo,
+        channelType,
+      });
+
+      fetchRelatedProducts({
+        productNo,
+      });
+
+      fetchSelectorOptions({
+        productNo,
+      });
+    }
+  }, [productNo]);
 
   return (
     <TabsProvider
