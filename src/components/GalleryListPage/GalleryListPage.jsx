@@ -1,6 +1,28 @@
 import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
+///////////// shopping cart logic imports ///////
+import { useNavigate } from 'react-router-dom';
+import ShoppingCartButton from '../ShoppingCartButton/ShoppingCartButton';
+import {
+  MakeOrderBtn,
+  AddToCartBtn,
+  useModalActionContext,
+  useProductOptionActionContext,
+  useProductOptionStateContext,
+  useNaverPayActionContext,
+  useProductDetailActionContext,
+  useAuthActionContext,
+} from '@shopby/react-components';
+
+import OptionQuantity from '../../pages/ProductDetail/Purchase/OptionQuantity';
+import OptionSelector from '../../pages/ProductDetail/Purchase/OptionSelector';
+
+import { convertToKoreanCurrency } from '@shopby/shared';
+import { IconBtn } from '@shopby/react-components';
+import { useErrorBoundaryActionContext } from '../ErrorBoundary';
+/////////////////////////////////////
+
 import { object, bool, func, array, number, string } from 'prop-types';
 
 import { Icon, InfiniteScrollLoader, ThumbItem, ThumbList, VisibleComponent } from '@shopby/react-components';
@@ -10,6 +32,7 @@ import GallerySkeleton from '../GallerySkeleton';
 import ProductThumbBadge from '../ProductThumbBadge';
 import ProductThumbInfo from '../ProductThumbInfo';
 import TotalCountAndSort from '../TotalCountAndSort';
+import useLayoutChanger from '../../hooks/useLayoutChanger';
 
 const calculateDiscountRate = (originalPrice, discountedPrice) => {
   if (originalPrice === discountedPrice) return 0;
@@ -54,6 +77,46 @@ const GalleryListPage = ({
   className,
   isLoading = false,
 }) => {
+  const [selectedProductNo, setSelectedProductNo] = useState(null);
+  const [visible, setVisible] = useState(false);
+  const navigate = useNavigate();
+  const { openConfirm } = useModalActionContext();
+  const { totalPrice } = useProductOptionStateContext();
+  const { fetchOptionToMakeOrder } = useProductOptionActionContext();
+
+  const { catchError } = useErrorBoundaryActionContext();
+
+  const [searchParams] = useSearchParams();
+  const channelType = searchParams.get('channelType');
+
+  const handleCartClick = (e, productNo) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setSelectedProductNo(productNo);
+    setVisible(true);
+  };
+
+  const handleCartBtnClick = () => {
+    openConfirm({
+      message: '장바구니에 담았습니다.',
+      confirmLabel: '장바구니 가기',
+      onConfirm: () => {
+        navigate('/cart');
+      },
+      cancelLabel: '닫기',
+    });
+    setVisible(false);
+  };
+
+  const handleMakeOrderBtnClick = ({ orderSheetNo }) => {
+    isSignedIn() ? navigate(`/order/${orderSheetNo}`) : navigate('/sign-in', { state: { orderSheetNo } });
+    setVisible(false);
+  };
+
+  const handleError = (error) => {
+    catchError(error, () => navigate(0));
+  };
+
   return (
     <div className="l-panel">
       <TotalCountAndSort totalCount={totalCount} sortType={sortType} sortBy={sortBy} updateSortType={updateSortType} />
@@ -89,7 +152,7 @@ const GalleryListPage = ({
                       productNo={productNo}
                     >
                       <div className="thumb-item-wrapper" style={{ position: 'relative' }}>
-                        <ShoppingCartButton onClick={(e) => handleCartClick(e, productNo)} />
+                        <ShoppingCartButton onClick={() => setVisible((prevVisible) => !prevVisible)} />
                         <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
                       </div>
                       <Link to={`/product-detail?productNo=${productNo}`}>
@@ -116,18 +179,36 @@ const GalleryListPage = ({
                   )
               )}
             </ThumbList>
+
+            <div className="purchase-nav" hidden={!visible}>
+              <IconBtn className="purchase__close-btn" iconType="close" onClick={() => setVisible(false)} />
+              <OptionSelector productNo={selectedProductNo} />
+              <div className="purchase__quantity-box">
+                <OptionQuantity />
+              </div>
+              <p className="purchase__total">
+                <span>총 상품 금액</span>
+                <em>
+                  <span className="highlight bold">{convertToKoreanCurrency(totalPrice)}</span>원
+                </em>
+              </p>
+              <div id="naver-pay" className="purchase__naver-pay-btn" />
+              <div className="purchase__btns">
+                <AddToCartBtn onClick={handleCartBtnClick} onError={(e) => handleError(e)} channelType={channelType} />
+                <MakeOrderBtn
+                  onClick={handleMakeOrderBtnClick}
+                  onError={(e) => handleError(e)}
+                  channelType={channelType}
+                />
+              </div>
+            </div>
+
             <SkeletonComponent isLoading={isLoading} />
             <InfiniteScrollLoader onIntersect={handleIntersect} disabled={disabled} />
           </>
         }
         FalsyComponent={isLoading ? <SkeletonComponent isLoading={isLoading} /> : <NoSearchProduct />}
       />
-      {selectedProductNo && (
-        <div className="purchase__btns">
-          {<AddToCartBtn onClick={handleCartBtnClick} onError={(e) => handleError(e)} channelType={channelType} />}
-          <MakeOrderBtn onClick={handleMakeOrderBtnClick} onError={(e) => handleError(e)} channelType={channelType} />
-        </div>
-      )}
     </div>
   );
 };
