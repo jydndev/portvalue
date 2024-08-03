@@ -28,7 +28,7 @@ const ReviewFormModal = ({ isOpen, onClose, ...props }) => {
     <VisibleComponent
       shows={isOpen}
       TruthyComponent={
-        <FullModal title="상품후기">
+        <FullModal title="상품 리뷰">
           <ReviewForm isRegisterMode={true} onSubmit={handleSubmit} onCancel={onClose} {...props} />
         </FullModal>
       }
@@ -48,7 +48,7 @@ const CLAIM_NOTICE_FOR_ESCROW = {
   RETURN: '에스크로 결제 건에 대한 클레임이 불가능합니다. 고객센터를 통해 확인해주세요.',
   EXCHANGE: '에스크로 결제 건은 교환 신청이 불가합니다. 취소/반품 후 재주문으로 처리해 주세요.',
   CONFIRM_ORDER: '에스크로 주문은 구매확정으로 변경할 수 없습니다.',
-  WRITE_REVIEW: '에스크로 결제 건은 구매확정 이후 후기작성이 가능합니다.',
+  WRITE_REVIEW: '에스크로 결제 건은 구매확정 이후 리뷰 작성이 가능합니다.',
 };
 
 const getEscrowInfo = ({ isEscrow, nextAction, orderStatus }) => {
@@ -267,7 +267,7 @@ const NextActionButton = ({
       },
     },
     WRITE_REVIEW: {
-      label: '후기 작성',
+      label: '리뷰 작성',
       execute: () => {
         setIsOpen(true);
       },

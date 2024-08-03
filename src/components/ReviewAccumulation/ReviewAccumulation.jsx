@@ -5,8 +5,8 @@ import { string, bool } from 'prop-types';
 import { VisibleComponent, useMallStateContext } from '@shopby/react-components';
 
 const REVIEW_ACCUMULATION_LABEL = {
-  reviewsAccumulation: '텍스트후기',
-  photoReviewsAccumulation: '포토후기',
+  reviewsAccumulation: '텍스트 리뷰',
+  photoReviewsAccumulation: '포토 리뷰',
 };
 
 const ReviewAccumulation = ({ className = '', showsIcon = true }) => {

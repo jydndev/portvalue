@@ -18,7 +18,7 @@ const SORT_BY = [
   { value: 'POPULAR', label: '인기순' },
   { value: 'LOW_PRICE', label: '낮은가격순' },
   { value: 'HIGH_PRICE', label: '높은가격순' },
-  { value: 'REVIEW', label: '상품후기순' },
+  { value: 'REVIEW', label: '상품리뷰순' },
   { value: 'RECENT_PRODUCT', label: '등록일순' },
 ];
 

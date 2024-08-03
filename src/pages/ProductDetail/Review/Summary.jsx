@@ -17,7 +17,7 @@ const Summary = () => {
 
   return (
     <div className="product-review-summary">
-      <p className="product-review-summary__title">상품후기</p>
+      <p className="product-review-summary__title">상품 리뷰</p>
       <span className="product-review-summary__rating">
         <span className="star-rating">{renderStars()}</span>
         <span className="product-review-summary__score">

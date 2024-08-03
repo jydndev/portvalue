@@ -121,7 +121,7 @@ const ReviewForm = ({
       await postReviewBy(request);
 
       await openAlert({
-        message: '상품후기가 등록되었습니다.',
+        message: '상품 리뷰가 등록되었습니다.',
         onClose: async () => {
           await onSubmit?.();
         },
@@ -139,7 +139,7 @@ const ReviewForm = ({
       });
 
       openAlert({
-        message: '상품후기가 수정되었습니다.',
+        message: '상품 리뷰가 수정되었습니다.',
         onClose: async () => {
           await onModify?.();
         },
@@ -168,7 +168,7 @@ const ReviewForm = ({
   const handleSubmit = () => {
     if (!reviewContent) {
       openAlert({
-        message: '상품후기 내용을 입력해주세요.',
+        message: '상품 리뷰를 입력해주세요.',
       });
 
       return;
@@ -187,7 +187,7 @@ const ReviewForm = ({
     }
 
     openConfirm({
-      message: '후기 작성과 함께 구매확정 처리하시겠습니까?',
+      message: '리뷰 작성과 함께 구매확정 처리하시겠습니까?',
       onConfirm: () => {
         checkConditionsForAccumulation(reviewDetail);
       },

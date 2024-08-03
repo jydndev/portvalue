@@ -19,7 +19,7 @@ const ReviewTextArea = ({ content, onChange }) => {
         placeholder={
           reviewConfig.expandedReviewConfig?.writingReviewNoticeText
             ? reviewConfig.expandedReviewConfig?.writingReviewNoticeText
-            : '상품후기를 작성해주세요.'
+            : '상품 리뷰를 작성해주세요.'
         }
         cols="30"
         rows="10"

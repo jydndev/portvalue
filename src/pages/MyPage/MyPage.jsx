@@ -247,7 +247,7 @@ const MyPage = () => {
           shows={boardConfig.productReviewConfig?.name}
           TruthyComponent={
             <Link className="my-link" to="/my-page/product-review">
-              {boardConfig.productReviewConfig?.name ?? '상품후기'}
+              {boardConfig.productReviewConfig?.name ?? '상품 리뷰'}
               <IconBtn className="my-link__ico" iconType="angle-down" />
             </Link>
           }

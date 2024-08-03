@@ -15,11 +15,11 @@ import useLayoutChanger from '../../../hooks/useLayoutChanger';
 const DEFAULT_TABS = [
   {
     value: 'REVIEWABLE',
-    label: '후기 작성',
+    label: '리뷰 작성',
   },
   {
     value: 'REVIEWED',
-    label: '작성한 후기',
+    label: '작성한 리뷰',
   },
 ];
 
@@ -48,7 +48,7 @@ const ProductReviewContent = () => {
 const ProductReview = () => {
   useLayoutChanger({
     hasBackBtnOnHeader: true,
-    title: '상품후기 관리',
+    title: '상품 리뷰 관리',
     hasCartBtnOnHeader: true,
     hasBottomNav: true,
   });

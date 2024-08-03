@@ -13,9 +13,9 @@ import ProductReviewItem from './ProductReviewItem';
 const EmptyReviewList = memo(() => (
   <div className="product-board-list__empty">
     <InformationIcon size={40} />
-    <span className="product-board-list__empty-notes">아직 작성 된 상품후기가 없어요.</span>
+    <span className="product-board-list__empty-notes">아직 작성 된 상품 리뷰가 없어요.</span>
     <p className="product-board-list__accumulation-notes">
-      구매 후 상품후기를 남겨주세요!
+      구매 후 상품 리뷰를 남겨주세요!
       <br />
       <ReviewAccumulation className="product-board-list__accumulation" showsIcon={false} />
     </p>
@@ -111,7 +111,7 @@ const ProductReviewList = ({ productNo, totalCount, sortType, onSelect, reviews,
     <div className="product-board-list">
       <div className="product-board-list__search">
         <p>
-          {productReviewConfig?.name ?? '상품후기'}{' '}
+          {productReviewConfig?.name ?? '상품리뷰'}{' '}
           <span className="product-board-list__total-count">
             <em>{totalCount}</em>건
           </span>
