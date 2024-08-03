@@ -18,6 +18,7 @@ import { RATING_STAR } from '../../constants/rate';
 import FullModal from '../FullModal/FullModal';
 import ReviewForm from '../ReviewForm';
 import Sanitized from '../Sanitized';
+import { StarIcon } from '../Icon/StarIcon';
 
 const ProductReviewItem = memo(
   ({
@@ -79,12 +80,20 @@ const ProductReviewItem = memo(
       setIsModificationModalOpen(false);
     };
 
+    const renderStars = (rating) => {
+      const stars = [];
+      for (let i = 1; i <= 5; i++) {
+        stars.push(<StarIcon key={i} className={`star-icon ${i <= Math.round(rating) ? 'filled' : ''}`} />);
+      }
+      return stars;
+    };
+
     return (
       <>
         <li className={`product-review-item ${isOpen ? 'is-open' : ''}`}>
           <div className={`product-review-item__top`}>
             <div className={`product-review-item__rating`}>
-              <RatingStar score={rate} isSmall={true} limit={RATING_STAR.LIMIT_SCORE} />
+              <span className="star-rating">{renderStars(rate)}</span>
               <strong className={`${`product-review-item__score`}`}>{rate}</strong>
             </div>
             <span className={`product-review-item__date`}>{updatedDate}</span>

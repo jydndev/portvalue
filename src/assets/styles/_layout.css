@@ -561,6 +561,20 @@
   line-height: 1;
 }
 
+.star-rating {
+  display: inline-flex;
+}
+
+.star-icon {
+  width: 24px;
+  height: 24px;
+  color: #ccc;
+}
+
+.star-icon.filled {
+  color: #ffd700;
+}
+
 .new-user-discount-button {
   padding: 16px;
   width: 100%;
@@ -665,7 +679,6 @@
   display: flex;
   align-items: center;
   font-size: 24px;
-  padding-top: 8px;
 }
 
 .product-board-list__search {
