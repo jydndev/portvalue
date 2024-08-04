@@ -126,7 +126,7 @@ const MyPageSummary = () => {
   return (
     <div className="my-coupon-data">
       <Link className="my-coupon-data__link" to="/my-page/coupon">
-        보유쿠폰
+        쿠폰
         <em className="my-coupon-data__num">{usableCouponCnt}</em>
       </Link>
       <Link className="my-coupon-data__link" to="/my-page/accumulation">

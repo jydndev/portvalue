@@ -1346,6 +1346,26 @@
 
 /* 적립금 */
 
+.my-page-accumlation__title {
+  margin-bottom: 8px;
+}
+
+.my-page-accumulation__amount {
+  margin: 0px 0px 20px 0px;
+  text-align: left;
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+
+.my-page-accumulation__amount span {
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.start-ymd-selector {
+  border-radius: 4px;
+}
 
 /* 찜한 상품 */
 
