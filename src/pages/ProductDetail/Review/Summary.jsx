@@ -7,13 +7,14 @@ import { StarIcon } from '../../../components/Icon/StarIcon';
 const Summary = ({ totalCount }) => {
   const { rate } = useProductReviewStateContext();
 
-  const renderStars = () => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(<StarIcon key={i} className={`star-icon ${i <= Math.round(rate) ? 'filled' : ''}`} />);
-    }
-    return stars;
-  };
+const renderStars = () => {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    const fillPercentage = Math.max(0, Math.min(100, (rate - (i - 1)) * 100));
+    stars.push(<StarIcon key={i} className="star-icon" fillPercentage={rate > 0 ? fillPercentage : 0} />);
+  }
+  return stars;
+};
 
   return (
     <div className="product-review-summary">
