@@ -91,6 +91,7 @@ const GalleryListPage = ({
   const { fetchOptionToMakeOrder } = useProductOptionActionContext();
   const { catchError } = useErrorBoundaryActionContext();
   const { isSignedIn } = useAuthActionContext();
+  const { fetchProductDetail } = useProductDetailActionContext();
 
   // naver pay button
   const { showNaverPayButton, prepareNaverPay, checkUsesNaverPayOrder } = useNaverPayActionContext();
@@ -101,12 +102,12 @@ const GalleryListPage = ({
   } = useProductDetailStateContext();
 
   // small cart icon button
-  const handleCartButtonClick = async (e, productNo) => {
+  const handleCartButtonClick = (e, productNo) => {
     e.preventDefault();
     e.stopPropagation();
-    setVisible((prevVisible) => !prevVisible);
     setSelectedProductNo(productNo);
-    await fetchProductDetails(selectedProductNo);
+    setVisible((prevVisible) => !prevVisible);
+    fetchProductDetail(productNo);
   };
 
   // add to cart button
@@ -199,7 +200,7 @@ const GalleryListPage = ({
                       productNo={productNo}
                     >
                       <div className="thumb-item-wrapper" style={{ position: 'relative' }}>
-                        <ShoppingCartButton onClick={(e) => handleCartButtonClick(e, productNo)} />
+                        <ShoppingCartButton onClick={handleCartButtonClick} />
                         <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
                       </div>
                       <Link to={`/product-detail?productNo=${productNo}`}>
