@@ -64,9 +64,6 @@ const CouponItem = ({ coupon, unissuable, customElement = <></> }) => {
           </div>
           <p className="my-page-coupon__date">{issueDate ? `${issueDate} ~ ${expireDate}` : `${expireDate}`}</p>
         </div>
-        <div className="my-page-coupon__box--right">
-          <p>COUPON</p>
-        </div>
         {customElement}
       </div>
     </li>

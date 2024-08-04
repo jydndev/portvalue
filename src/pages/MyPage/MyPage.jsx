@@ -136,7 +136,7 @@ const MyPageSummary = () => {
         </em>
       </Link>
       <Link className="my-coupon-data__link" to="/my-page/like">
-        좋아요
+        찜한 상품
         <em className="my-coupon-data__num">{likedCount}</em>
       </Link>
     </div>

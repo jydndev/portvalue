@@ -15,12 +15,12 @@ import LikeList from './LikeList';
 const LikeTotalCount = () => {
   const { profileLikeProduct } = useProfileLikeStateContext();
 
-  return <TotalCount title="좋아요" count={profileLikeProduct.totalCount} />;
+  return <TotalCount title="찜한 상품" count={profileLikeProduct.totalCount} />;
 };
 
 const Like = () => {
   useLayoutChanger({
-    title: '좋아요',
+    title: '찜한 상품',
     hasBackBtnOnHeader: true,
     hasCartBtnOnHeader: true,
     hasBottomNav: true,

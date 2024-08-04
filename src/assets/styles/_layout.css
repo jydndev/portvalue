@@ -585,7 +585,7 @@
 }
 
 .product-review-item__text-detail {
-  color:#1a1a1a;
+  color: #1a1a1a;
   padding: 0;
   margin: 12px 0px;
   line-height: 160%;
@@ -1113,7 +1113,7 @@
 
 .my-info__greeting {
   color: #333d4b;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
   margin-right: 8px;
   margin-bottom: 0px;
@@ -1284,6 +1284,82 @@
 .sign-up-confirm__notice-description {
   margin-top: 20px;
   font-size: 16px;
+}
+
+/* 보유 쿠폰 */
+
+.my-page-coupon__tabs {
+  padding: 8px;
+  background-color: #f6f8fa;
+  margin: 12px 20px;
+  border-radius: 12px;
+  height: 56px;
+}
+
+.my-page-coupon .tabs__item.on {
+  color: #327bff;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #ffffff;
+  border-radius: 12px;
+  height: 48px;
+}
+
+.my-page-coupon .tabs__item {
+  color: #767676;
+  font-size: 16px;
+  background-color: #f6f8fa;
+  height: 48px;
+}
+
+.my-page-coupon__tabs li:not(:first-child):before {
+  width: 0;
+}
+
+.my-page-coupon__wrap {
+  padding: 0px 20px;
+}
+
+.my-page-coupon__box {
+  border: none;
+  background-color: #f6f8fa;
+  border-radius: 12px;
+}
+
+.my-page-coupon__content {
+  margin-top: 12px;
+}
+
+.my-page-coupon__discounted-price {
+  font-size: 16px;
+  margin-top: 0;
+}
+
+.my-page-coupon__box--left {
+  width: auto;
+}
+
+.my-page-coupon__registration-button {
+  margin-top: 36px;
+}
+
+
+/* 적립금 */
+
+
+/* 찜한 상품 */
+
+.profile-like__list-item {
+  border-radius: 12px;
+}
+
+.profile-like__list-item .product-thumb-item {
+  background: none;
+  padding: 0;
+}
+
+.profile-like__amount-item del {
+  font-size: 12px;
 }
 
 /* 회원정보수정 */
