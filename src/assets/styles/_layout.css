@@ -41,7 +41,7 @@
 .footer__toggle-icon {
   margin-left: 4px;
   font-size: 12px;
-  color: #000;
+  color: var(--black-color);
   transition: transform 0.5s ease;
 }
 
@@ -485,7 +485,7 @@
   font-size: 14px;
   font-weight: 400;
   padding-left: 0px;
-  color: #1a1a1a;
+  color: var(--black-color);
   line-height: 1;
 }
 
@@ -576,7 +576,7 @@
 }
 
 .product-review-item__member-nickname {
-  color: #1a1a1a;
+  color: var(--black-color);
   font-weight: 800;
 }
 
@@ -585,7 +585,7 @@
 }
 
 .product-review-item__text-detail {
-  color: #1a1a1a;
+  color: var(--black-color);
   padding: 0;
   margin: 12px 0px;
   line-height: 160%;
@@ -625,7 +625,7 @@
   padding: 16px;
   width: 100%;
   border: 1px solid #327bff;
-  background-color: #f7f8ff;
+  background-color: var(--button-bg-color);
   border-radius: 8px;
   margin-bottom: 12px;
   font-weight: 600;
@@ -636,7 +636,7 @@
 }
 
 .new-user-discount-button .black-text {
-  color: #1a1a1a;
+  color: var(--black-color);
 }
 
 .new-user-discount-button .blue-text {
@@ -686,7 +686,7 @@
 }
 
 .product-content__more-btn button {
-  color: #1a1a1a;
+  color: var(--black-color);
   font-family: Pretendard-Regular;
   font-weight: 800;
   height: 48px;
@@ -694,7 +694,7 @@
   border-width: 0px;
   border-radius: 200px;
   border-width: 1px;
-  border-color: #1a1a1a;
+  border-color: var(--black-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -757,7 +757,7 @@
 }
 
 .product-board-list__total-count {
-  color: #1a1a1a;
+  color: var(--black-color);
 }
 
 .product-board-list__search p {
@@ -1130,7 +1130,7 @@
 
 .price-tag__final-amount dt,
 .price-tag__final-amount dd {
-  color: #1a1a1a;
+  color: var(--black-color);
   font-size: 16px;
   font-weight: 800;
 }
@@ -1449,11 +1449,11 @@
   text-align: left;
   font-size: 20px;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--black-color);
 }
 
 .my-page-accumulation__amount span {
-  color: #1a1a1a;
+  color: var(--black-color);
   margin: 0;
 }
 

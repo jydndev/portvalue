@@ -6,7 +6,7 @@
   --background-color: #f5f6f8;
   --point-color: #327bff;
   --point-color-secondary: #f2335c;
-  --black-color: #111;
+  --black-color: #1a1a1a;
   --dark-gray-color: #262626;
 
   --empty-color: #f5f6f8;
@@ -15,8 +15,10 @@
   --gray-color: #999;
   --gray-font-color: #828282;
   --tooltip-bg-color: #f7f7f7;
+  --button-bg-color: #f7f8ff;
 
-  --default-font-color: #181818;
+
+  --default-font-color: #1a1a1a;
 }
 
 @import './styles/_layout.css';
