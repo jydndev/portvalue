@@ -1142,7 +1142,7 @@
 }
 
 .order-sheet__terms {
-  padding: 20px 20px 0px 20px;
+  padding: 20px;
 }
 
 .order-sheet__terms p {
@@ -1476,6 +1476,21 @@
 .member-modification-form__btn--certificate {
   height: 48px;
   border-radius: 8px;
+}
+
+.member-modification-form__input-wrap input {
+  background: #f8f8f8;
+  border-color: #f5f6f8;
+  border-radius: 8px;
+  height: 56px;
+  font-size: 16px;
+}
+
+.member-modification-form .address-form input {  background: #f8f8f8;
+  border-color: #f5f6f8;
+  border-radius: 8px;
+  height: 56px;
+  font-size: 16px;
 }
 
 /* 로그인 */
