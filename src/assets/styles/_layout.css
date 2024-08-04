@@ -537,8 +537,8 @@
   margin-top: 0px;
   padding: 16px;
   border-radius: 8px;
-  border: 1px solid #999999;
   margin-bottom: 16px;
+  background-color: #f7f8ff;
 }
 
 .product-summary__freight-line {
@@ -911,6 +911,60 @@
 .npay_type_MA_1 {
   width: 100% !important;
 }
+
+.order-sheet__pay-method-btns {
+  padding-bottom: 4px;
+}
+
+.pay-method-btn {
+  margin-right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.pay-method-btn__label {
+  margin-right: 0;
+}
+
+.pay-method-btn--checked {
+  color: #327bff;
+  border-color: #327bff;
+  background-color: #f8f8ff;
+}
+
+.pay-method-btn .ico--pay-credit-card-white {
+  width: 0;
+  height: 0;
+}
+
+.pay-method-btn .ico--pay-credit-card-black {
+  width: 0;
+  height: 0;
+}
+
+.pay-method-btn .ico--pay-realtime-account-white {
+  width: 0;
+  height: 0;
+}
+
+.pay-method-btn .ico--pay-realtime-account-black {
+  width: 0;
+  height: 0;
+}
+
+.pay-method-btn .ico--pay-virtual-account-white {
+  width: 0;
+  height: 0;
+}
+
+.pay-method-btn .ico--pay-virtual-account-black {
+  width: 0;
+  height: 0;
+}
+
 
 /* 검색 */
 
