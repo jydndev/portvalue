@@ -23,7 +23,7 @@ const Summary = ({ totalCount }) => {
       <span className="product-review-summary__rating">
         <span className="star-rating">{renderStars()}</span>
         <span className="product-review-summary__score">
-          {rate} <span>/{RATING_STAR.LIMIT_SCORE}</span>
+          {rate}
         </span>
       </span>
       <ReviewAccumulation />
