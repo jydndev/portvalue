@@ -17,14 +17,13 @@ const Summary = ({ totalCount }) => {
 
   return (
     <div className="product-review-summary">
-      <p className="product-review-summary__title">
-        리뷰 <span className="product-review-summary__total-count">{totalCount}</span>
-      </p>
+      <h2 className="product-review-summary__title">
+        리뷰
+        <span className="product-review-summary__total-count">{totalCount}</span>
+      </h2>
       <span className="product-review-summary__rating">
         <span className="star-rating">{renderStars()}</span>
-        <span className="product-review-summary__score">
-          {rate}
-        </span>
+        <span className="product-review-summary__score">{rate}</span>
       </span>
       <ReviewAccumulation />
     </div>

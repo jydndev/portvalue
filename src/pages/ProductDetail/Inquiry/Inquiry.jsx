@@ -56,13 +56,17 @@ const Inquiry = () => {
 
   return (
     <div className="product-content-inquiry">
-      <h2 className="product-content-inquiry__title">구매 문의</h2>
+      <h2 className="product-content-inquiry__title">
+        구매 문의
+        <span className="product-content-inquiry__count">
+          <em>{totalCount}</em>
+        </span>
+      </h2>
       <ProductInquiryFormProvider>
         <ProductInquiryList
           productName={productName}
           mainImageUrl={mainImageUrl}
           productNo={productNo}
-          totalCount={totalCount}
           onModify={resetProductInquiries}
           onDelete={resetProductInquiries}
           inquiries={accumulativeItems}

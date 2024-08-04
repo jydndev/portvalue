@@ -123,14 +123,6 @@ const ProductInquiryList = ({
   return (
     <>
       <div className="product-board-list">
-        <div className="product-board-list__search">
-          <p>
-            문의
-            <span className="product-board-list__total-count">
-              <em>{totalCount}</em>건
-            </span>
-          </p>
-        </div>
         <VisibleComponent
           shows={totalCount > 0}
           TruthyComponent={
