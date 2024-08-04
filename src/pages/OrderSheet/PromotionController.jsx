@@ -156,7 +156,7 @@ const PromotionController = () => {
     return (
       <section className="l-panel order-sheet__promotion">
         <p className="order-sheet__promotion-title">
-          <span>혜택 적용</span>
+          <span>할인</span>
         </p>
         <div className="order-sheet__promotion-items order-sheet__promotion-items--guest">
           <div>
@@ -172,10 +172,10 @@ const PromotionController = () => {
 
   return (
     <section className="l-panel order-sheet__promotion">
-      <p className="order-sheet__promotion-title">혜택 적용</p>
+      <p className="order-sheet__promotion-title">할인</p>
       <div className="order-sheet__promotion-items">
         <div className="order-sheet__item">
-          <span className="order-sheet__item-subject">쿠폰할인</span>
+          <span className="order-sheet__item-subject">쿠폰</span>
           <p className="order-sheet__promotion-input">
             <InputWithUnit unitLabel="원" value={allCouponAmt} valid="NUMBER" showsComma={true} disabled />
             <Button label="쿠폰 사용" onClick={handleOpenCouponModalBtnClick} />
@@ -207,8 +207,8 @@ const PromotionController = () => {
           </p>
         </div>
         <div className="order-sheet__accumulation-amt">
-          <p>보유 적립금: {convertToKoreanCurrency(accumulationAmt)}원</p>
-          <p>사용가능한 적립금: {convertToKoreanCurrency(availableMaxAccumulationAmt)}원</p>
+          <p>보유 : {convertToKoreanCurrency(accumulationAmt)}원</p>
+          <p>사용가능 : {convertToKoreanCurrency(availableMaxAccumulationAmt)}원</p>
         </div>
       </div>
     </section>

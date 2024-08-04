@@ -912,10 +912,6 @@
   width: 100% !important;
 }
 
-.order-sheet__pay-method-btns {
-  padding-bottom: 4px;
-}
-
 .pay-method-btn {
   margin-right: 0;
   display: flex;
@@ -1024,11 +1020,17 @@
 }
 
 .order-sheet .accordion__title {
+  font-weight: 800;
   border-width: 0;
   cursor: pointer;
 }
 
+.order-sheet .l-panel+.l-panel {
+  margin-top: 0;
+}
+
 .order-sheet__promotion-title {
+  font-weight: 800;
   border-bottom: 0;
   padding-bottom: 0px;
 }
@@ -1038,8 +1040,22 @@
 }
 
 .order-sheet__pay-btn {
+  position: sticky;
   border-radius: 8px;
   height: 56px;
+  margin: 0;
+  width: 100%;
+}
+
+.order-sheet__btn {
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  max-width: 500px;
+  width: 100%;
 }
 
 .order-sheet .text-field input,
@@ -1080,6 +1096,20 @@
   background-color: #f8f8f8;
 }
 
+.order-sheet__accumulation-amt {
+  text-align: right;
+}
+
+.order-sheet__pay-method-btns {
+  padding: 20px;
+}
+
+.order-sheet__pay-method-title {
+  font-weight: 800;
+  border: none;
+  padding: 20px 20px 0px 20px;
+}
+
 .price-tag {
   border: 0;
   padding: 0;
@@ -1090,13 +1120,18 @@
 }
 
 .price-tag__division {
-  margin: 24px 0px;
+  margin: 12px 0px;
 }
 
 .price-tag__final-amount dt,
-.price-tag__final-amount dd,
+.price-tag__final-amount dd {
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: 800;
+}
+
 .price-tag__final-amount dd em {
-  color: #333d4b;
+  color: #327bff;
   font-size: 20px;
   font-weight: 800;
 }
@@ -1107,7 +1142,7 @@
 }
 
 .order-sheet__terms {
-  padding: 0px 20px;
+  padding: 20px 20px 0px 20px;
 }
 
 .order-sheet__terms p {

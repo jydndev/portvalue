@@ -43,10 +43,10 @@ const PriceTag = ({
   if (isUpsideDown)
     return (
       <div className={`price-tag ${showsBorder ? '' : 'price-tag--no-border'}`}>
-        <FinalAmount name={name} amountLabel={amountLabel} currencyLabel={currencyLabel} />
-        <div className="price-tag__division" />
         <PriceDetails details={details} currencyLabel={currencyLabel} />
         {children}
+        <div className="price-tag__division" />
+        <FinalAmount name={name} amountLabel={amountLabel} currencyLabel={currencyLabel} />
       </div>
     );
 
