@@ -1,12 +1,14 @@
-import { func } from 'prop-types';
-
-import { CustomModal, SearchField, RecentKeyword, RecentKeywordProvider, IconBtn } from '@shopby/react-components';
+import { SearchField, RecentKeyword, RecentKeywordProvider, IconBtn } from '@shopby/react-components';
 
 import useSearchKeyword from '../../hooks/useSearchKeyword';
 import BackButton from '../BackButton';
 import { SearchIcon } from '../Icon/SearchIcon';
+import useLayoutChanger from '../../hooks/useLayoutChanger';
 
-const SearchKeywordContent = ({ openModal }) => {
+import { useEffect } from 'react';
+import { scrollToTop } from '../../utils';
+
+const SearchKeywordContent = () => {
   const { keyword, searchProductsByKeyword, removeKeyword, updateKeyword } = useSearchKeyword('');
 
   const searchKeyword = (_keyword) => {
@@ -16,9 +18,10 @@ const SearchKeywordContent = ({ openModal }) => {
 
   return (
     <>
-      <div className="search-keyword-modal__top">
-        <BackButton className="search-keyword-modal__back-btn" onClick={() => openModal(false)} />
+      <div className="search-keyword-container">
+        <BackButton className="search-keyword-back-btn" />
         <SearchField
+          className="search-keyword-field"
           searchValue={keyword}
           onSearchBtnClick={() => searchKeyword(keyword)}
           onClearBtnClick={removeKeyword}
@@ -26,27 +29,33 @@ const SearchKeywordContent = ({ openModal }) => {
         />
         {/* Custom search icon can be modified in _layout.css */}
       </div>
-      <RecentKeyword onKeywordClick={(_keyword) => searchKeyword(_keyword)} />
     </>
   );
 };
 
-SearchKeywordContent.propTypes = {
-  openModal: func,
-};
+const SearchKeyword = () => {
+  useLayoutChanger({
+    hasBackBtnOnHeader: false,
+    hasCartBtnOnHeader: false,
+    hasBottomNav: true,
+  });
 
-const SearchKeyword = ({ openModal }) => (
-  <CustomModal className="title-modal--full search-keyword-modal">
+  useEffect(() => {
+    scrollToTop();
+  }, []);
+
+  return (
     <RecentKeywordProvider>
-      <div>
-        <SearchKeywordContent openModal={openModal} />
+      <div className="search-keyword-page">
+        <header className="search-keyword-header">
+          <SearchKeywordContent />
+        </header>
+        <main className="search-keyword-main">
+          <RecentKeyword onKeywordClick={(_keyword) => searchKeyword(_keyword)} />
+        </main>
       </div>
     </RecentKeywordProvider>
-  </CustomModal>
-);
+  );
+};
 
 export default SearchKeyword;
-
-SearchKeyword.propTypes = {
-  openModal: func,
-};
