@@ -6,7 +6,6 @@ import { HomeIcon } from '../Icon/HomeIcon';
 import { SearchIcon } from '../Icon/SearchIcon';
 import { MypageIcon } from '../Icon/MypageIcon';
 import { HamburgerIconBottom } from '../Icon/HamburgerIconBottom';
-import { useOffCanvasActionContext } from '@shopby/react-components';
 import { scrollToTop } from '../../utils';
 
 const BottomNav = ({ className = '', search }) => {

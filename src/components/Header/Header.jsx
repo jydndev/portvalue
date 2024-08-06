@@ -8,7 +8,6 @@ import {
   SearchField,
   useBannerStateContext,
   useModalActionContext,
-  useOffCanvasActionContext,
   IconBtn,
   CartBtn,
   useAuthStateContext,
@@ -110,7 +109,6 @@ const Header = () => {
     title = '',
   } = useLayoutValueContext();
   const { profile } = useAuthStateContext();
-  const { openCanvas } = useOffCanvasActionContext();
   const navigate = useNavigate();
 
   const canShowShoppingBasket = useMemo(

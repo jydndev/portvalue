@@ -1,5 +1,5 @@
 import React from 'react';
-import { useOffCanvasActionContext } from '@shopby/react-components';
+// import { useOffCanvasActionContext } from '@shopby/react-components';
 
 const categories = [
   {
@@ -55,7 +55,7 @@ const categories = [
 ];
 
 const CategoryNavigation = ({ platformType }) => {
-  const { openCanvas } = useOffCanvasActionContext();
+  // const { openCanvas } = useOffCanvasActionContext();
   const firstRow = categories.slice(0, 5);
   const secondRow = categories.slice(5, 10);
 
@@ -65,7 +65,7 @@ const CategoryNavigation = ({ platformType }) => {
 
   const handleCategoryClick = (category) => {
     if (category.name === '전체') {
-      openCanvas();
+      // openCanvas();
     } else if (category.name === '인기') {
       if (platformType === 'PC') {
         goToCategory('/display/SCPC0001');
