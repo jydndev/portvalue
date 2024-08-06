@@ -22,7 +22,7 @@ const SignIn = () => {
 
   useLayoutChanger({
     hasBackBtnOnHeader: true,
-    title: t('signIn'),
+    // title: t('signIn'),
   });
 
   return (
