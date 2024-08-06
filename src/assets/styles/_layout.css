@@ -807,9 +807,34 @@
   width: 100% !important;
 }
 
+/* ////////////////////////////////////// */
 /* 검색 */
 
-.search-keyword-modal__back-btn {
+.search-keyword-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* keyword header override */
+
+.search-keyword-header {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  background-color: #fff;
+  border-bottom: 2px solid #f5f6f8;
+}
+
+.search-keyword-container {
+  display: flex;
+  align-items: center;
+  padding: 0px 20px;
+  height: 56px;
+  width: 500px;
+}
+
+.search-keyword-back-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -818,29 +843,12 @@
   position: static;
   transform: none;
   padding-right: 0px;
+  margin-right: 8px;
   cursor: pointer;
 }
 
-.search-keyword-modal__top {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 0;
-  height: 56px;
-  border-bottom: 2px solid #f5f6f8;
-}
-
-.recent-keyword__top {
-  padding: 16px 0px;
-}
-
-.search-keyword-modal .recent-keyword {
-  width: 100%;
-  margin: 0;
-  border: 0;
-}
-
-.search-field__submit-btn {
-  margin: 0px;
+.search-keyword-field {
+  flex: 1;
 }
 
 /* override existing icon */
@@ -856,9 +864,34 @@
   background-size: cover;
 }
 
-.search-keyword-modal .text-field input {
-  font-size: 16px;
+/* //////keyword header//////// */
+
+.search-keyword-main {
+  flex: 1;
+  overflow-y: auto;
 }
+
+.search-keyword-field .text-field {
+  width: 100%;
+}
+
+.search-keyword-field .text-field input {
+  width: 100%;
+  font-size: 16px;
+  padding-right: 40px;
+}
+
+.recent-keyword__top {
+  padding: 16px 20px;
+}
+
+.search-keyword-page .recent-keyword {
+  width: 100%;
+  margin: 0;
+  border: 0;
+}
+
+/* ////////////////////////////////////// */
 
 /* 주문 페이지 */
 
