@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ShoppingCartButton = ({ productNo, onClick }) => {
+const ShoppingCartButton = ({ onClick, productNo }) => {
   return (
     <div
       className="small-shopping-cart"
@@ -14,7 +14,7 @@ const ShoppingCartButton = ({ productNo, onClick }) => {
         boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
         cursor: 'pointer',
       }}
-      onClick={onClick}
+      onClick={(e) => onClick(e, productNo)}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
