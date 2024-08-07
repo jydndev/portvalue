@@ -10,10 +10,7 @@ const SearchKeywordContent = ({ onSearch }) => {
     onSearch(_keyword);
   };
 
-  const searchKeyword = (_keyword) => {
-    searchProductsByKeyword(_keyword);
-  };
-
+  // TODO: 1. focus on load 2. set placeholder value
   return (
     <div className="search-keyword-container">
       <BackButton className="search-keyword-back-btn" />
@@ -23,6 +20,7 @@ const SearchKeywordContent = ({ onSearch }) => {
         onSearchBtnClick={() => handleSearch(keyword)}
         onClearBtnClick={removeKeyword}
         onChange={({ target }) => updateKeyword(target.value)}
+        placeholder=""
       />
       {/* Custom search icon can be modified in _layout.css */}
     </div>
