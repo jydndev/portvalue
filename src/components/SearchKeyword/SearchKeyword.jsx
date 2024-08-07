@@ -8,6 +8,10 @@ import { useEffect } from 'react';
 import { scrollToTop } from '../../utils';
 
 const SearchKeyword = () => {
+  const handleSearch = (_keyword) => {
+    location.href = `/products?keyword=${encodeURIComponent(_keyword)}`;
+  };
+
   useLayoutChanger({
     hasBackBtnOnHeader: false,
     hasCartBtnOnHeader: false,
@@ -17,10 +21,6 @@ const SearchKeyword = () => {
   useEffect(() => {
     scrollToTop();
   }, []);
-
-  const handleSearch = (_keyword) => {
-    location.href = `/products?keyword=${encodeURIComponent(_keyword)}`;
-  };
 
   return (
     <RecentKeywordProvider>
