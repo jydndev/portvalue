@@ -77,6 +77,11 @@
   padding: 12px 20px;
 }
 
+/* used for keyword header */
+.header--no-padding {
+  padding: 0;
+}
+
 .header--sub {
   border-bottom: 1px solid #f5f5f5;
 }
