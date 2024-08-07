@@ -21,58 +21,63 @@ import { HamburgerIconTop } from '../Icon/HamburgerIconTop';
 import { CartIcon } from '../Icon/CartIcon';
 
 import MallLogo from './MallLogo';
+import useLayoutChanger from '../../hooks/useLayoutChanger';
 
-const SearchKeywordHeader = ({ title }) => {
-  const { openAlert } = useModalActionContext();
-  const [showsSearchKeyword, setShowsSearchKeyword] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { keyword, searchProductsByKeyword, removeKeyword, updateKeyword } = useSearchKeyword(title);
-  const keywordParam = searchParams.get('keyword');
+///////// search keyword header imports //////////
+import SearchKeywordContent from '../SearchKeyword/SearchKeywordContent';
+/////////////////////////////////////////////////
 
-  const searchKeyword = (_keyword) => {
-    if (!_keyword) {
-      openAlert({
-        message: '키워드를 입력하세요.',
-      });
+// const SearchKeywordHeader = ({ title }) => {
+//   const { openAlert } = useModalActionContext();
+//   const [showsSearchKeyword, setShowsSearchKeyword] = useState(false);
+//   const [searchParams, setSearchParams] = useSearchParams();
+//   const { keyword, searchProductsByKeyword, removeKeyword, updateKeyword } = useSearchKeyword(title);
+//   const keywordParam = searchParams.get('keyword');
 
-      return;
-    }
+//   const searchKeyword = (_keyword) => {
+//     if (!_keyword) {
+//       openAlert({
+//         message: '키워드를 입력하세요.',
+//       });
 
-    searchProductsByKeyword(_keyword);
-    setSearchParams({
-      keyword,
-    });
-  };
+//       return;
+//     }
 
-  useEffect(() => {
-    if (!keywordParam) return;
+//     searchProductsByKeyword(_keyword);
+//     setSearchParams({
+//       keyword,
+//     });
+//   };
 
-    searchProductsByKeyword(keywordParam);
-    updateKeyword(keywordParam);
-  }, [keywordParam]);
+//   useEffect(() => {
+//     if (!keywordParam) return;
 
-  return (
-    <>
-      {showsSearchKeyword ? (
-        <SearchField
-          className="header__search-field"
-          searchValue={keyword}
-          onSearchBtnClick={() => searchKeyword(keyword)}
-          onClearBtnClick={removeKeyword}
-          onChange={({ target }) => updateKeyword(target.value)}
-        />
-      ) : (
-        <button className="header__title" onClick={() => setShowsSearchKeyword((prev) => !prev)}>
-          {keyword}
-        </button>
-      )}
-    </>
-  );
-};
+//     searchProductsByKeyword(keywordParam);
+//     updateKeyword(keywordParam);
+//   }, [keywordParam]);
 
-SearchKeywordHeader.propTypes = {
-  title: string,
-};
+//   return (
+//     <>
+//       {showsSearchKeyword ? (
+//         <SearchField
+//           className="header__search-field"
+//           searchValue={keyword}
+//           onSearchBtnClick={() => searchKeyword(keyword)}
+//           onClearBtnClick={removeKeyword}
+//           onChange={({ target }) => updateKeyword(target.value)}
+//         />
+//       ) : (
+//         <button className="header__title" onClick={() => setShowsSearchKeyword((prev) => !prev)}>
+//           {keyword}
+//         </button>
+//       )}
+//     </>
+//   );
+// };
+
+// SearchKeywordHeader.propTypes = {
+//   title: string,
+// };
 
 const Content = ({ isMain, hasSearchKeywordHeader, title }) => {
   const { bannerMap } = useBannerStateContext();
@@ -83,9 +88,15 @@ const Content = ({ isMain, hasSearchKeywordHeader, title }) => {
   }
 
   if (hasSearchKeywordHeader) {
+    const handleSearch = (_keyword) => {
+      location.href = `/products?keyword=${encodeURIComponent(_keyword)}`;
+    };
     return (
       <RecentKeywordProvider>
-        <SearchKeywordHeader title={title} />
+        <header className="search-keyword-header">
+          <SearchKeywordContent onSearch={handleSearch} />
+        </header>
+        {/* <SearchKeywordHeader title={title} /> */}
       </RecentKeywordProvider>
     );
   }
