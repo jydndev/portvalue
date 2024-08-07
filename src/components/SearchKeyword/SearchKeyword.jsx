@@ -1,39 +1,17 @@
-import { SearchField, RecentKeyword, RecentKeywordProvider, IconBtn } from '@shopby/react-components';
+import SearchKeywordContent from './SearchKeywordContent';
 
-import useSearchKeyword from '../../hooks/useSearchKeyword';
-import BackButton from '../BackButton';
-import { SearchIcon } from '../Icon/SearchIcon';
+import { RecentKeyword, RecentKeywordProvider } from '@shopby/react-components';
+
 import useLayoutChanger from '../../hooks/useLayoutChanger';
 
 import { useEffect } from 'react';
 import { scrollToTop } from '../../utils';
 
-const SearchKeywordContent = () => {
-  const { keyword, searchProductsByKeyword, removeKeyword, updateKeyword } = useSearchKeyword('');
-
-  const searchKeyword = (_keyword) => {
-    searchProductsByKeyword(_keyword);
+const SearchKeyword = () => {
+  const handleSearch = (_keyword) => {
     location.href = `/products?keyword=${encodeURIComponent(_keyword)}`;
   };
 
-  return (
-    <>
-      <div className="search-keyword-container">
-        <BackButton className="search-keyword-back-btn" />
-        <SearchField
-          className="search-keyword-field"
-          searchValue={keyword}
-          onSearchBtnClick={() => searchKeyword(keyword)}
-          onClearBtnClick={removeKeyword}
-          onChange={({ target }) => updateKeyword(target.value)}
-        />
-        {/* Custom search icon can be modified in _layout.css */}
-      </div>
-    </>
-  );
-};
-
-const SearchKeyword = () => {
   useLayoutChanger({
     hasBackBtnOnHeader: false,
     hasCartBtnOnHeader: false,
@@ -48,10 +26,10 @@ const SearchKeyword = () => {
     <RecentKeywordProvider>
       <div className="search-keyword-page">
         <header className="search-keyword-header">
-          <SearchKeywordContent />
+          <SearchKeywordContent onSearch={handleSearch} />
         </header>
         <main className="search-keyword-main">
-          <RecentKeyword onKeywordClick={(_keyword) => searchKeyword(_keyword)} />
+          <RecentKeyword onKeywordClick={handleSearch} />
         </main>
       </div>
     </RecentKeywordProvider>
