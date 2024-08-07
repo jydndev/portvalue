@@ -21,6 +21,11 @@ import { HamburgerIconTop } from '../Icon/HamburgerIconTop';
 import { CartIcon } from '../Icon/CartIcon';
 
 import MallLogo from './MallLogo';
+import useLayoutChanger from '../../hooks/useLayoutChanger';
+
+///////// search keyword header imports //////////
+import SearchKeywordContent from '../SearchKeyword/SearchKeywordContent';
+/////////////////////////////////////////////////
 
 const SearchKeywordHeader = ({ title }) => {
   const { openAlert } = useModalActionContext();
@@ -44,6 +49,11 @@ const SearchKeywordHeader = ({ title }) => {
     });
   };
 
+  const handleSearch = (_keyword) => {
+    searchProductsByKeyword(_keyword);
+    location.href = `/products?keyword=${encodeURIComponent(_keyword)}`;
+  };
+
   useEffect(() => {
     if (!keywordParam) return;
 
@@ -53,19 +63,19 @@ const SearchKeywordHeader = ({ title }) => {
 
   return (
     <>
-      {showsSearchKeyword ? (
-        <SearchField
-          className="header__search-field"
-          searchValue={keyword}
-          onSearchBtnClick={() => searchKeyword(keyword)}
-          onClearBtnClick={removeKeyword}
-          onChange={({ target }) => updateKeyword(target.value)}
-        />
-      ) : (
-        <button className="header__title" onClick={() => setShowsSearchKeyword((prev) => !prev)}>
-          {keyword}
-        </button>
-      )}
+      <header className="search-keyword-header">
+        <div className="search-keyword-container">
+          <BackButton className="search-keyword-back-btn" />
+          <SearchField
+            className="search-keyword-field"
+            searchValue={keyword}
+            onSearchBtnClick={() => handleSearch(keyword)}
+            onClearBtnClick={removeKeyword}
+            onChange={({ target }) => updateKeyword(target.value)}
+            placeholder={keyword}
+          />
+        </div>
+      </header>
     </>
   );
 };
@@ -83,6 +93,10 @@ const Content = ({ isMain, hasSearchKeywordHeader, title }) => {
   }
 
   if (hasSearchKeywordHeader) {
+    const handleSearch = (_keyword) => {
+      location.href = `/products?keyword=${encodeURIComponent(_keyword)}`;
+    };
+
     return (
       <RecentKeywordProvider>
         <SearchKeywordHeader title={title} />
@@ -116,11 +130,19 @@ const Header = () => {
     [isMain, hasCartBtnOnHeader]
   );
 
+  const headerClasses = [
+    'header',
+    !isMain && !hasSearchKeywordHeader ? 'header--sub' : '',
+    hasSearchKeywordHeader ? 'header--no-padding' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
     <>
-      <header className={`header ${!isMain ? 'header--sub' : ''}`}>
+      <header className={headerClasses}>
         {hasBackBtnOnHeader && <BackButton label="페이지 뒤로 가기" className="header__left-btn" />}
-        <div className="header__title">
+        <div className={`${hasSearchKeywordHeader ? '' : 'header__title'}`}>
           <Content isMain={isMain} hasSearchKeywordHeader={hasSearchKeywordHeader} title={title} />
         </div>
         {canShowShoppingBasket && (
