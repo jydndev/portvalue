@@ -130,11 +130,19 @@ const Header = () => {
     [isMain, hasCartBtnOnHeader]
   );
 
+  const headerClasses = [
+    'header',
+    !isMain && !hasSearchKeywordHeader ? 'header--sub' : '',
+    hasSearchKeywordHeader ? 'header--no-padding' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
     <>
-      <header className={`header ${!isMain ? 'header--sub' : ''}`}>
+      <header className={headerClasses}>
         {hasBackBtnOnHeader && <BackButton label="페이지 뒤로 가기" className="header__left-btn" />}
-        <div className="header__title">
+        <div className={`${hasSearchKeywordHeader ? '' : 'header__title'}`}>
           <Content isMain={isMain} hasSearchKeywordHeader={hasSearchKeywordHeader} title={title} />
         </div>
         {canShowShoppingBasket && (
