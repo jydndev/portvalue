@@ -25,9 +25,9 @@ const DisplayCategoryList = () => {
 
   if (keyword) {
     useLayoutChanger({
-      hasBackBtnOnHeader: true,
+      hasBackBtnOnHeader: false,
       hasBottomNav: true,
-      hasCartBtnOnHeader: true,
+      hasCartBtnOnHeader: false,
       title: keyword,
       hasSearchKeywordHeader: true,
     });
