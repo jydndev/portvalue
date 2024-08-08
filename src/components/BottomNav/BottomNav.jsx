@@ -31,7 +31,7 @@ const BottomNav = ({ className = '', search }) => {
           <HomeIcon size={28} />
           <span className="bottom-nav__label">홈</span>
         </Link>
-        <Link to="category" className="bottom-nav__link-btn">
+        <Link to="category" className="bottom-nav__link-btn" onClick={scrollToTop()}>
           <HamburgerIconBottom size={28} />
           <span className="bottom-nav__label">카테고리</span>
         </Link>
