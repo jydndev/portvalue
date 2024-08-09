@@ -1,14 +1,12 @@
-import { OffCanvas } from '@shopby/react-components';
-
+import useLayoutChanger from '../../hooks/useLayoutChanger';
 import CategoryNavLinks from './CategoryNavLinks';
-import Cs from './Cs';
-import SignInButton from './SignInButton';
 
-const CategoryNav = () => (
-  <OffCanvas className="category-nav">
-    <SignInButton />
-    <CategoryNavLinks />
-  </OffCanvas>
-);
+const CategoryNav = () => {
+  return (
+    <div className="category-nav-page">
+      <CategoryNavLinks />
+    </div>
+  );
+};
 
 export default CategoryNav;

@@ -11,6 +11,8 @@ const CategoryNavLinks = () => {
 
   useLayoutChanger({
     hasBackBtnOnHeader: true,
+    hasBottomNav: true,
+    title: '',
   });
 
   return (
