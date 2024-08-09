@@ -49,14 +49,9 @@ const ServiceInformation = ({ terms }) => {
               </p>
             }
           />
-          <VisibleComponent
-            shows={serviceBasicInfo?.representPhoneNo}
-            TruthyComponent={
-              <p>
-                <span>대표전화번호 : {serviceBasicInfo?.representPhoneNo}</span>
-              </p>
-            }
-          />
+          <p>
+            <span>대표번호 : 070-8095-5739</span>
+          </p>
           <VisibleComponent
             shows={serviceBasicInfo?.representEmail}
             TruthyComponent={
