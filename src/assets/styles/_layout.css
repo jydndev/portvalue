@@ -843,14 +843,16 @@
   z-index: 10;
   background-color: #fff;
   border-bottom: 2px solid #f5f6f8;
+  width: 100vw;
+  max-width: 500px;
 }
 
 .search-keyword-container {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   padding: 0px 20px;
   height: 56px;
-  width: 500px;
+  width: 100%;
 }
 
 .search-keyword-back-btn {
