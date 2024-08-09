@@ -20,7 +20,7 @@ import { InformationIcon } from '../Icon/InformationIcon';
 const EmptyInquiryList = () => (
   <div className="product-board-list__empty">
     <InformationIcon size={40} />
-    <span className="product-board-list__empty-notes">아직 등록된 상품 Q&A가 없어요.</span>
+    <span className="product-board-list__empty-notes">구매 문의가 없습니다.</span>
   </div>
 );
 
@@ -123,14 +123,6 @@ const ProductInquiryList = ({
   return (
     <>
       <div className="product-board-list">
-        <div className="product-board-list__search">
-          <p>
-            문의전체{' '}
-            <span className="product-board-list__total-count">
-              <em>{totalCount}</em>건
-            </span>
-          </p>
-        </div>
         <VisibleComponent
           shows={totalCount > 0}
           TruthyComponent={

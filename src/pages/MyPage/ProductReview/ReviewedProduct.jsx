@@ -18,7 +18,7 @@ const ReviewedProductTotalCount = () => {
     reviewedProduct: { totalCount },
   } = useProfileProductReviewStateContext();
 
-  return <TotalCount title="작성 완료 후기" count={totalCount} />;
+  return <TotalCount title="작성 완료 리뷰" count={totalCount} />;
 };
 
 const EmptyReviewedProduct = () => (

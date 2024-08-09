@@ -1,23 +1,18 @@
 import { memo, useMemo, useState } from 'react';
-
 import { number, string, arrayOf, func, bool } from 'prop-types';
-
 import {
   Button,
-  IconBtn,
-  RatingStar,
   VisibleComponent,
   useModalActionContext,
   useProductReviewFormActionContext,
   useProductReviewStateContext,
 } from '@shopby/react-components';
 import { convertToKoreanCurrency } from '@shopby/shared';
-
 import { RATING_STAR } from '../../constants/rate';
-// import { useErrorBoundaryActionContext } from '../ErrorBoundary';
 import FullModal from '../FullModal/FullModal';
 import ReviewForm from '../ReviewForm';
 import Sanitized from '../Sanitized';
+import { StarIcon } from '../Icon/StarIcon';
 
 const ProductReviewItem = memo(
   ({
@@ -28,7 +23,7 @@ const ProductReviewItem = memo(
     price,
     mainImageUrl,
     reviewNo,
-    memberId,
+    nickname,
     updatedDate,
     content,
     images,
@@ -43,12 +38,9 @@ const ProductReviewItem = memo(
     const { openConfirm } = useModalActionContext();
     // const { catchError } = useErrorBoundaryActionContext();
 
-    const [isOpen, setIsOpen] = useState(false);
     const [isModificationModalOpen, setIsModificationModalOpen] = useState(false);
 
     const imageCount = useMemo(() => images.length, [images]);
-
-    const displayImages = useMemo(() => (isOpen ? images : [images.at(0)]), [images, isOpen]) ?? [];
 
     const handleEditBtnClick = () => {
       setIsModificationModalOpen(true);
@@ -79,25 +71,30 @@ const ProductReviewItem = memo(
       setIsModificationModalOpen(false);
     };
 
+    const renderStars = (rating) => {
+      const stars = [];
+      for (let i = 1; i <= 5; i++) {
+        stars.push(
+          <StarIcon key={i} className={`product-review-item__star ${i <= Math.round(rating) ? 'filled' : ''}`} />
+        );
+      }
+      return stars;
+    };
+
     return (
       <>
-        <li className={`product-review-item ${isOpen ? 'is-open' : ''}`}>
-          <div className={`product-review-item__top`}>
-            <div className={`product-review-item__rating`}>
-              <RatingStar score={rate} isSmall={true} limit={RATING_STAR.LIMIT_SCORE} />
-              <strong className={`${`product-review-item__score`}`}>{rate}</strong>
-            </div>
-            <span className={`product-review-item__date`}>{updatedDate}</span>
-          </div>
+        <li className={`product-review-item`}>
+          <div className={'product-review-item__member-nickname'}>{nickname}</div>
+          <div className={`product-review-item__stars`}>{renderStars(rate)}</div>
           <div className={`product-review-item__content`}>
             <VisibleComponent
               shows={imageCount > 0}
               TruthyComponent={
                 <div className={`product-review-item__image`}>
                   <ul>
-                    {displayImages.map((image, index) => (
+                    {images.map((image, index) => (
                       <li key={`${index}_product-review-item-image`}>
-                        <img src={image} alt="상품 후기 이미지" />
+                        <img src={image} alt="상품 리뷰 이미지" />
                       </li>
                     ))}
                   </ul>
@@ -107,12 +104,6 @@ const ProductReviewItem = memo(
             />
             <div className={`product-review-item__bottom`}>
               <div className={`product-review-item__order-info`}>
-                <VisibleComponent
-                  shows={showsProductName}
-                  TruthyComponent={<p className="product-review-item__product-name">{productName}</p>}
-                />
-                <p className={`product-review-item__member-id`}>{memberId}</p>
-                <p className="product-review-item__brand-name">{brandName}</p>
                 <p className={`product-review-item__option-value`}>{optionDisplayLabel}</p>
                 {price >= 0 && <p className="product-review-item__price">{convertToKoreanCurrency(price)}원</p>}
               </div>
@@ -120,15 +111,8 @@ const ProductReviewItem = memo(
                 <div className="product-review-item__text-detail">
                   <Sanitized html={content.replaceAll('\n', '<br />')} />
                 </div>
-                <IconBtn
-                  className="arrow"
-                  iconType="angle-down"
-                  onClick={() => setIsOpen((prev) => !prev)}
-                  size="sm"
-                  hiddenLabel={true}
-                  label={isOpen ? '리뷰 가리기' : '리뷰 보기'}
-                />
               </div>
+              <span className={`product-review-item__date`}>{updatedDate}</span>
               <VisibleComponent
                 shows={isMine}
                 TruthyComponent={
@@ -175,7 +159,7 @@ ProductReviewItem.displayName = 'ProductReviewItem';
 ProductReviewItem.propTypes = {
   productNo: number.isRequired,
   reviewNo: number.isRequired,
-  memberId: string,
+  nickname: string,
   onModify: func.isRequired,
   onDelete: func.isRequired,
   content: string.isRequired,

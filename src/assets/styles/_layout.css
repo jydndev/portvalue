@@ -39,9 +39,14 @@
 }
 
 .footer__toggle-icon {
+  margin-left: 4px;
   font-size: 12px;
-  color: #000;
+  color: var(--black-color);
   transition: transform 0.5s ease;
+}
+
+.footer__toggle-iconexpanded {
+  margin-left: 4px;
 }
 
 .footer__about.expanded p {
@@ -382,7 +387,7 @@
 }
 
 .product-summary {
-  margin: 20px 20px 40px 20px;
+  margin: 20px;
   padding: 0;
 }
 
@@ -485,7 +490,7 @@
   font-size: 14px;
   font-weight: 400;
   padding-left: 0px;
-  color: #000000;
+  color: var(--black-color);
   line-height: 1;
 }
 
@@ -505,7 +510,9 @@
 .product-review-summary__title {
   margin-top: 0;
   font-weight: 800;
-  font-size: 24px;
+  font-size: 18px;
+  text-align: left;
+  margin-bottom: 12px;
 }
 
 .product-summary__original-price {
@@ -535,8 +542,8 @@
   margin-top: 0px;
   padding: 16px;
   border-radius: 8px;
-  border: 1px solid #999999;
   margin-bottom: 16px;
+  background-color: #f7f8ff;
 }
 
 .product-summary__freight-line {
@@ -559,13 +566,73 @@
   line-height: 1;
 }
 
+.star-rating {
+  display: inline-flex;
+}
+
+.star-icon {
+  width: 28px;
+  height: 28px;
+  color: #ccc;
+}
+
+.star-icon.filled {
+  color: #ffd700;
+}
+
+.product-review-item__member-nickname {
+  color: var(--black-color);
+  font-weight: 800;
+}
+
+.product-review-item__text {
+  margin: 8px 0px;
+}
+
+.product-review-item__text-detail {
+  color: var(--black-color);
+  padding: 0;
+  margin: 12px 0px;
+  line-height: 160%;
+  overflow: visible;
+  display: contents;
+}
+
+.product-review-item__rating {
+  display: contents;
+}
+
+.product-review-item__stars {
+  display: inline-flex;
+  padding: 8px 0px;
+}
+
+.product-review-item__star {
+  width: 20px;
+  height: 20px;
+  color: #ccc;
+}
+
+.product-review-item__star.filled {
+  color: #ffd700;
+}
+
+.product-review-item__option-value {
+  color: #999999;
+}
+
+.product-review-item__date {
+  font-size: 12px;
+  color: #999999;
+}
+
 .new-user-discount-button {
   padding: 16px;
   width: 100%;
   border: 1px solid #327bff;
-  background-color: #f7f8ff;
+  background-color: var(--button-bg-color);
   border-radius: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -574,7 +641,7 @@
 }
 
 .new-user-discount-button .black-text {
-  color: #000000;
+  color: var(--black-color);
 }
 
 .new-user-discount-button .blue-text {
@@ -589,7 +656,7 @@
 
 .product-detail .tabs {
   margin: 0;
-  top: 57px;
+  top: 56px;
 }
 
 .editor p {
@@ -624,7 +691,7 @@
 }
 
 .product-content__more-btn button {
-  color: #000000;
+  color: var(--black-color);
   font-family: Pretendard-Regular;
   font-weight: 800;
   height: 48px;
@@ -632,7 +699,7 @@
   border-width: 0px;
   border-radius: 200px;
   border-width: 1px;
-  border-color: #000000;
+  border-color: var(--black-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -648,20 +715,12 @@
 }
 
 .product-detail .product-content-review {
-  padding: 20px;
-}
-
-.product-review-summary__title {
-  margin-top: 0;
-  text-align: left;
-  font-weight: 800;
-  line-height: 2;
-  font-size: 24px;
+  padding: 40px 20px;
 }
 
 .product-review-summary__rating {
   margin-top: 8px;
-  margin-bottom: 32px;
+  margin-bottom: 8px;
   justify-content: left;
 }
 
@@ -671,20 +730,26 @@
   display: flex;
   align-items: center;
   font-size: 24px;
-  padding-top: 8px;
+}
+
+.product-review-summary__total-count {
+  margin-left: 8px;
+  color: #327bff;
 }
 
 .product-board-list__search {
+  justify-content: flex-end;
   border-top: 0px;
+  font-size: 14px;
   margin-bottom: 12px;
 }
 
-.product-board-list__search p {
-  font-size: 16px;
+.product-board-list__items {
+  margin: 0;
 }
 
 .product-board-list__empty {
-  padding-bottom: 240px;
+  padding: 60px 0px;
 }
 
 .product-board-list__empty-notes {
@@ -697,22 +762,32 @@
 }
 
 .product-board-list__total-count {
-  color: #000000;
+  color: var(--black-color);
+}
+
+.product-board-list__search p {
+  font-size: 14px;
+}
+
+.product-board-list__total-count em {
+  font-size: 14px;
 }
 
 .product-content-inquiry {
-  padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 40px 20px;
 }
 
-.product-inquiry-summary__title {
-  font-size: 24px;
+.product-content-inquiry__title {
+  font-size: 18px;
   margin-top: 0px;
+  margin-bottom: 20px;
   font-weight: 800;
-  height: 48px;
   display: flex;
   align-items: center;
+}
+
+.product-content-inquiry__count {
+  margin-left: 8px;
 }
 
 .product-inquiry-summary__description {
@@ -722,17 +797,44 @@
 }
 
 .product-inquiry-summary__write-btn {
-  margin: 20px 0px;
+  margin: 0;
+  height: 48px;
 }
 
 .product-content__title {
-  font-size: 24px;
-  font-weight: 800;
+  font-size: 16px;
   margin-top: 0px;
   margin-bottom: 0px;
-  line-height: 2;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 0px;
+  cursor: pointer;
+  border-bottom: 1px solid #ededed;
+}
+
+.product-content__toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.product-content__toggle-icon.open {
+  transform: rotate(180deg);
+}
+
+.product-content__toggle-icon svg {
+  stroke: #9a9a9a;
+}
+
+.shipping-claim-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.shipping-claim-content.open {
+  max-height: 1000px;
+  transition: max-height 0.5s ease-in;
 }
 
 .product-content-shipping-claim {
@@ -742,7 +844,15 @@
 }
 
 .product-content-shipping-claim .editor {
-  padding-bottom: 20px;
+  padding: 20px 0px;
+}
+
+.product-content-shipping-claim .editor p {
+  color: #9a9a9a;
+}
+
+.shipping-claim-content-inner .editor {
+  color: #9a9a9a;
 }
 
 .product-content__certification {
@@ -812,7 +922,56 @@
   width: 100% !important;
 }
 
-/* ////////////////////////////////////// */
+.pay-method-btn {
+  margin-right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.pay-method-btn__label {
+  margin-right: 0;
+}
+
+.pay-method-btn--checked {
+  color: #327bff;
+  border-color: #327bff;
+  background-color: #f8f8ff;
+}
+
+.pay-method-btn .ico--pay-credit-card-white {
+  width: 0;
+  height: 0;
+}
+
+.pay-method-btn .ico--pay-credit-card-black {
+  width: 0;
+  height: 0;
+}
+
+.pay-method-btn .ico--pay-realtime-account-white {
+  width: 0;
+  height: 0;
+}
+
+.pay-method-btn .ico--pay-realtime-account-black {
+  width: 0;
+  height: 0;
+}
+
+.pay-method-btn .ico--pay-virtual-account-white {
+  width: 0;
+  height: 0;
+}
+
+.pay-method-btn .ico--pay-virtual-account-black {
+  width: 0;
+  height: 0;
+}
+
+
 /* 검색 */
 
 .search-keyword-page {
@@ -905,10 +1064,17 @@
 }
 
 .order-sheet .accordion__title {
+  font-weight: 800;
   border-width: 0;
+  cursor: pointer;
+}
+
+.order-sheet .l-panel+.l-panel {
+  margin-top: 0;
 }
 
 .order-sheet__promotion-title {
+  font-weight: 800;
   border-bottom: 0;
   padding-bottom: 0px;
 }
@@ -918,8 +1084,22 @@
 }
 
 .order-sheet__pay-btn {
+  position: sticky;
   border-radius: 8px;
   height: 56px;
+  margin: 0;
+  width: 100%;
+}
+
+.order-sheet__btn {
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  max-width: 500px;
+  width: 100%;
 }
 
 .order-sheet .text-field input,
@@ -960,6 +1140,20 @@
   background-color: #f8f8f8;
 }
 
+.order-sheet__accumulation-amt {
+  text-align: right;
+}
+
+.order-sheet__pay-method-btns {
+  padding: 20px;
+}
+
+.order-sheet__pay-method-title {
+  font-weight: 800;
+  border: none;
+  padding: 20px 20px 0px 20px;
+}
+
 .price-tag {
   border: 0;
   padding: 0;
@@ -970,13 +1164,18 @@
 }
 
 .price-tag__division {
-  margin: 24px 0px;
+  margin: 12px 0px;
 }
 
 .price-tag__final-amount dt,
-.price-tag__final-amount dd,
+.price-tag__final-amount dd {
+  color: var(--black-color);
+  font-size: 16px;
+  font-weight: 800;
+}
+
 .price-tag__final-amount dd em {
-  color: #333d4b;
+  color: #327bff;
   font-size: 20px;
   font-weight: 800;
 }
@@ -984,6 +1183,24 @@
 .order-sheet__payment-info {
   padding: 20px;
   margin: 0;
+}
+
+.order-sheet__terms {
+  padding: 20px;
+}
+
+.order-sheet__terms p {
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+}
+
+.order-sheet__term-checker {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+.order-sheet__term-checker span {
+  color: #9a9a9a;
+  font-size: 12px;
 }
 
 .order-detail__product-top-label {
@@ -1029,7 +1246,7 @@
 
 .my-info__greeting {
   color: #333d4b;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
   margin-right: 8px;
   margin-bottom: 0px;
@@ -1056,9 +1273,9 @@
 .my-coupon-data {
   display: flex;
   flex-direction: row;
+  padding: 0px 20px;
   font-size: 14px;
   color: #6b7684;
-  margin-right: 100px;
 }
 
 .my-coupon-data__link::before {
@@ -1067,13 +1284,10 @@
 
 .my-coupon-data__link {
   font-weight: 400;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  padding-right: 0px;
-  padding-left: 20px;
+  padding: 0px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .my-coupon-data__num {
@@ -1118,10 +1332,7 @@
   height: 56px;
   display: flex;
   align-items: center;
-}
-
-.my-link + .my-link {
-  border: 0px;
+  border-bottom: 1px solid #f8f8f8;
 }
 
 .my-link__ico {
@@ -1177,6 +1388,10 @@
   border-radius: 8px;
 }
 
+.shipping-claim-section {
+  margin-bottom: 10px;
+}
+
 .address-form__zip-code > .text-field,
 .address-form__zip-code > .btn {
   border-radius: 8px;
@@ -1201,6 +1416,124 @@
 
 .sign-up-confirm__notice-description {
   margin-top: 20px;
+  font-size: 16px;
+}
+
+/* 보유 쿠폰 */
+
+.my-page-coupon__tabs {
+  padding: 8px;
+  background-color: #f6f8fa;
+  margin: 12px 20px;
+  border-radius: 12px;
+  height: 56px;
+}
+
+.my-page-coupon .tabs__item.on {
+  color: #327bff;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #ffffff;
+  border-radius: 12px;
+  height: 48px;
+}
+
+.my-page-coupon .tabs__item {
+  color: #767676;
+  font-size: 16px;
+  background-color: #f6f8fa;
+  height: 48px;
+}
+
+.my-page-coupon__tabs li:not(:first-child):before {
+  width: 0;
+}
+
+.my-page-coupon__wrap {
+  padding: 0px 20px;
+}
+
+.my-page-coupon__box {
+  border: none;
+  background-color: #f6f8fa;
+  border-radius: 12px;
+}
+
+.my-page-coupon__content {
+  margin-top: 12px;
+}
+
+.my-page-coupon__discounted-price {
+  font-size: 16px;
+  margin-top: 0;
+}
+
+.my-page-coupon__box--left {
+  width: auto;
+}
+
+.my-page-coupon__registration-button {
+  margin-top: 36px;
+}
+
+
+/* 적립금 */
+
+.my-page-accumlation__title {
+  margin-bottom: 8px;
+}
+
+.my-page-accumulation__amount {
+  margin: 0px 0px 20px 0px;
+  text-align: left;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--black-color);
+}
+
+.my-page-accumulation__amount span {
+  color: var(--black-color);
+  margin: 0;
+}
+
+.start-ymd-selector {
+  border-radius: 4px;
+}
+
+/* 찜한 상품 */
+
+.profile-like__list-item {
+  border-radius: 12px;
+}
+
+.profile-like__list-item .product-thumb-item {
+  background: none;
+  padding: 0;
+}
+
+.profile-like__amount-item del {
+  font-size: 12px;
+}
+
+/* 회원정보수정 */
+
+.member-modification-form__btn--certificate {
+  height: 48px;
+  border-radius: 8px;
+}
+
+.member-modification-form__input-wrap input {
+  background: #f8f8f8;
+  border-color: #f5f6f8;
+  border-radius: 8px;
+  height: 56px;
+  font-size: 16px;
+}
+
+.member-modification-form .address-form input {  background: #f8f8f8;
+  border-color: #f5f6f8;
+  border-radius: 8px;
+  height: 56px;
   font-size: 16px;
 }
 

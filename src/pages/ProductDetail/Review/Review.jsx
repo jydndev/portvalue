@@ -80,7 +80,6 @@ const Review = () => {
   return (
     <div className="product-content-review">
       <ProductReviewFormProvider>
-        <Summary />
         <ProductReviewList
           isLoading={isLoading}
           productNo={productNo}

@@ -27,10 +27,13 @@ const AccumulationContent = () => {
 
   return (
     <div className="my-page-accumulation">
-      <p className="my-page-accumulation__amount">
-        {accumulationName} <span>{convertToKoreanCurrency(profileAccumulationSummary?.totalAvailableAmt ?? 0)}</span>
+      <div className="my-page-accumlation__title">
+        보유
+      </div>
+      <div className="my-page-accumulation__amount">
+        <span>{convertToKoreanCurrency(profileAccumulationSummary?.totalAvailableAmt ?? 0)}</span>
         {unit ?? 'p'}
-      </p>
+      </div>
       <StartYmdSelector className="my-page-accumulation__period-select" initialOffsetOption="7d" />
       <AccumulationList />
     </div>

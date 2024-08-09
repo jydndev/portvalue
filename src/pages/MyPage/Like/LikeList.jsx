@@ -28,7 +28,7 @@ const DEFAULT_PRODUCT_INFORMATION = {
 
 const EmptyList = () => (
   <div className="empty-list">
-    <p>좋아요 내역이 없습니다.</p>
+    <p>찜한 상품이 없습니다.</p>
   </div>
 );
 
@@ -136,16 +136,6 @@ const LikeList = () => {
                         <ul className="profile-like__amount-list">
                           <li className="profile-like__amount-item">
                             <span>{convertToKoreanCurrency(salePrice)} 원</span>
-                            {
-                              <VisibleComponent
-                                shows={discountAmount > 0}
-                                TruthyComponent={
-                                  <del className="profile-like__original-price">
-                                    {convertToKoreanCurrency(originalPrice)} 원
-                                  </del>
-                                }
-                              />
-                            }
                           </li>
                         </ul>
                       );

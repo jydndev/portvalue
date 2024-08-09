@@ -39,7 +39,7 @@ const makeTabs = ({ reviewCount = 0, inquiryCount = 0, hasGuide = false } = {}) 
     },
     {
       value: 'REVIEW',
-      label: `후기 (${reviewCount})`,
+      label: `리뷰(${reviewCount})`,
     },
     /* {
       value: 'INQUIRY',

@@ -125,22 +125,13 @@ const CouponContent = () => {
   return (
     <>
       <div className="my-page-coupon__wrap">
-        <VisibleComponent
-          shows={isIssuable}
-          TruthyComponent={
-            <>
-              <TotalCount title="사용가능 쿠폰 수" count={usableCouponCnt} />
-              <Button
-                className="my-page-coupon__registration-button"
-                theme="dark"
-                label="쿠폰 번호 등록"
-                onClick={handleRegistrationButtonClick}
-              />
-            </>
-          }
-        />
-        <p className="my-page-coupon__list-title">보유 쿠폰 리스트</p>
         <Coupons ref={issuableCouponRef} canUse={isIssuable} totalCount={totalCount} />
+        <Button
+          className="my-page-coupon__registration-button"
+          theme="dark"
+          label="쿠폰 번호 등록"
+          onClick={handleRegistrationButtonClick}
+        />
       </div>
 
       <VisibleComponent

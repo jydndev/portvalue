@@ -126,7 +126,7 @@ const MyPageSummary = () => {
   return (
     <div className="my-coupon-data">
       <Link className="my-coupon-data__link" to="/my-page/coupon">
-        보유쿠폰
+        쿠폰
         <em className="my-coupon-data__num">{usableCouponCnt}</em>
       </Link>
       <Link className="my-coupon-data__link" to="/my-page/accumulation">
@@ -136,7 +136,7 @@ const MyPageSummary = () => {
         </em>
       </Link>
       <Link className="my-coupon-data__link" to="/my-page/like">
-        좋아요
+        찜한 상품
         <em className="my-coupon-data__num">{likedCount}</em>
       </Link>
     </div>
@@ -164,9 +164,7 @@ const MemberInformation = () => {
     <article className="my-info">
       <div className="my-info__summary">
         <p className="my-info__greeting">
-          {profile.memberName ?? profile.memberId} 님은
-          <br />
-          {profile?.memberGradeName} 입니다.
+          {profile.nickname ?? profile.memberId} 님 안녕하세요!
         </p>
         <Button className="my-info__member-benefit" onClick={() => setIsOpen(true)}>
           <span className="my-info__member-benefit-label">나의혜택</span>
@@ -242,12 +240,14 @@ const MyPage = () => {
         </Link>
       </div>
 
+      <div className="divider" />
+
       <div className="l-panel">
         <VisibleComponent
           shows={boardConfig.productReviewConfig?.name}
           TruthyComponent={
             <Link className="my-link" to="/my-page/product-review">
-              {boardConfig.productReviewConfig?.name ?? '상품후기'}
+              {boardConfig.productReviewConfig?.name ?? '상품 리뷰'}
               <IconBtn className="my-link__ico" iconType="angle-down" />
             </Link>
           }
@@ -280,6 +280,8 @@ const MyPage = () => {
           <IconBtn className="my-link__ico" iconType="angle-down" />
         </Link>
       </div>
+
+      <div className="divider" />
 
       <div className="my-membership">
         <Button className="my-membership__btn" label="로그아웃" onClick={logoutBtnClick} />

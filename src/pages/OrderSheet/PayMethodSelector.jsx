@@ -150,7 +150,7 @@ const PayMethodSelector = ({ refs }) => {
 
   return (
     <section className="l-panel order-sheet__pay-method">
-      <p className="order-sheet__pay-method-title">결제수단 선택</p>
+      <p className="order-sheet__pay-method-title">결제 수단</p>
 
       <div className="order-sheet__pay-method-btns">
         {hasMyPayPayment && (

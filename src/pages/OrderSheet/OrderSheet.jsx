@@ -190,13 +190,21 @@ const OrderSheetContent = () => {
   return (
     <div className="order-sheet">
       <OrdererInfoForm refs={orderSheetRef.ordererInfoFormRef} />
+      <div className="divider" />
       {hasDeliverableProduct && <ShippingAddressInfoForm refs={orderSheetRef.shippingAddressInfoFormRef} />}
+      <div className="divider" />
       <OrderProductTable />
+      <div className="divider" />
       <PromotionController />
-      <PaymentInfo />
+      <div className="divider" />
       <PayMethodSelector refs={orderSheetRef.depositBankFormRef} />
+      <div className="divider" />
+      <PaymentInfo />
+      <div className="divider" />
       <TermsChecker ref={orderSheetRef.termsCheckerRef} />
-      <Button className="order-sheet__pay-btn" label={'결제하기'} onClick={handleOrderBtnClick} />
+      <div className="order-sheet__btn">
+        <Button className="order-sheet__pay-btn" label={'결제하기'} onClick={handleOrderBtnClick} />
+      </div>
     </div>
   );
 };

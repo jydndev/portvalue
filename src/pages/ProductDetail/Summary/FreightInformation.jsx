@@ -31,9 +31,9 @@ const getConditionLabel = (freight, conditionType) => {
 const getFeeLabel = (freight, conditionType) => {
   if (conditionType === 'FREE') return '무료배송';
 
-  const feeLabel = `${convertToKoreanUnit(freight.fee)}`;
+  const feeLabel = `${convertToKoreanUnit(freight.fee).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`;
 
-  return conditionType === 'FIXED_FEE' ? `배송비 ${feeLabel}` : feeLabel;
+  return conditionType === 'FIXED_FEE' ? `배송비 ${feeLabel}원` : feeLabel;
 };
 
 const FreightInformation = ({ areaType, partnerCompanyName, canFreight, conditionType, ...freight }) => {

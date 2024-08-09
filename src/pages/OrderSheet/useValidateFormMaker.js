@@ -323,26 +323,12 @@ const useValidateFormMaker = (ref) => {
       },
     };
 
-    const termsStatusValidation = {
-      isSomeRequiredTermNotChecked: () => {
-        const requiredTermsStatusValues = Object.values(termsStatus).filter(({ isRequired }) => isRequired);
-        if (requiredTermsStatusValues.every(({ isChecked }) => isChecked)) return false;
-
-        openAlert({
-          message: '약관 동의 필수 항목에 체크하여야 결제를 진행할 수 있습니다.',
-        });
-
-        return true;
-      },
-    };
-
     const validations = [
       ...Object.values(ordererInfoValidation),
       needsShippingAddressInfo ? [...Object.values(shippingAddressInfoValidation)] : () => false,
       ...Object.values(promotionValidation),
       ...Object.values(depositBankFormValidation),
       ...Object.values(myPayValidation),
-      ...Object.values(termsStatusValidation),
     ];
 
     return validations.flat().every((validation) => !validation());

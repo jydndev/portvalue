@@ -33,12 +33,12 @@ const ReviewedProductTotalCount = () => {
     reviewableProduct: { totalCount },
   } = useProfileProductReviewStateContext();
 
-  return <TotalCount title="작성 가능 후기" count={totalCount} />;
+  return <TotalCount title="작성 가능 리뷰" count={totalCount} />;
 };
 
 const EmptyReviewableProduct = () => (
   <div className="empty-list">
-    <p>작성가능 후기가 없습니다.</p>
+    <p>작성가능 리뷰가 없습니다.</p>
   </div>
 );
 
@@ -135,7 +135,7 @@ const ReviewableProductList = () => {
                       />
                       <Button
                         className="profile-product-review__register-button"
-                        label="후기 작성하기"
+                        label="리뷰 작성하기"
                         onClick={() => {
                           handleReviewFormWriteButtonClick({
                             productNo,
@@ -172,7 +172,7 @@ const ReviewableProductList = () => {
       <VisibleComponent
         shows={isRegistrationModalOpen && reviewDetail.productNo > 0}
         TruthyComponent={
-          <FullModal title={'상품후기'}>
+          <FullModal title={'상품 리뷰'}>
             <ReviewForm
               {...reviewDetail}
               isRegisterMode={true}

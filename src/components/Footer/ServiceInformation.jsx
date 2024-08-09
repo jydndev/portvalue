@@ -26,7 +26,7 @@ const ServiceInformation = ({ terms }) => {
       <div className="footer__info">
         <div className="footer__company" onClick={toggleAbout}>
           <em>{serviceBasicInfo.companyName} 사업자 정보</em>
-          <span className={`footer__toggle-icon ${isAboutExpanded ? 'expanded' : ''}`}>
+          <span className={`footer__toggle-icon${isAboutExpanded ? 'expanded' : ''}`}>
             {isAboutExpanded ? <UpIcon size={16} /> : <DownIcon size={16} />}
           </span>
         </div>
@@ -49,14 +49,9 @@ const ServiceInformation = ({ terms }) => {
               </p>
             }
           />
-          <VisibleComponent
-            shows={serviceBasicInfo?.representPhoneNo}
-            TruthyComponent={
-              <p>
-                <span>대표전화번호 : {serviceBasicInfo?.representPhoneNo}</span>
-              </p>
-            }
-          />
+          <p>
+            <span>대표번호 : 070-8095-5739</span>
+          </p>
           <VisibleComponent
             shows={serviceBasicInfo?.representEmail}
             TruthyComponent={
