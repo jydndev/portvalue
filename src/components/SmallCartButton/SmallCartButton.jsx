@@ -13,7 +13,6 @@ const SmallCartButton = ({ productNo, onClick }) => {
         padding: '5px',
         boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
         cursor: 'pointer',
-        zIndex: 10, // Ensure it's above the image
       }}
       onClick={onClick}
     >
