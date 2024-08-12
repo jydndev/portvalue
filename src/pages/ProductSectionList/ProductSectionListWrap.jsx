@@ -1,15 +1,129 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 import {
+  CartProvider,
+  CouponByProductProvider,
+  NaverPayProvider,
+  OrderSheetProvider,
+  ProductOptionProvider,
   usePageScriptsActionContext,
   useProductSectionListActionContext,
   useProductSectionListStateContext,
+  TabsProvider,
+  useProductDetailActionContext,
+  useProductOptionActionContext,
+  useTabsActiveContext,
+  useProductReviewStateContext,
+  useProductInquiryStateContext,
+  useProductInquiryActionContext,
+  useProductDetailStateContext,
+  useMallStateContext,
 } from '@shopby/react-components';
 
 import GalleryListPage from '../../components/GalleryListPage';
 import useLayoutChanger from '../../hooks/useLayoutChanger';
+import Purchase from '../ProductDetail/Purchase';
+
+const makeTabs = ({ reviewCount = 0, inquiryCount = 0, hasGuide = false } = {}) => {
+  const tabs = [
+    {
+      value: 'DETAIL',
+      label: '상세정보',
+    },
+    {
+      value: 'REVIEW',
+      label: `리뷰(${reviewCount})`,
+    },
+    /* {
+      value: 'INQUIRY',
+      label: `Q&A (${inquiryCount})`,
+    }, */
+  ];
+
+  /* if (hasGuide) {
+    tabs.push({
+      value: 'SHIPPING_CLAIM',
+      label: '배송/반품',
+    });
+  } */
+
+  return tabs;
+};
+
+const ProductDetailContent = () => {
+  const [searchParams] = useSearchParams();
+  const productNo = Number(searchParams.get('productNo'));
+  const channelType = searchParams.get('channelType');
+
+  const {
+    productDetail: { productName, guide },
+    originProductDetail,
+  } = useProductDetailStateContext();
+
+  const { applyPageScripts } = usePageScriptsActionContext();
+  const { fetchProductDetail, fetchRelatedProducts } = useProductDetailActionContext();
+  const { fetchSelectorOptions } = useProductOptionActionContext();
+  const { updateTabs } = useTabsActiveContext();
+  const { totalCount: reviewCount } = useProductReviewStateContext();
+  const { totalCount: inquiryCount } = useProductInquiryStateContext();
+  const { searchInquiries } = useProductInquiryActionContext();
+  const { relatedProducts } = useProductDetailStateContext();
+
+  useLayoutChanger({ hasBackBtnOnHeader: true, title: productName, hasBottomNav: false });
+
+  useEffect(() => {
+    if (!originProductDetail) return;
+
+    applyPageScripts('PRODUCT', { product: originProductDetail }, true);
+  }, [originProductDetail]);
+
+  useEffect(() => {
+    searchInquiries();
+
+    if (productNo > 0) {
+      fetchProductDetail({
+        productNo,
+        channelType,
+      });
+
+      fetchRelatedProducts({
+        productNo,
+      });
+
+      fetchSelectorOptions({
+        productNo,
+      });
+    }
+  }, [productNo]);
+
+  const hasGuide = useMemo(() => Object.entries(guide).some(([, content]) => Boolean(content)), [guide]);
+
+  useEffect(
+    () =>
+      updateTabs(
+        makeTabs({
+          reviewCount,
+          inquiryCount,
+          hasGuide,
+        })
+      ),
+    [reviewCount, inquiryCount, hasGuide]
+  );
+
+  return (
+    <div className="product-detail">
+      <ImageSlider />
+      <Summary />
+      <div className="divider" />
+      {relatedProducts?.length > 0 && <RelatedProduct />}
+      <AdminBanner bannerId="BNDETAIL" />
+      <Content />
+    </div>
+  );
+};
 
 const PER_PAGE_COUNT = 10;
 const SORT_BY = [
@@ -36,6 +150,20 @@ const ProductSectionListWrap = () => {
   const [disabled, setDisabled] = useState(false);
 
   const { t } = useTranslation('title');
+
+  /////////////
+  const { clientId, mallProfile } = useMallStateContext();
+  const [searchParams] = useSearchParams();
+  const productNo = Number(searchParams.get('productNo'));
+  const { delayPageScriptLoading } = usePageScriptsActionContext();
+
+  const initialTabs = useMemo(() => makeTabs(), []);
+
+  useEffect(() => {
+    delayPageScriptLoading();
+  }, []);
+
+  //////////
 
   const handleIntersect = () => {
     setDisabled(true);
@@ -68,16 +196,35 @@ const ProductSectionListWrap = () => {
   }, [displaySectionResponse]);
 
   return (
-    <GalleryListPage
-      totalCount={productTotalCount}
-      products={accumulationProducts}
-      sortType={sortType}
-      sortBy={SORT_BY}
-      updateSortType={updateSortType}
-      handleIntersect={handleIntersect}
-      disabled={disabled}
-      isLoading={isLoading}
-    />
+    <TabsProvider
+      initialState={{
+        currentTab: 'DETAIL',
+        tabs: initialTabs,
+      }}
+    >
+      <OrderSheetProvider>
+        <NaverPayProvider clientId={clientId} mallProfile={mallProfile} platform={isMobile ? 'MOBILE_WEB' : 'PC'}>
+          <CartProvider>
+            <ProductOptionProvider productNo={productNo}>
+              <CouponByProductProvider productNo={productNo}>
+                <GalleryListPage
+                  totalCount={productTotalCount}
+                  products={accumulationProducts}
+                  sortType={sortType}
+                  sortBy={SORT_BY}
+                  updateSortType={updateSortType}
+                  handleIntersect={handleIntersect}
+                  disabled={disabled}
+                  isLoading={isLoading}
+                  productNo={productNo}
+                />
+              </CouponByProductProvider>
+              <Purchase />
+            </ProductOptionProvider>
+          </CartProvider>
+        </NaverPayProvider>
+      </OrderSheetProvider>
+    </TabsProvider>
   );
 };
 

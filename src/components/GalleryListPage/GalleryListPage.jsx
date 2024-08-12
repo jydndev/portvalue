@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 import { object, bool, func, array, number, string } from 'prop-types';
@@ -56,6 +56,8 @@ const GalleryListPage = ({
   className,
   isLoading = false,
 }) => {
+  const handleCartBtnClick = () => {};
+
   return (
     <div className="l-panel">
       <TotalCountAndSort totalCount={totalCount} sortType={sortType} sortBy={sortBy} updateSortType={updateSortType} />
@@ -91,7 +93,7 @@ const GalleryListPage = ({
                       productNo={productNo}
                     >
                       <div className="thumb-item-wrapper" style={{ position: 'relative' }}>
-                        <SmallCartButton />
+                        <SmallCartButton onClick={handleCartClick} />
                         <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
                       </div>
                       <Link to={`/product-detail?productNo=${productNo}`}>
