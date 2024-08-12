@@ -42,6 +42,111 @@ const Layout = () => {
     scrollToTop();
     fetchConfiguration();
     fetchBoardConfiguration();
+
+    /////////////////////////////////////////////////
+    // const requestInit = {
+    //   method,
+    //   headers: {
+    //     platform: 'MOBILE_WEB',
+    //     clientId: 'gljUlIkewnw/bs6v/L8gFA==',
+    //     Version: '1.0',
+    //   },
+    //   body: isFormData ? requestBody : JSON.stringify(requestBody),
+    // };
+    // const dynamicPart = encodeURIComponent('gljUlIkewnw/bs6v/L8gFA==');
+    // const cdnUri = `https://rlgkd0v7e.toastcdn.net/mall-configurations/real/${dynamicPart}/mallInfo.js`;
+
+    // fetch(cdnUri)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   })
+    //   .catch((error) => {
+    //     console.error('An error occurred while fetching the data.', error);
+    //   });
+
+    //////////////////////////////////////////////////////
+
+    // async function fetchEnvironment() {
+    //   const response = await fetch('https://dansungbee.shopby.co.kr/environment.json');
+    //   const data = await response.json();
+    //   return data;
+    // }
+
+    // async function fetchMallInfo(clientId) {
+    //   const profile = 'real';
+    //   const encodedClientId = encodeURIComponent(clientId);
+    //   const cdnUri = encodeURI(
+    //     `https://rlgkd0v7e.toastcdn.net/mall-configurations/${profile}/${encodedClientId}/mallInfo.js`
+    //   );
+
+    //   try {
+    //     return await new Promise((resolve, reject) => {
+    //       const script = document.createElement('script');
+    //       script.src = cdnUri;
+    //       script.onload = () => {
+    //         if (window.getMalls) {
+    //           resolve(window.getMalls());
+    //         } else {
+    //           reject(new Error('getMalls function not found'));
+    //         }
+    //       };
+    //       script.onerror = () => reject(new Error('Failed to load mall info from CDN'));
+    //       document.body.appendChild(script);
+    //     });
+    //   } catch (error) {
+    //     console.warn('Failed to fetch from CDN, falling back to API:', error);
+    //     return fetchMallsAPI(clientId);
+    //   }
+    // }
+
+    // async function fetchMallsAPI(clientId) {
+    //   try {
+    //     const response = await fetch('https://shop-api.e-ncp.com/malls', {
+    //       headers: {
+    //         Version: '1.0',
+    //         clientId: 'gljUlIkewnw/bs6v/L8gFA==',
+    //         platform: 'MOBILE_WEB',
+    //       },
+    //     });
+
+    //     if (!response.ok) {
+    //       console.error('API response not OK:', response.status, response.statusText);
+    //       const text = await response.text();
+    //       console.error('Response body:', text);
+    //       throw new Error(`HTTP error! status: ${response.status}`);
+    //     }
+
+    //     const data = await response.json();
+    //     console.log('API response data:', data);
+    //     return data;
+    //   } catch (error) {
+    //     console.error('Error in fetchMallsAPI:', error);
+    //     throw error;
+    //   }
+    // }
+
+    // async function initializeShopByAPI() {
+    //   try {
+    //     console.log('Fetching environment...');
+    //     const environment = await fetchEnvironment();
+    //     console.log('Environment:', environment);
+    //     const { clientId } = environment;
+
+    //     console.log('Fetching mall info...');
+    //     const mallInfo = await fetchMallInfo(clientId);
+
+    //     console.log('Mall Info:', mallInfo);
+    //   } catch (error) {
+    //     console.error('Error initializing ShopBy API:', error);
+
+    //     console.error('Full error object:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
+    //   }
+    // }
+
+    // initializeShopByAPI();
+
+    /////////////////////
   }, []);
 
   return (
