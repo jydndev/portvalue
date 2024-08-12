@@ -27,6 +27,8 @@ import GalleryListPage from '../../components/GalleryListPage';
 import useLayoutChanger from '../../hooks/useLayoutChanger';
 import Purchase from '../ProductDetail/Purchase';
 
+// Migrate Providers and their logic from ProductDetail.jsx for small shopping cart feature.
+// TODO clean up code duplication.
 const makeTabs = ({ reviewCount = 0, inquiryCount = 0, hasGuide = false } = {}) => {
   const tabs = [
     {
