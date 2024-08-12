@@ -55,8 +55,12 @@ const GalleryListPage = ({
   disabled,
   className,
   isLoading = false,
+  productNo,
+  onCartClick,
 }) => {
-  const handleCartBtnClick = () => {};
+  const handleCartBtnClick = (productNo) => {
+    onCartClick(productNo);
+  };
 
   return (
     <div className="l-panel">
@@ -93,7 +97,7 @@ const GalleryListPage = ({
                       productNo={productNo}
                     >
                       <div className="thumb-item-wrapper" style={{ position: 'relative' }}>
-                        <SmallCartButton onClick={handleCartClick} />
+                        <SmallCartButton onClick={() => handleCartBtnClick(productNo)} />
                         <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
                       </div>
                       <Link to={`/product-detail?productNo=${productNo}`}>
@@ -146,4 +150,5 @@ GalleryListPage.propTypes = {
   disabled: bool,
   className: string,
   isLoading: bool,
+  onCartClick: func,
 };

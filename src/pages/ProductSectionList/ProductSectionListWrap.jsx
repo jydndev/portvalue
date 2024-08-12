@@ -163,6 +163,12 @@ const ProductSectionListWrap = () => {
     delayPageScriptLoading();
   }, []);
 
+  const [selectedProductNo, setSelectedProductNo] = useState(null);
+
+  const handleCartClick = (productNo) => {
+    setSelectedProductNo(productNo);
+  };
+
   //////////
 
   const handleIntersect = () => {
@@ -217,9 +223,10 @@ const ProductSectionListWrap = () => {
                   disabled={disabled}
                   isLoading={isLoading}
                   productNo={productNo}
+                  onCartClick={handleCartClick}
                 />
               </CouponByProductProvider>
-              <Purchase />
+              {selectedProductNo && <Purchase productNo={selectedProductNo} />}
             </ProductOptionProvider>
           </CartProvider>
         </NaverPayProvider>
