@@ -182,7 +182,7 @@ const ProductSectionListWrap = () => {
 
   useLayoutChanger({
     hasBackBtnOnHeader: true,
-    hasBottomNav: true,
+    hasBottomNav: false,
     hasCartBtnOnHeader: true,
     title: t(label),
   });
