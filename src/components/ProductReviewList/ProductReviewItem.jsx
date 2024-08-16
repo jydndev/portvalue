@@ -104,6 +104,12 @@ const ProductReviewItem = memo(
             />
             <div className={`product-review-item__bottom`}>
               <div className={`product-review-item__order-info`}>
+                <VisibleComponent
+                  shows={showsProductName}
+                  TruthyComponent={<p className="product-review-item__product-name">{productName}</p>}
+                />
+                <p className={`product-review-item__nickname`}>{nickname}</p>
+                <p className="product-review-item__brand-name">{brandName}</p>
                 <p className={`product-review-item__option-value`}>{optionDisplayLabel}</p>
                 {price >= 0 && <p className="product-review-item__price">{convertToKoreanCurrency(price)}원</p>}
               </div>
