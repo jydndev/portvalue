@@ -74,8 +74,6 @@ const ProductDetailContent = () => {
   const { searchInquiries } = useProductInquiryActionContext();
   const { relatedProducts } = useProductDetailStateContext();
 
-  // useLayoutChanger({ hasBackBtnOnHeader: true, title: productName, hasBottomNav: false });
-
   useEffect(() => {
     if (!originProductDetail) return;
 
@@ -179,13 +177,6 @@ const ProductSectionListWrap = () => {
 
     setQueryString((prev) => ({ ...prev, pageNumber: prev.pageNumber + 1 }));
   };
-
-  // useLayoutChanger({
-  //   hasBackBtnOnHeader: true,
-  //   hasBottomNav: false,
-  //   hasCartBtnOnHeader: true,
-  //   title: t(label),
-  // });
 
   useEffect(() => {
     window.scrollTo(0, 0);
