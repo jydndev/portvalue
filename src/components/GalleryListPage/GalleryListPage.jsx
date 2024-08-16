@@ -98,8 +98,8 @@ const GalleryListPage = ({
                     >
                       <div className="thumb-item-wrapper" style={{ position: 'relative' }}>
                         <SmallCartButton onClick={() => handleCartBtnClick(productNo)} />
-                        <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
                       </div>
+                      <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
                       <Link to={`/product-detail?productNo=${productNo}`}>
                         <ProductThumbInfo
                           salePrice={calculateDiscountedPrice({
