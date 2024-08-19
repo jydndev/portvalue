@@ -39,9 +39,10 @@ const Layout = () => {
 
   const productNo = Number(searchParams.get('productNo'));
 
-  // botomnav error. manual change for now (TODO)
+  // useLayoutChanger not working for BottomNav
+  // Manual change for now (TODO)
   const shouldShowBottomNav = (pathname) => {
-    const excludedPaths = ['/cart', '/display'];
+    const excludedPaths = ['/cart', '/display', '/order'];
     return !excludedPaths.some((path) => pathname.startsWith(path));
   };
   const location = useLocation();
