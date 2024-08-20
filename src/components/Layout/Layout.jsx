@@ -25,6 +25,7 @@ import Header from '../Header';
 import LayoutProvider, { useLayoutValueContext } from '../LayoutProvider';
 import Meta from '../Meta';
 import SearchKeyword from '../SearchKeyword';
+import { useLocation } from 'react-router-dom';
 
 const platformType = isMobile ? PLATFORM_TYPE.MOBILE_WEB : PLATFORM_TYPE.PC;
 
@@ -37,6 +38,15 @@ const Layout = () => {
   const pageInnerRef = useRef();
 
   const productNo = Number(searchParams.get('productNo'));
+
+  // useLayoutChanger not working for BottomNav
+  // Manual change for now (TODO)
+  const shouldShowBottomNav = (pathname) => {
+    const excludedPaths = ['/cart', '/display', '/order'];
+    return !excludedPaths.some((path) => pathname.startsWith(path));
+  };
+  const location = useLocation();
+  const showBottomNav = shouldShowBottomNav(location.pathname);
 
   useEffect(() => {
     scrollToTop();
@@ -68,15 +78,17 @@ const Layout = () => {
                     <Outlet context={platformType} />
                   </main>
                   <Footer />
-                  <SearchAddressProvider>
-                    <BottomNav />
-                  </SearchAddressProvider>
-                  {/* <CategoryNav /> */}
-                  {/* <span className="fab-top-down">
-                    <button className="fab-btn fab-btn--top" onClick={scrollToTop}>
+                  {showBottomNav && (
+                    <SearchAddressProvider>
+                      <BottomNav />
+                    </SearchAddressProvider>
+                  )}
+
+                  <span className="fab-top-down">
+                    {/* <button className="fab-btn fab-btn--top" onClick={scrollToTop}>
                       <Icon name="angle-down" className="fab-btn__top" />
-                    </button>
-                  </span> */}
+                    </button> */}
+                  </span>
                 </div>
               </OffCanvasProvider>
             </div>
