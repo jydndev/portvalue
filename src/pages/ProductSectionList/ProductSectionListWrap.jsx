@@ -152,15 +152,7 @@ const ProductSectionListWrap = () => {
 
   /////////////
   const { clientId, mallProfile } = useMallStateContext();
-  const [searchParams] = useSearchParams();
-  const productNo = Number(searchParams.get('productNo'));
-  const { delayPageScriptLoading } = usePageScriptsActionContext();
-
   const initialTabs = useMemo(() => makeTabs(), []);
-
-  useEffect(() => {
-    delayPageScriptLoading();
-  }, []);
 
   const [selectedProductNo, setSelectedProductNo] = useState(null);
 
