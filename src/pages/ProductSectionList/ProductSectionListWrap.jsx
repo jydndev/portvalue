@@ -24,7 +24,6 @@ import {
 } from '@shopby/react-components';
 
 import GalleryListPage from '../../components/GalleryListPage';
-import useLayoutChanger from '../../hooks/useLayoutChanger';
 import Purchase from '../ProductDetail/Purchase';
 
 // Migrate Providers and their logic from ProductDetail.jsx for small shopping cart feature.
