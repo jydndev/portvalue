@@ -1,7 +1,6 @@
-import { number, node, oneOf, element, string, bool } from 'prop-types';
-
 import { Skeleton } from '@shopby/react-components';
 import { THUMB_LIST_TYPE } from '@shopby/shared';
+import { number, node, oneOf, element, string, bool } from 'prop-types';
 
 const RowSkeletonGallery = ({ colCount }) => (
   <div style={{ display: 'flex', marginBottom: '10px' }}>
@@ -10,6 +9,7 @@ const RowSkeletonGallery = ({ colCount }) => (
     ))}
   </div>
 );
+
 const GallerySkeleton = ({ rowCount = 1, colCount = 1, children, className, isLoading }) => {
   if (isLoading) {
     return (
@@ -29,6 +29,7 @@ export default GallerySkeleton;
 RowSkeletonGallery.propTypes = {
   colCount: number,
 };
+
 GallerySkeleton.propTypes = {
   className: string,
   rowCount: number,
