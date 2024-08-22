@@ -3,7 +3,13 @@ import { InfiniteScrollLoader, VisibleComponent } from '@shopby/react-components
 import TotalCountAndSort from '../TotalCountAndSort';
 import ProductList from './ProductList';
 import NoSearchProduct from './NoSearchProduct';
-import SkeletonComponent from './SkeletonComponent';
+import GallerySkeleton from '../GallerySkeleton';
+
+const SkeletonComponent = ({ isLoading }) => <GallerySkeleton rowCount={3} colCount={2} isLoading={isLoading} />;
+
+SkeletonComponent.propTypes = {
+  isLoading: bool,
+};
 
 const GalleryListPage = ({
   style,
@@ -15,7 +21,7 @@ const GalleryListPage = ({
   handleIntersect,
   disabled,
   className,
-  isLoading = false,
+  isLoading,
 }) => (
   <div className="l-panel">
     <TotalCountAndSort totalCount={totalCount} sortType={sortType} sortBy={sortBy} updateSortType={updateSortType} />
@@ -45,4 +51,8 @@ GalleryListPage.propTypes = {
   disabled: bool,
   className: string,
   isLoading: bool,
+};
+
+GalleryListPage.defaultProps = {
+  isLoading: false,
 };
