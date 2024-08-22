@@ -1,5 +1,3 @@
-// ProductItem.jsx
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ThumbItem } from '@shopby/react-components';
 import { calculateDiscountedPrice } from '@shopby/shared';
