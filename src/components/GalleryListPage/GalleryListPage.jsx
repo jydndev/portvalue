@@ -56,3 +56,5 @@ GalleryListPage.propTypes = {
 GalleryListPage.defaultProps = {
   isLoading: false,
 };
+
+export default GalleryListPage;
