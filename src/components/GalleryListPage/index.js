@@ -4,6 +4,5 @@ import ProductItem from './ProductItem';
 import NoSearchProduct from './NoSearchProduct';
 import SkeletonComponent from './SkeletonComponent';
 
-export { GalleryListPage, ProductList, ProductItem, NoSearchProduct, SkeletonComponent };
-
+export { ProductList, ProductItem, NoSearchProduct, SkeletonComponent };
 export default GalleryListPage;
