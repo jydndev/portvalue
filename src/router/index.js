@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { useRoutes } from 'react-router-dom';
 
+// Routes
 const MemberRoute = lazy(() => import('./MemberRoute'));
 const IntroPageRoute = lazy(() => import('./IntroPageRoute'));
 const NotAccessLoggedInUserRouter = lazy(() => import('./NotAccessLoggedInUserRouter'));
@@ -8,8 +9,8 @@ const NotFoundRoute = lazy(() => import('./NotFoundRoute'));
 
 // Components
 const Layout = lazy(() => import('../components/Layout'));
-const CategoryNav = lazy(() => import('../components/CategoryNav'));
-const SearchKeyword = lazy(() => import('../components/SearchKeyword'));
+const CategoryNav = lazy(() => import('../components/CategoryNav')); // TODO migrate to Pages
+const SearchKeyword = lazy(() => import('../components/SearchKeyword')); // TODO migrate to Pages
 const DesignWindowPopup = lazy(() => import('../components/DesignPopup/DesignWindowPopup'));
 
 // Pages
