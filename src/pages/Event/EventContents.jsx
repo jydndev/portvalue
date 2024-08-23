@@ -16,7 +16,7 @@ import {
 import { CLIENT_ERROR, CLIENT_ERROR_MESSAGE, PLATFORM_TYPE, SERVER_ERROR } from '@shopby/shared';
 import { PER_PAGE_COUNT } from '@shopby/shared/constants';
 
-import GalleryListPage from '../../components/GalleryListPage';
+import GalleryListPage from '../GalleryListPage/GalleryListPage';
 import useLayoutChanger from '../../hooks/useLayoutChanger';
 
 import EventCoupon from './EventCoupon';

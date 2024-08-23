@@ -7,7 +7,7 @@ import {
   useProductSearchStateContext,
 } from '@shopby/react-components';
 
-import GalleryListPage from '../../components/GalleryListPage';
+import GalleryListPage from '../GalleryListPage/GalleryListPage';
 
 const PER_PAGE_COUNT = 10;
 const PARAM_TYPE = {

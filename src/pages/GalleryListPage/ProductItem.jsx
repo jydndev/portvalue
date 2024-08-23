@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
+
 import { ThumbItem } from '@shopby/react-components';
 import { calculateDiscountedPrice } from '@shopby/shared';
-import ProductThumbBadge from '../ProductThumbBadge';
-import ProductThumbInfo from '../ProductThumbInfo';
+
+import ProductThumbBadge from '../../components/ProductThumbBadge';
+import ProductThumbInfo from '../../components/ProductThumbInfo';
 
 const ProductItem = ({
   productNo,

@@ -1,9 +1,12 @@
 import { object, bool, func, array, number, string } from 'prop-types';
+
 import { InfiniteScrollLoader, VisibleComponent } from '@shopby/react-components';
-import TotalCountAndSort from '../TotalCountAndSort';
+
+import TotalCountAndSort from '../../components/TotalCountAndSort';
+import GallerySkeleton from '../../components/GallerySkeleton';
+
 import ProductList from './ProductList';
 import NoSearchProduct from './NoSearchProduct';
-import GallerySkeleton from '../GallerySkeleton';
 
 const SkeletonComponent = ({ isLoading }) => <GallerySkeleton rowCount={3} colCount={2} isLoading={isLoading} />;
 

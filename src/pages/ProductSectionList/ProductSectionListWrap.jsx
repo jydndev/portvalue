@@ -8,7 +8,7 @@ import {
   useProductSectionListStateContext,
 } from '@shopby/react-components';
 
-import GalleryListPage from '../../components/GalleryListPage';
+import GalleryListPage from '../GalleryListPage';
 import useLayoutChanger from '../../hooks/useLayoutChanger';
 
 const PER_PAGE_COUNT = 10;
