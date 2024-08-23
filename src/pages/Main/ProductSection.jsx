@@ -4,8 +4,8 @@ import { cloneDeep } from 'lodash-es';
 import { oneOf, string } from 'prop-types';
 
 import { useProductSectionStateContext } from '@shopby/react-components';
-import { RightIcon } from '../../components/Icon/RightIcon';
 
+import { RightIcon } from '../../components/Icon/RightIcon';
 import GallerySkeleton from '../../components/GallerySkeleton';
 import ProductSectionListRouter from '../../components/ProductSectionListRouter';
 

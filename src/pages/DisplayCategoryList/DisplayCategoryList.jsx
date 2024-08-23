@@ -16,7 +16,6 @@ import CategoryMenu from './menu/CategoryMenu';
 
 const DisplayCategoryList = () => {
   const { t } = useTranslation('title');
-
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get('keyword') ?? '';
   const categoryNo = Number(searchParams.get('categoryNo'));
