@@ -7,7 +7,7 @@ import {
   useProductSearchStateContext,
 } from '@shopby/react-components';
 
-import GalleryListPage from '../GalleryListPage/GalleryListPage';
+import GalleryList from '../../components/GalleryList/GalleryList';
 
 const PER_PAGE_COUNT = 10;
 const PARAM_TYPE = {
@@ -75,7 +75,7 @@ const DisplayCategoryListWrap = () => {
   }, [productSearchResponse, searchParams]);
 
   return (
-    <GalleryListPage
+    <GalleryList
       totalCount={totalCount}
       products={accumulationProducts}
       sortType={sortType}

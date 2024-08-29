@@ -8,7 +8,7 @@ import {
   useProductSectionListStateContext,
 } from '@shopby/react-components';
 
-import GalleryListPage from '../GalleryListPage';
+import GalleryList from '../../components/GalleryList';
 import useLayoutChanger from '../../hooks/useLayoutChanger';
 
 const PER_PAGE_COUNT = 10;
@@ -68,7 +68,7 @@ const ProductSectionListWrap = () => {
   }, [displaySectionResponse]);
 
   return (
-    <GalleryListPage
+    <GalleryList
       totalCount={productTotalCount}
       products={accumulationProducts}
       sortType={sortType}

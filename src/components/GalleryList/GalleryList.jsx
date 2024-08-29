@@ -2,8 +2,8 @@ import { object, bool, func, array, number, string } from 'prop-types';
 
 import { InfiniteScrollLoader, VisibleComponent } from '@shopby/react-components';
 
-import TotalCountAndSort from '../../components/TotalCountAndSort';
-import GallerySkeleton from '../../components/GallerySkeleton';
+import TotalCountAndSort from '../TotalCountAndSort';
+import GallerySkeleton from '../GallerySkeleton';
 
 import ProductList from './ProductList';
 import NoSearchProduct from './NoSearchProduct';
@@ -14,7 +14,7 @@ SkeletonComponent.propTypes = {
   isLoading: bool,
 };
 
-const GalleryListPage = ({
+const GalleryList = ({
   style,
   totalCount,
   products,
@@ -43,7 +43,7 @@ const GalleryListPage = ({
   </div>
 );
 
-GalleryListPage.propTypes = {
+GalleryList.propTypes = {
   style: object,
   totalCount: number,
   products: array,
@@ -56,8 +56,8 @@ GalleryListPage.propTypes = {
   isLoading: bool,
 };
 
-GalleryListPage.defaultProps = {
+GalleryList.defaultProps = {
   isLoading: false,
 };
 
-export default GalleryListPage;
+export default GalleryList;
