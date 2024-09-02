@@ -22,22 +22,13 @@ const DisplayCategoryList = () => {
   const depth = Number(searchParams.get('depth') ?? 1);
   const { delayPageScriptLoading } = usePageScriptsActionContext();
 
-  if (keyword) {
-    useLayoutChanger({
-      hasBackBtnOnHeader: false,
-      hasBottomNav: true,
-      hasCartBtnOnHeader: false,
-      title: keyword,
-      hasSearchKeywordHeader: true,
-    });
-  } else {
-    useLayoutChanger({
-      hasBackBtnOnHeader: true,
-      hasBottomNav: true,
-      hasCartBtnOnHeader: true,
-      title: t('상품 목록'),
-    });
-  }
+  useLayoutChanger({
+    hasBackBtnOnHeader: !keyword,
+    hasBottomNav: true,
+    hasCartBtnOnHeader: !keyword,
+    title: keyword || t('상품 목록'),
+    hasSearchKeywordHeader: !!keyword,
+  });
 
   useEffect(() => {
     delayPageScriptLoading();
