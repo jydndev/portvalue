@@ -1,20 +1,25 @@
 import { lazy } from 'react';
 import { useRoutes } from 'react-router-dom';
 
+// Routes
 const MemberRoute = lazy(() => import('./MemberRoute'));
 const IntroPageRoute = lazy(() => import('./IntroPageRoute'));
 const NotAccessLoggedInUserRouter = lazy(() => import('./NotAccessLoggedInUserRouter'));
 const NotFoundRoute = lazy(() => import('./NotFoundRoute'));
 
+// Components
 const Layout = lazy(() => import('../components/Layout'));
+const CategoryNav = lazy(() => import('../components/CategoryNav')); // TODO migrate to Pages
+const SearchKeyword = lazy(() => import('../components/SearchKeyword')); // TODO migrate to Pages
+const DesignWindowPopup = lazy(() => import('../components/DesignPopup/DesignWindowPopup'));
+
+// Pages
 const Main = lazy(() => import('../pages/Main'));
 const MyPage = lazy(() => import('../pages/MyPage'));
 const SignIn = lazy(() => import('../pages/SignIn'));
 const OrderSheet = lazy(() => import('../pages/OrderSheet'));
 const Notice = lazy(() => import('../pages/Notice'));
 const CustomerCenter = lazy(() => import('../pages/CustomerCenter'));
-const CategoryNav = lazy(() => import('../components/CategoryNav'));
-const SearchKeyword = lazy(() => import('../components/SearchKeyword'));
 const ProductDetail = lazy(() => import('../pages/ProductDetail'));
 const DisplayCategoryList = lazy(() => import('../pages/DisplayCategoryList'));
 const SignUp = lazy(() => import('../pages/SignUp'));
@@ -36,7 +41,6 @@ const MemberWithdrawal = lazy(() => import('../pages/MemberWithdrawal'));
 const Event = lazy(() => import('../pages/Event'));
 const Claim = lazy(() => import('../pages/Claim'));
 const OrderDetail = lazy(() => import('../pages/OrderDetail'));
-const DesignWindowPopup = lazy(() => import('../components/DesignPopup/DesignWindowPopup'));
 
 // MyPage
 const MyPageProductReview = lazy(() => import('../pages/MyPage/ProductReview'));

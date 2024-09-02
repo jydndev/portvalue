@@ -4,12 +4,12 @@ import { cloneDeep } from 'lodash-es';
 import { oneOf, string } from 'prop-types';
 
 import { useProductSectionStateContext } from '@shopby/react-components';
-import { RightIcon } from '../../components/Icon/RightIcon';
 
+import { RightIcon } from '../../components/Icon/RightIcon';
 import GallerySkeleton from '../../components/GallerySkeleton';
 import ProductSectionListRouter from '../../components/ProductSectionListRouter';
 
-const ProductSectionWrap = ({ platformType, sectionsId }) => {
+const ProductSection = ({ platformType, sectionsId }) => {
   const { sectionData, isLoading } = useProductSectionStateContext();
 
   if (isLoading) {
@@ -46,9 +46,9 @@ const ProductSectionWrap = ({ platformType, sectionsId }) => {
   );
 };
 
-export default ProductSectionWrap;
+export default ProductSection;
 
-ProductSectionWrap.propTypes = {
+ProductSection.propTypes = {
   platformType: oneOf(['PC', 'MOBILE_WEB', 'MOBILE_APP']),
   sectionsId: string,
 };

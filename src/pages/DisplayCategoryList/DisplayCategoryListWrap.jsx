@@ -7,7 +7,7 @@ import {
   useProductSearchStateContext,
 } from '@shopby/react-components';
 
-import GalleryListPage from '../../components/GalleryListPage';
+import GalleryList from '../../components/GalleryList/GalleryList';
 
 const PER_PAGE_COUNT = 10;
 const PARAM_TYPE = {
@@ -29,7 +29,6 @@ const DisplayCategoryListWrap = () => {
   const { applyPageScripts } = usePageScriptsActionContext();
   const [disabled, setDisabled] = useState(false);
   const [searchParams] = useSearchParams();
-
   const keywords = useMemo(() => searchParams.get(PARAM_TYPE.KEYWORD), [searchParams]);
   const categoryNos = useMemo(() => searchParams.get(PARAM_TYPE.CATEGORY_NO), [searchParams]);
   const [queryString, setQueryString] = useState({
@@ -76,7 +75,7 @@ const DisplayCategoryListWrap = () => {
   }, [productSearchResponse, searchParams]);
 
   return (
-    <GalleryListPage
+    <GalleryList
       totalCount={totalCount}
       products={accumulationProducts}
       sortType={sortType}
