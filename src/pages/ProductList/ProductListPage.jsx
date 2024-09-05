@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   ProductSearchProvider,
@@ -20,8 +20,7 @@ const ProductListPage = ({ isSection = false }) => {
 
   useEffect(() => {
     delayPageScriptLoading();
-    console.log('ProductListPage mounted', { isSection, keyword, categoryNo, depth });
-  }, [delayPageScriptLoading, isSection, keyword, categoryNo, depth]);
+  }, []);
 
   const Provider = useMemo(() => (isSection ? ProductSectionListProvider : ProductSearchProvider), [isSection]);
 
