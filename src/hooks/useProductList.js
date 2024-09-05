@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 const useProductList = (fetchProducts, applyScripts, scriptType, initialState) => {
-  const [disabled, setDisabled] = useState(false);
   const [queryString, setQueryString] = useState({
     pageNumber: initialState.pageNumber,
     pageSize: 10,
@@ -11,24 +10,23 @@ const useProductList = (fetchProducts, applyScripts, scriptType, initialState) =
     saleStatus: 'ONSALE',
   });
 
-  const handleIntersect = () => {
+  const [disabled, setDisabled] = useState(false);
+  const prevQueryString = useRef(queryString);
+
+  useEffect(() => {
+    console.log('useProductList effect', { queryString, prevQueryString: prevQueryString.current });
+    if (JSON.stringify(prevQueryString.current) !== JSON.stringify(queryString)) {
+      console.log('Fetching products', queryString);
+      fetchProducts(queryString);
+      setDisabled(false);
+      prevQueryString.current = queryString;
+    }
+  }, [queryString, fetchProducts]);
+
+  const handleIntersect = useCallback(() => {
     setDisabled(true);
     setQueryString((prev) => ({ ...prev, pageNumber: prev.pageNumber + 1 }));
-  };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    setQueryString((prev) => ({
-      ...prev,
-      sortType: initialState.sortType,
-      pageNumber: 1,
-    }));
-  }, [initialState.sortType]);
-
-  useEffect(() => {
-    fetchProducts(queryString);
-    setDisabled(false);
-  }, [queryString, fetchProducts]);
+  }, []);
 
   return { queryString, setQueryString, disabled, handleIntersect };
 };

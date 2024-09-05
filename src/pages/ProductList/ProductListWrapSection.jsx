@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import {
@@ -27,11 +27,20 @@ const ProductListWrapSection = () => {
   const { fetchProductSectionList, updateSortType } = useProductSectionListActionContext();
   const { applyPageScripts } = usePageScriptsActionContext();
 
+  const memoizedInitialState = useMemo(
+    () => ({
+      sectionsId,
+      sortType,
+      pageNumber,
+    }),
+    [sectionsId, sortType, pageNumber]
+  );
+
   const { queryString, setQueryString, disabled, handleIntersect } = useProductList(
     fetchProductSectionList,
     applyPageScripts,
     'DISPLAY_SECTION',
-    { sectionsId, sortType, pageNumber }
+    memoizedInitialState
   );
 
   useLayoutChanger({
@@ -46,13 +55,15 @@ const ProductListWrapSection = () => {
     applyPageScripts('DISPLAY_SECTION', { displaySection: displaySectionResponse });
   }, [displaySectionResponse, applyPageScripts]);
 
+  const memoizedUpdateSortType = useCallback(updateSortType, [updateSortType]);
+
   return (
     <GalleryList
       totalCount={productTotalCount}
       products={accumulationProducts}
       sortType={sortType}
       sortBy={SORT_BY}
-      updateSortType={updateSortType}
+      updateSortType={memoizedUpdateSortType}
       handleIntersect={handleIntersect}
       disabled={disabled}
       isLoading={isLoading}
@@ -60,4 +71,4 @@ const ProductListWrapSection = () => {
   );
 };
 
-export default ProductListWrapSection;
+export default React.memo(ProductListWrapSection);
