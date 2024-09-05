@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   ProductSearchProvider,
@@ -8,31 +7,22 @@ import {
   VisibleComponent,
   usePageScriptsActionContext,
 } from '@shopby/react-components';
-import useLayoutChanger from '../../hooks/useLayoutChanger';
-import ProductListWrap from './ProductListWrap';
 import CategoryMenu from './menu/CategoryMenu';
+import ProductListWrapSection from './ProductListWrapSection';
+import ProductListWrapCategory from './ProductListWrapCategory';
 
 const ProductListPage = ({ isSection = false }) => {
-  const { t } = useTranslation('title');
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get('keyword') ?? '';
   const categoryNo = Number(searchParams.get('categoryNo'));
   const depth = Number(searchParams.get('depth') ?? 1);
   const { delayPageScriptLoading } = usePageScriptsActionContext();
 
-  useLayoutChanger({
-    hasBackBtnOnHeader: !keyword,
-    hasBottomNav: true,
-    hasCartBtnOnHeader: !keyword,
-    title: keyword || t('상품 목록'),
-    hasSearchKeywordHeader: !!keyword,
-  });
-
   useEffect(() => {
     delayPageScriptLoading();
   }, []);
 
-  const Provider = isSection ? ProductSectionListProvider : ProductSearchProvider;
+  const Provider = useMemo(() => (isSection ? ProductSectionListProvider : ProductSearchProvider), [isSection]);
 
   return (
     <Provider>
@@ -44,7 +34,7 @@ const ProductListPage = ({ isSection = false }) => {
           </CategoriesProvider>
         }
       />
-      <ProductListWrap isSection={isSection} />
+      {isSection ? <ProductListWrapSection /> : <ProductListWrapCategory />}
     </Provider>
   );
 };
