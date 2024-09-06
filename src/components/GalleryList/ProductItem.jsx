@@ -38,8 +38,8 @@ const ProductItem = ({
     >
       <div className="thumb-item-wrapper" style={{ position: 'relative' }}>
         <SmallCartButton />
-        <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
       </div>
+      <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
       <Link to={`/product-detail?productNo=${productNo}`}>
         <ProductThumbInfo
           salePrice={calculateDiscountedPrice({
