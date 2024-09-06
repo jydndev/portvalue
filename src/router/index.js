@@ -25,8 +25,8 @@ const FindPassword = lazy(() => import('../pages/FindPassword'));
 const ChangePassword = lazy(() => import('../pages/ChangePassword'));
 const MemberModification = lazy(() => import('../pages/MemberModification'));
 const ProductDetail = lazy(() => import('../pages/ProductDetail'));
-const ProductSectionList = lazy(() => import('../pages/ProductSectionList'));
 const DisplayCategoryList = lazy(() => import('../pages/DisplayCategoryList'));
+// const ProductSectionList = lazy(() => import('../pages/ProductSectionList'));
 const Cart = lazy(() => import('../pages/Cart'));
 const OrderSheet = lazy(() => import('../pages/OrderSheet'));
 const OrderDetail = lazy(() => import('../pages/OrderDetail'));
@@ -119,7 +119,7 @@ const Router = () =>
         },
         {
           path: 'display/:sectionsId',
-          element: <ProductSectionList />,
+          element: <DisplayCategoryList />,
         },
         {
           path: 'claims',
