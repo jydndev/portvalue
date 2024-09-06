@@ -12,7 +12,7 @@ import {
   useMallStateContext,
 } from '@shopby/react-components';
 
-import GalleryListPage from '../../components/GalleryListPage';
+import GalleryList from '../../components/GalleryList/GalleryList';
 
 ////// providers imports
 import { ProductOptionProvider, NaverPayProvider } from '@shopby/react-components';
@@ -92,7 +92,7 @@ const DisplayCategoryListWrap = () => {
       <NaverPayProvider clientId={clientId} mallProfile={mallProfile} platform={isMobile ? 'MOBILE_WEB' : 'PC'}>
         <CartProvider>
           <ProductOptionProvider productNo={productNo}>
-            <GalleryListPage
+            <GalleryList
               totalCount={totalCount}
               products={accumulationProducts}
               sortType={sortType}
