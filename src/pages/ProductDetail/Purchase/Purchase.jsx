@@ -28,10 +28,10 @@ import OptionSelector from './OptionSelector';
 
 const UNPURCHASABLE_STATUS = ['READY', 'FINISHED', 'STOP', 'PROHIBITION'];
 
-const Purchase = () => {
+const Purchase = ({ customProductNo }) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const productNo = Number(searchParams.get('productNo'));
+  const productNo = customProductNo || Number(searchParams.get('productNo'));
   const channelType = searchParams.get('channelType');
 
   const {
@@ -171,7 +171,7 @@ const Purchase = () => {
         </p>
         <div id="naver-pay" className="purchase__naver-pay-btn" />
         <div className="purchase__btns">
-          { <AddToCartBtn onClick={handleCartBtnClick} onError={(e) => handleError(e)} channelType={channelType} /> }
+          {<AddToCartBtn onClick={handleCartBtnClick} onError={(e) => handleError(e)} channelType={channelType} />}
           <MakeOrderBtn onClick={handleMakeOrderBtnClick} onError={(e) => handleError(e)} channelType={channelType} />
         </div>
       </div>
