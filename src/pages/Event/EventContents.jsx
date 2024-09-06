@@ -16,7 +16,7 @@ import {
 import { CLIENT_ERROR, CLIENT_ERROR_MESSAGE, PLATFORM_TYPE, SERVER_ERROR } from '@shopby/shared';
 import { PER_PAGE_COUNT } from '@shopby/shared/constants';
 
-import GalleryListPage from '../../components/GalleryListPage/GalleryListPage';
+import GalleryList from '../../components/GalleryList/GalleryList';
 import useLayoutChanger from '../../hooks/useLayoutChanger';
 
 import EventCoupon from './EventCoupon';
@@ -150,7 +150,7 @@ const EventContents = ({ sortBy }) => {
       )}
 
       {currentProducts.length > 0 && (
-        <GalleryListPage
+        <GalleryList
           style={style}
           totalCount={currentProducts.length}
           products={displayProducts}
