@@ -6,6 +6,8 @@ import { calculateDiscountedPrice } from '@shopby/shared';
 import ProductThumbBadge from '../ProductThumbBadge';
 import ProductThumbInfo from '../ProductThumbInfo';
 
+import SmallCartButton from '../SmallCartButton/SmallCartButton';
+
 const ProductItem = ({
   productNo,
   adult,
@@ -34,7 +36,10 @@ const ProductItem = ({
       alt={productName}
       productNo={productNo}
     >
-      <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
+      <div className="thumb-item-wrapper" style={{ position: 'relative' }}>
+        <SmallCartButton />
+        <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
+      </div>
       <Link to={`/product-detail?productNo=${productNo}`}>
         <ProductThumbInfo
           salePrice={calculateDiscountedPrice({
