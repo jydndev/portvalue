@@ -19,7 +19,7 @@ const categories = [
   },
   {
     name: '골라담기',
-    url: 'products?categoryNo=799588',
+    url: '/products?categoryNo=799588',
     image: 'https://healthfriend.s3.ap-northeast-2.amazonaws.com/20240619T134145058Z_portvalue.png',
   },
   {

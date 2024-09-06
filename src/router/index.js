@@ -21,12 +21,10 @@ const OrderSheet = lazy(() => import('../pages/OrderSheet'));
 const Notice = lazy(() => import('../pages/Notice'));
 const CustomerCenter = lazy(() => import('../pages/CustomerCenter'));
 const ProductDetail = lazy(() => import('../pages/ProductDetail'));
-// const DisplayCategoryList = lazy(() => import('../pages/DisplayCategoryList'));
-// const ProductSectionList = lazy(() => import('../pages/ProductSectionList'));
-import ProductListPage from '../pages/ProductList/ProductListPage';
-// const ProductListPage = lazy(() => import('../pages/ProductList'));
+const DisplayCategoryList = lazy(() => import('../pages/DisplayCategoryList'));
 const SignUp = lazy(() => import('../pages/SignUp'));
 const SignUpConfirm = lazy(() => import('../pages/SignUpConfirm'));
+const ProductSectionList = lazy(() => import('../pages/ProductSectionList'));
 const CallBack = lazy(() => import('../pages/CallBack'));
 const FAQ = lazy(() => import('../pages/FAQ'));
 const Cart = lazy(() => import('../pages/Cart'));
@@ -133,11 +131,7 @@ const Router = () =>
         },
         {
           path: 'products',
-          element: <ProductListPage />,
-        },
-        {
-          path: 'display/:sectionsId',
-          element: <ProductListPage isSection />,
+          element: <DisplayCategoryList />,
         },
         {
           path: 'sign-up/form',
@@ -154,6 +148,10 @@ const Router = () =>
               <SignUpConfirm />
             </NotAccessLoggedInUserRouter>
           ),
+        },
+        {
+          path: 'display/:sectionsId',
+          element: <ProductSectionList />,
         },
         {
           path: 'faq',
