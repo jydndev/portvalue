@@ -19,7 +19,7 @@ const ProductList = ({ products, style, className }) => {
       {products.map(
         (product) =>
           product.frontDisplayYn && (
-            <OrderSheetProvider>
+            <OrderSheetProvider key={product.productNo}>
               <NaverPayProvider clientId={clientId} mallProfile={mallProfile} platform={isMobile ? 'MOBILE_WEB' : 'PC'}>
                 <CartProvider>
                   <ProductOptionProvider productNo={product.productNo}>
