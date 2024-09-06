@@ -17,30 +17,30 @@ const DesignWindowPopup = lazy(() => import('../components/DesignPopup/DesignWin
 const Main = lazy(() => import('../pages/Main'));
 const MyPage = lazy(() => import('../pages/MyPage'));
 const SignIn = lazy(() => import('../pages/SignIn'));
-const OrderSheet = lazy(() => import('../pages/OrderSheet'));
-const Notice = lazy(() => import('../pages/Notice'));
-const CustomerCenter = lazy(() => import('../pages/CustomerCenter'));
-const ProductDetail = lazy(() => import('../pages/ProductDetail'));
-const DisplayCategoryList = lazy(() => import('../pages/DisplayCategoryList'));
 const SignUp = lazy(() => import('../pages/SignUp'));
 const SignUpConfirm = lazy(() => import('../pages/SignUpConfirm'));
-const ProductSectionList = lazy(() => import('../pages/ProductSectionList'));
-const CallBack = lazy(() => import('../pages/CallBack'));
-const FAQ = lazy(() => import('../pages/FAQ'));
-const Cart = lazy(() => import('../pages/Cart'));
-const OpenIdCallback = lazy(() => import('../pages/OpenIdCallback'));
 const SignUpMenu = lazy(() => import('../pages/SignUpMenu'));
-const MemberModification = lazy(() => import('../pages/MemberModification'));
-const OrderConfirm = lazy(() => import('../pages/OrderConfirm'));
 const FindId = lazy(() => import('../pages/FindId'));
 const FindPassword = lazy(() => import('../pages/FindPassword'));
 const ChangePassword = lazy(() => import('../pages/ChangePassword'));
-const NotFound = lazy(() => import('../pages/NotFound'));
+const MemberModification = lazy(() => import('../pages/MemberModification'));
+const ProductDetail = lazy(() => import('../pages/ProductDetail'));
+const ProductSectionList = lazy(() => import('../pages/ProductSectionList'));
+const DisplayCategoryList = lazy(() => import('../pages/DisplayCategoryList'));
+const Cart = lazy(() => import('../pages/Cart'));
+const OrderSheet = lazy(() => import('../pages/OrderSheet'));
+const OrderDetail = lazy(() => import('../pages/OrderDetail'));
+const OrderConfirm = lazy(() => import('../pages/OrderConfirm'));
+const CallBack = lazy(() => import('../pages/CallBack'));
+const OpenIdCallback = lazy(() => import('../pages/OpenIdCallback'));
+const Notice = lazy(() => import('../pages/Notice'));
+const CustomerCenter = lazy(() => import('../pages/CustomerCenter'));
+const FAQ = lazy(() => import('../pages/FAQ'));
 const AdultCertification = lazy(() => import('../pages/AdultCertification'));
 const MemberWithdrawal = lazy(() => import('../pages/MemberWithdrawal'));
 const Event = lazy(() => import('../pages/Event'));
 const Claim = lazy(() => import('../pages/Claim'));
-const OrderDetail = lazy(() => import('../pages/OrderDetail'));
+const NotFound = lazy(() => import('../pages/NotFound'));
 
 // MyPage
 const MyPageProductReview = lazy(() => import('../pages/MyPage/ProductReview'));
@@ -106,22 +106,6 @@ const Router = () =>
           element: <OrderDetail />,
         },
         {
-          path: 'claims',
-          element: <MyClaims />,
-        },
-        {
-          path: 'claim/:orderOptionNo',
-          element: <Claim />,
-        },
-        {
-          path: 'notice',
-          element: <Notice />,
-        },
-        {
-          path: 'customer-center',
-          element: <CustomerCenter />,
-        },
-        {
           path: 'category',
           element: <CategoryNav />,
         },
@@ -132,6 +116,18 @@ const Router = () =>
         {
           path: 'products',
           element: <DisplayCategoryList />,
+        },
+        {
+          path: 'display/:sectionsId',
+          element: <ProductSectionList />,
+        },
+        {
+          path: 'claims',
+          element: <MyClaims />,
+        },
+        {
+          path: 'claim/:orderOptionNo',
+          element: <Claim />,
         },
         {
           path: 'sign-up/form',
@@ -150,8 +146,12 @@ const Router = () =>
           ),
         },
         {
-          path: 'display/:sectionsId',
-          element: <ProductSectionList />,
+          path: 'notice',
+          element: <Notice />,
+        },
+        {
+          path: 'customer-center',
+          element: <CustomerCenter />,
         },
         {
           path: 'faq',
