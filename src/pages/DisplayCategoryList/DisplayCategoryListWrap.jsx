@@ -1,13 +1,23 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+import { isMobile } from 'react-device-detect';
+
 import {
+  CartProvider,
+  OrderSheetProvider,
   usePageScriptsActionContext,
   useProductSearchActionContext,
   useProductSearchStateContext,
+  useMallStateContext,
 } from '@shopby/react-components';
 
-import GalleryList from '../../components/GalleryList/GalleryList';
+import GalleryListPage from '../../components/GalleryListPage';
+
+////// providers imports
+import { ProductOptionProvider, NaverPayProvider } from '@shopby/react-components';
+
+//////
 
 const PER_PAGE_COUNT = 10;
 const PARAM_TYPE = {
@@ -29,6 +39,9 @@ const DisplayCategoryListWrap = () => {
   const { applyPageScripts } = usePageScriptsActionContext();
   const [disabled, setDisabled] = useState(false);
   const [searchParams] = useSearchParams();
+  const productNo = Number(searchParams.get('productNo'));
+  const { clientId, mallProfile } = useMallStateContext();
+
   const keywords = useMemo(() => searchParams.get(PARAM_TYPE.KEYWORD), [searchParams]);
   const categoryNos = useMemo(() => searchParams.get(PARAM_TYPE.CATEGORY_NO), [searchParams]);
   const [queryString, setQueryString] = useState({
@@ -75,16 +88,24 @@ const DisplayCategoryListWrap = () => {
   }, [productSearchResponse, searchParams]);
 
   return (
-    <GalleryList
-      totalCount={totalCount}
-      products={accumulationProducts}
-      sortType={sortType}
-      sortBy={SORT_BY}
-      updateSortType={updateSortType}
-      handleIntersect={handleIntersect}
-      disabled={disabled}
-      isLoading={isLoading}
-    />
+    <OrderSheetProvider>
+      <NaverPayProvider clientId={clientId} mallProfile={mallProfile} platform={isMobile ? 'MOBILE_WEB' : 'PC'}>
+        <CartProvider>
+          <ProductOptionProvider productNo={productNo}>
+            <GalleryListPage
+              totalCount={totalCount}
+              products={accumulationProducts}
+              sortType={sortType}
+              sortBy={SORT_BY}
+              updateSortType={updateSortType}
+              handleIntersect={handleIntersect}
+              disabled={disabled}
+              isLoading={isLoading}
+            />
+          </ProductOptionProvider>
+        </CartProvider>
+      </NaverPayProvider>
+    </OrderSheetProvider>
   );
 };
 

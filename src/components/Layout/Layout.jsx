@@ -42,7 +42,7 @@ const Layout = () => {
   // useLayoutChanger not working for BottomNav
   // Manual change for now (TODO)
   const shouldShowBottomNav = (pathname) => {
-    const excludedPaths = ['/cart', '/display', '/order'];
+    const excludedPaths = ['/cart', '/display', '/order', '/sign-up', '/find'];
     return !excludedPaths.some((path) => pathname.startsWith(path));
   };
   const location = useLocation();
