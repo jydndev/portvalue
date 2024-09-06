@@ -6,6 +6,8 @@ import { calculateDiscountedPrice } from '@shopby/shared';
 import ProductThumbBadge from '../ProductThumbBadge';
 import ProductThumbInfo from '../ProductThumbInfo';
 
+import SmallCartButton from '../SmallCartButton/SmallCartButton';
+
 const ProductItem = ({
   productNo,
   adult,
@@ -24,6 +26,10 @@ const ProductItem = ({
     return Math.round(((originalPrice - discountedPrice) / originalPrice) * 100);
   };
 
+  // Don't render if url is /display/ (it crashes)
+  // TODO: change file name (DisplayCategoryList)
+  const isProductsPath = location.pathname === '/products';
+
   return (
     <ThumbItem
       key={productNo}
@@ -34,6 +40,11 @@ const ProductItem = ({
       alt={productName}
       productNo={productNo}
     >
+      {isProductsPath && (
+        <div className="thumb-item-wrapper" style={{ position: 'relative' }}>
+          <SmallCartButton productNo={productNo} />
+        </div>
+      )}
       <ProductThumbBadge isSoldOut={isSoldOut} saleStatusType={saleStatusType} />
       <Link to={`/product-detail?productNo=${productNo}`}>
         <ProductThumbInfo

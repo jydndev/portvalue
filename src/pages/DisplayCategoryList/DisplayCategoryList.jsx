@@ -1,17 +1,19 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 
 import {
   ProductSearchProvider,
   CategoriesProvider,
   VisibleComponent,
   usePageScriptsActionContext,
+  ProductSectionListProvider,
 } from '@shopby/react-components';
 
 import useLayoutChanger from '../../hooks/useLayoutChanger';
 
 import DisplayCategoryListWrap from './DisplayCategoryListWrap';
+import ProductSectionListWrap from './ProductSectionListWrap';
 import CategoryMenu from './menu/CategoryMenu';
 
 const DisplayCategoryList = () => {
@@ -21,6 +23,7 @@ const DisplayCategoryList = () => {
   const categoryNo = Number(searchParams.get('categoryNo'));
   const depth = Number(searchParams.get('depth') ?? 1);
   const { delayPageScriptLoading } = usePageScriptsActionContext();
+  const location = useLocation();
 
   useLayoutChanger({
     hasBackBtnOnHeader: !keyword,
@@ -34,18 +37,30 @@ const DisplayCategoryList = () => {
     delayPageScriptLoading();
   }, []);
 
+  const isProductsPath = location.pathname === '/products';
+  const isDisplaySectionsPath = location.pathname.startsWith('/display/');
+
   return (
-    <ProductSearchProvider>
-      <VisibleComponent
-        shows={!keyword}
-        TruthyComponent={
-          <CategoriesProvider>
-            <CategoryMenu categoryNo={categoryNo} depth={depth} />
-          </CategoriesProvider>
-        }
-      />
-      <DisplayCategoryListWrap />
-    </ProductSearchProvider>
+    <>
+      {isProductsPath && (
+        <ProductSearchProvider>
+          <VisibleComponent
+            shows={!keyword}
+            TruthyComponent={
+              <CategoriesProvider>
+                <CategoryMenu categoryNo={categoryNo} depth={depth} />
+              </CategoriesProvider>
+            }
+          />
+          <DisplayCategoryListWrap />
+        </ProductSearchProvider>
+      )}
+      {isDisplaySectionsPath && (
+        <ProductSectionListProvider>
+          <ProductSectionListWrap />
+        </ProductSectionListProvider>
+      )}
+    </>
   );
 };
 
