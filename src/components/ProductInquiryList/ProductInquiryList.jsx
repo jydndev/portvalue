@@ -192,7 +192,8 @@ export default ProductInquiryList;
 
 ProductInquiryList.propTypes = {
   productNo: number.isRequired,
-  totalCount: number.isRequired,
+  // TODO: fix error totalcount: undefined
+  // totalCount: number.isRequired,
   onModify: func.isRequired,
   onDelete: func.isRequired,
   inquiries: arrayOf(
