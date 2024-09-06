@@ -1,128 +1,16 @@
-import { useState, useEffect, useMemo } from 'react';
-import { isMobile } from 'react-device-detect';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 import { useTranslation } from 'react-i18next';
-import { useParams, useSearchParams } from 'react-router-dom';
+import useLayoutChanger from '../../hooks/useLayoutChanger';
 
 import {
-  CartProvider,
-  CouponByProductProvider,
-  NaverPayProvider,
-  OrderSheetProvider,
-  ProductOptionProvider,
   usePageScriptsActionContext,
   useProductSectionListActionContext,
   useProductSectionListStateContext,
-  TabsProvider,
-  useProductDetailActionContext,
-  useProductOptionActionContext,
-  useTabsActiveContext,
-  useProductReviewStateContext,
-  useProductInquiryStateContext,
-  useProductInquiryActionContext,
-  useProductDetailStateContext,
-  useMallStateContext,
 } from '@shopby/react-components';
 
-import GalleryListPage from '../../components/GalleryListPage';
-import Purchase from '../ProductDetail/Purchase';
-
-// Migrate Providers and their logic from ProductDetail.jsx for small shopping cart feature.
-// TODO clean up code duplication.
-const makeTabs = ({ reviewCount = 0, inquiryCount = 0, hasGuide = false } = {}) => {
-  const tabs = [
-    {
-      value: 'DETAIL',
-      label: '상세정보',
-    },
-    {
-      value: 'REVIEW',
-      label: `리뷰(${reviewCount})`,
-    },
-    /* {
-      value: 'INQUIRY',
-      label: `Q&A (${inquiryCount})`,
-    }, */
-  ];
-
-  /* if (hasGuide) {
-    tabs.push({
-      value: 'SHIPPING_CLAIM',
-      label: '배송/반품',
-    });
-  } */
-
-  return tabs;
-};
-
-const ProductDetailContent = () => {
-  const [searchParams] = useSearchParams();
-  const productNo = Number(searchParams.get('productNo'));
-  const channelType = searchParams.get('channelType');
-
-  const {
-    productDetail: { productName, guide },
-    originProductDetail,
-  } = useProductDetailStateContext();
-
-  const { applyPageScripts } = usePageScriptsActionContext();
-  const { fetchProductDetail, fetchRelatedProducts } = useProductDetailActionContext();
-  const { fetchSelectorOptions } = useProductOptionActionContext();
-  const { updateTabs } = useTabsActiveContext();
-  const { totalCount: reviewCount } = useProductReviewStateContext();
-  const { totalCount: inquiryCount } = useProductInquiryStateContext();
-  const { searchInquiries } = useProductInquiryActionContext();
-  const { relatedProducts } = useProductDetailStateContext();
-
-  useEffect(() => {
-    if (!originProductDetail) return;
-
-    applyPageScripts('PRODUCT', { product: originProductDetail }, true);
-  }, [originProductDetail]);
-
-  useEffect(() => {
-    searchInquiries();
-
-    if (productNo > 0) {
-      fetchProductDetail({
-        productNo,
-        channelType,
-      });
-
-      fetchRelatedProducts({
-        productNo,
-      });
-
-      fetchSelectorOptions({
-        productNo,
-      });
-    }
-  }, [productNo]);
-
-  const hasGuide = useMemo(() => Object.entries(guide).some(([, content]) => Boolean(content)), [guide]);
-
-  useEffect(
-    () =>
-      updateTabs(
-        makeTabs({
-          reviewCount,
-          inquiryCount,
-          hasGuide,
-        })
-      ),
-    [reviewCount, inquiryCount, hasGuide]
-  );
-
-  return (
-    <div className="product-detail">
-      <ImageSlider />
-      <Summary />
-      <div className="divider" />
-      {relatedProducts?.length > 0 && <RelatedProduct />}
-      <AdminBanner bannerId="BNDETAIL" />
-      <Content />
-    </div>
-  );
-};
+import GalleryList from '../../components/GalleryList/GalleryList';
 
 const PER_PAGE_COUNT = 10;
 const SORT_BY = [
@@ -148,26 +36,21 @@ const ProductSectionListWrap = () => {
   });
   const [disabled, setDisabled] = useState(false);
 
-  const { t } = useTranslation('title');
-
-  /////////////
-  const { clientId, mallProfile } = useMallStateContext();
-  const initialTabs = useMemo(() => makeTabs(), []);
-
-  const [selectedProductNo, setSelectedProductNo] = useState(null);
-
-  const handleCartClick = (productNo) => {
-    setSelectedProductNo(productNo);
-  };
-
-  //////////
-
   const handleIntersect = () => {
     setDisabled(true);
     if (accumulationProducts.length >= productTotalCount) return;
 
     setQueryString((prev) => ({ ...prev, pageNumber: prev.pageNumber + 1 }));
   };
+
+  const { t } = useTranslation('title');
+
+  useLayoutChanger({
+    hasBackBtnOnHeader: true,
+    hasBottomNav: true,
+    hasCartBtnOnHeader: true,
+    title: t(label),
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -186,36 +69,16 @@ const ProductSectionListWrap = () => {
   }, [displaySectionResponse]);
 
   return (
-    <TabsProvider
-      initialState={{
-        currentTab: 'DETAIL',
-        tabs: initialTabs,
-      }}
-    >
-      <OrderSheetProvider>
-        <NaverPayProvider clientId={clientId} mallProfile={mallProfile} platform={isMobile ? 'MOBILE_WEB' : 'PC'}>
-          <CartProvider>
-            <ProductOptionProvider productNo={productNo}>
-              <CouponByProductProvider productNo={productNo}>
-                <GalleryListPage
-                  totalCount={productTotalCount}
-                  products={accumulationProducts}
-                  sortType={sortType}
-                  sortBy={SORT_BY}
-                  updateSortType={updateSortType}
-                  handleIntersect={handleIntersect}
-                  disabled={disabled}
-                  isLoading={isLoading}
-                  productNo={productNo}
-                  onCartClick={handleCartClick}
-                />
-              </CouponByProductProvider>
-              {selectedProductNo && <Purchase productNo={selectedProductNo} />}
-            </ProductOptionProvider>
-          </CartProvider>
-        </NaverPayProvider>
-      </OrderSheetProvider>
-    </TabsProvider>
+    <GalleryList
+      totalCount={productTotalCount}
+      products={accumulationProducts}
+      sortType={sortType}
+      sortBy={SORT_BY}
+      updateSortType={updateSortType}
+      handleIntersect={handleIntersect}
+      disabled={disabled}
+      isLoading={isLoading}
+    />
   );
 };
 
