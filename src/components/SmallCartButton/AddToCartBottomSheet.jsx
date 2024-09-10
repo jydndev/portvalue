@@ -25,13 +25,14 @@ import { useErrorBoundaryActionContext } from '../ErrorBoundary';
 
 import OptionQuantity from '../../pages/ProductDetail/Purchase/OptionQuantity';
 import OptionSelector from '../../pages/ProductDetail/Purchase/OptionSelector';
+import CloseIcon from './CloseIcon';
 
 // import OptionQuantity from './OptionQuantity';
 // import OptionSelector from './OptionSelector';
 
 const UNPURCHASABLE_STATUS = ['READY', 'FINISHED', 'STOP', 'PROHIBITION'];
 
-const AddToCartBottomSheet = ({ customProductNo }) => {
+const AddToCartBottomSheet = ({ customProductNo, onClose }) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const productNo = customProductNo || Number(searchParams.get('productNo'));
@@ -67,6 +68,9 @@ const AddToCartBottomSheet = ({ customProductNo }) => {
         navigate('/cart');
       },
       cancelLabel: '닫기',
+      onCancel: () => {
+        window.location.reload();
+      },
     });
   };
 
@@ -112,12 +116,9 @@ const AddToCartBottomSheet = ({ customProductNo }) => {
       <VisibleComponent
         shows={!unpurchasable}
         TruthyComponent={
-          <IconBtn
-            className={`purchase__opener ${visible ? 'is-show' : ''}`}
-            iconType="angle-down"
-            label={`구매 하기 옵션 ${visible ? '닫기' : '열기'}`}
-            onClick={() => setVisible((prevVisible) => !prevVisible)}
-          />
+          <div className="add-to-cart-opener" onClick={onClose}>
+            <CloseIcon size={16} />
+          </div>
         }
       />
 
@@ -133,7 +134,7 @@ const AddToCartBottomSheet = ({ customProductNo }) => {
         }
       />
 
-      <VisibleComponent
+      {/* <VisibleComponent
         shows={!isSoldOut && !visible && !unpurchasable}
         TruthyComponent={
           <div className="purchase__button-wrap">
@@ -159,9 +160,9 @@ const AddToCartBottomSheet = ({ customProductNo }) => {
             <Button className="purchase__buy-btn" theme="caution" label="구매하기" onClick={() => setVisible(true)} />
           </div>
         }
-      />
+      /> */}
 
-      <div className="purchase__option" hidden={!visible}>
+      <div className="purchase__option">
         <OptionSelector />
         <div className="purchase__quantity-box">
           <OptionQuantity />
@@ -175,7 +176,7 @@ const AddToCartBottomSheet = ({ customProductNo }) => {
         <div id="naver-pay" className="purchase__naver-pay-btn" />
         <div className="purchase__btns">
           {<AddToCartBtn onClick={handleCartBtnClick} onError={(e) => handleError(e)} channelType={channelType} />}
-          <MakeOrderBtn onClick={handleMakeOrderBtnClick} onError={(e) => handleError(e)} channelType={channelType} />
+          {/* <MakeOrderBtn onClick={handleMakeOrderBtnClick} onError={(e) => handleError(e)} channelType={channelType} /> */}
         </div>
       </div>
     </div>
