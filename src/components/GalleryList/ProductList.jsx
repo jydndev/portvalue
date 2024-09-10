@@ -14,6 +14,7 @@ import ProductItem from './ProductItem';
 const ProductList = ({ products, style, className }) => {
   const { clientId, mallProfile } = useMallStateContext();
 
+  // Providers are used for small add to cart feature
   return (
     <ThumbList style={style} displayType={THUMB_LIST_TYPE.GALLERY} className={className}>
       {products.map(
