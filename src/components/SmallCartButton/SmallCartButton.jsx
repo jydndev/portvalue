@@ -75,7 +75,7 @@ const SmallCartButton = ({ productNo }) => {
           />
         </svg>
       </div>
-      {isOpen && productDetail && <Purchase customProductNo={productNo} />}
+      {isOpen && productDetail && <AddToCartBottomSheet customProductNo={productNo} />}
     </>
   );
 };
