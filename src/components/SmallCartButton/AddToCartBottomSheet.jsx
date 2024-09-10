@@ -21,14 +21,17 @@ import {
 } from '@shopby/react-components';
 import { convertToKoreanCurrency } from '@shopby/shared';
 
-import { useErrorBoundaryActionContext } from '../../../components/ErrorBoundary';
+import { useErrorBoundaryActionContext } from '../ErrorBoundary';
 
-import OptionQuantity from './OptionQuantity';
-import OptionSelector from './OptionSelector';
+import OptionQuantity from '../../pages/ProductDetail/Purchase/OptionQuantity';
+import OptionSelector from '../../pages/ProductDetail/Purchase/OptionSelector';
+
+// import OptionQuantity from './OptionQuantity';
+// import OptionSelector from './OptionSelector';
 
 const UNPURCHASABLE_STATUS = ['READY', 'FINISHED', 'STOP', 'PROHIBITION'];
 
-const Purchase = ({ customProductNo }) => {
+const AddToCartBottomSheet = ({ customProductNo }) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const productNo = customProductNo || Number(searchParams.get('productNo'));
@@ -179,8 +182,8 @@ const Purchase = ({ customProductNo }) => {
   );
 };
 
-export default Purchase;
+export default AddToCartBottomSheet;
 
-Purchase.propTypes = {
+AddToCartBottomSheet.propTypes = {
   isSoldOut: bool,
 };

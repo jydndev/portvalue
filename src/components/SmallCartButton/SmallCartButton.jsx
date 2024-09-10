@@ -1,14 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
-  ProductOptionProvider,
-  CouponByProductProvider,
-  CartProvider,
-  OrderSheetProvider,
-  NaverPayProvider,
   useProductDetailActionContext,
   useProductOptionActionContext,
-  useMallStateContext,
   useProductDetailStateContext,
 } from '@shopby/react-components';
 
@@ -19,7 +13,6 @@ const SmallCartButton = ({ productNo }) => {
   const [searchParams] = useSearchParams();
   const channelType = searchParams.get('channelType');
 
-  const { clientId, mallProfile } = useMallStateContext();
   const { fetchProductDetail, fetchRelatedProducts } = useProductDetailActionContext();
   const { fetchSelectorOptions } = useProductOptionActionContext();
   const { productDetail } = useProductDetailStateContext();
@@ -82,19 +75,7 @@ const SmallCartButton = ({ productNo }) => {
           />
         </svg>
       </div>
-      {isOpen && productDetail && (
-        <ProductOptionProvider productNo={productNo}>
-          <CouponByProductProvider productNo={productNo}>
-            <CartProvider>
-              <OrderSheetProvider>
-                <NaverPayProvider clientId={clientId} mallProfile={mallProfile} platform="MOBILE_WEB">
-                  <Purchase onClose={() => setIsOpen(false)} />
-                </NaverPayProvider>
-              </OrderSheetProvider>
-            </CartProvider>
-          </CouponByProductProvider>
-        </ProductOptionProvider>
-      )}
+      {isOpen && productDetail && <Purchase customProductNo={productNo} />}
     </>
   );
 };
