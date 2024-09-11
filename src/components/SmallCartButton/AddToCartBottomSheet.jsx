@@ -4,9 +4,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { bool } from 'prop-types';
 
 import {
-  MakeOrderBtn,
   AddToCartBtn,
-  LikeBtn,
   useModalActionContext,
   VisibleComponent,
   Button,
@@ -35,16 +33,14 @@ const UNPURCHASABLE_STATUS = ['READY', 'FINISHED', 'STOP', 'PROHIBITION'];
 const AddToCartBottomSheet = ({ customProductNo, onClose }) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const productNo = customProductNo || Number(searchParams.get('productNo'));
+  const productNo = customProductNo;
   const channelType = searchParams.get('channelType');
 
   const {
     productDetail: { isSoldOut, likeStatus, limitations },
     originProductDetail,
   } = useProductDetailStateContext();
-  const { showNaverPayButton, prepareNaverPay, checkUsesNaverPayOrder } = useNaverPayActionContext();
   const { fetchOptionToMakeOrder } = useProductOptionActionContext();
-  const { updateLikeStatus } = useProductDetailActionContext();
   const { openConfirm } = useModalActionContext();
   const { totalPrice } = useProductOptionStateContext();
   const { isSignedIn } = useAuthActionContext();
@@ -78,41 +74,8 @@ const AddToCartBottomSheet = ({ customProductNo, onClose }) => {
     catchError(error, () => navigate(0));
   };
 
-  useEffect(() => {
-    (async () => {
-      const usesNaverPayOrder = await checkUsesNaverPayOrder();
-
-      if (usesNaverPayOrder && limitations?.naverPayHandling) {
-        showNaverPayButton({
-          containerElementId: 'naver-pay',
-          usesWishListButton: true,
-          redirectUrlAfterBuying: location.href, // backUrl
-          redirectUrlAfterWishing: location.href, // backUrl
-          onBeforeBuyButtonClick: async () => {
-            const {
-              data: { products },
-            } = await fetchOptionToMakeOrder({ channelType });
-
-            const naverPayItems = products.map(({ orderCnt, channelType, optionInputs, optionNo, productNo }) => ({
-              orderCnt,
-              channelType,
-              optionInputs,
-              optionNo,
-              productNo,
-            }));
-
-            prepareNaverPay({ items: naverPayItems });
-          },
-          onBeforeWishListButtonClick: () => {
-            prepareNaverPay({ productNo });
-          },
-        });
-      }
-    })();
-  }, [limitations?.naverPayHandling, productNo]);
-
   return (
-    <div className="purchase product-detail">
+    <div className="cart-bottom-sheet product-detail">
       <VisibleComponent
         shows={!unpurchasable}
         TruthyComponent={
@@ -175,8 +138,7 @@ const AddToCartBottomSheet = ({ customProductNo, onClose }) => {
         </p>
         <div id="naver-pay" className="purchase__naver-pay-btn" />
         <div className="purchase__btns">
-          {<AddToCartBtn onClick={handleCartBtnClick} onError={(e) => handleError(e)} channelType={channelType} />}
-          {/* <MakeOrderBtn onClick={handleMakeOrderBtnClick} onError={(e) => handleError(e)} channelType={channelType} /> */}
+          <AddToCartBtn onClick={handleCartBtnClick} onError={(e) => handleError(e)} channelType={channelType} />
         </div>
       </div>
     </div>

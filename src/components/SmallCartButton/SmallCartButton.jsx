@@ -7,6 +7,7 @@ import {
 } from '@shopby/react-components';
 
 import Purchase from '../../pages/ProductDetail/Purchase';
+import AddToCartBottomSheet from './AddToCartBottomSheet';
 
 const SmallCartButton = ({ productNo }) => {
   const [isOpen, setIsOpen] = useState(false);
