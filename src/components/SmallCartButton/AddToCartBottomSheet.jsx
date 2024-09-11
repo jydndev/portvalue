@@ -1,20 +1,13 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-
-import { bool } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import {
   AddToCartBtn,
-  useModalActionContext,
   VisibleComponent,
   Button,
   useProductOptionStateContext,
   useProductDetailStateContext,
-  IconBtn,
-  useProductDetailActionContext,
-  useAuthActionContext,
-  IconSVG,
-  useNaverPayActionContext,
   useProductOptionActionContext,
 } from '@shopby/react-components';
 import { convertToKoreanCurrency } from '@shopby/shared';
@@ -25,9 +18,6 @@ import OptionQuantity from '../../pages/ProductDetail/Purchase/OptionQuantity';
 import OptionSelector from '../../pages/ProductDetail/Purchase/OptionSelector';
 import CloseIcon from './CloseIcon';
 
-// import OptionQuantity from './OptionQuantity';
-// import OptionSelector from './OptionSelector';
-
 const UNPURCHASABLE_STATUS = ['READY', 'FINISHED', 'STOP', 'PROHIBITION'];
 
 const AddToCartBottomSheet = ({ customProductNo, onClose }) => {
@@ -37,54 +27,39 @@ const AddToCartBottomSheet = ({ customProductNo, onClose }) => {
   const channelType = searchParams.get('channelType');
 
   const {
-    productDetail: { isSoldOut, likeStatus, limitations },
+    productDetail: { isSoldOut },
     originProductDetail,
   } = useProductDetailStateContext();
   const { fetchOptionToMakeOrder } = useProductOptionActionContext();
-  const { openConfirm } = useModalActionContext();
   const { totalPrice } = useProductOptionStateContext();
-  const { isSignedIn } = useAuthActionContext();
-  const [visible, setVisible] = useState(false);
   const { catchError } = useErrorBoundaryActionContext();
 
   const unpurchasable = useMemo(
     () => UNPURCHASABLE_STATUS.includes(originProductDetail?.status.saleStatusType) || isSoldOut,
-    [originProductDetail?.status]
+    [originProductDetail?.status, isSoldOut]
   );
 
-  const handleMakeOrderBtnClick = ({ orderSheetNo }) => {
-    isSignedIn() ? navigate(`/order/${orderSheetNo}`) : navigate('/sign-in', { state: { orderSheetNo } });
-  };
-
   const handleCartBtnClick = () => {
-    openConfirm({
-      message: '장바구니에 담았습니다.',
-      confirmLabel: '장바구니 가기',
-      onConfirm: () => {
-        navigate('/cart');
-      },
-      cancelLabel: '닫기',
-      onCancel: () => {
-        window.location.reload();
-      },
-    });
+    window.location.reload();
   };
 
   const handleError = (error) => {
     catchError(error, () => navigate(0));
   };
 
+  const handleCloseClick = () => {
+    if (onClose && typeof onClose === 'function') {
+      onClose();
+    }
+  };
+
   return (
     <div className="cart-bottom-sheet product-detail">
-      <VisibleComponent
-        shows={!unpurchasable}
-        TruthyComponent={
-          <div className="add-to-cart-opener" onClick={onClose}>
-            <CloseIcon size={16} />
-          </div>
-        }
-      />
+      <div className="add-to-cart-opener" onClick={handleCloseClick}>
+        <CloseIcon size={16} />
+      </div>
 
+      {/* TODO: override 장바구니담기 with this one for unpurchasable products */}
       <VisibleComponent
         shows={unpurchasable}
         TruthyComponent={
@@ -96,34 +71,6 @@ const AddToCartBottomSheet = ({ customProductNo, onClose }) => {
           />
         }
       />
-
-      {/* <VisibleComponent
-        shows={!isSoldOut && !visible && !unpurchasable}
-        TruthyComponent={
-          <div className="purchase__button-wrap">
-            <LikeBtn
-              className="purchase__like-btn"
-              productNo={productNo}
-              isActive={likeStatus.isLiked}
-              count={likeStatus.count}
-              onClick={({ count, isActive }) =>
-                updateLikeStatus({
-                  count,
-                  isLiked: isActive,
-                })
-              }
-            >
-              <IconSVG
-                fill={likeStatus.isLiked ? 'var(--point-color)' : 'var(--default-color)'}
-                strokeWidth={0}
-                size={40}
-                name="fill-heart"
-              />
-            </LikeBtn>
-            <Button className="purchase__buy-btn" theme="caution" label="구매하기" onClick={() => setVisible(true)} />
-          </div>
-        }
-      /> */}
 
       <div className="purchase__option">
         <OptionSelector />
@@ -148,5 +95,6 @@ const AddToCartBottomSheet = ({ customProductNo, onClose }) => {
 export default AddToCartBottomSheet;
 
 AddToCartBottomSheet.propTypes = {
-  isSoldOut: bool,
+  customProductNo: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onClose: PropTypes.func,
 };
