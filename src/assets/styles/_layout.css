@@ -933,6 +933,36 @@
   width: 140px;
 }
 
+/* Add to cart bottom sheet */
+.cart-bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  max-width: 500px;
+  width: 100%;
+  z-index: 6;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid var(--default-color);
+  box-sizing: border-box;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 500px) {
+  .cart-bottom-sheet {
+    left: 0;
+    transform: none;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1001px) {
+  .cart-bottom-sheet {
+    margin-left: 250px;
+  }
+}
+/*  */
+
 .purchase__buy-btn {
   height: 56px;
 }
