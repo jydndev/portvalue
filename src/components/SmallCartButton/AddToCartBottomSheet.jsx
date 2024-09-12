@@ -60,17 +60,6 @@ const AddToCartBottomSheet = ({ customProductNo, onClose }) => {
       </div>
 
       {/* TODO: override 장바구니담기 with this one for unpurchasable products */}
-      <VisibleComponent
-        shows={unpurchasable}
-        TruthyComponent={
-          <Button
-            className="purchase__buy-btn purchase__buy-btn--unpurchasable"
-            disabled={isSoldOut}
-            theme="dark"
-            label="구매불가"
-          />
-        }
-      />
 
       <div className="purchase__option">
         <OptionSelector />
@@ -83,10 +72,23 @@ const AddToCartBottomSheet = ({ customProductNo, onClose }) => {
             <span className="highlight bold">{convertToKoreanCurrency(totalPrice)}</span>원
           </em>
         </p>
-        <div id="naver-pay" className="purchase__naver-pay-btn" />
-        <div className="purchase__btns">
-          <AddToCartBtn onClick={handleCartBtnClick} onError={(e) => handleError(e)} channelType={channelType} />
-        </div>
+        {unpurchasable ? (
+          <VisibleComponent
+            shows={unpurchasable}
+            TruthyComponent={
+              <Button
+                className="purchase__buy-btn purchase__buy-btn--unpurchasable"
+                disabled={isSoldOut}
+                theme="dark"
+                label="구매불가"
+              />
+            }
+          />
+        ) : (
+          <div className="purchase__btns">
+            <AddToCartBtn onClick={handleCartBtnClick} onError={(e) => handleError(e)} channelType={channelType} />
+          </div>
+        )}
       </div>
     </div>
   );
