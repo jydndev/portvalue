@@ -366,6 +366,10 @@
   padding: 0;
 }
 
+.select-box {
+  visibility: visible;
+}
+
 .select-box--sort::before {
   width: 0px;
 }
@@ -971,9 +975,9 @@
   min-height: 56px;
 }
 
-.btn.btn--dark.sc-cart-button {
+.cart-bottom-sheet .btn.btn--dark.sc-cart-button {
   background-color: var(--point-color);
-  color: white; /* Ensuring text is visible on blue background */
+  color: white;
 }
 
 .purchase__like-btn {
