@@ -366,6 +366,10 @@
   padding: 0;
 }
 
+.select-box {
+  visibility: visible;
+}
+
 .select-box--sort::before {
   width: 0px;
 }
