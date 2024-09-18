@@ -952,6 +952,15 @@
   transform: translateX(-50%);
 }
 
+.cart-bottom-sheet .purchase__total {
+  padding-bottom: 20px;
+}
+
+.cart-bottom-sheet .select-box {
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
 @media (max-width: 500px) {
   .cart-bottom-sheet {
     left: 0;
