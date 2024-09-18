@@ -54,6 +54,8 @@ const Layout = () => {
     fetchBoardConfiguration();
   }, []);
 
+  //TODO: update cart quantity on add to cart from bottom sheet in productlist pages
+
   return (
     <LayoutProvider>
       <div className="page" ref={pageRef}>
